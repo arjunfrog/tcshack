@@ -255,7 +255,7 @@ export function checkFacts(product, output) {
 
 // Copy that narrates its source: "rich in antioxidants, as noted in the product features".
 const META_REFERENCE = /\b(as (noted|listed|stated|mentioned|described|specified|shown) (in|by)|according to the|(product|feature|attribute|spec|specification)s? (data|list|sheet)|the attributes)\b/;
-const STOCK_OPENER = /^(for (those|anyone|everyone|people|women|men|children|kids|parents|[a-z]+ lovers)\b|if you\b|designed for\b|discover\b|whether\b|introducing\b|looking for\b|meet the\b)/;
+const STOCK_OPENER = /^(for (those|anyone|everyone|people|women|men|children|kids|parents|[a-z]+ lovers)\b|if you\b|when you\b|designed for\b|discover\b|whether\b|introducing\b|looking for\b|meet the\b)/;
 const CLICHES = [
   'look no further', 'elevate', 'game-changer', 'game changer', 'must-have', 'unparalleled', 'revolutionary',
   'seamless', 'next level', 'whether you', "in today's", 'boasts', 'unleash', 'indulge', 'perfect for',
@@ -293,8 +293,10 @@ export function checkStyle(output, options = {}) {
   const exclamations = (body.match(/!/g) ?? []).length;
   if (exclamations > (options.tone === 'playful' ? 1 : 0)) issues.push({ type: 'exclamation', text: `${exclamations} exclamation mark(s)` });
 
+  // Words of the primary keyword may repeat: the SEO check requires it even when the name has the word ("Hydra Serum Face Serum").
   const seen = new Set();
-  for (const word of output.title.toLowerCase().split(/[^a-z]+/).filter((w) => w.length >= 4)) {
+  const primaryWords = new Set((output.seo_keywords[0] ?? '').toLowerCase().split(/[^a-z]+/));
+  for (const word of output.title.toLowerCase().split(/[^a-z]+/).filter((w) => w.length >= 4 && !primaryWords.has(w))) {
     if (seen.has(word) && !issues.some((issue) => issue.type === 'title_repeat' && issue.text === word)) issues.push({ type: 'title_repeat', text: word });
     seen.add(word);
   }

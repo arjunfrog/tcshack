@@ -120,7 +120,10 @@ test('style check passes plain, specific copy', () => {
 test('style check flags the usual machine-written tells', () => {
   assert.deepEqual(styleTypes({ long_description: 'For those who love music, these earbuds are perfect for travel.' }), ['stock_opener', 'cliche']);
   assert.deepEqual(styleTypes({ short_description: 'Rich in antioxidants, as noted in the product features.' }), ['meta_reference']);
-  assert.deepEqual(styleTypes({ title: 'PureLeaf Hydra Serum face serum' }), ['title_repeat', 'title_case']);
+  assert.deepEqual(styleTypes({ title: 'Voltix Orbit Watch with Calling, Bluetooth Calling' }), ['title_repeat']);
+  assert.deepEqual(styleTypes({ title: 'PureLeaf Hydra Serum face serum', seo_keywords: ['face serum'] }), ['title_case']);
+  assert.deepEqual(styleTypes({ title: 'PureLeaf Hydra Serum Face Serum', seo_keywords: ['face serum'] }), []);
+  assert.deepEqual(styleTypes({ long_description: 'When you open the case, the buds wake up.' }), ['stock_opener']);
   assert.deepEqual(styleTypes({ bullet_points: ['Wow!'] }), ['exclamation']);
   assert.deepEqual(styleTypes({ bullet_points: ['Wow!'] }, { tone: 'playful' }), []);
 });
