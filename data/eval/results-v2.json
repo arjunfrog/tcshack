@@ -1,0 +1,834 @@
+{
+  "run": {
+    "date": "2026-10-08T08:24:12.534Z",
+    "provider": "openrouter",
+    "length": "medium",
+    "tones": [
+      "friendly"
+    ],
+    "configs": [
+      "nvidia/nemotron-3-super-120b-a12b:free"
+    ],
+    "prompt_version": "96b4ef68"
+  },
+  "results": [
+    {
+      "id": "SKU-0018-friendly",
+      "sku": "SKU-0018",
+      "name": "Orbit Fit",
+      "category": "Electronics",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "nvidia/nemotron-3-super-120b-a12b:free",
+      "eval_notes": "Smartwatch with many figures (2.01-inch, 12 days, 5 ATM, 100+ modes). Watch for unit drift (5 ATM is not 50 m).",
+      "product": {
+        "sku": "SKU-0018",
+        "name": "Orbit Fit",
+        "category": "Electronics",
+        "subcategory": "Smartwatch",
+        "brand": "Voltix",
+        "price": 12269,
+        "currency": "INR",
+        "features": [
+          "Bluetooth calling",
+          "Built-in GPS",
+          "5 ATM water resistance",
+          "100+ sports modes"
+        ],
+        "specifications": {
+          "Display": "2.01-inch AMOLED",
+          "Battery life": "Up to 12 days",
+          "Water resistance": "5 ATM",
+          "Compatibility": "Android and iOS"
+        },
+        "attributes": {
+          "strap": "Metal mesh",
+          "colors": [
+            "Rose Gold",
+            "Graphite"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Smartwatch",
+        "seed_keywords": [
+          "smart watch with calling",
+          "fitness tracker"
+        ]
+      },
+      "output": {
+        "title": "Voltix Orbit Fit Smart Watch with Calling, Bluetooth Calling",
+        "short_description": "Stay connected with Bluetooth calling, track routes via built-in GPS and choose from 100+ sports modes on a vivid 2.01-inch AMOLED screen.",
+        "long_description": "When you lift your wrist to check a notification, the Orbit Fit feels light yet sturdy, its 2.01-inch AMOLED display glowing with clear colours. This smart watch with calling lets you take calls straight from your wrist via Bluetooth, so you never miss a conversation while on the move.\n\nBuilt-in GPS tracks your runs and rides with accurate route mapping, while over 100 sports modes let you log everything from yoga to high-intensity interval training. The 5 ATM water resistance means you can wear it swimming or in the rain without worry, and the battery lasts up to 12 days on a single charge, reducing the need for frequent recharging. Compatible with both Android and iOS devices, the watch pairs easily, and the metal-mesh strap in Rose Gold or Graphite adds a polished look that matches any outfit.",
+        "bullet_points": [
+          "Hands-free calls: Bluetooth calling lets you take calls straight from your wrist.",
+          "Accurate routing: Built-in GPS tracks runs and rides with precise route mapping.",
+          "Swim-ready durability: 5 ATM water resistance lets you wear it while swimming or in rain.",
+          "Long-lasting power: Battery life up to 12 days reduces frequent charging needs.",
+          "Versatile style: Metal-mesh strap in Rose Gold or Graphite complements any outfit."
+        ],
+        "seo_keywords": [
+          "smart watch with calling",
+          "fitness tracker",
+          "Bluetooth calling smartwatch",
+          "AMOLED smartwatch",
+          "5 ATM water resistant watch",
+          "12 day battery smartwatch",
+          "Android iOS compatible watch",
+          "metal mesh strap smartwatch"
+        ],
+        "meta_description": "Voltix Orbit Fit smart watch with calling offers Bluetooth calls, GPS, 5 ATM water resistance and up to 12-day battery life."
+      },
+      "meta": {
+        "provider": "openrouter",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "input_tokens": 3874,
+        "output_tokens": 6827,
+        "cost_usd": 0,
+        "latency_ms": 69728,
+        "attempts": 1,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 13,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 10,
+          "unsupported": []
+        },
+        "style": {
+          "passed": false,
+          "issues": [
+            {
+              "type": "title_repeat",
+              "text": "calling"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "SKU-0054-friendly",
+      "sku": "SKU-0054",
+      "name": "Chikankari Straight Kurta",
+      "category": "Apparel",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "nvidia/nemotron-3-super-120b-a12b:free",
+      "eval_notes": "Seed keyword \"cotton kurta\" contradicts the Rayon fabric. It should be dropped, not used.",
+      "product": {
+        "sku": "SKU-0054",
+        "name": "Chikankari Straight Kurta",
+        "category": "Apparel",
+        "subcategory": "Kurta",
+        "brand": "Loomcraft",
+        "price": 2559,
+        "currency": "INR",
+        "features": [
+          "Comes with matching dupatta",
+          "Breathable natural fabric",
+          "Three-quarter sleeves",
+          "Side slits for easy movement",
+          "Hand-finished embroidery"
+        ],
+        "specifications": {
+          "Fabric": "Rayon",
+          "Length": "Calf length",
+          "Neck": "Mandarin",
+          "Care": "Dry clean only"
+        },
+        "attributes": {
+          "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+          ],
+          "occasion": "Office",
+          "gender": "Women"
+        },
+        "image_url": "https://placehold.co/600x600?text=Kurta",
+        "seed_keywords": [
+          "cotton kurta",
+          "ethnic wear"
+        ]
+      },
+      "output": {
+        "title": "Loomcraft Chikankari Straight Kurta With Dupatta",
+        "short_description": "A Loomcraft Chikankari straight kurta with matching dupatta, breathable rayon fabric, three-quarter sleeves and side slits for easy movement.",
+        "long_description": "As you head to the office, the Loomcraft Chikankari straight kurta offers a truly breathable rayon feel. The straight cut gives a polished silhouette while the calf-length design keeps you covered and comfortable throughout the day.\n\nIt comes with a matching dupatta that mirrors the hand-finished chikankari embroidery on the kurta, adding a coordinated touch. The breathable rayon fabric and the three-quarter sleeves offer ease of movement. Side slits at the hem allow you to walk or sit comfortably, and the mandarin neck frames the face neatly. Remember to dry clean only to preserve the delicate embroidery and fabric finish.\n\nIdeal for office wear, the kurta balances tradition with a modern cut that works for meetings and casual Fridays alike.",
+        "bullet_points": [
+          "Coordinated look: comes with matching dupatta",
+          "Breathable comfort: rayon fabric is breathable and natural",
+          "Easy movement: three-quarter sleeves and side slits allow easy movement",
+          "Handcrafted detail: hand-finished chikankari embroidery adorns the kurta and dupatta",
+          "Office ready: suited for office occasion with calf length and mandarin neck"
+        ],
+        "seo_keywords": [
+          "straight kurta",
+          "chikankari kurta",
+          "kurta with dupatta",
+          "office wear kurta",
+          "rayon kurta",
+          "ethnic wear kurta"
+        ],
+        "meta_description": "Shop the Loomcraft Chikankari straight kurta with matching dupatta, breathable rayon and hand-finished embroidery - perfect for office wear."
+      },
+      "meta": {
+        "provider": "openrouter",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "input_tokens": 3900,
+        "output_tokens": 7987,
+        "cost_usd": 0,
+        "latency_ms": 67846,
+        "attempts": 1,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 33,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": false,
+          "checked": 0,
+          "unsupported": [
+            {
+              "text": "handmade",
+              "issue": "Claim not supported by the product data",
+              "fields": [
+                "bullet_points"
+              ]
+            }
+          ]
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0037-friendly",
+      "sku": "SKU-0037",
+      "name": "Trail Blaze",
+      "category": "Apparel",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "nvidia/nemotron-3-super-120b-a12b:free",
+      "eval_notes": "Sparse running shoes: one feature, no specs, no brand. No invented cushioning tech, weight or drop.",
+      "product": {
+        "sku": "SKU-0037",
+        "name": "Trail Blaze",
+        "category": "Apparel",
+        "subcategory": "Running Shoes",
+        "price": 2639,
+        "currency": "INR",
+        "features": [
+          "Responsive foam midsole"
+        ],
+        "specifications": {},
+        "attributes": {
+          "sizes": [
+            "UK 6",
+            "UK 7",
+            "UK 8",
+            "UK 9",
+            "UK 10"
+          ],
+          "gender": "Women",
+          "terrain": "Treadmill"
+        },
+        "image_url": "https://placehold.co/600x600?text=Running%20Shoes",
+        "seed_keywords": [
+          "running shoes",
+          "lightweight trainers"
+        ]
+      },
+      "output": {
+        "title": "Trail Blaze Running Shoes for Women",
+        "short_description": "These women's running shoes feature a responsive foam midsole for a smooth ride on the treadmill. Available in UK sizes 6 to 10.",
+        "long_description": "When you step onto the treadmill, these running shoes feel light underfoot thanks to their responsive foam midsole.\n\nThey are built for women and come in UK sizes 6 through 10. The responsive foam midsole gives a springy feel underfoot, ready for your treadmill runs.",
+        "bullet_points": [
+          "Responsive cushioning: foam midsole that feels springy underfoot",
+          "Women's fit: built for women in UK sizes 6 to 10",
+          "Treadmill ready: designed for treadmill running sessions"
+        ],
+        "seo_keywords": [
+          "running shoes",
+          "women's running shoes",
+          "treadmill running shoes",
+          "responsive foam shoes",
+          "UK size running shoes",
+          "running shoes for women"
+        ],
+        "meta_description": "Running shoes for women with a responsive foam midsole, built for treadmill runs and available in UK sizes 6 to 10. Enjoy a springy feel with every step."
+      },
+      "meta": {
+        "provider": "openrouter",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "input_tokens": 3871,
+        "output_tokens": 3664,
+        "cost_usd": 0,
+        "latency_ms": 30943,
+        "attempts": 1,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 40,
+          "sparse": true,
+          "issues": [
+            "No brand",
+            "Fewer than 3 features",
+            "Fewer than 2 specifications"
+          ]
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 50,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 8,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0011-friendly",
+      "sku": "SKU-0011",
+      "name": "Matte Shield Sunscreen",
+      "category": "Beauty & Personal Care",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "nvidia/nemotron-3-super-120b-a12b:free",
+      "eval_notes": "Seed keyword \"sunscreen spf 50\" contradicts SPF 30. Any SPF 50 in the copy is a serious error.",
+      "product": {
+        "sku": "SKU-0011",
+        "name": "Matte Shield Sunscreen",
+        "category": "Beauty & Personal Care",
+        "subcategory": "Sunscreen",
+        "brand": "Derma Lab",
+        "price": 859,
+        "currency": "INR",
+        "features": [
+          "Works under makeup",
+          "Water resistant for 80 minutes",
+          "No white cast",
+          "Broad spectrum UVA and UVB protection",
+          "Non-greasy finish"
+        ],
+        "specifications": {
+          "SPF": "SPF 30",
+          "PA": "PA++++",
+          "Volume": "50 g",
+          "Texture": "Cream"
+        },
+        "attributes": {
+          "skin_type": "Oily"
+        },
+        "image_url": "https://placehold.co/600x600?text=Sunscreen",
+        "seed_keywords": [
+          "sunscreen spf 50",
+          "sunscreen for oily skin"
+        ]
+      },
+      "output": {
+        "title": "Derma Lab Matte Shield Sunscreen for Oily Skin, SPF 30",
+        "short_description": "A matte-finish sunscreen that works under makeup, resists water for 80 minutes and leaves no white cast on oily skin.",
+        "long_description": "When you smooth Derma Lab Matte Shield Sunscreen onto your face, it feels lightweight and blends instantly, giving a matte base that sits comfortably under makeup. This sunscreen for oily skin delivers broad-spectrum UVA and UVB protection with SPF 30 and the highest PA++++ rating, so it shields against both burning and ageing rays. The formula is water resistant for 80 minutes, leaving no white cast and a non-greasy finish that stays matte even in humidity.\n\nPacked in a 50 g tube, the cream texture spreads easily and a little goes a long way, making it practical for daily use and travel. Because it works under makeup, you can apply it as the last step of your skincare routine and then layer foundation or powder without worrying about pilling or shine. Reapply after swimming, sweating or towel-drying to keep the protection steady, and enjoy the confidence of skin that looks fresh and protected all day.",
+        "bullet_points": [
+          "Matte finish: non-greasy cream that leaves no white cast",
+          "Makeup friendly: works under makeup without pilling",
+          "Water resistant: stays effective for 80 minutes of sweat or water",
+          "Broad protection: SPF 30 and PA++++ guard against UVA and UVB",
+          "Oily skin fit: specially formulated for oily skin type"
+        ],
+        "seo_keywords": [
+          "sunscreen for oily skin",
+          "SPF 30 sunscreen",
+          "water resistant sunscreen",
+          "broad spectrum sunscreen",
+          "matte finish sunscreen",
+          "50g sunscreen"
+        ],
+        "meta_description": "Derma Lab Matte Shield Sunscreen for oily skin offers SPF 30, PA++++, water-resistant protection and a matte finish that works under makeup."
+      },
+      "meta": {
+        "provider": "openrouter",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "input_tokens": 3874,
+        "output_tokens": 4155,
+        "cost_usd": 0,
+        "latency_ms": 33272,
+        "attempts": 1,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 17,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 8,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0042-friendly",
+      "sku": "SKU-0042",
+      "name": "Hyaluronic Hydra Serum",
+      "category": "Beauty & Personal Care",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "nvidia/nemotron-3-super-120b-a12b:free",
+      "eval_notes": "Name says Hyaluronic but the key ingredient is 10% Vitamin C. Copy must not claim hyaluronic acid.",
+      "product": {
+        "sku": "SKU-0042",
+        "name": "Hyaluronic Hydra Serum",
+        "category": "Beauty & Personal Care",
+        "subcategory": "Face Serum",
+        "brand": "PureLeaf",
+        "price": 929,
+        "currency": "INR",
+        "features": [
+          "Suitable for daily use",
+          "Lightweight, fast-absorbing formula",
+          "Dropper for mess-free application",
+          "Fragrance-free"
+        ],
+        "specifications": {
+          "Volume": "30 ml",
+          "Key ingredient": "10% Vitamin C",
+          "Skin type": "Oily and acne-prone"
+        },
+        "attributes": {
+          "concern": "Dehydration",
+          "cruelty_free": true
+        },
+        "image_url": "https://placehold.co/600x600?text=Face%20Serum",
+        "seed_keywords": [
+          "face serum",
+          "serum for glowing skin"
+        ]
+      },
+      "output": {
+        "title": "PureLeaf Hyaluronic Hydra Serum Face Serum, 30 ml",
+        "short_description": "A lightweight, fast-absorbing hyaluronic hydra serum with 10% vitamin C, perfect for daily use on oily, acne-prone skin. The dropper lets you apply just the right amount, mess-free.",
+        "long_description": "When you press the dropper, a few drops of the PureLeaf Hyaluronic Hydra Serum glide onto your fingertips, feeling light and instantly sinking in. This face serum is designed for daily use, so you can reach for it each morning and night without fuss.\n\nThe lightweight, fast-absorbing formula delivers 10% vitamin C directly to oily and acne-prone skin, helping to brighten the look while staying non-greasy. Because it is fragrance-free, it layers well under moisturizer or makeup and won’t irritate sensitive areas. The glass dropper lets you measure the exact amount you need, keeping the bottle clean and the application mess-free.\n\nHoused in a 30 ml bottle, the serum is cruelty-free, aligning with a kinder beauty routine. Its simple, no-nonsense package fits neatly on a vanity or in a travel pouch, ready whenever your skin needs a boost of hydration and vitamin C.",
+        "bullet_points": [
+          "Daily use: Suitable for daily use, morning and night.",
+          "Lightweight feel: Lightweight, fast-absorbing formula sinks in quickly without grease.",
+          "Mess-free dropper: Glass dropper lets you measure the exact amount for clean application.",
+          "Fragrance-free: Fragrance-free formula layers well under moisturizer or makeup.",
+          "Vitamin C boost: Contains 10% vitamin C to support oily, acne-prone skin."
+        ],
+        "seo_keywords": [
+          "face serum",
+          "vitamin c face serum",
+          "30 ml serum",
+          "fragrance free serum",
+          "cruelty free serum"
+        ],
+        "meta_description": "Hyaluronic Hydra Serum is a lightweight, no fragrance face serum with 10% vitamin C, ideal for oily, acne-prone skin. Try the mess-free dropper."
+      },
+      "meta": {
+        "provider": "openrouter",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "input_tokens": 3868,
+        "output_tokens": 7032,
+        "cost_usd": 0,
+        "latency_ms": 53290,
+        "attempts": 1,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 20,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 6,
+          "unsupported": []
+        },
+        "style": {
+          "passed": false,
+          "issues": [
+            {
+              "type": "cliche",
+              "text": "perfect for"
+            },
+            {
+              "type": "title_repeat",
+              "text": "serum"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "SKU-0013-friendly",
+      "sku": "SKU-0013",
+      "name": "Power Hitter",
+      "category": "Sports & Fitness",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "nvidia/nemotron-3-super-120b-a12b:free",
+      "eval_notes": "Seed keyword \"kashmir willow bat\" contradicts the English willow spec. Beginner level, tennis ball.",
+      "product": {
+        "sku": "SKU-0013",
+        "name": "Power Hitter",
+        "category": "Sports & Fitness",
+        "subcategory": "Cricket Bat",
+        "brand": "FlexCore",
+        "price": 3119,
+        "currency": "INR",
+        "features": [
+          "Pre-knocked and ready to play",
+          "Cane handle with shock absorption",
+          "Thick edges for big hitting"
+        ],
+        "specifications": {
+          "Willow": "Grade 2 English willow",
+          "Weight": "1152 g",
+          "Size": "Size 6",
+          "Grains": "8"
+        },
+        "attributes": {
+          "level": "Beginner",
+          "ball_type": "Tennis ball"
+        },
+        "image_url": "https://placehold.co/600x600?text=Cricket%20Bat",
+        "seed_keywords": [
+          "cricket bat",
+          "kashmir willow bat"
+        ]
+      },
+      "output": {
+        "title": "FlexCore Power Hitter Cricket Bat, Pre-Knocked Ready to Play",
+        "short_description": "You get a pre-knocked bat ready to play, with a cane handle that absorbs shock and thick edges for big hitting.",
+        "long_description": "When you pick up this FlexCore Power Hitter cricket bat, you notice it’s already knocked in and ready for the net or the park. It weighs 1152 g and comes in Size 6, made from Grade 2 English willow with 8 straight grains. The pre-knocked surface means you save time on knocking in and can focus on your shots from the first swing.\n\nThe cane handle is built to absorb shock, so each stroke feels steady even on a fast tennis ball. Thick edges give you a larger hitting area, which helps beginners play while they learn timing.\n\nBecause it’s labelled for beginner use and tennis-ball play, you can start practicing right away without extra preparation. The bat’s solid feel and clear grain pattern give you a traditional look.",
+        "bullet_points": [
+          "Ready to play: Pre-knocked and ready to play",
+          "Shock-absorbing handle: Cane handle with shock absorption",
+          "Big-hitting edges: Thick edges",
+          "Grade 2 willow: Made from Grade 2 English willow with 8 straight grains",
+          "Beginner friendly: Rated for beginner level and tennis-ball use"
+        ],
+        "seo_keywords": [
+          "cricket bat",
+          "english willow cricket bat",
+          "pre knocked cricket bat",
+          "cane handle cricket bat",
+          "beginner cricket bat",
+          "size 6 cricket bat"
+        ],
+        "meta_description": "FlexCore Power Hitter cricket bat – pre-knocked, cane-handled shock absorption and thick edges for big hitting. Ready to play straight out of the box."
+      },
+      "meta": {
+        "provider": "openrouter",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "input_tokens": 3864,
+        "output_tokens": 9806,
+        "cost_usd": 0,
+        "latency_ms": 83226,
+        "attempts": 1,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 17,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 7,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0060-friendly",
+      "sku": "SKU-0060",
+      "name": "GripFlow Mat",
+      "category": "Sports & Fitness",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "nvidia/nemotron-3-super-120b-a12b:free",
+      "eval_notes": "Straightforward yoga mat with good data. Baseline for tone and style.",
+      "product": {
+        "sku": "SKU-0060",
+        "name": "GripFlow Mat",
+        "category": "Sports & Fitness",
+        "subcategory": "Yoga Mat",
+        "brand": "IronPeak",
+        "price": 1779,
+        "currency": "INR",
+        "features": [
+          "Non-slip textured surface",
+          "Extra cushioning for joints",
+          "Lightweight with carry strap"
+        ],
+        "specifications": {
+          "Thickness": "8 mm",
+          "Material": "Natural cork and rubber",
+          "Dimensions": "183 x 61 cm",
+          "Weight": "0.9 kg"
+        },
+        "attributes": {
+          "colors": [
+            "Peach",
+            "Charcoal"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Yoga%20Mat",
+        "seed_keywords": [
+          "exercise mat",
+          "yoga mat"
+        ]
+      },
+      "output": {
+        "title": "IronPeak GripFlow Yoga Mat",
+        "short_description": "The IronPeak GripFlow Yoga Mat gives you a non-slip surface and extra cushioning for joints, all in a lightweight design with a carry strap.",
+        "long_description": "The IronPeak GripFlow Yoga Mat unrolls to a surface made from natural cork and rubber, giving it a firm yet yielding feel. When you place your hands or feet on the mat, the non-slip textured surface grips the floor, so you stay steady in each pose. Meanwhile, the extra cushioning built into the mat protects your joints, letting you hold kneeling or seated postures longer without discomfort. This blend of grip and support makes the mat feel reliable from the first stretch to the final savasana.\n\nThe mat measures 183 × 61 cm and is 8 mm thick, giving you ample space for full-length moves and a comfortable layer under body weight. At just 0.9 kg it is lightweight enough to carry to a class or park, and the built-in strap lets you sling it over your shoulder with ease. Available in Peach and Charcoal, it suits yoga, pilates, stretching or any low-impact exercise you prefer. Because the surface stays grippy and the cushioning stays even, you can count on the mat to perform session after session.",
+        "bullet_points": [
+          "Secure footing: non-slip textured surface stays put during practice.",
+          "Joint protection: extra cushioning shields knees and wrists.",
+          "Easy to carry: lightweight at 0.9 kg with a built-in carry strap.",
+          "Full-size coverage: 183 × 61 cm gives ample space for poses.",
+          "Natural feel: made from cork and rubber for a soft, supportive surface."
+        ],
+        "seo_keywords": [
+          "yoga mat",
+          "exercise mat",
+          "cork yoga mat",
+          "non slip yoga mat",
+          "lightweight yoga mat",
+          "yoga mat with strap"
+        ],
+        "meta_description": "IronPeak GripFlow Yoga Mat - non-slip surface, extra joint cushioning, lightweight with carry strap. Ideal for home or studio practice."
+      },
+      "meta": {
+        "provider": "openrouter",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "input_tokens": 3860,
+        "output_tokens": 15908,
+        "cost_usd": 0,
+        "latency_ms": 127972,
+        "attempts": 1,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 17,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 7,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0014-friendly",
+      "sku": "SKU-0014",
+      "name": "Tulsi Green Tea",
+      "category": "Grocery & Gourmet",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "nvidia/nemotron-3-super-120b-a12b:free",
+      "eval_notes": "Seed keyword \"organic green tea\" is unsupported. \"Rich in antioxidants\" must not become a health promise.",
+      "product": {
+        "sku": "SKU-0014",
+        "name": "Tulsi Green Tea",
+        "category": "Grocery & Gourmet",
+        "subcategory": "Green Tea",
+        "brand": "Himalayan Harvest",
+        "price": 719,
+        "currency": "INR",
+        "features": [
+          "Whole-leaf tea",
+          "Rich in antioxidants",
+          "Resealable pouch",
+          "No artificial flavours",
+          "Sourced from hill estates"
+        ],
+        "specifications": {
+          "Net weight": "250 g",
+          "Form": "50 tea bags",
+          "Shelf life": "18 months",
+          "Origin": "Assam"
+        },
+        "attributes": {
+          "diet": [
+            "Vegan",
+            "Gluten-free"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Green%20Tea",
+        "seed_keywords": [
+          "green tea",
+          "organic green tea"
+        ]
+      },
+      "output": {
+        "title": "Himalayan Harvest Tulsi Green Tea, Whole-leaf in Resealable Pouch",
+        "short_description": "You’ll enjoy a cup of Himalayan Harvest Tulsi green tea made from whole-leaf leaves, rich in antioxidants and free of artificial flavours, packed in a resealable pouch for lasting freshness.",
+        "long_description": "When you steep a spoonful of this Tulsi green tea, the aroma rises with hints of earthy basil and fresh grass. The whole-leaf tea bags unfurl slowly, releasing a smooth, amber-coloured brew that feels gentle on the palate. It’s a moment of calm you can reach for any time of day.\n\nEach cup delivers the antioxidants naturally present in the leaves, supporting your daily wellbeing without any artificial flavours. The tea comes from hill estates in Assam, packed in a resealable pouch that keeps the 250 g of fifty tea bags fresh for up to 18 months. It’s also vegan and gluten-free, fitting a range of diets.\n\nBrew one bag in hot water for two to three minutes, then enjoy it plain or with a slice of lemon. The convenient pouch lets you store the tea at home or take it to the office, so your favourite green tea is always within reach.",
+        "bullet_points": [
+          "Whole-leaf flavor: Tea bags contain whole-leaf tea for a smoother, richer brew.",
+          "Antioxidant boost: Each cup delivers natural antioxidants from the leaves.",
+          "Freshness lock: Resealable pouch keeps 250 g of fifty tea bags fresh for 18 months.",
+          "Pure taste: No artificial flavours are added, letting the true tea shine.",
+          "Assam source: Sourced from hill estates in Assam, the tea is vegan and gluten-free."
+        ],
+        "seo_keywords": [
+          "green tea",
+          "tulsi green tea",
+          "whole leaf tea",
+          "resealable tea pouch",
+          "assam green tea"
+        ],
+        "meta_description": "Himalayan Harvest Tulsi green tea offers whole-leaf flavor, antioxidant richness and a resealable pouch for fresh, flavoursome cups every time."
+      },
+      "meta": {
+        "provider": "openrouter",
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "input_tokens": 3874,
+        "output_tokens": 5120,
+        "cost_usd": 0,
+        "latency_ms": 41223,
+        "attempts": 2,
+        "retry_reasons": [
+          "OpenRouter request failed (502): Provider returned error"
+        ]
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 40,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 4,
+          "unsupported": []
+        },
+        "style": {
+          "passed": false,
+          "issues": [
+            {
+              "type": "keyword_stuffing",
+              "text": "\"tulsi green tea\" 3 times"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

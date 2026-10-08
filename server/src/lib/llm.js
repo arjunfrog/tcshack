@@ -1,9 +1,7 @@
+import { z } from 'zod';
 import { config } from '../config/env.js';
 import { GeneratedDescription } from '../schemas/product.js';
-import { SYSTEM_PROMPT, buildUserPrompt } from '../prompts/productDescription.js';
-
-const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const MAX_ATTEMPTS = 3;
+import { JSON_OUTPUT_INSTRUCTIONS, SYSTEM_PROMPT, buildUserPrompt } from '../prompts/productDescription.js';
 
 // Error from the LLM provider, carrying the HTTP status the API should answer with.
 export class LlmError extends Error {
@@ -15,98 +13,161 @@ export class LlmError extends Error {
 }
 
 // Returns { output, meta } where output matches GeneratedDescription.
-export async function generateDescription(product, options) {
-  if (config.llm.provider === 'mock') return mockGenerate(product, options);
-  if (config.llm.provider === 'groq') return groqGenerate(product, options);
-  throw new Error(`Unknown LLM_PROVIDER "${config.llm.provider}"`);
+// `settings` overrides the configured provider, model or effort for one call (used by the eval script).
+export async function generateDescription(product, options, settings = {}) {
+  const provider = settings.provider ?? config.llm.provider;
+  if (provider === 'mock') return mockGenerate(product, options);
+  if (PROVIDERS[provider]) return chatGenerate(provider, product, options, settings);
+  throw new Error(`Unknown LLM_PROVIDER "${provider}"`);
 }
 
-// Groq's JSON mode guarantees valid JSON but not our shape, so the prompt spells
-// out the fields and Zod checks them. A malformed reply gets one more try.
-const JSON_INSTRUCTIONS = `
+const OUTPUT_SCHEMA = (() => {
+  const { $schema, ...schema } = z.toJSONSchema(GeneratedDescription);
+  return schema;
+})();
 
-Respond with a single JSON object and nothing else, using exactly these keys:
-{"title": string, "short_description": string, "long_description": string, "bullet_points": string[], "seo_keywords": string[], "meta_description": string}
-Separate paragraphs in long_description with a blank line (\\n\\n).`;
+// Groq and OpenRouter both speak the OpenAI chat completions API. These are the parts that differ.
+const PROVIDERS = {
+  groq: {
+    keyName: 'GROQ_API_KEY',
+    settings: () => config.groq,
+    // JSON mode guarantees valid JSON but not our shape, so the prompt spells out the fields and Zod checks them.
+    body: ({ model, effort, temperature }) => ({
+      temperature,
+      // Reasoning models spend part of this budget thinking before they answer.
+      max_completion_tokens: 8192,
+      response_format: { type: 'json_object' },
+      ...(model.startsWith('openai/gpt-oss') && effort && { reasoning_effort: effort }),
+    }),
+  },
+  openrouter: {
+    keyName: 'OPENROUTER_API_KEY',
+    settings: () => config.openrouter,
+    // Not every free model supports response_format; those ignore it and follow the prompt instead.
+    body: ({ effort }) => ({
+      response_format: {
+        type: 'json_schema',
+        json_schema: { name: 'product_description', strict: true, schema: OUTPUT_SCHEMA },
+      },
+      // Reasoning tokens count toward max_tokens on thinking models (often 10K+), so leave plenty of room.
+      max_tokens: 32000,
+      reasoning: { ...(effort && { effort }), exclude: true },
+    }),
+    headers: { 'x-title': 'Product Copy Studio' },
+  },
+};
 
-const isReasoningModel = (model) => model.startsWith('openai/gpt-oss');
+const MAX_ATTEMPTS = 3;
+// Free tiers allow a fixed number of requests (or tokens) per minute. Wait for the window
+// to reset when it is close; a reset further away means a daily quota is used up, so fail fast.
+const MAX_RATE_LIMIT_WAIT_MS = 65_000;
 
-async function groqGenerate(product, options) {
-  const started = Date.now();
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function chatGenerate(providerId, product, options, overrides) {
+  const provider = PROVIDERS[providerId];
+  const settings = { ...provider.settings() };
+  if (overrides.model) settings.model = overrides.model;
+  if (overrides.effort) settings.effort = overrides.effort;
+  if (!settings.apiKey) {
+    throw new LlmError(`${provider.keyName} is not set. Add it to server/.env or set LLM_PROVIDER=mock.`, 503);
+  }
+
   const body = {
-    model: config.llm.model,
-    temperature: config.llm.temperature,
-    // Reasoning models spend part of this budget thinking before they answer.
-    max_completion_tokens: 8192,
-    response_format: { type: 'json_object' },
-    ...(isReasoningModel(config.llm.model) && { reasoning_effort: config.llm.reasoningEffort }),
+    model: settings.model,
     messages: [
-      { role: 'system', content: SYSTEM_PROMPT + JSON_INSTRUCTIONS },
+      { role: 'system', content: `${SYSTEM_PROMPT}\n\n${JSON_OUTPUT_INSTRUCTIONS}` },
       { role: 'user', content: buildUserPrompt(product, options) },
     ],
+    ...provider.body(settings),
   };
 
-  let lastProblem;
-  for (let attempt = 0; attempt < 2; attempt++) {
-    const data = await groqRequest(body);
-    const choice = data.choices?.[0];
-    if (choice?.finish_reason === 'length') {
-      lastProblem = 'reply was cut off (max tokens)';
+  const started = Date.now();
+  const retries = [];
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    const res = await fetch(`${settings.baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: { authorization: `Bearer ${settings.apiKey}`, 'content-type': 'application/json', ...provider.headers },
+      body: JSON.stringify(body),
+    });
+    const payload = await res.json().catch(() => ({}));
+    const detail = payload.error?.message;
+
+    if (res.status === 429) {
+      const waitMs = rateLimitWait(res.headers, attempt);
+      if (waitMs > MAX_RATE_LIMIT_WAIT_MS || attempt === MAX_ATTEMPTS) {
+        throw new LlmError(`LLM rate limit reached: ${detail ?? 'too many requests'}${resetNote(waitMs)}`, 429);
+      }
+      await sleep(waitMs);
       continue;
+    }
+    if (res.status === 401) throw new LlmError(`LLM authentication failed: check ${provider.keyName}.`);
+    if (!res.ok || payload.error) {
+      const message = `LLM request failed (${res.status})${detail ? `: ${detail}` : ''}`;
+      // Retry upstream hiccups (provider down or overloaded); report everything else straight away.
+      if (res.status >= 500 && attempt < MAX_ATTEMPTS) {
+        retries.push(message);
+        await sleep(2000 * attempt);
+        continue;
+      }
+      throw new LlmError(message, res.status >= 500 || res.ok ? 502 : res.status);
     }
 
-    let parsed;
-    try {
-      parsed = GeneratedDescription.safeParse(JSON.parse(choice?.message?.content ?? ''));
-    } catch {
-      lastProblem = 'reply was not valid JSON';
+    const choice = payload.choices?.[0];
+    if (choice?.finish_reason === 'length') {
+      retries.push('reply was cut off at the token limit');
       continue;
     }
+    const parsed = parseJsonOutput(choice?.message?.content ?? '');
     if (!parsed.success) {
-      lastProblem = `reply did not match the expected fields (${parsed.error.issues[0]?.path.join('.')})`;
+      retries.push(parsed.error);
       continue;
     }
 
     return {
       output: parsed.data,
       meta: {
-        provider: 'groq',
-        model: data.model,
-        input_tokens: data.usage?.prompt_tokens ?? 0,
-        output_tokens: data.usage?.completion_tokens ?? 0,
+        provider: providerId,
+        model: payload.model ?? settings.model,
+        input_tokens: payload.usage?.prompt_tokens ?? 0,
+        output_tokens: payload.usage?.completion_tokens ?? 0,
+        cost_usd: payload.usage?.cost ?? null,
         latency_ms: Date.now() - started,
+        attempts: attempt,
+        retry_reasons: retries,
       },
     };
   }
-  throw new LlmError(`Model output could not be used: ${lastProblem}.`);
+  throw new LlmError(`${settings.model} did not return valid output after ${MAX_ATTEMPTS} attempts: ${retries.at(-1)}`);
 }
 
-// POST to Groq, retrying rate limits and server errors with backoff.
-async function groqRequest(body) {
-  for (let attempt = 1; ; attempt++) {
-    const res = await fetch(GROQ_URL, {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${config.llm.groqApiKey}`,
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
-    if (res.ok) return res.json();
+// Groq sends Retry-After (seconds); OpenRouter sends X-RateLimit-Reset (epoch milliseconds).
+function rateLimitWait(headers, attempt) {
+  const retryAfter = Number(headers.get('retry-after'));
+  if (retryAfter > 0) return retryAfter * 1000;
+  const reset = Number(headers.get('x-ratelimit-reset'));
+  if (reset > 0) return Math.max(0, reset - Date.now()) + 250;
+  return 10_000 * attempt;
+}
 
-    const retryable = res.status === 429 || res.status >= 500;
-    if (retryable && attempt < MAX_ATTEMPTS) {
-      const retryAfter = Number(res.headers.get('retry-after'));
-      const waitMs = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : 1000 * 2 ** attempt;
-      await new Promise((resolve) => setTimeout(resolve, Math.min(waitMs, 30_000)));
-      continue;
-    }
+const resetNote = (waitMs) => (waitMs > MAX_RATE_LIMIT_WAIT_MS ? ` (resets ${new Date(Date.now() + waitMs).toLocaleString()})` : '');
 
-    const detail = await res.json().then((j) => j.error?.message).catch(() => undefined);
-    if (res.status === 401) throw new LlmError('LLM authentication failed: check GROQ_API_KEY.');
-    if (res.status === 429) throw new LlmError('LLM rate limit reached, try again shortly.', 429);
-    throw new LlmError(`LLM request failed (${res.status})${detail ? `: ${detail}` : ''}`);
+// Pulls the JSON object out of a model reply (tolerating code fences or stray text around it)
+// and validates it. Returns a Zod-style { success, data } or { success: false, error }.
+export function parseJsonOutput(text) {
+  const start = text.indexOf('{');
+  const end = text.lastIndexOf('}');
+  if (start === -1 || end < start) return { success: false, error: 'no JSON object in the reply' };
+  let json;
+  try {
+    json = JSON.parse(text.slice(start, end + 1));
+  } catch (error) {
+    return { success: false, error: `invalid JSON (${error.message})` };
   }
+  const result = GeneratedDescription.safeParse(json);
+  return result.success
+    ? result
+    : { success: false, error: `JSON did not match the schema (${result.error.issues.map((issue) => issue.path.join('.') || issue.message).join(', ')})` };
 }
 
 // Template-based stand-in so the whole app works offline or without an API key.
@@ -121,12 +182,12 @@ function mockGenerate(product, options) {
       short_description: `${brand}${product.name}: ${features[0]}. [mock ${options.tone} copy]`,
       long_description: [
         `The ${product.name} brings ${features.slice(0, 2).join(' and ')} to your everyday ${product.category.toLowerCase()} needs.`,
-        `This is placeholder text from the mock provider. Set GROQ_API_KEY to generate real copy.`,
+        `This is placeholder text from the mock provider. Set GROQ_API_KEY or OPENROUTER_API_KEY to generate real copy.`,
       ].join('\n\n'),
       bullet_points: features.slice(0, 5),
       seo_keywords: [primary, ...product.seed_keywords].slice(0, 8),
       meta_description: `Shop the ${brand}${product.name}. ${features[0]}.`.slice(0, 155),
     },
-    meta: { provider: 'mock', model: 'mock', input_tokens: 0, output_tokens: 0, latency_ms: 0 },
+    meta: { provider: 'mock', model: 'mock', input_tokens: 0, output_tokens: 0, cost_usd: 0, latency_ms: 0 },
   };
 }
