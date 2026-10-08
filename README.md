@@ -117,8 +117,11 @@ docs/                   Plan and data format
 | `POST /api/products/import` | `{ format: "csv" \| "json", data }` → `{ imported, errors }` |
 | `POST /api/products/import-sample` | Load the 60 synthetic products |
 | `POST /api/products/:id/generate` | Generate and save a new description version |
+| `POST /api/products/quick` | `{ product, options? }`: save the product (or reuse a match) and generate a description for it |
+| `GET /api/history` | The retailer's generated descriptions, newest first (`?limit=`, max 200) |
+| `POST /api/signup` | `{ email, password }`: create an already-confirmed account (no confirmation email) |
 
-The `/api/me` and `/api/products` routes need a Supabase access token (`Authorization: Bearer <token>`); the React app sends it automatically.
+The `/api/me`, `/api/products` and `/api/history` routes need a Supabase access token (`Authorization: Bearer <token>`); the React app sends it automatically.
 
 `quality` has four parts: `input` (completeness score and `sparse` flag), `seo` (length and keyword checks), `facts` (numbers, codes and claims in the copy that the product data doesn't support) and `style` (stock openers, clichés, keyword stuffing, title case). The shapes are in [`docs/DATA_FORMAT.md`](docs/DATA_FORMAT.md#quality-report).
 
