@@ -6,6 +6,26 @@ const CHECK_LABELS = {
   bullet_count_ok: '3–6 bullet points',
 };
 
+// Shape a saved description row like a fresh /api/generate result so it can be shown here.
+export const toResult = (row) => ({
+  output: {
+    title: row.title,
+    short_description: row.short_description,
+    long_description: row.long_description,
+    bullet_points: row.bullet_points,
+    seo_keywords: row.seo_keywords,
+    meta_description: row.meta_description,
+  },
+  meta: {
+    provider: row.provider,
+    model: row.model,
+    input_tokens: row.input_tokens ?? 0,
+    output_tokens: row.output_tokens ?? 0,
+    latency_ms: row.latency_ms ?? 0,
+  },
+  quality: row.quality,
+});
+
 export default function DescriptionView({ result }) {
   const { output, meta, quality } = result;
 

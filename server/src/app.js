@@ -5,6 +5,8 @@ import { healthRouter } from './routes/health.js';
 import { generateRouter } from './routes/generate.js';
 import { productsRouter } from './routes/products.js';
 import { meRouter } from './routes/me.js';
+import { historyRouter } from './routes/history.js';
+import { signupRouter } from './routes/signup.js';
 import { errorHandler, notFound } from './middleware/errorHandler.js';
 
 export function createApp() {
@@ -16,7 +18,9 @@ export function createApp() {
   app.use('/api/health', healthRouter);
   app.use('/api/generate', generateRouter);
   app.use('/api/products', productsRouter);
+  app.use('/api/signup', signupRouter);
   app.use('/api/me', meRouter);
+  app.use('/api/history', historyRouter);
 
   app.use(notFound);
   app.use(errorHandler);

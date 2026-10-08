@@ -2,15 +2,33 @@ import { useCallback, useEffect, useState } from 'react';
 import { api } from './api.js';
 import { isAuthConfigured, supabase } from './lib/supabase.js';
 import ProductForm from './components/ProductForm.jsx';
-import DescriptionView from './components/DescriptionView.jsx';
+import DescriptionView, { toResult } from './components/DescriptionView.jsx';
 import Catalog from './components/Catalog.jsx';
 import AuthPage from './components/AuthPage.jsx';
+import Landing from './components/Landing.jsx';
+import History from './components/History.jsx';
 import Onboarding from './components/Onboarding.jsx';
 
 const FALLBACK_CHOICES = { tones: ['friendly'], lengths: ['medium'] };
 
-// Login → onboarding (once) → the app.
+// Tiny hash router for the logged-out pages: #/login, #/signup, anything else = homepage.
+function useHashRoute() {
+  const read = () => window.location.hash.replace(/^#\/?/, '');
+  const [route, setRoute] = useState(read);
+  useEffect(() => {
+    const onChange = () => {
+      setRoute(read());
+      if (window.location.hash.startsWith('#/')) window.scrollTo(0, 0);
+    };
+    window.addEventListener('hashchange', onChange);
+    return () => window.removeEventListener('hashchange', onChange);
+  }, []);
+  return route;
+}
+
+// Homepage → login/sign-up → onboarding (once) → the app.
 export default function App() {
+  const route = useHashRoute();
   const [session, setSession] = useState(undefined); // undefined = still checking
   const [account, setAccount] = useState(null); // { user, retailer } from /api/me
   const [accountError, setAccountError] = useState('');
@@ -19,7 +37,10 @@ export default function App() {
   useEffect(() => {
     if (!supabase) return setSession(null);
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
-    const { data } = supabase.auth.onAuthStateChange((_event, next) => setSession(next));
+    const { data } = supabase.auth.onAuthStateChange((_event, next) => {
+      setSession(next);
+      if (next && window.location.hash.startsWith('#/')) window.history.replaceState(null, '', window.location.pathname);
+    });
     return () => data.subscription.unsubscribe();
   }, []);
 
@@ -48,7 +69,10 @@ export default function App() {
     );
   }
   if (session === undefined) return <div className="centered muted">Loading…</div>;
-  if (!session) return <AuthPage />;
+  if (!session) {
+    if (route === 'login' || route === 'signup') return <AuthPage mode={route} />;
+    return <Landing />;
+  }
 
   if (accountError) {
     return (
@@ -86,6 +110,7 @@ function Studio({ account, onEditProfile }) {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [tab, setTab] = useState('catalog');
+  const [saved, setSaved] = useState(0); // bumps when Quick generate saves, so History reloads
 
   useEffect(() => {
     api.health().then(setHealth).catch(() => setHealth({ status: 'down' }));
@@ -96,7 +121,10 @@ function Studio({ account, onEditProfile }) {
     setBusy(true);
     setError('');
     try {
-      setResult(await api.generate(product, options));
+      // Saved to the account: the product lands in Catalog and the copy in History.
+      const { description } = await api.quickGenerate(product, options);
+      setResult(toResult(description));
+      setSaved((n) => n + 1);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -109,10 +137,11 @@ function Studio({ account, onEditProfile }) {
   return (
     <div className="app">
       <header className="topbar">
-        <h1>Product Copy Studio</h1>
+        <h1 className="logo"><span className="logo-mark">P</span>Product Copy Studio</h1>
         <nav className="tabs">
           <button type="button" className={tab === 'catalog' ? 'active' : ''} onClick={() => setTab('catalog')}>Catalog</button>
           <button type="button" className={tab === 'generate' ? 'active' : ''} onClick={() => setTab('generate')}>Quick generate</button>
+          <button type="button" className={tab === 'history' ? 'active' : ''} onClick={() => setTab('history')}>History</button>
         </nav>
         <StatusBadge health={health} />
         <div className="account">
@@ -126,11 +155,13 @@ function Studio({ account, onEditProfile }) {
       </header>
 
       {tab === 'catalog' && <Catalog choices={choices} />}
+      {tab === 'history' && <History refreshKey={saved} />}
 
       <main className="layout" hidden={tab !== 'generate'}>
         <ProductForm choices={choices} busy={busy} onSubmit={generate} />
         <div>
           {error && <div className="card error">{error}</div>}
+          {result && <div className="card notice info saved-note">Saved to your catalog and history.</div>}
           {result
             ? <DescriptionView result={result} />
             : <div className="card empty">Fill in the product attributes and generate a description.</div>}

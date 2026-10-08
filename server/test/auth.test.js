@@ -18,7 +18,7 @@ before(async () => {
 after(() => server.close());
 
 test('account and product routes need a login', async () => {
-  for (const path of ['/me', '/products']) {
+  for (const path of ['/me', '/products', '/history']) {
     const res = await fetch(`${base}${path}`);
     assert.equal(res.status, 401, path);
     assert.match((await res.json()).error, /log in/i);
@@ -49,4 +49,16 @@ test('an existing seller must say where they sell', () => {
 
 test('store URL must be a full link', () => {
   assert.throws(() => RetailerInput.parse({ ...base_retailer, seller_type: 'new', store_url: 'mystore' }), /full link/);
+});
+
+test('sign-up validates email and password before calling Supabase', async () => {
+  const res = await fetch(`${base}/signup`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ email: 'not-an-email', password: '123' }),
+  });
+  assert.equal(res.status, 400);
+  const messages = (await res.json()).details.map((issue) => issue.message).join(' ');
+  assert.match(messages, /valid email/);
+  assert.match(messages, /at least 6/);
 });

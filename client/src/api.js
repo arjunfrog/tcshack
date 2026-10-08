@@ -29,6 +29,7 @@ export const api = {
   options: () => request('/generate/options'),
   generate: (product, options) => post('/generate', { product, options }),
 
+  signup: (email, password) => post('/signup', { email, password }),
   me: () => request('/me'),
   saveRetailer: (retailer) => request('/me/retailer', { method: 'PUT', body: JSON.stringify(retailer) }),
 
@@ -37,4 +38,6 @@ export const api = {
   importProducts: (format, data) => post('/products/import', { format, data }),
   importSample: () => post('/products/import-sample'),
   generateForProduct: (id, options) => post(`/products/${id}/generate`, { options }),
+  quickGenerate: (product, options) => post('/products/quick', { product, options }),
+  history: (limit = 100) => request(`/history?limit=${limit}`),
 };
