@@ -30,11 +30,15 @@ Get a key at [console.groq.com](https://console.groq.com/keys) and set `GROQ_API
 | Variable | Default | Notes |
 |---|---|---|
 | `GROQ_MODEL` | `openai/gpt-oss-120b` | Any Groq chat model; `openai/gpt-oss-20b` is faster |
-| `GROQ_REASONING_EFFORT` | `low` | gpt-oss only: `low`, `medium` or `high`; higher thinks longer before writing |
+| `GROQ_REASONING_EFFORT` | `medium` | gpt-oss only: `low`, `medium` or `high`. Medium scored best in the eval; a reply that runs out of tokens retries at low |
 | `GROQ_TEMPERATURE` | `0.7` | Lower is more consistent, higher is more creative |
 | `GENERATION_CONCURRENCY` | `3` | Parallel requests during batch runs (shared by both providers); rate-limited requests are retried |
 
-The free tier for `openai/gpt-oss-120b` allows 30 requests and 8K tokens a minute, and 200K tokens a day. With the current prompt (about 4K tokens per request) that is roughly 1-2 descriptions a minute and 40 a day; each model has its own allowance.
+The free tier for `openai/gpt-oss-120b` allows 30 requests and 8K tokens a minute, and 200K tokens a day. At medium effort a description takes about 6,500 tokens (plus ~2,000 when the fix-up pass runs), so roughly 1 a minute and 25-30 a day; each model has its own allowance.
+
+#### Fix-up pass
+
+After generating, the server runs every quality check. If any fail (title or meta too long, primary keyword missing, an unsupported number or claim, a cliché, a formula opener, a word the brand avoids), one short follow-up request asks the model to fix only those problems. The fix is kept only if it scores better and adds no fact flags, and `quality.refine` records what happened. Set `LLM_REFINE=false` to skip it and save the extra request.
 
 #### OpenRouter (free models)
 
@@ -65,6 +69,21 @@ Models without schema-enforced JSON output still work: the prompt spells out the
 After signing up, onboarding asks whether you already sell online (Amazon, Flipkart, Shopify…) or are just starting, plus categories, price positioning and brand personality. Each account sees only its own catalog.
 
 The service role key stays on the server. Row Level Security is enabled with no policies, so the browser can't query the database directly; everything goes through the Express API.
+
+## Using the app
+
+After signing up and onboarding (your brand profile: personality, target customer, price positioning, words to avoid), the app has six tabs:
+
+| Tab | What it's for |
+|---|---|
+| **Catalog** | Import a CSV or JSON file (or load the sample products), browse and search, generate or regenerate one product, see its versions |
+| **Quick generate** | Type in one product; warns about thin data before generating, saves the product and its copy |
+| **Batch** | Generate for many products at once on the server, watch progress, export CSV/JSON, resume a partial batch |
+| **Review** | Rate each AI draft for relevance and creativity (keys 1–5), then approve (A), reject (R), skip (→) or edit (E) |
+| **Dashboard** | The share rated 4+ against the 85% target, quality pass rates, breakdowns, consistency, usage |
+| **History** | Everything generated, newest first |
+
+Every description shows its SEO checks, readability, fact-check flags, style issues and whether the fix-up pass changed it.
 
 ## Scripts
 
