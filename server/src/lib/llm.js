@@ -15,9 +15,9 @@ export class LlmError extends Error {
 }
 
 // Returns { output, meta } where output matches GeneratedDescription.
-export async function generateDescription(product, options) {
+export async function generateDescription(product, options, customPrompts = null) {
   if (config.llm.provider === 'mock') return mockGenerate(product, options);
-  if (config.llm.provider === 'groq') return groqGenerate(product, options);
+  if (config.llm.provider === 'groq') return groqGenerate(product, options, customPrompts);
   throw new Error(`Unknown LLM_PROVIDER "${config.llm.provider}"`);
 }
 
@@ -31,8 +31,10 @@ Separate paragraphs in long_description with a blank line (\\n\\n).`;
 
 const isReasoningModel = (model) => model.startsWith('openai/gpt-oss');
 
-async function groqGenerate(product, options) {
+async function groqGenerate(product, options, customPrompts = null) {
   const started = Date.now();
+  const sys = customPrompts?.systemPrompt || SYSTEM_PROMPT;
+  const user = customPrompts?.userPrompt || buildUserPrompt(product, options);
   const body = {
     model: config.llm.model,
     temperature: config.llm.temperature,
@@ -41,8 +43,8 @@ async function groqGenerate(product, options) {
     response_format: { type: 'json_object' },
     ...(isReasoningModel(config.llm.model) && { reasoning_effort: config.llm.reasoningEffort }),
     messages: [
-      { role: 'system', content: SYSTEM_PROMPT + JSON_INSTRUCTIONS },
-      { role: 'user', content: buildUserPrompt(product, options) },
+      { role: 'system', content: sys + JSON_INSTRUCTIONS },
+      { role: 'user', content: user },
     ],
   };
 

@@ -34,7 +34,7 @@ function toProduct(form) {
   };
 }
 
-export default function ProductForm({ choices, busy, onSubmit }) {
+export default function ProductForm({ choices, busy, onSubmit, onPreviewIntelligence }) {
   const [form, setForm] = useState(SAMPLE_PRODUCT);
   const [options, setOptions] = useState({ tone: 'friendly', length: 'medium', brand_voice: '' });
 
@@ -91,9 +91,21 @@ export default function ProductForm({ choices, busy, onSubmit }) {
         />
       </label>
 
-      <button type="submit" className="primary" disabled={busy}>
-        {busy ? 'Generating…' : 'Generate description'}
-      </button>
+      <div className="row-actions" style={{ marginTop: '8px', display: 'flex', gap: '8px' }}>
+        <button type="submit" className="primary" style={{ flex: 1 }} disabled={busy}>
+          {busy ? 'Generating…' : 'Generate with Intelligence'}
+        </button>
+        {onPreviewIntelligence && (
+          <button
+            type="button"
+            className="secondary-btn"
+            disabled={busy}
+            onClick={() => onPreviewIntelligence(toProduct(form), options)}
+          >
+            Preview Intelligence
+          </button>
+        )}
+      </div>
     </form>
   );
 }

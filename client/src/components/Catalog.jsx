@@ -22,6 +22,9 @@ const toResult = (row) => ({
     latency_ms: row.latency_ms ?? 0,
   },
   quality: row.quality,
+  intelligence: row.intelligence,
+  evidence: row.evidence,
+  retailer_profile: row.retailer_profile,
 });
 
 export default function Catalog({ choices }) {
@@ -75,9 +78,33 @@ export default function Catalog({ choices }) {
     }
   };
 
+  const analyzePatterns = async () => {
+    try {
+      const res = await api.analyzeCatalog();
+      if (res?.profile) {
+        setNotice({
+          kind: 'info',
+          text: `Catalog Writing Patterns Analyzed (${res.profile.sample_size} products): Tone "${res.profile.preferred_tone}", style "${res.profile.sentence_style}".`,
+        });
+      }
+    } catch (err) {
+      setNotice({ kind: 'error', text: err.message });
+    }
+  };
+
   const open = async (id) => {
     try {
-      setSelected(await api.product(id));
+      const data = await api.product(id);
+      try {
+        const intel = await api.getProductIntelligence(id);
+        if (intel) {
+          data.intelligence = intel.intelligence;
+          data.evidence = { traced_claims: intel.evidence };
+        }
+      } catch {
+        // non-blocking
+      }
+      setSelected(data);
     } catch (err) {
       setNotice({ kind: 'error', text: err.message });
     }
@@ -132,6 +159,9 @@ export default function Catalog({ choices }) {
             <input type="file" accept=".csv,.json" onChange={importFile} hidden />
           </label>
           <button type="button" onClick={importSample}>Load 60 sample products</button>
+          <button type="button" className="ghost" onClick={analyzePatterns} title="Empirically extracts retailer writing patterns from existing catalog">
+            Analyze Writing Style
+          </button>
         </div>
         <div className="row-actions">
           <select value={options.tone} onChange={(event) => setOptions({ ...options, tone: event.target.value })}>
@@ -230,7 +260,18 @@ export default function Catalog({ choices }) {
                 </p>
               </section>
               {selected.descriptions[0]
-                ? <DescriptionView result={toResult(selected.descriptions[0])} />
+                ? (
+                  <DescriptionView
+                    result={{
+                      ...toResult(selected.descriptions[0]),
+                      intelligence: selected.intelligence,
+                      evidence: selected.evidence,
+                    }}
+                    productId={selected.product.id}
+                    descriptionId={selected.descriptions[0]?.id}
+                    onFeedbackSubmitted={() => open(selected.product.id)}
+                  />
+                )
                 : <div className="card empty">No description yet. Click Generate.</div>}
             </>
           )}

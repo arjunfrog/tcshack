@@ -1,6 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 import { config, isSupabaseConfigured } from '../config/env.js';
 
+export { isSupabaseConfigured };
+
 // Server-side client using the secret (service role) key. It bypasses Row Level Security,
 // so it must only ever run here, never in the React app.
 export const supabase = isSupabaseConfigured()

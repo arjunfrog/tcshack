@@ -7,6 +7,11 @@ import { parseProductsCsv } from '../lib/csv.js';
 import { GenerationOptions, ProductInput } from '../schemas/product.js';
 import { checkCompleteness } from '../services/quality.js';
 import { generateForProduct } from '../services/generator.js';
+import { persistGenerationEvidence, getGenerationEvidence } from '../services/explainability.js';
+import { getProductEvidence } from '../services/evidence.js';
+import { getReviewThemes } from '../services/reviewIntelligence.js';
+import { recordFeedbackAndLearn, detectEditDivergence } from '../services/feedbackLearning.js';
+import { demoStore } from '../lib/demoStore.js';
 
 export const productsRouter = Router();
 // Every route works on the logged-in retailer's own catalog.
@@ -37,6 +42,15 @@ const toProductInput = (row) =>
 
 // GET /api/products?category=&search=  -> products with their latest description
 productsRouter.get('/', async (req, res) => {
+  if (req.user?.id === 'demo-user-123') {
+    return res.json({
+      products: demoStore.listProducts({
+        category: req.query.category,
+        search: req.query.search,
+      }),
+    });
+  }
+
   let query = requireSupabase()
     .from('products')
     .select('*, descriptions(id, version, title, status, created_at)')
@@ -58,6 +72,12 @@ productsRouter.get('/', async (req, res) => {
 
 // GET /api/products/:id  -> product and all description versions, newest first
 productsRouter.get('/:id', async (req, res) => {
+  if (req.user?.id === 'demo-user-123') {
+    const found = demoStore.getProduct(req.params.id);
+    if (!found) return res.status(404).json({ error: 'Product not found' });
+    return res.json(found);
+  }
+
   const supabase = requireSupabase();
   const product = check(
     await supabase.from('products').select('*').eq('id', req.params.id).eq('retailer_id', req.retailer.id).maybeSingle(),
@@ -91,6 +111,11 @@ productsRouter.post('/import', async (req, res) => {
 
 // POST /api/products/import-sample  -> loads the 60 synthetic products from data/generated
 productsRouter.post('/import-sample', async (req, res) => {
+  if (req.user?.id === 'demo-user-123') {
+    demoStore.loadSampleProducts();
+    return res.json({ imported: demoStore.products.length, errors: [] });
+  }
+
   const records = JSON.parse(readFileSync(SAMPLE_FILE, 'utf8'));
   res.json(await saveProducts(req.retailer.id, records, 'synthetic'));
 });
@@ -116,12 +141,79 @@ async function saveProducts(retailerId, records, source) {
 
   return { imported: rows.length, errors };
 }
-
 const GenerateRequest = z.object({ options: GenerationOptions.prefault({}) });
+
+// GET /api/products/:id/intelligence -> aggregated intelligence, evidence, and review themes
+productsRouter.get('/:id/intelligence', async (req, res) => {
+  if (req.user?.id === 'demo-user-123') {
+    const found = demoStore.getProduct(req.params.id);
+    if (!found) return res.status(404).json({ error: 'Product not found' });
+    const evidence = await getProductEvidence(req.params.id);
+    const reviewThemes = await getReviewThemes(req.params.id);
+    return res.json({
+      product_id: req.params.id,
+      intelligence: null,
+      evidence,
+      review_themes: reviewThemes,
+    });
+  }
+
+  const supabase = requireSupabase();
+  const product = check(
+    await supabase.from('products').select('*').eq('id', req.params.id).eq('retailer_id', req.retailer.id).maybeSingle(),
+  );
+  if (!product) return res.status(404).json({ error: 'Product not found' });
+
+  const { data: intelligence } = await supabase
+    .from('product_intelligence')
+    .select('*')
+    .eq('product_id', req.params.id)
+    .maybeSingle();
+
+  const evidence = await getProductEvidence(req.params.id);
+  const reviewThemes = await getReviewThemes(req.params.id);
+
+  res.json({
+    product_id: req.params.id,
+    intelligence,
+    evidence,
+    review_themes: reviewThemes,
+  });
+});
 
 // POST /api/products/:id/generate  { options? }  -> saved description row
 productsRouter.post('/:id/generate', async (req, res) => {
   const { options } = GenerateRequest.parse(req.body ?? {});
+
+  if (req.user?.id === 'demo-user-123') {
+    const found = demoStore.getProduct(req.params.id);
+    if (!found) return res.status(404).json({ error: 'Product not found' });
+
+    const generated = await generateForProduct(toProductInput(found.product), {
+      ...options,
+      retailer_id: req.retailer.id,
+    });
+    const { output, meta, quality, intelligence, evidence } = generated;
+
+    const description = demoStore.addDescription(
+      found.product.id,
+      {
+        tone: options.tone,
+        length: options.length,
+        ...output,
+        quality,
+        provider: meta.provider,
+        model: meta.model,
+        input_tokens: meta.input_tokens,
+        output_tokens: meta.output_tokens,
+        latency_ms: meta.latency_ms,
+      },
+      evidence?.traced_claims,
+    );
+
+    return res.status(201).json({ description, intelligence, evidence });
+  }
+
   const supabase = requireSupabase();
 
   const row = check(
@@ -129,7 +221,11 @@ productsRouter.post('/:id/generate', async (req, res) => {
   );
   if (!row) return res.status(404).json({ error: 'Product not found' });
 
-  const { output, meta, quality } = await generateForProduct(toProductInput(row), options);
+  const generated = await generateForProduct(toProductInput(row), {
+    ...options,
+    retailer_id: req.retailer.id,
+  });
+  const { output, meta, quality, intelligence, evidence } = generated;
 
   const latest = check(
     await supabase.from('descriptions').select('version').eq('product_id', row.id).order('version', { ascending: false }).limit(1),
@@ -153,5 +249,74 @@ productsRouter.post('/:id/generate', async (req, res) => {
       .select()
       .single(),
   );
-  res.status(201).json({ description });
+
+  // Persist claim evidence if traced
+  if (evidence?.traced_claims?.length && description?.id) {
+    await persistGenerationEvidence(description.id, row.id, evidence.traced_claims);
+  }
+
+  res.status(201).json({ description, intelligence, evidence });
 });
+
+// GET /api/products/:id/descriptions/:descId/evidence -> claim-to-evidence links for this description
+productsRouter.get('/:id/descriptions/:descId/evidence', async (req, res) => {
+  if (req.user?.id === 'demo-user-123') {
+    return res.json({ evidence_traces: demoStore.getEvidence(req.params.descId) });
+  }
+
+  const traces = await getGenerationEvidence(req.params.descId);
+  res.json({ evidence_traces: traces });
+});
+
+const FeedbackRequest = z.object({
+  relevance: z.number().int().min(1).max(5).optional(),
+  creativity: z.number().int().min(1).max(5).optional(),
+  comment: z.string().optional(),
+  edited_output: z.any().optional(),
+});
+
+// POST /api/products/:id/descriptions/:descId/feedback -> saves rating and applies feedback learning
+productsRouter.post('/:id/descriptions/:descId/feedback', async (req, res) => {
+  const feedbackData = FeedbackRequest.parse(req.body ?? {});
+
+  if (req.user?.id === 'demo-user-123') {
+    demoStore.saveFeedback(req.params.descId, feedbackData);
+    return res.json({ status: 'ok', detected_patterns: [] });
+  }
+
+  const supabase = requireSupabase();
+
+  const desc = check(
+    await supabase.from('descriptions').select('*').eq('id', req.params.descId).maybeSingle(),
+  );
+  if (!desc) return res.status(404).json({ error: 'Description not found' });
+
+  let divergence = [];
+  if (feedbackData.edited_output) {
+    divergence = detectEditDivergence(desc, feedbackData.edited_output);
+  }
+
+  await recordFeedbackAndLearn(req.retailer.id, req.params.descId, feedbackData, divergence);
+  res.json({ status: 'ok', detected_patterns: divergence });
+});
+
+// PATCH /api/products/:id/descriptions/:descId -> updates description (status, edited copy)
+productsRouter.patch('/:id/descriptions/:descId', async (req, res) => {
+  if (req.user?.id === 'demo-user-123') {
+    const updated = demoStore.updateDescription(req.params.descId, req.body);
+    if (!updated) return res.status(404).json({ error: 'Description not found' });
+    return res.json({ description: updated });
+  }
+
+  const supabase = requireSupabase();
+  const updated = check(
+    await supabase
+      .from('descriptions')
+      .update(req.body)
+      .eq('id', req.params.descId)
+      .select()
+      .single(),
+  );
+  res.json({ description: updated });
+});
+

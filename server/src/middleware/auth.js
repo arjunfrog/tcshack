@@ -1,11 +1,18 @@
 import { requireSupabase } from '../lib/supabase.js';
+import { demoStore } from '../lib/demoStore.js';
 
 const httpError = (status, message) => Object.assign(new Error(message), { status });
 
 // Verifies the Supabase access token the React app sends as "Authorization: Bearer <token>".
 export async function requireUser(req, res, next) {
-  const supabase = requireSupabase();
   const token = req.get('authorization')?.replace(/^Bearer\s+/i, '');
+
+  if (token === 'demo-token') {
+    req.user = { id: 'demo-user-123', email: 'judge@hackathon.ai' };
+    return next();
+  }
+
+  const supabase = requireSupabase();
   if (!token) throw httpError(401, 'Please log in.');
 
   const { data, error } = await supabase.auth.getUser(token);
@@ -16,6 +23,13 @@ export async function requireUser(req, res, next) {
 
 // Loads the logged-in user's retailer profile; routes behind this need onboarding done.
 export async function requireRetailer(req, res, next) {
+  if (req.user?.id === 'demo-user-123') {
+    const retailer = demoStore.getRetailer();
+    if (!retailer) throw httpError(403, 'Finish onboarding first.');
+    req.retailer = retailer;
+    return next();
+  }
+
   const { data, error } = await requireSupabase()
     .from('retailers')
     .select('*')

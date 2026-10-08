@@ -38,6 +38,13 @@ export const config = {
     concurrency: num(process.env.GENERATION_CONCURRENCY, 3),
   },
 
+  // OpenRouter — access to a wide catalogue of models including free-tier.
+  // Used by the model router for lightweight tasks (extraction, classification).
+  openrouter: {
+    apiKey: process.env.OPENROUTER_API_KEY || '',
+    defaultModel: process.env.OPENROUTER_MODEL || 'google/gemini-2.5-flash',
+  },
+
   // Anakin Wire (market data enrichment). Not wired into generation yet.
   anakin: {
     apiKey: process.env.ANAKIN_API_KEY || '',
