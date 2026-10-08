@@ -62,3 +62,19 @@ test('the prompt leaves out sku and image_url', () => {
   const prompt = buildUserPrompt(product, { tone: 'minimal', length: 'short' });
   assert.doesNotMatch(prompt, /SKU-9|example\.com/);
 });
+
+test('a retailer brand profile goes into the request, with price guidance and banned words', () => {
+  const product = ProductInput.parse({ name: 'Mat', category: 'Sports', features: ['Grip', 'Cushion', 'Strap'] });
+  const prompt = buildUserPrompt(product, {
+    tone: 'friendly',
+    length: 'short',
+    brand: { seller: 'FlexCore', personality: ['warm', 'playful'], target_customer: 'new runners', price_positioning: 'premium', avoid_words: ['cheap', 'amazing'] },
+  });
+  assert.match(prompt, /Brand profile/);
+  assert.match(prompt, /Seller: FlexCore/);
+  assert.match(prompt, /Personality: warm, playful/);
+  assert.match(prompt, /Customers: new runners/);
+  assert.match(prompt, /never say cheap, affordable or bargain/);
+  assert.match(prompt, /Avoid these words and claims: cheap, amazing/);
+  assert.doesNotMatch(buildUserPrompt(product, { tone: 'friendly', length: 'short' }), /Brand profile/);
+});

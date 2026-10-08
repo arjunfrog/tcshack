@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { api } from '../api.js';
 import { Spinner } from './Feedback.jsx';
 
 export const SAMPLE_PRODUCT = {
@@ -38,6 +39,16 @@ function toProduct(form) {
 export default function ProductForm({ choices, busy, onSubmit }) {
   const [form, setForm] = useState(SAMPLE_PRODUCT);
   const [options, setOptions] = useState({ tone: 'friendly', length: 'medium', brand_voice: '' });
+
+  // Score the data as it's typed, so thin products get a warning before generating.
+  const [completeness, setCompleteness] = useState(null);
+  useEffect(() => {
+    if (!form.name.trim() || !form.category.trim()) return setCompleteness(null);
+    const timer = setTimeout(() => {
+      api.checkProduct(toProduct(form)).then(setCompleteness).catch(() => setCompleteness(null));
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [form]);
 
   const field = (name) => ({
     name,
@@ -91,6 +102,13 @@ export default function ProductForm({ choices, busy, onSubmit }) {
           onChange={(event) => setOptions({ ...options, brand_voice: event.target.value })}
         />
       </label>
+
+      {completeness?.sparse && (
+        <p className="notice-inline" role="status">
+          Thin product data ({completeness.score}/100): {completeness.issues.join(', ').toLowerCase()}. The copy will be kept short
+          rather than padded; add more details for a fuller description.
+        </p>
+      )}
 
       <button type="submit" className="primary" disabled={busy}>
         {busy ? <><Spinner /> Generating…</> : 'Generate description'}

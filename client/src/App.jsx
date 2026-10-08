@@ -8,6 +8,9 @@ import AuthPage from './components/AuthPage.jsx';
 import Landing from './components/Landing.jsx';
 import History from './components/History.jsx';
 import { GeneratingCard } from './components/Feedback.jsx';
+import Batch from './components/Batch.jsx';
+import Review from './components/Review.jsx';
+import Dashboard from './components/Dashboard.jsx';
 import Onboarding from './components/Onboarding.jsx';
 
 const FALLBACK_CHOICES = { tones: ['friendly'], lengths: ['medium'] };
@@ -111,7 +114,7 @@ function Studio({ account, onEditProfile }) {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(null); // start time while Quick generate runs
   const [tab, setTab] = useState('catalog');
-  const [saved, setSaved] = useState(0); // bumps when Quick generate saves, so History reloads
+  const [saved, setSaved] = useState(0); // bumps when copy is saved or reviewed, so History and Dashboard reload
 
   useEffect(() => {
     api.health().then(setHealth).catch(() => setHealth({ status: 'down' }));
@@ -142,6 +145,9 @@ function Studio({ account, onEditProfile }) {
         <nav className="tabs">
           <button type="button" className={tab === 'catalog' ? 'active' : ''} onClick={() => setTab('catalog')}>Catalog</button>
           <button type="button" className={tab === 'generate' ? 'active' : ''} onClick={() => setTab('generate')}>Quick generate</button>
+          <button type="button" className={tab === 'batch' ? 'active' : ''} onClick={() => setTab('batch')}>Batch</button>
+          <button type="button" className={tab === 'review' ? 'active' : ''} onClick={() => setTab('review')}>Review</button>
+          <button type="button" className={tab === 'dashboard' ? 'active' : ''} onClick={() => setTab('dashboard')}>Dashboard</button>
           <button type="button" className={tab === 'history' ? 'active' : ''} onClick={() => setTab('history')}>History</button>
         </nav>
         <StatusBadge health={health} />
@@ -156,6 +162,9 @@ function Studio({ account, onEditProfile }) {
       </header>
 
       {tab === 'catalog' && <Catalog choices={choices} />}
+      {tab === 'batch' && <Batch choices={choices} />}
+      {tab === 'review' && <Review onReviewed={() => setSaved((n) => n + 1)} />}
+      {tab === 'dashboard' && <Dashboard refreshKey={saved} />}
       {tab === 'history' && <History refreshKey={saved} />}
 
       <main className="layout" hidden={tab !== 'generate'}>

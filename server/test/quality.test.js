@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { ProductInput } from '../src/schemas/product.js';
-import { checkCompleteness, checkFacts, checkSeo, checkStyle } from '../src/services/quality.js';
+import { checkCompleteness, checkConsistency, checkFacts, checkSeo, checkStyle, readingEase } from '../src/services/quality.js';
 
 test('complete product scores 100 with no issues', () => {
   const product = ProductInput.parse({
@@ -131,4 +131,32 @@ test('style check flags the usual machine-written tells', () => {
 test('style check flags a keyword repeated too often', () => {
   const stuffed = 'anc earbuds. '.repeat(3);
   assert.deepEqual(checkStyle(styled({ long_description: stuffed })).issues, [{ type: 'keyword_stuffing', text: '"anc earbuds" 3 times' }]);
+});
+
+test('SEO checks want the primary keyword early and report readability', () => {
+  const output = {
+    title: 'Voltix Wireless Earbuds', short_description: 'Quiet and light.', bullet_points: ['a', 'b', 'c'],
+    seo_keywords: ['wireless earbuds'], meta_description: 'Voltix wireless earbuds.',
+    long_description: `${'word '.repeat(120)}wireless earbuds`,
+  };
+  const late = checkSeo(output);
+  assert.equal(late.primary_keyword_early, false);
+  assert.equal(late.total, 6);
+  assert.equal(checkSeo({ ...output, long_description: 'These wireless earbuds are quiet. They are light.' }).primary_keyword_early, true);
+  assert.ok(readingEase('The cat sat on the mat. It was warm.') > readingEase('Comprehensive multidimensional interoperability necessitates unprecedented organisational transformation.'));
+});
+
+test('consistency check finds duplicate titles, repeated openings and length outliers', () => {
+  const long = (n, start = 'Soft cotton made') => `${start} ${'and more '.repeat(n)}`;
+  const result = checkConsistency([
+    { id: 'a', title: 'Kesari Cotton Kurta', long_description: long(60, 'A soft cotton kurta') },
+    { id: 'b', title: 'Kesari cotton kurta!', long_description: long(60, 'A soft cotton kurta') },
+    { id: 'c', title: 'Kesari Linen Kurta', long_description: long(62, 'Linen that breathes') },
+    { id: 'd', title: 'Kesari Silk Kurta', long_description: long(10, 'Silk for weddings') },
+    { id: 'e', title: 'Kesari Mini Kurta', long_description: long(10, 'Short and sweet'), sparse: true },
+  ]);
+  assert.equal(result.passed, false);
+  assert.deepEqual(result.duplicate_titles.map((group) => group.ids), [['a', 'b']]);
+  assert.deepEqual(result.repeated_openings, [{ opening: 'a soft cotton kurta', ids: ['a', 'b'] }]);
+  assert.deepEqual(result.length_outliers.map((item) => item.id), ['d']);
 });

@@ -2,6 +2,7 @@
 // product so it can be prompt-cached across a batch; everything that varies goes in
 // the user message.
 
+import { brandProfile } from '../services/brand.js';
 import { checkCompleteness } from '../services/quality.js';
 
 // One line per tone in GenerationOptions (schemas/product.js). A test keeps the two in sync.
@@ -255,16 +256,22 @@ export const JSON_OUTPUT_INSTRUCTIONS = `# Output format
 Reply with one JSON object and nothing else: no markdown code fences, no commentary before or after it. It must have exactly these keys:
 {"title": string, "short_description": string, "long_description": string (paragraphs separated by "\\n\\n"), "bullet_points": [string], "seo_keywords": [string], "meta_description": string}`;
 
-const PRICE_LABEL = { budget: 'budget (value for money)', mid: 'mid-range', premium: 'premium' };
+const PRICE_GUIDE = {
+  budget: 'budget: lead with value and practicality; never sound exclusive or luxurious',
+  mid: 'mid-range: dependable quality at a fair price; no luxury claims',
+  premium: 'premium: lead with craft, materials and detail; never say cheap, affordable or bargain',
+};
 
-// Brand profile from onboarding. Only fields that change how copy should read.
+// The retailer's brand profile (services/brand.js), so every product sounds like one brand.
+// Admired brands stay out: a brand name in the prompt can leak into the copy.
 function brandBlock(brand) {
   if (!brand) return '';
-  const lines = [`Brand profile (write as this brand):`, `- Seller: ${brand.business_name}`];
-  if (brand.price_positioning) lines.push(`- Price positioning: ${PRICE_LABEL[brand.price_positioning] ?? brand.price_positioning}`);
+  const lines = ['Brand profile (write as this brand, so the whole catalog sounds like one voice):'];
+  if (brand.seller) lines.push(`- Seller: ${brand.seller}`);
+  if (brand.price_positioning) lines.push(`- Price positioning: ${PRICE_GUIDE[brand.price_positioning] ?? brand.price_positioning}`);
   if (brand.target_customer) lines.push(`- Customers: ${brand.target_customer}`);
-  if (brand.brand_personality?.length) lines.push(`- Personality: ${brand.brand_personality.join(', ')}`);
-  if (brand.words_to_avoid) lines.push(`- Avoid these words and claims: ${brand.words_to_avoid}`);
+  if (brand.personality?.length) lines.push(`- Personality: ${brand.personality.join(', ')}`);
+  if (brand.avoid_words?.length) lines.push(`- Avoid these words and claims: ${brand.avoid_words.join(', ')}`);
   return lines.join('\n');
 }
 
@@ -280,11 +287,32 @@ function marketBlock(market) {
   return lines.join('\n');
 }
 
-// `context` (optional): { brand, market } for a logged-in retailer's generation.
+// The brand profile comes from options.brand (set by the routes) or, failing that, from a
+// retailer row in context.brand. context.market holds market insights (services/market.js).
 export function buildUserPrompt(product, options, context = {}) {
-  const extra = [brandBlock(context.brand), marketBlock(context.market)].filter(Boolean).join('\n\n');
+  const brand = options.brand ?? brandProfile(context.brand);
+  const extra = [brandBlock(brand), marketBlock(context.market)].filter(Boolean).join('\n\n');
   return `${requestBlock(options, checkCompleteness(product))}
 ${extra ? `\n${extra}\n` : ''}
 Product data:
 ${JSON.stringify(promptData(product), null, 2)}`;
+}
+
+// --- Refine: one short follow-up request that fixes specific problems the checks found ---
+
+export const REFINE_SYSTEM_PROMPT = `You are a careful copy editor for a retail product catalog. You fix the listed problems in a product description with the smallest changes that solve them.
+- Change only what the problems require; leave everything else word for word.
+- Use only facts from the product data. Never add numbers, claims or features.
+- Keep the tone, Indian English with British spelling, and plain text (no markdown or emojis).
+- Reply with one JSON object containing only the fields you changed, with the same keys: title, short_description, long_description, bullet_points, seo_keywords, meta_description. long_description keeps its paragraphs separated by "\\n\\n"; bullet_points is always the whole list.`;
+
+export function buildRefinePrompt(product, output, problems) {
+  return `Problems to fix:
+${problems.map((problem) => `- ${problem}`).join('\n')}
+
+Product data:
+${JSON.stringify(promptData(product))}
+
+Current copy:
+${JSON.stringify(output, null, 2)}`;
 }

@@ -26,13 +26,14 @@ export async function generateAndSave(row, options, { jobId = null } = {}) {
   const supabase = requireSupabase();
   const product = toProductInput(row);
 
-  // Context for the prompt: the retailer's onboarding answers and, when Anakin is set up,
-  // what's ranking for this product type (cached per type, see services/market.js).
-  const [{ data: brand }, market] = await Promise.all([
-    supabase.from('retailers').select('*').eq('id', row.retailer_id).maybeSingle(),
+  // Context for the prompt: when Anakin is set up, what's ranking for this product type
+  // (cached per type, see services/market.js). The routes pass the retailer's brand profile in
+  // options.brand; if a caller didn't, the retailer's row stands in for it.
+  const [retailer, market] = await Promise.all([
+    options.brand ? null : supabase.from('retailers').select('*').eq('id', row.retailer_id).maybeSingle().then(({ data }) => data),
     getMarketInsights(product),
   ]);
-  const { output, meta, quality } = await generateForProduct(product, options, { context: { brand, market } });
+  const { output, meta, quality } = await generateForProduct(product, options, { context: { brand: retailer, market } });
 
   // Two generations for the same product can race for the next version number; the loser
   // of the unique (product_id, version) check simply takes the one after.
