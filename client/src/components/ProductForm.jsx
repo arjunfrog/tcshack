@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from '../api.js';
+import { Spinner } from './Feedback.jsx';
 
 export const SAMPLE_PRODUCT = {
   name: 'Pulse Buds',
@@ -110,7 +111,7 @@ export default function ProductForm({ choices, busy, onSubmit }) {
       )}
 
       <button type="submit" className="primary" disabled={busy}>
-        {busy ? 'Generating…' : 'Generate description'}
+        {busy ? <><Spinner /> Generating…</> : 'Generate description'}
       </button>
     </form>
   );

@@ -232,7 +232,7 @@ ${bulletList(CATEGORY_GUIDE)}
 
 # Brand profile and market insights
 Some requests add a brand profile and market insights. They shape how you write, never what you claim.
-- Brand profile: write as that brand. Let its personality and customers guide word choice, emphasis and examples within the requested tone; the tone still wins where they differ. Never use a word or claim from its "avoid" list, and never name competitor or admired brands.
+- Brand profile: write as that brand. Let its personality and customers guide word choice, emphasis and examples within the requested tone; the tone still wins where they differ. The profile is about voice, not the product: never turn it into product claims ("great sound", "premium quality", "great value", "long-lasting") that the product data doesn't support, and don't describe the brand's price positioning in the copy. Never use a word or claim from its "avoid" list, and never name competitor or admired brands.
 - Market insights come from current top listings and real shopper searches for this product type. They are not facts about this product. Use them to choose seo_keywords and decide which of the product's own facts to lead with: pick search terms that are true for this product (so "air fryer oven" only for an oven-style fryer), and when top listings stress a feature this product has, put that fact early. Never copy their wording, and never add a feature, number or claim because the listings mention it.
 
 # Thin product data

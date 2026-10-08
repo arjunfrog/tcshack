@@ -10,6 +10,7 @@ import History from './components/History.jsx';
 import Batch from './components/Batch.jsx';
 import Review from './components/Review.jsx';
 import Dashboard from './components/Dashboard.jsx';
+import { GeneratingCard } from './components/Feedback.jsx';
 import Onboarding from './components/Onboarding.jsx';
 
 const FALLBACK_CHOICES = { tones: ['friendly'], lengths: ['medium'] };
@@ -111,7 +112,7 @@ function Studio({ account, onEditProfile }) {
   const [choices, setChoices] = useState(FALLBACK_CHOICES);
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState(null); // start time while Quick generate runs
   const [tab, setTab] = useState('catalog');
   const [saved, setSaved] = useState(0); // bumps when copy is saved or reviewed, so History and Dashboard reload
 
@@ -121,7 +122,7 @@ function Studio({ account, onEditProfile }) {
   }, []);
 
   const generate = async (product, options) => {
-    setBusy(true);
+    setBusy(Date.now());
     setError('');
     try {
       // Saved to the account: the product lands in Catalog and the copy in History.
@@ -131,7 +132,7 @@ function Studio({ account, onEditProfile }) {
     } catch (err) {
       setError(err.message);
     } finally {
-      setBusy(false);
+      setBusy(null);
     }
   };
 
@@ -167,13 +168,16 @@ function Studio({ account, onEditProfile }) {
       {tab === 'history' && <History refreshKey={saved} />}
 
       <main className="layout" hidden={tab !== 'generate'}>
-        <ProductForm choices={choices} busy={busy} onSubmit={generate} />
-        <div>
-          {error && <div className="card error">{error}</div>}
-          {result && <div className="card notice info saved-note">Saved to your catalog and history.</div>}
-          {result
-            ? <DescriptionView result={result} />
-            : <div className="card empty">Fill in the product attributes and generate a description.</div>}
+        <ProductForm choices={choices} busy={Boolean(busy)} onSubmit={generate} />
+        <div className="detail-column">
+          {error && <div className="card notice error">{error}</div>}
+          {busy ? <GeneratingCard startedAt={busy} />
+            : result ? (
+              <>
+                <div className="card notice info saved-note">✓ Saved to your catalog and history.</div>
+                <div className="fresh"><DescriptionView result={result} /></div>
+              </>
+            ) : <div className="card empty">Fill in the product attributes and generate a description.</div>}
         </div>
       </main>
     </div>
