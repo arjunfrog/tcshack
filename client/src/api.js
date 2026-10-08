@@ -90,7 +90,7 @@ export const api = {
   products: (params = {}) => request(`/products?${new URLSearchParams(params)}`),
   product: (id) => request(`/products/${id}`),
   importProducts: (format, data) => post('/products/import', { format, data }),
-  importSample: () => post('/products/import-sample'),
+  importSample: (set) => post('/products/import-sample', set ? { set } : {}),
   generateForProduct: (id, options, onProgress) => postStream(`/products/${id}/generate`, { options }, onProgress),
   quickGenerate: (product, options, onProgress) => postStream('/products/quick', { product, options }, onProgress),
   searchPhotos: (query) => request(`/photos?${new URLSearchParams({ query })}`),

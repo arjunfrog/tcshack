@@ -43,10 +43,11 @@ export default function Catalog({ choices }) {
   const nameOf = (id) => list.find((product) => product.id === id)?.name ?? 'product';
   const withoutCopy = list.filter((product) => !product.latest_description).length;
 
-  const loadSample = async () => {
-    setLoadingSample(true);
+  // set: undefined = sample products in your categories; 'demo' = the 240-product demo catalog.
+  const loadSample = async (set) => {
+    setLoadingSample(set ?? 'sample');
     try {
-      const { imported, scope } = await api.importSample();
+      const { imported, scope } = await api.importSample(set);
       push('success', `Added ${imported} sample product${imported === 1 ? '' : 's'} from ${scope}.`);
       await load();
       // Free stock photos per product type, when a Pexels key is set up.
@@ -103,6 +104,12 @@ export default function Catalog({ choices }) {
   const generateMissing = async () => {
     const queue = list.filter((product) => !product.latest_description).map((product) => product.id);
     if (!queue.length) return push('success', 'Every product listed already has a description.');
+    // Each description uses about 5,000 tokens; Groq's free tier allows about 200,000 a day.
+    if (queue.length > 30 && !window.confirm(
+      `Generate ${queue.length} descriptions? That is roughly ${Math.round(queue.length * 5)}k tokens. `
+      + "Groq's free tier allows about 200k tokens a day (about 40 descriptions), so the rest will fail with a rate-limit "
+      + 'message. Tip: filter by category first to generate a smaller set.',
+    )) return;
 
     const progress = { done: 0, total: queue.length, failed: 0 };
     setBatch({ ...progress });
@@ -136,8 +143,11 @@ export default function Catalog({ choices }) {
         </div>
         <div className="page-actions">
           <button type="button" onClick={() => setImportOpen(true)}><Icon name="upload" size={16} /> Import CSV / JSON</button>
-          <button type="button" disabled={loadingSample} onClick={loadSample}>
-            {loadingSample ? <><Spinner /> Adding…</> : <><Icon name="layers" size={16} /> Sample products</>}
+          <button type="button" disabled={Boolean(loadingSample)} onClick={() => loadSample()}>
+            {loadingSample === 'sample' ? <><Spinner /> Adding…</> : <><Icon name="layers" size={16} /> Sample products</>}
+          </button>
+          <button type="button" disabled={Boolean(loadingSample)} onClick={() => loadSample('demo')} title="240 products across 9 categories and 45 product types">
+            {loadingSample === 'demo' ? <><Spinner /> Adding 240…</> : <><Icon name="store" size={16} /> Demo catalog (240)</>}
           </button>
           <span className="divider" />
           <label className="inline-label">Tone
@@ -388,10 +398,15 @@ function EmptyCatalog({ onImport, onSample, loadingSample }) {
           <strong>Import a file</strong>
           <span>CSV or JSON with product attributes. A template is included.</span>
         </button>
-        <button type="button" className="option-card" disabled={loadingSample} onClick={onSample}>
-          <span className="icon-dot large">{loadingSample ? <Spinner size={18} /> : <Icon name="layers" size={20} />}</span>
-          <strong>{loadingSample ? 'Adding sample products…' : 'Use sample products'}</strong>
+        <button type="button" className="option-card" disabled={Boolean(loadingSample)} onClick={() => onSample()}>
+          <span className="icon-dot large">{loadingSample === 'sample' ? <Spinner size={18} /> : <Icon name="layers" size={20} />}</span>
+          <strong>{loadingSample === 'sample' ? 'Adding sample products…' : 'Use sample products'}</strong>
           <span>Fictional products in the categories you picked during setup.</span>
+        </button>
+        <button type="button" className="option-card" disabled={Boolean(loadingSample)} onClick={() => onSample('demo')}>
+          <span className="icon-dot large">{loadingSample === 'demo' ? <Spinner size={18} /> : <Icon name="store" size={20} />}</span>
+          <strong>{loadingSample === 'demo' ? 'Adding 240 products…' : 'Load the demo catalog'}</strong>
+          <span>240 products across 9 categories and 45 product types, to see the tool at scale.</span>
         </button>
       </div>
       <p className="muted">You can also type a single product in Quick generate.</p>

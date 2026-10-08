@@ -108,3 +108,12 @@ test('removing a photo clears it and its credit', async () => {
   assert.equal(product.image_url, null);
   assert.equal(product.image_credit, null);
 });
+
+test('the demo catalog loads all 240 products, whatever the account picked in onboarding', async () => {
+  const res = await call('POST', '/products/import-sample', { set: 'demo' });
+  assert.equal(res.status, 200);
+  const body = await res.json();
+  assert.equal(body.imported, 240);
+  assert.deepEqual(body.errors, []);
+  assert.match(body.scope, /240-product demo catalog/);
+});

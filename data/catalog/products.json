@@ -1,0 +1,7476 @@
+[
+  {
+    "sku": "CAT-0001",
+    "name": "VoltCore 10K",
+    "category": "Electronics",
+    "subcategory": "Power Bank",
+    "brand": "Voltix",
+    "price": 3429,
+    "currency": "INR",
+    "features": [
+      "USB-C input and output",
+      "Slim aluminium body",
+      "22.5 W fast charging",
+      "Airline-safe capacity"
+    ],
+    "specifications": {
+      "Capacity": "10000 mAh",
+      "Ports": "2 x USB-A, 1 x USB-C",
+      "Weight": "251 g",
+      "Warranty": "1 year"
+    },
+    "attributes": {
+      "colors": [
+        "Graphite",
+        "White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Power%20Bank",
+    "seed_keywords": [
+      "portable charger",
+      "fast charging power bank"
+    ]
+  },
+  {
+    "sku": "CAT-0002",
+    "name": "Raptor Pro",
+    "category": "Electronics",
+    "subcategory": "Gaming Mouse",
+    "price": 3999,
+    "currency": "INR",
+    "features": [
+      "Adjustable DPI up to 12000"
+    ],
+    "specifications": {},
+    "attributes": {
+      "grip": "Palm"
+    },
+    "image_url": "https://placehold.co/600x600?text=Gaming%20Mouse",
+    "seed_keywords": [
+      "wireless gaming mouse",
+      "rgb mouse"
+    ]
+  },
+  {
+    "sku": "CAT-0003",
+    "name": "Keystone 87",
+    "category": "Electronics",
+    "subcategory": "Mechanical Keyboard",
+    "brand": "Nimbus Audio",
+    "price": 4579,
+    "currency": "INR",
+    "features": [
+      "Anti-ghosting with full N-key rollover",
+      "Per-key RGB backlight",
+      "Hot-swappable switches",
+      "Aluminium top plate"
+    ],
+    "specifications": {
+      "Layout": "65%",
+      "Switches": "Brown tactile",
+      "Connection": "Wired USB-C",
+      "Weight": "958 g"
+    },
+    "attributes": {
+      "colors": [
+        "Black"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Mechanical%20Keyboard",
+    "seed_keywords": [
+      "mechanical keyboard",
+      "gaming keyboard"
+    ]
+  },
+  {
+    "sku": "CAT-0004",
+    "name": "FlexBand 200",
+    "category": "Electronics",
+    "subcategory": "Neckband Earphones",
+    "brand": "Aurex",
+    "price": 2229,
+    "currency": "INR",
+    "features": [
+      "Magnetic earbuds that switch off when clipped",
+      "Up to 30 hours playback",
+      "Environmental noise cancellation for calls",
+      "IPX5 sweat resistance",
+      "Vibration call alert"
+    ],
+    "specifications": {
+      "Battery life": "31 hours",
+      "Bluetooth": "5.3",
+      "Driver size": "13 mm",
+      "Weight": "24 g"
+    },
+    "attributes": {
+      "colors": [
+        "Black",
+        "Blue"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Neckband%20Earphones",
+    "seed_keywords": [
+      "neckband earphones",
+      "bluetooth neckband"
+    ]
+  },
+  {
+    "sku": "CAT-0005",
+    "name": "AirFlow Pro",
+    "category": "Electronics",
+    "subcategory": "Wireless Earbuds",
+    "brand": "Nimbus Audio",
+    "price": 4289,
+    "currency": "INR",
+    "features": [
+      "Low-latency gaming mode",
+      "Active noise cancellation",
+      "Dual-device pairing",
+      "Quad-mic call clarity"
+    ],
+    "specifications": {
+      "Battery life": "34 hours with case",
+      "Driver size": "13 mm",
+      "Bluetooth": "5.3",
+      "Weight": "6 g per bud"
+    },
+    "attributes": {
+      "colors": [
+        "Midnight Black",
+        "Pearl White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Wireless%20Earbuds",
+    "seed_keywords": [
+      "wireless earbuds",
+      "bluetooth earphones"
+    ]
+  },
+  {
+    "sku": "CAT-0006",
+    "name": "Orbit Fit",
+    "category": "Electronics",
+    "subcategory": "Smartwatch",
+    "brand": "Voltix",
+    "price": 7449,
+    "currency": "INR",
+    "features": [
+      "AMOLED always-on display",
+      "SpO2 and heart-rate monitoring",
+      "Built-in GPS"
+    ],
+    "specifications": {
+      "Display": "2.01-inch AMOLED",
+      "Battery life": "Up to 14 days",
+      "Water resistance": "5 ATM",
+      "Compatibility": "Android and iOS"
+    },
+    "attributes": {
+      "strap": "Metal mesh",
+      "colors": [
+        "Rose Gold",
+        "Graphite"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Smartwatch",
+    "seed_keywords": [
+      "smartwatch",
+      "fitness tracker"
+    ]
+  },
+  {
+    "sku": "CAT-0007",
+    "name": "Wave Go",
+    "category": "Electronics",
+    "subcategory": "Bluetooth Speaker",
+    "brand": "Voltix",
+    "price": 2999,
+    "currency": "INR",
+    "features": [
+      "USB-C charging",
+      "Built-in microphone",
+      "Party pairing with a second speaker",
+      "IP67 waterproof and dustproof"
+    ],
+    "specifications": {
+      "Output": "10 W",
+      "Battery life": "22 hours",
+      "Water resistance": "IP67",
+      "Weight": "890 g"
+    },
+    "attributes": {
+      "colors": [
+        "Camo",
+        "Red"
+      ],
+      "use_case": "Outdoor and travel"
+    },
+    "image_url": "https://placehold.co/600x600?text=Bluetooth%20Speaker",
+    "seed_keywords": [
+      "waterproof speaker",
+      "portable speaker"
+    ]
+  },
+  {
+    "sku": "CAT-0008",
+    "name": "Mom Fit Jeans",
+    "category": "Apparel",
+    "subcategory": "Denim Jeans",
+    "brand": "Northline",
+    "price": 2319,
+    "currency": "INR",
+    "features": [
+      "Five-pocket styling",
+      "Mid-rise waist",
+      "Machine washable",
+      "Reinforced stitching",
+      "Comfort stretch denim"
+    ],
+    "specifications": {
+      "Fabric": "100% cotton",
+      "Fit": "Relaxed",
+      "Rise": "Mid rise",
+      "Care": "Machine wash cold, inside out"
+    },
+    "attributes": {
+      "sizes": [
+        "28",
+        "30",
+        "32",
+        "34",
+        "36"
+      ],
+      "colors": [
+        "Black",
+        "Light Blue"
+      ],
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Denim%20Jeans",
+    "seed_keywords": [
+      "stretch jeans",
+      "slim fit jeans"
+    ]
+  },
+  {
+    "sku": "CAT-0009",
+    "name": "Trail Hoodie",
+    "category": "Apparel",
+    "subcategory": "Hoodie",
+    "brand": "Urban Thread",
+    "price": 2949,
+    "currency": "INR",
+    "features": [
+      "Ribbed cuffs and hem",
+      "Adjustable drawstring hood",
+      "Kangaroo pocket",
+      "Brushed fleece lining"
+    ],
+    "specifications": {
+      "Fabric": "100% cotton fleece",
+      "GSM": "320",
+      "Fit": "Regular",
+      "Care": "Machine wash cold"
+    },
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Charcoal",
+        "Olive"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Hoodie",
+    "seed_keywords": [
+      "hoodie",
+      "cotton hoodie"
+    ]
+  },
+  {
+    "sku": "CAT-0010",
+    "name": "Kanjivaram Silk Saree",
+    "category": "Apparel",
+    "subcategory": "Saree",
+    "brand": "Northline",
+    "price": 5609,
+    "currency": "INR",
+    "features": [
+      "Comes with an unstitched blouse piece",
+      "Festive and wedding wear",
+      "Handwoven by artisans",
+      "Lightweight drape"
+    ],
+    "specifications": {
+      "Fabric": "Linen",
+      "Length": "5.5 m saree, 0.8 m blouse piece",
+      "Care": "Gentle hand wash"
+    },
+    "attributes": {
+      "colors": [
+        "Maroon",
+        "Mustard"
+      ],
+      "occasion": "Wedding"
+    },
+    "image_url": "https://placehold.co/600x600?text=Saree",
+    "seed_keywords": [
+      "silk saree",
+      "saree"
+    ]
+  },
+  {
+    "sku": "CAT-0011",
+    "name": "Pima Polo",
+    "category": "Apparel",
+    "subcategory": "T-Shirt",
+    "brand": "Kesari",
+    "price": 1049,
+    "currency": "INR",
+    "features": [
+      "Breathable 180 GSM cotton",
+      "Tagless neck label",
+      "Reinforced shoulder seams",
+      "Pre-shrunk fabric"
+    ],
+    "specifications": {
+      "Fabric": "60% cotton, 40% polyester",
+      "Fit": "Regular",
+      "Neck": "Crew",
+      "Care": "Machine wash cold"
+    },
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Olive",
+        "White",
+        "Navy"
+      ],
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=T-Shirt",
+    "seed_keywords": [
+      "cotton t-shirt",
+      "casual tee"
+    ]
+  },
+  {
+    "sku": "CAT-0012",
+    "name": "CloudStep 2",
+    "category": "Apparel",
+    "subcategory": "Running Shoes",
+    "brand": "Northline",
+    "price": 8789,
+    "currency": "INR",
+    "features": [
+      "Padded heel collar",
+      "Rubber outsole with multi-directional grip",
+      "Breathable engineered mesh upper",
+      "Reflective details for low light",
+      "Responsive foam midsole"
+    ],
+    "specifications": {
+      "Heel-to-toe drop": "8 mm",
+      "Weight": "244 g (UK 8)",
+      "Upper": "Engineered mesh",
+      "Outsole": "Carbon rubber"
+    },
+    "attributes": {
+      "sizes": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10"
+      ],
+      "gender": "Women",
+      "terrain": "Treadmill"
+    },
+    "image_url": "https://placehold.co/600x600?text=Running%20Shoes",
+    "seed_keywords": [
+      "lightweight trainers",
+      "sports shoes"
+    ]
+  },
+  {
+    "sku": "CAT-0013",
+    "name": "Chikankari Straight Kurta",
+    "category": "Apparel",
+    "subcategory": "Kurta",
+    "brand": "Loomcraft",
+    "price": 2019,
+    "currency": "INR",
+    "features": [
+      "Breathable natural fabric",
+      "Three-quarter sleeves",
+      "Hand-finished embroidery",
+      "Comes with matching dupatta",
+      "Side slits for easy movement"
+    ],
+    "specifications": {
+      "Fabric": "Linen blend",
+      "Length": "Calf length",
+      "Neck": "Round",
+      "Care": "Dry clean only"
+    },
+    "attributes": {
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "occasion": "Casual",
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Kurta",
+    "seed_keywords": [
+      "cotton kurta",
+      "ethnic wear"
+    ]
+  },
+  {
+    "sku": "CAT-0014",
+    "name": "QuickBlend 500",
+    "category": "Home & Kitchen",
+    "subcategory": "Mixer Grinder",
+    "brand": "HearthWare",
+    "price": 6199,
+    "currency": "INR",
+    "features": [
+      "Leak-proof lids",
+      "Three speed settings with pulse",
+      "Overload protection",
+      "Anti-skid feet"
+    ],
+    "specifications": {
+      "Power": "750 W",
+      "Jars": "3",
+      "Speed settings": "3 + pulse",
+      "Warranty": "5 years on motor"
+    },
+    "attributes": {
+      "colors": [
+        "Black"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Mixer%20Grinder",
+    "seed_keywords": [
+      "kitchen mixer",
+      "mixer grinder 750 watt"
+    ]
+  },
+  {
+    "sku": "CAT-0015",
+    "name": "Blue Pottery Set",
+    "category": "Home & Kitchen",
+    "subcategory": "Dinner Set",
+    "brand": "HearthWare",
+    "price": 1719,
+    "currency": "INR",
+    "features": [
+      "Microwave and dishwasher safe",
+      "Lead-free glaze",
+      "Handcrafted finish",
+      "Gift box packaging",
+      "Chip-resistant stoneware"
+    ],
+    "specifications": {
+      "Pieces": "24",
+      "Material": "Ceramic",
+      "Serves": "6",
+      "Care": "Dishwasher safe"
+    },
+    "attributes": {
+      "colors": [
+        "Blue",
+        "Sage"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Dinner%20Set",
+    "seed_keywords": [
+      "stoneware dinner set",
+      "ceramic dinner set"
+    ]
+  },
+  {
+    "sku": "CAT-0016",
+    "name": "Quick Dry Towels",
+    "category": "Home & Kitchen",
+    "subcategory": "Towel Set",
+    "brand": "Pristine Home",
+    "price": 2679,
+    "currency": "INR",
+    "features": [
+      "Highly absorbent",
+      "Soft zero-twist loops",
+      "Quick drying",
+      "Colourfast dyes",
+      "Set of bath, hand and face towels"
+    ],
+    "specifications": {
+      "Material": "60% bamboo, 40% cotton",
+      "GSM": "450",
+      "Pieces": "4",
+      "Care": "Machine wash warm"
+    },
+    "attributes": {
+      "colors": [
+        "Sage",
+        "White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Towel%20Set",
+    "seed_keywords": [
+      "cotton towels",
+      "bath towel set"
+    ]
+  },
+  {
+    "sku": "CAT-0017",
+    "name": "Vanilla Hearth",
+    "category": "Home & Kitchen",
+    "subcategory": "Scented Candle",
+    "brand": "Casa Nova",
+    "price": 1279,
+    "currency": "INR",
+    "features": [
+      "Soy wax blend",
+      "Cotton wick",
+      "Long burn time"
+    ],
+    "specifications": {
+      "Burn time": "25 hours",
+      "Net weight": "200 g",
+      "Wax": "Soy wax blend",
+      "Fragrance": "Citrus"
+    },
+    "attributes": {
+      "gift_ready": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Scented%20Candle",
+    "seed_keywords": [
+      "scented candle",
+      "aromatherapy candle"
+    ]
+  },
+  {
+    "sku": "CAT-0018",
+    "name": "CrispAir 4L",
+    "category": "Home & Kitchen",
+    "subcategory": "Air Fryer",
+    "brand": "Pristine Home",
+    "price": 4039,
+    "currency": "INR",
+    "features": [
+      "Shake reminder",
+      "Auto shut-off",
+      "Dishwasher-safe non-stick basket",
+      "Digital touch panel with 8 presets",
+      "Up to 90% less oil than deep frying"
+    ],
+    "specifications": {
+      "Capacity": "6.2 L",
+      "Power": "1700 W",
+      "Temperature range": "80-200 °C",
+      "Warranty": "2 year"
+    },
+    "attributes": {
+      "colors": [
+        "Grey"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Air%20Fryer",
+    "seed_keywords": [
+      "digital air fryer",
+      "oil free fryer"
+    ]
+  },
+  {
+    "sku": "CAT-0019",
+    "name": "Percale Comfort Set",
+    "category": "Home & Kitchen",
+    "subcategory": "Bedsheet Set",
+    "brand": "Pristine Home",
+    "price": 3599,
+    "currency": "INR",
+    "features": [
+      "Includes two pillow covers",
+      "Elasticated fitted corners",
+      "Fade-resistant colours"
+    ],
+    "specifications": {
+      "Thread count": "300 TC",
+      "Material": "Microfibre",
+      "Size": "Double",
+      "Contents": "1 bedsheet, 2 pillow covers"
+    },
+    "attributes": {
+      "pattern": "Floral",
+      "colors": [
+        "Ivory",
+        "Mint"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Bedsheet%20Set",
+    "seed_keywords": [
+      "cotton bedsheet",
+      "double bedsheet with pillow covers"
+    ]
+  },
+  {
+    "sku": "CAT-0020",
+    "name": "Trek Bottle",
+    "category": "Home & Kitchen",
+    "subcategory": "Insulated Water Bottle",
+    "brand": "Casa Nova",
+    "price": 1629,
+    "currency": "INR",
+    "features": [
+      "Keeps drinks cold for 24 hours and hot for 12",
+      "Double-wall vacuum insulation",
+      "Leak-proof lid",
+      "BPA-free"
+    ],
+    "specifications": {
+      "Capacity": "1000 ml",
+      "Material": "18/8 stainless steel",
+      "Weight": "429 g",
+      "Dishwasher safe": "Lid only"
+    },
+    "attributes": {
+      "colors": [
+        "Matte Black",
+        "Coral",
+        "Forest Green"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Insulated%20Water%20Bottle",
+    "seed_keywords": [
+      "vacuum flask",
+      "insulated bottle"
+    ]
+  },
+  {
+    "sku": "CAT-0021",
+    "name": "Onion Growth Oil",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Hair Oil",
+    "brand": "Derma Lab",
+    "price": 269,
+    "currency": "INR",
+    "features": [
+      "Suitable for all hair types",
+      "Cold-pressed oils",
+      "Non-sticky formula",
+      "Free from mineral oil"
+    ],
+    "specifications": {
+      "Volume": "100 ml",
+      "Key ingredient": "Bhringraj",
+      "Hair type": "All hair types"
+    },
+    "attributes": {
+      "concern": "Hair fall"
+    },
+    "image_url": "https://placehold.co/600x600?text=Hair%20Oil",
+    "seed_keywords": [
+      "ayurvedic hair oil",
+      "hair oil"
+    ]
+  },
+  {
+    "sku": "CAT-0022",
+    "name": "Neem Clear Face Wash",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Face Wash",
+    "brand": "Derma Lab",
+    "price": 199,
+    "currency": "INR",
+    "features": [
+      "Soap-free formula",
+      "pH balanced",
+      "Removes excess oil",
+      "Dermatologically tested",
+      "Fragrance-free"
+    ],
+    "specifications": {
+      "Volume": "100 ml",
+      "Key ingredient": "1% salicylic acid",
+      "Skin type": "Sensitive skin"
+    },
+    "attributes": {
+      "concern": "Dullness"
+    },
+    "image_url": "https://placehold.co/600x600?text=Face%20Wash",
+    "seed_keywords": [
+      "face wash",
+      "face wash for oily skin"
+    ]
+  },
+  {
+    "sku": "CAT-0023",
+    "name": "Berry Tint Balm",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Lip Balm",
+    "brand": "PureLeaf",
+    "price": 219,
+    "currency": "INR",
+    "features": [
+      "No parabens",
+      "Pocket-size tube",
+      "Light tint",
+      "Long-lasting moisture",
+      "Shea and cocoa butter"
+    ],
+    "specifications": {
+      "Net weight": "10 g",
+      "SPF": "SPF 15",
+      "Finish": "Clear"
+    },
+    "attributes": {
+      "shade": "Rose"
+    },
+    "image_url": "https://placehold.co/600x600?text=Lip%20Balm",
+    "seed_keywords": [
+      "lip balm for dry lips",
+      "lip balm"
+    ]
+  },
+  {
+    "sku": "CAT-0024",
+    "name": "Niacinamide Clear Skin Serum",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Face Serum",
+    "brand": "Glowveda",
+    "price": 899,
+    "currency": "INR",
+    "features": [
+      "Suitable for daily use",
+      "Dropper for mess-free application",
+      "Dermatologically tested",
+      "Fragrance-free"
+    ],
+    "specifications": {
+      "Volume": "50 ml",
+      "Key ingredient": "10% Niacinamide + 1% Zinc",
+      "Skin type": "Dry skin"
+    },
+    "attributes": {
+      "concern": "Dehydration",
+      "cruelty_free": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Face%20Serum",
+    "seed_keywords": [
+      "face serum",
+      "serum for glowing skin"
+    ]
+  },
+  {
+    "sku": "CAT-0025",
+    "name": "Mineral Sun Fluid",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Sunscreen",
+    "brand": "Derma Lab",
+    "price": 789,
+    "currency": "INR",
+    "features": [
+      "Non-greasy finish",
+      "Water resistant for 80 minutes",
+      "Works under makeup",
+      "No white cast"
+    ],
+    "specifications": {
+      "SPF": "SPF 50",
+      "PA": "PA++++",
+      "Volume": "50 g",
+      "Texture": "Cream"
+    },
+    "attributes": {
+      "skin_type": "All"
+    },
+    "image_url": "https://placehold.co/600x600?text=Sunscreen",
+    "seed_keywords": [
+      "sunscreen spf 50",
+      "no white cast sunscreen"
+    ]
+  },
+  {
+    "sku": "CAT-0026",
+    "name": "FlexLoop Set",
+    "category": "Sports & Fitness",
+    "subcategory": "Resistance Bands",
+    "brand": "IronPeak",
+    "price": 1039,
+    "currency": "INR",
+    "features": [
+      "Five resistance levels",
+      "Latex-free fabric",
+      "Non-slip inner grip"
+    ],
+    "specifications": {
+      "Pieces": "5",
+      "Material": "Natural latex",
+      "Resistance range": "10 to 40 kg"
+    },
+    "attributes": {
+      "level": "All levels"
+    },
+    "image_url": "https://placehold.co/600x600?text=Resistance%20Bands",
+    "seed_keywords": [
+      "resistance bands",
+      "workout bands"
+    ]
+  },
+  {
+    "sku": "CAT-0027",
+    "name": "Turf Master",
+    "category": "Sports & Fitness",
+    "subcategory": "Football",
+    "brand": "Vayu Sports",
+    "price": 2489,
+    "currency": "INR",
+    "features": [
+      "Suitable for grass and turf",
+      "Textured surface for grip",
+      "Butyl bladder for air retention",
+      "Comes deflated with needle"
+    ],
+    "specifications": {
+      "Size": "4",
+      "Material": "PVC",
+      "Panels": "20",
+      "Weight": "439 g"
+    },
+    "attributes": {
+      "use": "Match"
+    },
+    "image_url": "https://placehold.co/600x600?text=Football",
+    "seed_keywords": [
+      "football",
+      "football size 5"
+    ]
+  },
+  {
+    "sku": "CAT-0028",
+    "name": "Neoprene Duo",
+    "category": "Sports & Fitness",
+    "subcategory": "Dumbbell Set",
+    "brand": "FlexCore",
+    "price": 5359,
+    "currency": "INR",
+    "features": [
+      "Non-slip grip",
+      "Hexagonal heads that do not roll",
+      "Colour-coded weights",
+      "Pair included",
+      "Floor-friendly coating"
+    ],
+    "specifications": {
+      "Weight": "2 x 7.5 kg",
+      "Material": "Neoprene-coated cast iron",
+      "Grip": "Knurled handle"
+    },
+    "attributes": {
+      "level": "Intermediate"
+    },
+    "image_url": "https://placehold.co/600x600?text=Dumbbell%20Set",
+    "seed_keywords": [
+      "dumbbell set",
+      "dumbbells"
+    ]
+  },
+  {
+    "sku": "CAT-0029",
+    "name": "GripFlow Mat",
+    "category": "Sports & Fitness",
+    "subcategory": "Yoga Mat",
+    "price": 2669,
+    "currency": "INR",
+    "features": [
+      "Alignment lines"
+    ],
+    "specifications": {},
+    "attributes": {
+      "colors": [
+        "Teal",
+        "Peach"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Yoga%20Mat",
+    "seed_keywords": [
+      "yoga mat",
+      "anti slip yoga mat"
+    ]
+  },
+  {
+    "sku": "CAT-0030",
+    "name": "Kashmir Willow Bat",
+    "category": "Sports & Fitness",
+    "subcategory": "Cricket Bat",
+    "brand": "FlexCore",
+    "price": 3699,
+    "currency": "INR",
+    "features": [
+      "Comes with a padded cover",
+      "Pre-knocked and ready to play",
+      "Cane handle with shock absorption",
+      "Thick edges for big hitting"
+    ],
+    "specifications": {
+      "Willow": "Grade 2 English willow",
+      "Weight": "1245 g",
+      "Size": "Size 6",
+      "Grains": "10"
+    },
+    "attributes": {
+      "level": "Club",
+      "ball_type": "Leather ball"
+    },
+    "image_url": "https://placehold.co/600x600?text=Cricket%20Bat",
+    "seed_keywords": [
+      "english willow bat",
+      "kashmir willow bat"
+    ]
+  },
+  {
+    "sku": "CAT-0031",
+    "name": "Araku Single Origin",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Coffee Beans",
+    "brand": "Spice Route",
+    "price": 419,
+    "currency": "INR",
+    "features": [
+      "Notes of chocolate and caramel",
+      "Roasted to order",
+      "Degassing valve bag",
+      "Single-estate arabica"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Roast": "Dark",
+      "Origin": "Malabar",
+      "Form": "Ground for filter"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Coffee%20Beans",
+    "seed_keywords": [
+      "filter coffee powder",
+      "arabica coffee"
+    ]
+  },
+  {
+    "sku": "CAT-0032",
+    "name": "Royal Aged Basmati",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Basmati Rice",
+    "price": 819,
+    "currency": "INR",
+    "features": [
+      "Extra long grains"
+    ],
+    "specifications": {},
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Basmati%20Rice",
+    "seed_keywords": [
+      "basmati rice",
+      "long grain basmati"
+    ]
+  },
+  {
+    "sku": "CAT-0033",
+    "name": "California Almonds",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Dry Fruits",
+    "brand": "Farm Fable",
+    "price": 1809,
+    "currency": "INR",
+    "features": [
+      "Freshly packed",
+      "Rich in protein and fibre",
+      "Hand-picked and graded",
+      "No added preservatives",
+      "Resealable zip pouch"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Grade": "W240",
+      "Shelf life": "9 months",
+      "Origin": "Kerala"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Dry%20Fruits",
+    "seed_keywords": [
+      "dry fruits",
+      "almonds"
+    ]
+  },
+  {
+    "sku": "CAT-0034",
+    "name": "Wild Forest Honey",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Honey",
+    "brand": "Spice Route",
+    "price": 789,
+    "currency": "INR",
+    "features": [
+      "Batch-tested for purity",
+      "Raw and unprocessed",
+      "Sourced from small beekeepers",
+      "No added sugar"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Source": "Forest",
+      "Shelf life": "24 months"
+    },
+    "attributes": {
+      "diet": [
+        "Vegetarian"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Honey",
+    "seed_keywords": [
+      "natural honey",
+      "honey"
+    ]
+  },
+  {
+    "sku": "CAT-0035",
+    "name": "Jasmine Green Tea",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Green Tea",
+    "brand": "Spice Route",
+    "price": 409,
+    "currency": "INR",
+    "features": [
+      "No artificial flavours",
+      "Rich in antioxidants",
+      "Whole-leaf tea",
+      "Resealable pouch",
+      "Sourced from hill estates"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Form": "50 tea bags",
+      "Shelf life": "18 months",
+      "Origin": "Nilgiris"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Green%20Tea",
+    "seed_keywords": [
+      "herbal tea",
+      "organic green tea"
+    ]
+  },
+  {
+    "sku": "CAT-0036",
+    "name": "Sea Salt Almond Dark",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Dark Chocolate",
+    "brand": "Farm Fable",
+    "price": 219,
+    "currency": "INR",
+    "features": [
+      "Made with Indian cacao",
+      "Low sugar",
+      "No palm oil",
+      "Bean-to-bar craft chocolate",
+      "Small-batch production"
+    ],
+    "specifications": {
+      "Cocoa content": "65%",
+      "Net weight": "50 g",
+      "Shelf life": "12 months",
+      "Allergens": "Contains nuts"
+    },
+    "attributes": {
+      "diet": [
+        "Vegetarian"
+      ],
+      "gift_ready": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Dark%20Chocolate",
+    "seed_keywords": [
+      "dark chocolate",
+      "craft chocolate"
+    ]
+  },
+  {
+    "sku": "CAT-0037",
+    "name": "Fruit Peg Puzzle",
+    "category": "Toys & Baby",
+    "subcategory": "Wooden Puzzle",
+    "brand": "Little Sprout",
+    "price": 429,
+    "currency": "INR",
+    "features": [
+      "Smooth rounded edges",
+      "Builds shape and colour recognition",
+      "Chunky pieces for small hands",
+      "Non-toxic water-based paints"
+    ],
+    "specifications": {
+      "Pieces": "36",
+      "Recommended age": "5+ years",
+      "Material": "Rubberwood"
+    },
+    "attributes": {
+      "theme": "Maps"
+    },
+    "image_url": "https://placehold.co/600x600?text=Wooden%20Puzzle",
+    "seed_keywords": [
+      "educational toys",
+      "puzzle for kids"
+    ]
+  },
+  {
+    "sku": "CAT-0038",
+    "name": "Cuddle Bear",
+    "category": "Toys & Baby",
+    "subcategory": "Plush Toy",
+    "brand": "Playloop",
+    "price": 629,
+    "currency": "INR",
+    "features": [
+      "Surface washable",
+      "Hypoallergenic filling",
+      "Gift-ready tag"
+    ],
+    "specifications": {
+      "Height": "25 cm",
+      "Material": "Polyester plush",
+      "Recommended age": "0+ years"
+    },
+    "attributes": {
+      "colors": [
+        "Pink"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Plush%20Toy",
+    "seed_keywords": [
+      "plush toy for kids",
+      "teddy bear"
+    ]
+  },
+  {
+    "sku": "CAT-0039",
+    "name": "City Builder Set",
+    "category": "Toys & Baby",
+    "subcategory": "Building Blocks",
+    "brand": "Playloop",
+    "price": 1629,
+    "currency": "INR",
+    "features": [
+      "Non-toxic, BPA-free plastic",
+      "Compatible with major brick brands",
+      "Storage box included",
+      "Illustrated build guide",
+      "Builds fine motor skills"
+    ],
+    "specifications": {
+      "Pieces": "500",
+      "Recommended age": "8+ years",
+      "Material": "ABS plastic",
+      "Certification": "BIS certified"
+    },
+    "attributes": {
+      "theme": "Vehicles"
+    },
+    "image_url": "https://placehold.co/600x600?text=Building%20Blocks",
+    "seed_keywords": [
+      "building blocks",
+      "construction toys for kids"
+    ]
+  },
+  {
+    "sku": "CAT-0040",
+    "name": "Pocket Field Notes",
+    "category": "Books & Stationery",
+    "subcategory": "Notebook",
+    "brand": "Inkwell",
+    "price": 589,
+    "currency": "INR",
+    "features": [
+      "Ribbon bookmark",
+      "Numbered pages",
+      "Lay-flat binding",
+      "Thick paper that resists bleed-through"
+    ],
+    "specifications": {
+      "Pages": "192",
+      "Size": "A4",
+      "Paper weight": "100 GSM",
+      "Ruling": "Dot grid"
+    },
+    "attributes": {
+      "colors": [
+        "Black"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Notebook",
+    "seed_keywords": [
+      "notebook",
+      "dot grid notebook"
+    ]
+  },
+  {
+    "sku": "CAT-0041",
+    "name": "Brass Heritage Pen",
+    "category": "Books & Stationery",
+    "subcategory": "Fountain Pen",
+    "brand": "Paper Trail",
+    "price": 2309,
+    "currency": "INR",
+    "features": [
+      "Gift box",
+      "Ink window",
+      "Comfortable grip section",
+      "Smooth steel nib"
+    ],
+    "specifications": {
+      "Nib": "Broad",
+      "Body": "Brass",
+      "Filling": "Cartridge or converter"
+    },
+    "attributes": {
+      "colors": [
+        "Burgundy"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Fountain%20Pen",
+    "seed_keywords": [
+      "ink pen",
+      "calligraphy pen"
+    ]
+  },
+  {
+    "sku": "CAT-0042",
+    "name": "Budget Planner",
+    "category": "Books & Stationery",
+    "subcategory": "Planner",
+    "brand": "Paper Trail",
+    "price": 889,
+    "currency": "INR",
+    "features": [
+      "Hardcover",
+      "Monthly and weekly spreads",
+      "Undated so you can start any time",
+      "Pen loop and pocket"
+    ],
+    "specifications": {
+      "Pages": "160",
+      "Size": "A5",
+      "Paper weight": "80 GSM",
+      "Layout": "Daily"
+    },
+    "attributes": {
+      "colors": [
+        "Blush"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Planner",
+    "seed_keywords": [
+      "planner",
+      "weekly planner"
+    ]
+  },
+  {
+    "sku": "CAT-0043",
+    "name": "Coin Pocket Bifold",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Leather Wallet",
+    "brand": "Northline",
+    "price": 609,
+    "currency": "INR",
+    "features": [
+      "Genuine leather",
+      "RFID blocking",
+      "Six card slots"
+    ],
+    "specifications": {
+      "Material": "Top-grain leather",
+      "Card slots": "8",
+      "Dimensions": "11 x 9 cm"
+    },
+    "attributes": {
+      "colors": [
+        "Tan"
+      ],
+      "gender": "Unisex"
+    },
+    "image_url": "https://placehold.co/600x600?text=Leather%20Wallet",
+    "seed_keywords": [
+      "leather wallet",
+      "wallet for men"
+    ]
+  },
+  {
+    "sku": "CAT-0044",
+    "name": "Peacock Jhumkas",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Silver Earrings",
+    "brand": "Aranya",
+    "price": 2909,
+    "currency": "INR",
+    "features": [
+      "Gift pouch included",
+      "Handcrafted detailing",
+      "Nickel-free",
+      "Hallmarked",
+      "925 sterling silver"
+    ],
+    "specifications": {
+      "Metal": "925 sterling silver",
+      "Finish": "High polish",
+      "Weight": "7 g",
+      "Closure": "Push back"
+    },
+    "attributes": {
+      "occasion": "Wedding"
+    },
+    "image_url": "https://placehold.co/600x600?text=Silver%20Earrings",
+    "seed_keywords": [
+      "jhumka earrings",
+      "oxidised earrings"
+    ]
+  },
+  {
+    "sku": "CAT-0045",
+    "name": "Sport Wrap",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Sunglasses",
+    "brand": "Northline",
+    "price": 3229,
+    "currency": "INR",
+    "features": [
+      "UV400 protection",
+      "Hard case included",
+      "Polarised lenses",
+      "Spring hinges",
+      "Lightweight frame"
+    ],
+    "specifications": {
+      "Lens": "Gradient",
+      "Frame": "TR90",
+      "Protection": "UV400",
+      "Width": "145 mm"
+    },
+    "attributes": {
+      "colors": [
+        "Tortoise"
+      ],
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Sunglasses",
+    "seed_keywords": [
+      "sunglasses",
+      "aviator sunglasses"
+    ]
+  },
+  {
+    "sku": "CAT-0046",
+    "name": "Juice Pack 20K",
+    "category": "Electronics",
+    "subcategory": "Power Bank",
+    "brand": "Aurex",
+    "price": 939,
+    "currency": "INR",
+    "features": [
+      "Airline-safe capacity",
+      "22.5 W fast charging",
+      "USB-C input and output",
+      "Slim aluminium body"
+    ],
+    "specifications": {
+      "Capacity": "27000 mAh",
+      "Ports": "2 x USB-A, 1 x USB-C",
+      "Weight": "308 g",
+      "Warranty": "1 year"
+    },
+    "attributes": {
+      "colors": [
+        "Graphite",
+        "White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Power%20Bank",
+    "seed_keywords": [
+      "power bank",
+      "fast charging power bank"
+    ]
+  },
+  {
+    "sku": "CAT-0047",
+    "name": "Phantom Lite",
+    "category": "Electronics",
+    "subcategory": "Gaming Mouse",
+    "brand": "Aurex",
+    "price": 4549,
+    "currency": "INR",
+    "features": [
+      "Adjustable DPI up to 12000",
+      "Lightweight honeycomb shell",
+      "On-board memory profiles",
+      "RGB lighting with 16.8 million colours",
+      "Braided cable"
+    ],
+    "specifications": {
+      "Max DPI": "8000",
+      "Buttons": "6",
+      "Weight": "77 g",
+      "Connection": "Wired USB"
+    },
+    "attributes": {
+      "grip": "Fingertip"
+    },
+    "image_url": "https://placehold.co/600x600?text=Gaming%20Mouse",
+    "seed_keywords": [
+      "rgb mouse",
+      "gaming mouse"
+    ]
+  },
+  {
+    "sku": "CAT-0048",
+    "name": "Ember RGB",
+    "category": "Electronics",
+    "subcategory": "Mechanical Keyboard",
+    "brand": "Voltix",
+    "price": 4889,
+    "currency": "INR",
+    "features": [
+      "Hot-swappable switches",
+      "Detachable USB-C cable",
+      "Double-shot PBT keycaps",
+      "Anti-ghosting with full N-key rollover",
+      "Aluminium top plate"
+    ],
+    "specifications": {
+      "Layout": "TKL (87 keys)",
+      "Switches": "Red linear",
+      "Connection": "Wired USB-C",
+      "Weight": "794 g"
+    },
+    "attributes": {
+      "colors": [
+        "Black"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Mechanical%20Keyboard",
+    "seed_keywords": [
+      "mechanical keyboard",
+      "gaming keyboard"
+    ]
+  },
+  {
+    "sku": "CAT-0049",
+    "name": "Commute Band",
+    "category": "Electronics",
+    "subcategory": "Neckband Earphones",
+    "brand": "Voltix",
+    "price": 1539,
+    "currency": "INR",
+    "features": [
+      "Magnetic earbuds that switch off when clipped",
+      "Up to 30 hours playback",
+      "Environmental noise cancellation for calls",
+      "IPX5 sweat resistance"
+    ],
+    "specifications": {
+      "Battery life": "35 hours",
+      "Bluetooth": "5.3",
+      "Driver size": "10 mm",
+      "Weight": "24 g"
+    },
+    "attributes": {
+      "colors": [
+        "Black",
+        "Blue"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Neckband%20Earphones",
+    "seed_keywords": [
+      "bluetooth neckband",
+      "wireless neckband"
+    ]
+  },
+  {
+    "sku": "CAT-0050",
+    "name": "Echo Mini",
+    "category": "Electronics",
+    "subcategory": "Wireless Earbuds",
+    "brand": "Voltix",
+    "price": 2089,
+    "currency": "INR",
+    "features": [
+      "Active noise cancellation",
+      "Touch controls",
+      "IPX5 sweat resistance",
+      "Low-latency gaming mode"
+    ],
+    "specifications": {
+      "Battery life": "28 hours with case",
+      "Driver size": "11 mm",
+      "Bluetooth": "5.4",
+      "Weight": "5 g per bud"
+    },
+    "attributes": {
+      "colors": [
+        "Sage Green",
+        "Pearl White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Wireless%20Earbuds",
+    "seed_keywords": [
+      "noise cancelling earbuds",
+      "bluetooth earphones"
+    ]
+  },
+  {
+    "sku": "CAT-0051",
+    "name": "Stride Watch",
+    "category": "Electronics",
+    "subcategory": "Smartwatch",
+    "brand": "Nimbus Audio",
+    "price": 8179,
+    "currency": "INR",
+    "features": [
+      "Bluetooth calling",
+      "AMOLED always-on display",
+      "5 ATM water resistance",
+      "SpO2 and heart-rate monitoring"
+    ],
+    "specifications": {
+      "Display": "1.43-inch AMOLED",
+      "Battery life": "Up to 8 days",
+      "Water resistance": "5 ATM",
+      "Compatibility": "Android and iOS"
+    },
+    "attributes": {
+      "strap": "Metal mesh",
+      "colors": [
+        "Silver",
+        "Rose Gold"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Smartwatch",
+    "seed_keywords": [
+      "smart watch with calling",
+      "fitness tracker"
+    ]
+  },
+  {
+    "sku": "CAT-0052",
+    "name": "Thunder Mini",
+    "category": "Electronics",
+    "subcategory": "Bluetooth Speaker",
+    "brand": "Sonora",
+    "price": 7959,
+    "currency": "INR",
+    "features": [
+      "Party pairing with a second speaker",
+      "USB-C charging",
+      "360-degree sound",
+      "Deep bass radiator",
+      "Built-in microphone"
+    ],
+    "specifications": {
+      "Output": "16 W",
+      "Battery life": "20 hours",
+      "Water resistance": "IP67",
+      "Weight": "417 g"
+    },
+    "attributes": {
+      "colors": [
+        "Black",
+        "Teal"
+      ],
+      "use_case": "Outdoor and travel"
+    },
+    "image_url": "https://placehold.co/600x600?text=Bluetooth%20Speaker",
+    "seed_keywords": [
+      "waterproof speaker",
+      "portable speaker"
+    ]
+  },
+  {
+    "sku": "CAT-0053",
+    "name": "Slim Taper Denim",
+    "category": "Apparel",
+    "subcategory": "Denim Jeans",
+    "brand": "Northline",
+    "price": 2609,
+    "currency": "INR",
+    "features": [
+      "Comfort stretch denim",
+      "Five-pocket styling",
+      "Reinforced stitching",
+      "Mid-rise waist"
+    ],
+    "specifications": {
+      "Fabric": "98% cotton, 2% elastane",
+      "Fit": "Slim",
+      "Rise": "Mid rise",
+      "Care": "Machine wash cold, inside out"
+    },
+    "attributes": {
+      "sizes": [
+        "28",
+        "30",
+        "32",
+        "34",
+        "36"
+      ],
+      "colors": [
+        "Black",
+        "Light Blue"
+      ],
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Denim%20Jeans",
+    "seed_keywords": [
+      "denim jeans",
+      "slim fit jeans"
+    ]
+  },
+  {
+    "sku": "CAT-0054",
+    "name": "Heavyweight Pullover",
+    "category": "Apparel",
+    "subcategory": "Hoodie",
+    "brand": "Urban Thread",
+    "price": 1569,
+    "currency": "INR",
+    "features": [
+      "Brushed fleece lining",
+      "Kangaroo pocket",
+      "Ribbed cuffs and hem",
+      "Adjustable drawstring hood",
+      "Pre-shrunk fabric"
+    ],
+    "specifications": {
+      "Fabric": "100% cotton fleece",
+      "GSM": "280",
+      "Fit": "Oversized",
+      "Care": "Machine wash cold"
+    },
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Charcoal",
+        "Olive"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Hoodie",
+    "seed_keywords": [
+      "hoodie",
+      "cotton hoodie"
+    ]
+  },
+  {
+    "sku": "CAT-0055",
+    "name": "Linen Saree",
+    "category": "Apparel",
+    "subcategory": "Saree",
+    "brand": "Kesari",
+    "price": 6839,
+    "currency": "INR",
+    "features": [
+      "Festive and wedding wear",
+      "Lightweight drape",
+      "Zari border",
+      "Comes with an unstitched blouse piece"
+    ],
+    "specifications": {
+      "Fabric": "Georgette",
+      "Length": "5.5 m saree, 0.8 m blouse piece",
+      "Care": "Gentle hand wash"
+    },
+    "attributes": {
+      "colors": [
+        "Ivory",
+        "Maroon"
+      ],
+      "occasion": "Festive"
+    },
+    "image_url": "https://placehold.co/600x600?text=Saree",
+    "seed_keywords": [
+      "cotton saree",
+      "silk saree"
+    ]
+  },
+  {
+    "sku": "CAT-0056",
+    "name": "Oversized Graphic Tee",
+    "category": "Apparel",
+    "subcategory": "T-Shirt",
+    "brand": "Loomcraft",
+    "price": 529,
+    "currency": "INR",
+    "features": [
+      "Tagless neck label",
+      "Breathable 180 GSM cotton",
+      "Pre-shrunk fabric",
+      "Colourfast dyes"
+    ],
+    "specifications": {
+      "Fabric": "100% Supima cotton",
+      "Fit": "Regular",
+      "Neck": "V-neck",
+      "Care": "Machine wash cold"
+    },
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Olive",
+        "Navy",
+        "White"
+      ],
+      "gender": "Unisex"
+    },
+    "image_url": "https://placehold.co/600x600?text=T-Shirt",
+    "seed_keywords": [
+      "everyday t-shirt",
+      "casual tee"
+    ]
+  },
+  {
+    "sku": "CAT-0057",
+    "name": "Velocity Runner",
+    "category": "Apparel",
+    "subcategory": "Running Shoes",
+    "brand": "Kesari",
+    "price": 6269,
+    "currency": "INR",
+    "features": [
+      "Reflective details for low light",
+      "Padded heel collar",
+      "Rubber outsole with multi-directional grip",
+      "Breathable engineered mesh upper"
+    ],
+    "specifications": {
+      "Heel-to-toe drop": "4 mm",
+      "Weight": "294 g (UK 8)",
+      "Upper": "Engineered mesh",
+      "Outsole": "Carbon rubber"
+    },
+    "attributes": {
+      "sizes": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10"
+      ],
+      "gender": "Women",
+      "terrain": "Road"
+    },
+    "image_url": "https://placehold.co/600x600?text=Running%20Shoes",
+    "seed_keywords": [
+      "lightweight trainers",
+      "sports shoes"
+    ]
+  },
+  {
+    "sku": "CAT-0058",
+    "name": "Block Print A-Line Kurta",
+    "category": "Apparel",
+    "subcategory": "Kurta",
+    "brand": "Kesari",
+    "price": 3159,
+    "currency": "INR",
+    "features": [
+      "Comes with matching dupatta",
+      "Breathable natural fabric",
+      "Three-quarter sleeves",
+      "Side slits for easy movement",
+      "Hand-finished embroidery"
+    ],
+    "specifications": {
+      "Fabric": "Linen blend",
+      "Length": "Calf length",
+      "Neck": "Mandarin",
+      "Care": "Hand wash"
+    },
+    "attributes": {
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "occasion": "Casual",
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Kurta",
+    "seed_keywords": [
+      "cotton kurta",
+      "ethnic wear"
+    ]
+  },
+  {
+    "sku": "CAT-0059",
+    "name": "SpiceMaster",
+    "category": "Home & Kitchen",
+    "subcategory": "Mixer Grinder",
+    "brand": "Pristine Home",
+    "price": 4099,
+    "currency": "INR",
+    "features": [
+      "Three speed settings with pulse",
+      "Three stainless steel jars",
+      "Anti-skid feet",
+      "Leak-proof lids"
+    ],
+    "specifications": {
+      "Power": "1000 W",
+      "Jars": "3",
+      "Speed settings": "3 + pulse",
+      "Warranty": "5 years on motor"
+    },
+    "attributes": {
+      "colors": [
+        "White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Mixer%20Grinder",
+    "seed_keywords": [
+      "mixer grinder 750 watt",
+      "mixer grinder"
+    ]
+  },
+  {
+    "sku": "CAT-0060",
+    "name": "Terracotta Table Set",
+    "category": "Home & Kitchen",
+    "subcategory": "Dinner Set",
+    "brand": "Casa Nova",
+    "price": 3519,
+    "currency": "INR",
+    "features": [
+      "Handcrafted finish",
+      "Gift box packaging",
+      "Microwave and dishwasher safe",
+      "Lead-free glaze"
+    ],
+    "specifications": {
+      "Pieces": "12",
+      "Material": "Stoneware",
+      "Serves": "6",
+      "Care": "Dishwasher safe"
+    },
+    "attributes": {
+      "colors": [
+        "White",
+        "Sage"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Dinner%20Set",
+    "seed_keywords": [
+      "ceramic dinner set",
+      "stoneware dinner set"
+    ]
+  },
+  {
+    "sku": "CAT-0061",
+    "name": "Spa Soft Towel Set",
+    "category": "Home & Kitchen",
+    "subcategory": "Towel Set",
+    "brand": "Casa Nova",
+    "price": 1469,
+    "currency": "INR",
+    "features": [
+      "Colourfast dyes",
+      "Highly absorbent",
+      "Quick drying",
+      "Set of bath, hand and face towels"
+    ],
+    "specifications": {
+      "Material": "100% cotton",
+      "GSM": "600",
+      "Pieces": "4",
+      "Care": "Machine wash warm"
+    },
+    "attributes": {
+      "colors": [
+        "Beige",
+        "Sage"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Towel%20Set",
+    "seed_keywords": [
+      "towel set",
+      "cotton towels"
+    ]
+  },
+  {
+    "sku": "CAT-0062",
+    "name": "Rain Forest Candle",
+    "category": "Home & Kitchen",
+    "subcategory": "Scented Candle",
+    "brand": "Casa Nova",
+    "price": 579,
+    "currency": "INR",
+    "features": [
+      "Cotton wick",
+      "Reusable glass jar",
+      "Soy wax blend",
+      "Hand-poured in small batches"
+    ],
+    "specifications": {
+      "Burn time": "40 hours",
+      "Net weight": "150 g",
+      "Wax": "Soy wax blend",
+      "Fragrance": "Lavender"
+    },
+    "attributes": {
+      "gift_ready": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Scented%20Candle",
+    "seed_keywords": [
+      "scented candle",
+      "aromatherapy candle"
+    ]
+  },
+  {
+    "sku": "CAT-0063",
+    "name": "TurboCrisp",
+    "category": "Home & Kitchen",
+    "subcategory": "Air Fryer",
+    "brand": "Pristine Home",
+    "price": 7689,
+    "currency": "INR",
+    "features": [
+      "Up to 90% less oil than deep frying",
+      "Digital touch panel with 8 presets",
+      "Auto shut-off"
+    ],
+    "specifications": {
+      "Capacity": "5.5 L",
+      "Power": "1700 W",
+      "Temperature range": "80-200 °C",
+      "Warranty": "1 year"
+    },
+    "attributes": {
+      "colors": [
+        "Black"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Air%20Fryer",
+    "seed_keywords": [
+      "air fryer",
+      "oil free fryer"
+    ]
+  },
+  {
+    "sku": "CAT-0064",
+    "name": "Egyptian Weave Set",
+    "category": "Home & Kitchen",
+    "subcategory": "Bedsheet Set",
+    "brand": "HearthWare",
+    "price": 849,
+    "currency": "INR",
+    "features": [
+      "Fade-resistant colours",
+      "Elasticated fitted corners",
+      "Includes two pillow covers"
+    ],
+    "specifications": {
+      "Thread count": "180 TC",
+      "Material": "Microfibre",
+      "Size": "Queen",
+      "Contents": "1 bedsheet, 2 pillow covers"
+    },
+    "attributes": {
+      "pattern": "Geometric",
+      "colors": [
+        "Blush",
+        "Mint"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Bedsheet%20Set",
+    "seed_keywords": [
+      "cotton bedsheet",
+      "double bedsheet with pillow covers"
+    ]
+  },
+  {
+    "sku": "CAT-0065",
+    "name": "ThermoFlask",
+    "category": "Home & Kitchen",
+    "subcategory": "Insulated Water Bottle",
+    "brand": "HearthWare",
+    "price": 819,
+    "currency": "INR",
+    "features": [
+      "Double-wall vacuum insulation",
+      "Leak-proof lid",
+      "BPA-free",
+      "Keeps drinks cold for 24 hours and hot for 12"
+    ],
+    "specifications": {
+      "Capacity": "1000 ml",
+      "Material": "18/8 stainless steel",
+      "Weight": "324 g",
+      "Dishwasher safe": "Lid only"
+    },
+    "attributes": {
+      "colors": [
+        "Matte Black",
+        "Coral",
+        "Sky Blue"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Insulated%20Water%20Bottle",
+    "seed_keywords": [
+      "vacuum flask",
+      "steel water bottle"
+    ]
+  },
+  {
+    "sku": "CAT-0066",
+    "name": "Amla Shine Oil",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Hair Oil",
+    "brand": "Derma Lab",
+    "price": 359,
+    "currency": "INR",
+    "features": [
+      "Non-sticky formula",
+      "Suitable for all hair types",
+      "Cold-pressed oils"
+    ],
+    "specifications": {
+      "Volume": "100 ml",
+      "Key ingredient": "Coconut and hibiscus",
+      "Hair type": "All hair types"
+    },
+    "attributes": {
+      "concern": "Dry scalp"
+    },
+    "image_url": "https://placehold.co/600x600?text=Hair%20Oil",
+    "seed_keywords": [
+      "hair oil",
+      "hair growth oil"
+    ]
+  },
+  {
+    "sku": "CAT-0067",
+    "name": "Rice Water Cleanser",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Face Wash",
+    "price": 509,
+    "currency": "INR",
+    "features": [
+      "Removes excess oil"
+    ],
+    "specifications": {},
+    "attributes": {
+      "concern": "Acne"
+    },
+    "image_url": "https://placehold.co/600x600?text=Face%20Wash",
+    "seed_keywords": [
+      "gentle cleanser",
+      "face wash for oily skin"
+    ]
+  },
+  {
+    "sku": "CAT-0068",
+    "name": "Mint Fresh Balm",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Lip Balm",
+    "brand": "Glowveda",
+    "price": 189,
+    "currency": "INR",
+    "features": [
+      "Long-lasting moisture",
+      "Shea and cocoa butter",
+      "No parabens"
+    ],
+    "specifications": {
+      "Net weight": "4 g",
+      "SPF": "None",
+      "Finish": "Clear"
+    },
+    "attributes": {
+      "shade": "Rose"
+    },
+    "image_url": "https://placehold.co/600x600?text=Lip%20Balm",
+    "seed_keywords": [
+      "tinted lip balm",
+      "lip balm for dry lips"
+    ]
+  },
+  {
+    "sku": "CAT-0069",
+    "name": "Hyaluronic Hydra Serum",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Face Serum",
+    "brand": "Derma Lab",
+    "price": 729,
+    "currency": "INR",
+    "features": [
+      "Suitable for daily use",
+      "Dermatologically tested",
+      "Fragrance-free",
+      "Dropper for mess-free application",
+      "Lightweight, fast-absorbing formula"
+    ],
+    "specifications": {
+      "Volume": "15 ml",
+      "Key ingredient": "10% Niacinamide + 1% Zinc",
+      "Skin type": "All skin types"
+    },
+    "attributes": {
+      "concern": "Dullness",
+      "cruelty_free": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Face%20Serum",
+    "seed_keywords": [
+      "face serum",
+      "serum for glowing skin"
+    ]
+  },
+  {
+    "sku": "CAT-0070",
+    "name": "Matte Shield Sunscreen",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Sunscreen",
+    "brand": "Derma Lab",
+    "price": 749,
+    "currency": "INR",
+    "features": [
+      "Non-greasy finish",
+      "Works under makeup",
+      "Broad spectrum UVA and UVB protection",
+      "No white cast"
+    ],
+    "specifications": {
+      "SPF": "SPF 30",
+      "PA": "PA++++",
+      "Volume": "80 g",
+      "Texture": "Cream"
+    },
+    "attributes": {
+      "skin_type": "All"
+    },
+    "image_url": "https://placehold.co/600x600?text=Sunscreen",
+    "seed_keywords": [
+      "sunscreen spf 50",
+      "sunscreen for oily skin"
+    ]
+  },
+  {
+    "sku": "CAT-0071",
+    "name": "Glute Band Trio",
+    "category": "Sports & Fitness",
+    "subcategory": "Resistance Bands",
+    "brand": "FlexCore",
+    "price": 1829,
+    "currency": "INR",
+    "features": [
+      "Carry pouch included",
+      "Non-slip inner grip",
+      "Exercise guide included"
+    ],
+    "specifications": {
+      "Pieces": "3",
+      "Material": "Natural latex",
+      "Resistance range": "10 to 40 kg"
+    },
+    "attributes": {
+      "level": "Beginner"
+    },
+    "image_url": "https://placehold.co/600x600?text=Resistance%20Bands",
+    "seed_keywords": [
+      "workout bands",
+      "home gym equipment"
+    ]
+  },
+  {
+    "sku": "CAT-0072",
+    "name": "Strike Match Ball",
+    "category": "Sports & Fitness",
+    "subcategory": "Football",
+    "brand": "FlexCore",
+    "price": 1509,
+    "currency": "INR",
+    "features": [
+      "Hand-stitched panels",
+      "Suitable for grass and turf",
+      "Butyl bladder for air retention",
+      "Comes deflated with needle"
+    ],
+    "specifications": {
+      "Size": "4",
+      "Material": "PVC",
+      "Panels": "32",
+      "Weight": "419 g"
+    },
+    "attributes": {
+      "use": "Street"
+    },
+    "image_url": "https://placehold.co/600x600?text=Football",
+    "seed_keywords": [
+      "football",
+      "football size 5"
+    ]
+  },
+  {
+    "sku": "CAT-0073",
+    "name": "Home Strength Pair",
+    "category": "Sports & Fitness",
+    "subcategory": "Dumbbell Set",
+    "brand": "FlexCore",
+    "price": 4099,
+    "currency": "INR",
+    "features": [
+      "Hexagonal heads that do not roll",
+      "Non-slip grip",
+      "Colour-coded weights"
+    ],
+    "specifications": {
+      "Weight": "Adjustable up to 20 kg",
+      "Material": "Rubber-coated steel",
+      "Grip": "Knurled handle"
+    },
+    "attributes": {
+      "level": "Beginner"
+    },
+    "image_url": "https://placehold.co/600x600?text=Dumbbell%20Set",
+    "seed_keywords": [
+      "dumbbells",
+      "dumbbell set"
+    ]
+  },
+  {
+    "sku": "CAT-0074",
+    "name": "Eco Cork Mat",
+    "category": "Sports & Fitness",
+    "subcategory": "Yoga Mat",
+    "price": 869,
+    "currency": "INR",
+    "features": [
+      "Easy to wipe clean"
+    ],
+    "specifications": {},
+    "attributes": {
+      "colors": [
+        "Charcoal",
+        "Peach"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Yoga%20Mat",
+    "seed_keywords": [
+      "yoga mat",
+      "exercise mat"
+    ]
+  },
+  {
+    "sku": "CAT-0075",
+    "name": "Power Hitter",
+    "category": "Sports & Fitness",
+    "subcategory": "Cricket Bat",
+    "brand": "IronPeak",
+    "price": 7789,
+    "currency": "INR",
+    "features": [
+      "Cane handle with shock absorption",
+      "Pre-knocked and ready to play",
+      "Thick edges for big hitting",
+      "Comes with a padded cover"
+    ],
+    "specifications": {
+      "Willow": "Grade 2 English willow",
+      "Weight": "1186 g",
+      "Size": "Harrow",
+      "Grains": "11"
+    },
+    "attributes": {
+      "level": "Club",
+      "ball_type": "Tennis ball"
+    },
+    "image_url": "https://placehold.co/600x600?text=Cricket%20Bat",
+    "seed_keywords": [
+      "cricket bat",
+      "kashmir willow bat"
+    ]
+  },
+  {
+    "sku": "CAT-0076",
+    "name": "Monsoon Malabar",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Coffee Beans",
+    "brand": "Himalayan Harvest",
+    "price": 599,
+    "currency": "INR",
+    "features": [
+      "Single-estate arabica",
+      "Whole bean or ground",
+      "Degassing valve bag",
+      "Roasted to order"
+    ],
+    "specifications": {
+      "Net weight": "500 g",
+      "Roast": "Dark",
+      "Origin": "Malabar",
+      "Form": "Whole bean"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Coffee%20Beans",
+    "seed_keywords": [
+      "arabica coffee",
+      "coffee beans"
+    ]
+  },
+  {
+    "sku": "CAT-0077",
+    "name": "Dehraduni Basmati",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Basmati Rice",
+    "brand": "Farm Fable",
+    "price": 499,
+    "currency": "INR",
+    "features": [
+      "Aged for aroma",
+      "Non-sticky when cooked",
+      "Hand sorted",
+      "Sealed freshness pack",
+      "Extra long grains"
+    ],
+    "specifications": {
+      "Net weight": "1 kg",
+      "Grain length": "8.3 mm",
+      "Aged": "12 months",
+      "Shelf life": "24 months"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Basmati%20Rice",
+    "seed_keywords": [
+      "long grain basmati",
+      "biryani rice"
+    ]
+  },
+  {
+    "sku": "CAT-0078",
+    "name": "Whole Cashews W240",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Dry Fruits",
+    "brand": "Spice Route",
+    "price": 1789,
+    "currency": "INR",
+    "features": [
+      "No added preservatives",
+      "Hand-picked and graded",
+      "Freshly packed",
+      "Resealable zip pouch"
+    ],
+    "specifications": {
+      "Net weight": "500 g",
+      "Grade": "Premium",
+      "Shelf life": "6 months",
+      "Origin": "California"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Dry%20Fruits",
+    "seed_keywords": [
+      "dry fruits",
+      "almonds"
+    ]
+  },
+  {
+    "sku": "CAT-0079",
+    "name": "Tulsi Honey",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Honey",
+    "brand": "Farm Fable",
+    "price": 649,
+    "currency": "INR",
+    "features": [
+      "Glass jar",
+      "Raw and unprocessed",
+      "No added sugar",
+      "Sourced from small beekeepers"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Source": "Himalayan foothills",
+      "Shelf life": "24 months"
+    },
+    "attributes": {
+      "diet": [
+        "Vegetarian"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Honey",
+    "seed_keywords": [
+      "natural honey",
+      "raw honey"
+    ]
+  },
+  {
+    "sku": "CAT-0080",
+    "name": "Tulsi Green Tea",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Green Tea",
+    "brand": "Spice Route",
+    "price": 339,
+    "currency": "INR",
+    "features": [
+      "Rich in antioxidants",
+      "Sourced from hill estates",
+      "Whole-leaf tea"
+    ],
+    "specifications": {
+      "Net weight": "100 g",
+      "Form": "Loose leaf",
+      "Shelf life": "18 months",
+      "Origin": "Assam"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Green%20Tea",
+    "seed_keywords": [
+      "herbal tea",
+      "organic green tea"
+    ]
+  },
+  {
+    "sku": "CAT-0081",
+    "name": "Orange Peel Dark",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Dark Chocolate",
+    "brand": "Himalayan Harvest",
+    "price": 159,
+    "currency": "INR",
+    "features": [
+      "No palm oil",
+      "Bean-to-bar craft chocolate",
+      "Low sugar",
+      "Made with Indian cacao",
+      "Small-batch production"
+    ],
+    "specifications": {
+      "Cocoa content": "55%",
+      "Net weight": "80 g",
+      "Shelf life": "12 months",
+      "Allergens": "Contains nuts"
+    },
+    "attributes": {
+      "diet": [
+        "Vegetarian"
+      ],
+      "gift_ready": false
+    },
+    "image_url": "https://placehold.co/600x600?text=Dark%20Chocolate",
+    "seed_keywords": [
+      "healthy chocolate",
+      "craft chocolate"
+    ]
+  },
+  {
+    "sku": "CAT-0082",
+    "name": "Animal Shape Sorter",
+    "category": "Toys & Baby",
+    "subcategory": "Wooden Puzzle",
+    "brand": "Little Sprout",
+    "price": 429,
+    "currency": "INR",
+    "features": [
+      "Chunky pieces for small hands",
+      "Non-toxic water-based paints",
+      "Made from sustainably sourced wood",
+      "Smooth rounded edges"
+    ],
+    "specifications": {
+      "Pieces": "12",
+      "Recommended age": "3+ years",
+      "Material": "MDF"
+    },
+    "attributes": {
+      "theme": "Animals"
+    },
+    "image_url": "https://placehold.co/600x600?text=Wooden%20Puzzle",
+    "seed_keywords": [
+      "educational toys",
+      "puzzle for kids"
+    ]
+  },
+  {
+    "sku": "CAT-0083",
+    "name": "Bunny Buddy",
+    "category": "Toys & Baby",
+    "subcategory": "Plush Toy",
+    "brand": "Little Sprout",
+    "price": 1959,
+    "currency": "INR",
+    "features": [
+      "Embroidered eyes, no small parts",
+      "Super-soft fabric",
+      "Hypoallergenic filling",
+      "Gift-ready tag"
+    ],
+    "specifications": {
+      "Height": "60 cm",
+      "Material": "Polyester plush",
+      "Recommended age": "3+ years"
+    },
+    "attributes": {
+      "colors": [
+        "Brown"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Plush%20Toy",
+    "seed_keywords": [
+      "plush toy for kids",
+      "teddy bear"
+    ]
+  },
+  {
+    "sku": "CAT-0084",
+    "name": "Creative Bricks Box",
+    "category": "Toys & Baby",
+    "subcategory": "Building Blocks",
+    "brand": "Playloop",
+    "price": 2429,
+    "currency": "INR",
+    "features": [
+      "Compatible with major brick brands",
+      "Non-toxic, BPA-free plastic",
+      "Storage box included"
+    ],
+    "specifications": {
+      "Pieces": "500",
+      "Recommended age": "8+ years",
+      "Material": "ABS plastic",
+      "Certification": "BIS certified"
+    },
+    "attributes": {
+      "theme": "Space"
+    },
+    "image_url": "https://placehold.co/600x600?text=Building%20Blocks",
+    "seed_keywords": [
+      "building blocks",
+      "educational toys"
+    ]
+  },
+  {
+    "sku": "CAT-0085",
+    "name": "Kraft Ruled Notebook",
+    "category": "Books & Stationery",
+    "subcategory": "Notebook",
+    "brand": "Paper Trail",
+    "price": 669,
+    "currency": "INR",
+    "features": [
+      "Recycled paper cover",
+      "Numbered pages",
+      "Thick paper that resists bleed-through",
+      "Ribbon bookmark"
+    ],
+    "specifications": {
+      "Pages": "192",
+      "Size": "A5",
+      "Paper weight": "120 GSM",
+      "Ruling": "Dot grid"
+    },
+    "attributes": {
+      "colors": [
+        "Kraft"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Notebook",
+    "seed_keywords": [
+      "dot grid notebook",
+      "notebook"
+    ]
+  },
+  {
+    "sku": "CAT-0086",
+    "name": "Ebonite Signature",
+    "category": "Books & Stationery",
+    "subcategory": "Fountain Pen",
+    "brand": "Paper Trail",
+    "price": 899,
+    "currency": "INR",
+    "features": [
+      "Smooth steel nib",
+      "Converter and cartridges included",
+      "Gift box",
+      "Ink window",
+      "Comfortable grip section"
+    ],
+    "specifications": {
+      "Nib": "Broad",
+      "Body": "Resin",
+      "Filling": "Cartridge or converter"
+    },
+    "attributes": {
+      "colors": [
+        "Clear"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Fountain%20Pen",
+    "seed_keywords": [
+      "calligraphy pen",
+      "ink pen"
+    ]
+  },
+  {
+    "sku": "CAT-0087",
+    "name": "Habit Tracker Planner",
+    "category": "Books & Stationery",
+    "subcategory": "Planner",
+    "brand": "Paper Trail",
+    "price": 879,
+    "currency": "INR",
+    "features": [
+      "Pen loop and pocket",
+      "Habit and goal trackers",
+      "Monthly and weekly spreads"
+    ],
+    "specifications": {
+      "Pages": "160",
+      "Size": "B6",
+      "Paper weight": "80 GSM",
+      "Layout": "Daily"
+    },
+    "attributes": {
+      "colors": [
+        "Charcoal"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Planner",
+    "seed_keywords": [
+      "planner",
+      "weekly planner"
+    ]
+  },
+  {
+    "sku": "CAT-0088",
+    "name": "Zip Around Wallet",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Leather Wallet",
+    "brand": "Northline",
+    "price": 619,
+    "currency": "INR",
+    "features": [
+      "Two note compartments",
+      "Slim profile",
+      "Six card slots",
+      "RFID blocking",
+      "Genuine leather"
+    ],
+    "specifications": {
+      "Material": "Full-grain leather",
+      "Card slots": "6",
+      "Dimensions": "11 x 9 cm"
+    },
+    "attributes": {
+      "colors": [
+        "Brown"
+      ],
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Leather%20Wallet",
+    "seed_keywords": [
+      "wallet for men",
+      "leather wallet"
+    ]
+  },
+  {
+    "sku": "CAT-0089",
+    "name": "Oxidised Chandbali",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Silver Earrings",
+    "brand": "Northline",
+    "price": 1639,
+    "currency": "INR",
+    "features": [
+      "Handcrafted detailing",
+      "Nickel-free",
+      "Gift pouch included",
+      "Hallmarked"
+    ],
+    "specifications": {
+      "Metal": "925 sterling silver",
+      "Finish": "Oxidised",
+      "Weight": "7 g",
+      "Closure": "Hoop latch"
+    },
+    "attributes": {
+      "occasion": "Festive"
+    },
+    "image_url": "https://placehold.co/600x600?text=Silver%20Earrings",
+    "seed_keywords": [
+      "silver earrings",
+      "oxidised earrings"
+    ]
+  },
+  {
+    "sku": "CAT-0090",
+    "name": "Wayfarer Matte",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Sunglasses",
+    "brand": "Silver Sutra",
+    "price": 3389,
+    "currency": "INR",
+    "features": [
+      "UV400 protection",
+      "Hard case included",
+      "Polarised lenses"
+    ],
+    "specifications": {
+      "Lens": "Polarised",
+      "Frame": "Acetate",
+      "Protection": "UV400",
+      "Width": "139 mm"
+    },
+    "attributes": {
+      "colors": [
+        "Gold"
+      ],
+      "gender": "Men"
+    },
+    "image_url": "https://placehold.co/600x600?text=Sunglasses",
+    "seed_keywords": [
+      "aviator sunglasses",
+      "polarised sunglasses"
+    ]
+  },
+  {
+    "sku": "CAT-0091",
+    "name": "MaxCharge Duo",
+    "category": "Electronics",
+    "subcategory": "Power Bank",
+    "brand": "Voltix",
+    "price": 1889,
+    "currency": "INR",
+    "features": [
+      "LED charge indicator",
+      "USB-C input and output",
+      "Charges two devices at once",
+      "22.5 W fast charging"
+    ],
+    "specifications": {
+      "Capacity": "10000 mAh",
+      "Ports": "2 x USB-A, 1 x USB-C",
+      "Weight": "336 g",
+      "Warranty": "1 year"
+    },
+    "attributes": {
+      "colors": [
+        "Navy",
+        "White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Power%20Bank",
+    "seed_keywords": [
+      "portable charger",
+      "fast charging power bank"
+    ]
+  },
+  {
+    "sku": "CAT-0092",
+    "name": "Strike X",
+    "category": "Electronics",
+    "subcategory": "Gaming Mouse",
+    "price": 4369,
+    "currency": "INR",
+    "features": [
+      "Lightweight honeycomb shell"
+    ],
+    "specifications": {},
+    "attributes": {
+      "grip": "Claw"
+    },
+    "image_url": "https://placehold.co/600x600?text=Gaming%20Mouse",
+    "seed_keywords": [
+      "wireless gaming mouse",
+      "rgb mouse"
+    ]
+  },
+  {
+    "sku": "CAT-0093",
+    "name": "Glide 65",
+    "category": "Electronics",
+    "subcategory": "Mechanical Keyboard",
+    "brand": "Voltix",
+    "price": 2899,
+    "currency": "INR",
+    "features": [
+      "Detachable USB-C cable",
+      "Anti-ghosting with full N-key rollover",
+      "Aluminium top plate",
+      "Hot-swappable switches"
+    ],
+    "specifications": {
+      "Layout": "65%",
+      "Switches": "Blue clicky",
+      "Connection": "Bluetooth and wired",
+      "Weight": "875 g"
+    },
+    "attributes": {
+      "colors": [
+        "Black"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Mechanical%20Keyboard",
+    "seed_keywords": [
+      "gaming keyboard",
+      "rgb keyboard"
+    ]
+  },
+  {
+    "sku": "CAT-0094",
+    "name": "RunLoop",
+    "category": "Electronics",
+    "subcategory": "Neckband Earphones",
+    "brand": "Nimbus Audio",
+    "price": 2839,
+    "currency": "INR",
+    "features": [
+      "Magnetic earbuds that switch off when clipped",
+      "Up to 30 hours playback",
+      "Environmental noise cancellation for calls",
+      "Vibration call alert"
+    ],
+    "specifications": {
+      "Battery life": "23 hours",
+      "Bluetooth": "5.3",
+      "Driver size": "13 mm",
+      "Weight": "28 g"
+    },
+    "attributes": {
+      "colors": [
+        "Green",
+        "Blue"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Neckband%20Earphones",
+    "seed_keywords": [
+      "neckband earphones",
+      "bluetooth neckband"
+    ]
+  },
+  {
+    "sku": "CAT-0095",
+    "name": "Pulse Buds",
+    "category": "Electronics",
+    "subcategory": "Wireless Earbuds",
+    "brand": "Nimbus Audio",
+    "price": 5869,
+    "currency": "INR",
+    "features": [
+      "Low-latency gaming mode",
+      "Dual-device pairing",
+      "Active noise cancellation"
+    ],
+    "specifications": {
+      "Battery life": "31 hours with case",
+      "Driver size": "13 mm",
+      "Bluetooth": "5.3",
+      "Weight": "4 g per bud"
+    },
+    "attributes": {
+      "colors": [
+        "Midnight Black",
+        "Ocean Blue"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Wireless%20Earbuds",
+    "seed_keywords": [
+      "bluetooth earphones",
+      "wireless earbuds"
+    ]
+  },
+  {
+    "sku": "CAT-0096",
+    "name": "Pulse Active",
+    "category": "Electronics",
+    "subcategory": "Smartwatch",
+    "brand": "Nimbus Audio",
+    "price": 5459,
+    "currency": "INR",
+    "features": [
+      "Built-in GPS",
+      "SpO2 and heart-rate monitoring",
+      "Sleep tracking",
+      "AMOLED always-on display"
+    ],
+    "specifications": {
+      "Display": "1.43-inch AMOLED",
+      "Battery life": "Up to 7 days",
+      "Water resistance": "5 ATM",
+      "Compatibility": "Android and iOS"
+    },
+    "attributes": {
+      "strap": "Metal mesh",
+      "colors": [
+        "Silver",
+        "Rose Gold"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Smartwatch",
+    "seed_keywords": [
+      "smartwatch",
+      "fitness tracker"
+    ]
+  },
+  {
+    "sku": "CAT-0097",
+    "name": "Boom Cube",
+    "category": "Electronics",
+    "subcategory": "Bluetooth Speaker",
+    "brand": "Sonora",
+    "price": 4259,
+    "currency": "INR",
+    "features": [
+      "Party pairing with a second speaker",
+      "IP67 waterproof and dustproof",
+      "USB-C charging",
+      "Deep bass radiator"
+    ],
+    "specifications": {
+      "Output": "10 W",
+      "Battery life": "12 hours",
+      "Water resistance": "IP67",
+      "Weight": "582 g"
+    },
+    "attributes": {
+      "colors": [
+        "Black",
+        "Teal"
+      ],
+      "use_case": "Outdoor and travel"
+    },
+    "image_url": "https://placehold.co/600x600?text=Bluetooth%20Speaker",
+    "seed_keywords": [
+      "bluetooth speaker",
+      "portable speaker"
+    ]
+  },
+  {
+    "sku": "CAT-0098",
+    "name": "Vintage Wash Denim",
+    "category": "Apparel",
+    "subcategory": "Denim Jeans",
+    "brand": "Kesari",
+    "price": 3429,
+    "currency": "INR",
+    "features": [
+      "Reinforced stitching",
+      "Five-pocket styling",
+      "Comfort stretch denim",
+      "Machine washable"
+    ],
+    "specifications": {
+      "Fabric": "100% cotton",
+      "Fit": "Relaxed",
+      "Rise": "Mid rise",
+      "Care": "Machine wash cold, inside out"
+    },
+    "attributes": {
+      "sizes": [
+        "28",
+        "30",
+        "32",
+        "34",
+        "36"
+      ],
+      "colors": [
+        "Indigo",
+        "Light Blue"
+      ],
+      "gender": "Men"
+    },
+    "image_url": "https://placehold.co/600x600?text=Denim%20Jeans",
+    "seed_keywords": [
+      "stretch jeans",
+      "slim fit jeans"
+    ]
+  },
+  {
+    "sku": "CAT-0099",
+    "name": "Campus Zip Hoodie",
+    "category": "Apparel",
+    "subcategory": "Hoodie",
+    "brand": "Kesari",
+    "price": 2339,
+    "currency": "INR",
+    "features": [
+      "Ribbed cuffs and hem",
+      "Kangaroo pocket",
+      "Brushed fleece lining"
+    ],
+    "specifications": {
+      "Fabric": "100% cotton fleece",
+      "GSM": "400",
+      "Fit": "Regular",
+      "Care": "Machine wash cold"
+    },
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Olive",
+        "Charcoal"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Hoodie",
+    "seed_keywords": [
+      "hoodie",
+      "cotton hoodie"
+    ]
+  },
+  {
+    "sku": "CAT-0100",
+    "name": "Chanderi Saree",
+    "category": "Apparel",
+    "subcategory": "Saree",
+    "brand": "Northline",
+    "price": 10179,
+    "currency": "INR",
+    "features": [
+      "Festive and wedding wear",
+      "Zari border",
+      "Comes with an unstitched blouse piece",
+      "Lightweight drape"
+    ],
+    "specifications": {
+      "Fabric": "Georgette",
+      "Length": "5.5 m saree, 0.8 m blouse piece",
+      "Care": "Dry clean only"
+    },
+    "attributes": {
+      "colors": [
+        "Maroon",
+        "Mustard"
+      ],
+      "occasion": "Wedding"
+    },
+    "image_url": "https://placehold.co/600x600?text=Saree",
+    "seed_keywords": [
+      "cotton saree",
+      "silk saree"
+    ]
+  },
+  {
+    "sku": "CAT-0101",
+    "name": "Everyday Crew Tee",
+    "category": "Apparel",
+    "subcategory": "T-Shirt",
+    "brand": "Kesari",
+    "price": 509,
+    "currency": "INR",
+    "features": [
+      "Tagless neck label",
+      "Breathable 180 GSM cotton",
+      "Pre-shrunk fabric",
+      "Colourfast dyes"
+    ],
+    "specifications": {
+      "Fabric": "100% Supima cotton",
+      "Fit": "Oversized",
+      "Neck": "V-neck",
+      "Care": "Machine wash cold"
+    },
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Black",
+        "White",
+        "Olive"
+      ],
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=T-Shirt",
+    "seed_keywords": [
+      "cotton t-shirt",
+      "casual tee"
+    ]
+  },
+  {
+    "sku": "CAT-0102",
+    "name": "Trail Blaze",
+    "category": "Apparel",
+    "subcategory": "Running Shoes",
+    "brand": "Northline",
+    "price": 8419,
+    "currency": "INR",
+    "features": [
+      "Breathable engineered mesh upper",
+      "Responsive foam midsole",
+      "Padded heel collar",
+      "Reflective details for low light"
+    ],
+    "specifications": {
+      "Heel-to-toe drop": "8 mm",
+      "Weight": "246 g (UK 8)",
+      "Upper": "Engineered mesh",
+      "Outsole": "Carbon rubber"
+    },
+    "attributes": {
+      "sizes": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10"
+      ],
+      "gender": "Women",
+      "terrain": "Road"
+    },
+    "image_url": "https://placehold.co/600x600?text=Running%20Shoes",
+    "seed_keywords": [
+      "sports shoes",
+      "running shoes"
+    ]
+  },
+  {
+    "sku": "CAT-0103",
+    "name": "Festive Silk Kurta",
+    "category": "Apparel",
+    "subcategory": "Kurta",
+    "brand": "Loomcraft",
+    "price": 1909,
+    "currency": "INR",
+    "features": [
+      "Breathable natural fabric",
+      "Comes with matching dupatta",
+      "Three-quarter sleeves",
+      "Side slits for easy movement"
+    ],
+    "specifications": {
+      "Fabric": "Art silk",
+      "Length": "Calf length",
+      "Neck": "V-neck",
+      "Care": "Dry clean only"
+    },
+    "attributes": {
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "occasion": "Casual",
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Kurta",
+    "seed_keywords": [
+      "women kurta",
+      "cotton kurta"
+    ]
+  },
+  {
+    "sku": "CAT-0104",
+    "name": "PowerBlend 750",
+    "category": "Home & Kitchen",
+    "subcategory": "Mixer Grinder",
+    "brand": "Pristine Home",
+    "price": 2419,
+    "currency": "INR",
+    "features": [
+      "Three stainless steel jars",
+      "Overload protection",
+      "Three speed settings with pulse"
+    ],
+    "specifications": {
+      "Power": "1000 W",
+      "Jars": "4",
+      "Speed settings": "3 + pulse",
+      "Warranty": "5 years on motor"
+    },
+    "attributes": {
+      "colors": [
+        "Red"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Mixer%20Grinder",
+    "seed_keywords": [
+      "mixer grinder",
+      "mixer grinder 750 watt"
+    ]
+  },
+  {
+    "sku": "CAT-0105",
+    "name": "Matte Stone Set",
+    "category": "Home & Kitchen",
+    "subcategory": "Dinner Set",
+    "brand": "Pristine Home",
+    "price": 3809,
+    "currency": "INR",
+    "features": [
+      "Handcrafted finish",
+      "Microwave and dishwasher safe",
+      "Chip-resistant stoneware",
+      "Lead-free glaze",
+      "Gift box packaging"
+    ],
+    "specifications": {
+      "Pieces": "32",
+      "Material": "Ceramic",
+      "Serves": "6",
+      "Care": "Dishwasher safe"
+    },
+    "attributes": {
+      "colors": [
+        "White",
+        "Sage"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Dinner%20Set",
+    "seed_keywords": [
+      "stoneware dinner set",
+      "ceramic dinner set"
+    ]
+  },
+  {
+    "sku": "CAT-0106",
+    "name": "Bamboo Blend Towels",
+    "category": "Home & Kitchen",
+    "subcategory": "Towel Set",
+    "brand": "Pristine Home",
+    "price": 849,
+    "currency": "INR",
+    "features": [
+      "Quick drying",
+      "Colourfast dyes",
+      "Set of bath, hand and face towels",
+      "Soft zero-twist loops"
+    ],
+    "specifications": {
+      "Material": "60% bamboo, 40% cotton",
+      "GSM": "450",
+      "Pieces": "2",
+      "Care": "Machine wash warm"
+    },
+    "attributes": {
+      "colors": [
+        "White",
+        "Beige"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Towel%20Set",
+    "seed_keywords": [
+      "bath towel set",
+      "cotton towels"
+    ]
+  },
+  {
+    "sku": "CAT-0107",
+    "name": "Sandalwood Glow",
+    "category": "Home & Kitchen",
+    "subcategory": "Scented Candle",
+    "brand": "HearthWare",
+    "price": 1269,
+    "currency": "INR",
+    "features": [
+      "Long burn time",
+      "Reusable glass jar",
+      "Soy wax blend",
+      "Cotton wick",
+      "Hand-poured in small batches"
+    ],
+    "specifications": {
+      "Burn time": "40 hours",
+      "Net weight": "300 g",
+      "Wax": "Soy wax blend",
+      "Fragrance": "Jasmine"
+    },
+    "attributes": {
+      "gift_ready": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Scented%20Candle",
+    "seed_keywords": [
+      "soy candle",
+      "aromatherapy candle"
+    ]
+  },
+  {
+    "sku": "CAT-0108",
+    "name": "HealthyFry Max",
+    "category": "Home & Kitchen",
+    "subcategory": "Air Fryer",
+    "brand": "Pristine Home",
+    "price": 3849,
+    "currency": "INR",
+    "features": [
+      "Dishwasher-safe non-stick basket",
+      "Digital touch panel with 8 presets",
+      "Up to 90% less oil than deep frying"
+    ],
+    "specifications": {
+      "Capacity": "4.2 L",
+      "Power": "1500 W",
+      "Temperature range": "80-200 °C",
+      "Warranty": "2 year"
+    },
+    "attributes": {
+      "colors": [
+        "Black"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Air%20Fryer",
+    "seed_keywords": [
+      "air fryer",
+      "oil free fryer"
+    ]
+  },
+  {
+    "sku": "CAT-0109",
+    "name": "Floral Dream Bedsheet",
+    "category": "Home & Kitchen",
+    "subcategory": "Bedsheet Set",
+    "brand": "HearthWare",
+    "price": 4419,
+    "currency": "INR",
+    "features": [
+      "Gets softer with every wash",
+      "Includes two pillow covers",
+      "Elasticated fitted corners",
+      "Soft, breathable weave"
+    ],
+    "specifications": {
+      "Thread count": "400 TC",
+      "Material": "100% cotton",
+      "Size": "Queen",
+      "Contents": "1 bedsheet, 2 pillow covers"
+    },
+    "attributes": {
+      "pattern": "Geometric",
+      "colors": [
+        "Blush",
+        "Ivory"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Bedsheet%20Set",
+    "seed_keywords": [
+      "bed linen",
+      "double bedsheet with pillow covers"
+    ]
+  },
+  {
+    "sku": "CAT-0110",
+    "name": "Hydra Steel",
+    "category": "Home & Kitchen",
+    "subcategory": "Insulated Water Bottle",
+    "brand": "HearthWare",
+    "price": 1389,
+    "currency": "INR",
+    "features": [
+      "Keeps drinks cold for 24 hours and hot for 12",
+      "Powder-coated grip",
+      "Double-wall vacuum insulation",
+      "Leak-proof lid",
+      "BPA-free"
+    ],
+    "specifications": {
+      "Capacity": "500 ml",
+      "Material": "18/8 stainless steel",
+      "Weight": "374 g",
+      "Dishwasher safe": "Lid only"
+    },
+    "attributes": {
+      "colors": [
+        "Sky Blue",
+        "Matte Black",
+        "Forest Green"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Insulated%20Water%20Bottle",
+    "seed_keywords": [
+      "steel water bottle",
+      "vacuum flask"
+    ]
+  },
+  {
+    "sku": "CAT-0111",
+    "name": "Bhringraj Hair Oil",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Hair Oil",
+    "brand": "PureLeaf",
+    "price": 629,
+    "currency": "INR",
+    "features": [
+      "Non-sticky formula",
+      "Suitable for all hair types",
+      "Cold-pressed oils",
+      "Free from mineral oil"
+    ],
+    "specifications": {
+      "Volume": "150 ml",
+      "Key ingredient": "Onion seed",
+      "Hair type": "All hair types"
+    },
+    "attributes": {
+      "concern": "Dry scalp"
+    },
+    "image_url": "https://placehold.co/600x600?text=Hair%20Oil",
+    "seed_keywords": [
+      "hair oil",
+      "hair growth oil"
+    ]
+  },
+  {
+    "sku": "CAT-0112",
+    "name": "Charcoal Detox Wash",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Face Wash",
+    "brand": "Glowveda",
+    "price": 339,
+    "currency": "INR",
+    "features": [
+      "Removes excess oil",
+      "pH balanced",
+      "Dermatologically tested",
+      "Fragrance-free",
+      "Soap-free formula"
+    ],
+    "specifications": {
+      "Volume": "100 ml",
+      "Key ingredient": "1% salicylic acid",
+      "Skin type": "All skin types"
+    },
+    "attributes": {
+      "concern": "Dullness"
+    },
+    "image_url": "https://placehold.co/600x600?text=Face%20Wash",
+    "seed_keywords": [
+      "gentle cleanser",
+      "face wash for oily skin"
+    ]
+  },
+  {
+    "sku": "CAT-0113",
+    "name": "Rose Glow Balm",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Lip Balm",
+    "price": 349,
+    "currency": "INR",
+    "features": [
+      "Shea and cocoa butter"
+    ],
+    "specifications": {},
+    "attributes": {
+      "shade": "Clear"
+    },
+    "image_url": "https://placehold.co/600x600?text=Lip%20Balm",
+    "seed_keywords": [
+      "tinted lip balm",
+      "lip balm"
+    ]
+  },
+  {
+    "sku": "CAT-0114",
+    "name": "Vitamin C Brightening Serum",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Face Serum",
+    "brand": "Glowveda",
+    "price": 1339,
+    "currency": "INR",
+    "features": [
+      "Suitable for daily use",
+      "Dermatologically tested",
+      "Dropper for mess-free application",
+      "Fragrance-free",
+      "Lightweight, fast-absorbing formula"
+    ],
+    "specifications": {
+      "Volume": "15 ml",
+      "Key ingredient": "10% Niacinamide + 1% Zinc",
+      "Skin type": "Oily and acne-prone"
+    },
+    "attributes": {
+      "concern": "Acne marks",
+      "cruelty_free": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Face%20Serum",
+    "seed_keywords": [
+      "skincare serum",
+      "serum for glowing skin"
+    ]
+  },
+  {
+    "sku": "CAT-0115",
+    "name": "Invisible Sun Gel",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Sunscreen",
+    "brand": "Derma Lab",
+    "price": 579,
+    "currency": "INR",
+    "features": [
+      "Non-greasy finish",
+      "No white cast",
+      "Works under makeup",
+      "Broad spectrum UVA and UVB protection",
+      "Water resistant for 80 minutes"
+    ],
+    "specifications": {
+      "SPF": "SPF 30",
+      "PA": "PA++++",
+      "Volume": "80 g",
+      "Texture": "Gel"
+    },
+    "attributes": {
+      "skin_type": "All"
+    },
+    "image_url": "https://placehold.co/600x600?text=Sunscreen",
+    "seed_keywords": [
+      "sunscreen spf 50",
+      "no white cast sunscreen"
+    ]
+  },
+  {
+    "sku": "CAT-0116",
+    "name": "Pull-Up Assist Bands",
+    "category": "Sports & Fitness",
+    "subcategory": "Resistance Bands",
+    "brand": "Vayu Sports",
+    "price": 1289,
+    "currency": "INR",
+    "features": [
+      "Five resistance levels",
+      "Latex-free fabric",
+      "Exercise guide included",
+      "Non-slip inner grip",
+      "Carry pouch included"
+    ],
+    "specifications": {
+      "Pieces": "5",
+      "Material": "Fabric",
+      "Resistance range": "5 to 25 kg"
+    },
+    "attributes": {
+      "level": "Beginner"
+    },
+    "image_url": "https://placehold.co/600x600?text=Resistance%20Bands",
+    "seed_keywords": [
+      "workout bands",
+      "resistance bands"
+    ]
+  },
+  {
+    "sku": "CAT-0117",
+    "name": "Futsal Grip",
+    "category": "Sports & Fitness",
+    "subcategory": "Football",
+    "brand": "FlexCore",
+    "price": 1839,
+    "currency": "INR",
+    "features": [
+      "Butyl bladder for air retention",
+      "Comes deflated with needle",
+      "Textured surface for grip"
+    ],
+    "specifications": {
+      "Size": "5",
+      "Material": "PVC",
+      "Panels": "20",
+      "Weight": "417 g"
+    },
+    "attributes": {
+      "use": "Training"
+    },
+    "image_url": "https://placehold.co/600x600?text=Football",
+    "seed_keywords": [
+      "football",
+      "football size 5"
+    ]
+  },
+  {
+    "sku": "CAT-0118",
+    "name": "Studio Weights",
+    "category": "Sports & Fitness",
+    "subcategory": "Dumbbell Set",
+    "brand": "FlexCore",
+    "price": 909,
+    "currency": "INR",
+    "features": [
+      "Colour-coded weights",
+      "Hexagonal heads that do not roll",
+      "Non-slip grip",
+      "Floor-friendly coating"
+    ],
+    "specifications": {
+      "Weight": "2 x 7.5 kg",
+      "Material": "Neoprene-coated cast iron",
+      "Grip": "Knurled handle"
+    },
+    "attributes": {
+      "level": "Beginner"
+    },
+    "image_url": "https://placehold.co/600x600?text=Dumbbell%20Set",
+    "seed_keywords": [
+      "dumbbells",
+      "dumbbell set"
+    ]
+  },
+  {
+    "sku": "CAT-0119",
+    "name": "Balance Pro Mat",
+    "category": "Sports & Fitness",
+    "subcategory": "Yoga Mat",
+    "brand": "Vayu Sports",
+    "price": 719,
+    "currency": "INR",
+    "features": [
+      "Lightweight with carry strap",
+      "Alignment lines",
+      "Extra cushioning for joints"
+    ],
+    "specifications": {
+      "Thickness": "8 mm",
+      "Material": "TPE",
+      "Dimensions": "183 x 61 cm",
+      "Weight": "1.2 kg"
+    },
+    "attributes": {
+      "colors": [
+        "Purple",
+        "Teal"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Yoga%20Mat",
+    "seed_keywords": [
+      "yoga mat",
+      "anti slip yoga mat"
+    ]
+  },
+  {
+    "sku": "CAT-0120",
+    "name": "English Willow Pro",
+    "category": "Sports & Fitness",
+    "subcategory": "Cricket Bat",
+    "brand": "Vayu Sports",
+    "price": 6559,
+    "currency": "INR",
+    "features": [
+      "Comes with a padded cover",
+      "Thick edges for big hitting",
+      "Hand-picked willow",
+      "Cane handle with shock absorption"
+    ],
+    "specifications": {
+      "Willow": "Grade 2 English willow",
+      "Weight": "1215 g",
+      "Size": "Size 6",
+      "Grains": "9"
+    },
+    "attributes": {
+      "level": "Professional",
+      "ball_type": "Leather ball"
+    },
+    "image_url": "https://placehold.co/600x600?text=Cricket%20Bat",
+    "seed_keywords": [
+      "english willow bat",
+      "kashmir willow bat"
+    ]
+  },
+  {
+    "sku": "CAT-0121",
+    "name": "Coorg Medium Roast",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Coffee Beans",
+    "brand": "Farm Fable",
+    "price": 789,
+    "currency": "INR",
+    "features": [
+      "Single-estate arabica",
+      "Roasted to order",
+      "Notes of chocolate and caramel"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Roast": "Dark",
+      "Origin": "Araku Valley",
+      "Form": "Ground for filter"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Coffee%20Beans",
+    "seed_keywords": [
+      "arabica coffee",
+      "filter coffee powder"
+    ]
+  },
+  {
+    "sku": "CAT-0122",
+    "name": "Biryani Special",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Basmati Rice",
+    "brand": "Himalayan Harvest",
+    "price": 509,
+    "currency": "INR",
+    "features": [
+      "Aged for aroma",
+      "Extra long grains",
+      "Non-sticky when cooked",
+      "Sealed freshness pack"
+    ],
+    "specifications": {
+      "Net weight": "1 kg",
+      "Grain length": "8.4 mm",
+      "Aged": "24 months",
+      "Shelf life": "24 months"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Basmati%20Rice",
+    "seed_keywords": [
+      "biryani rice",
+      "long grain basmati"
+    ]
+  },
+  {
+    "sku": "CAT-0123",
+    "name": "Medjool Dates",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Dry Fruits",
+    "brand": "Himalayan Harvest",
+    "price": 1389,
+    "currency": "INR",
+    "features": [
+      "No added preservatives",
+      "Rich in protein and fibre",
+      "Hand-picked and graded",
+      "Freshly packed",
+      "Resealable zip pouch"
+    ],
+    "specifications": {
+      "Net weight": "500 g",
+      "Grade": "Premium",
+      "Shelf life": "9 months",
+      "Origin": "Afghanistan"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Dry%20Fruits",
+    "seed_keywords": [
+      "healthy snacks",
+      "almonds"
+    ]
+  },
+  {
+    "sku": "CAT-0124",
+    "name": "Litchi Blossom Honey",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Honey",
+    "brand": "Himalayan Harvest",
+    "price": 399,
+    "currency": "INR",
+    "features": [
+      "Batch-tested for purity",
+      "Glass jar",
+      "No added sugar",
+      "Sourced from small beekeepers"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Source": "Forest",
+      "Shelf life": "24 months"
+    },
+    "attributes": {
+      "diet": [
+        "Vegetarian"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Honey",
+    "seed_keywords": [
+      "raw honey",
+      "natural honey"
+    ]
+  },
+  {
+    "sku": "CAT-0125",
+    "name": "Kashmiri Kahwa",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Green Tea",
+    "brand": "Farm Fable",
+    "price": 789,
+    "currency": "INR",
+    "features": [
+      "No artificial flavours",
+      "Resealable pouch",
+      "Rich in antioxidants",
+      "Whole-leaf tea",
+      "Sourced from hill estates"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Form": "50 tea bags",
+      "Shelf life": "18 months",
+      "Origin": "Assam"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Green%20Tea",
+    "seed_keywords": [
+      "herbal tea",
+      "organic green tea"
+    ]
+  },
+  {
+    "sku": "CAT-0126",
+    "name": "70% Single-Origin Dark",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Dark Chocolate",
+    "brand": "Himalayan Harvest",
+    "price": 499,
+    "currency": "INR",
+    "features": [
+      "No palm oil",
+      "Bean-to-bar craft chocolate",
+      "Made with Indian cacao",
+      "Small-batch production",
+      "Low sugar"
+    ],
+    "specifications": {
+      "Cocoa content": "70%",
+      "Net weight": "100 g",
+      "Shelf life": "12 months",
+      "Allergens": "Contains nuts"
+    },
+    "attributes": {
+      "diet": [
+        "Vegetarian"
+      ],
+      "gift_ready": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Dark%20Chocolate",
+    "seed_keywords": [
+      "craft chocolate",
+      "dark chocolate"
+    ]
+  },
+  {
+    "sku": "CAT-0127",
+    "name": "India Map Puzzle",
+    "category": "Toys & Baby",
+    "subcategory": "Wooden Puzzle",
+    "brand": "Playloop",
+    "price": 1229,
+    "currency": "INR",
+    "features": [
+      "Builds shape and colour recognition",
+      "Smooth rounded edges",
+      "Chunky pieces for small hands",
+      "Non-toxic water-based paints"
+    ],
+    "specifications": {
+      "Pieces": "48",
+      "Recommended age": "2+ years",
+      "Material": "Pine wood"
+    },
+    "attributes": {
+      "theme": "Alphabet"
+    },
+    "image_url": "https://placehold.co/600x600?text=Wooden%20Puzzle",
+    "seed_keywords": [
+      "wooden puzzle",
+      "educational toys"
+    ]
+  },
+  {
+    "sku": "CAT-0128",
+    "name": "Sleepy Elephant",
+    "category": "Toys & Baby",
+    "subcategory": "Plush Toy",
+    "brand": "Little Sprout",
+    "price": 1309,
+    "currency": "INR",
+    "features": [
+      "Hypoallergenic filling",
+      "Gift-ready tag",
+      "Embroidered eyes, no small parts"
+    ],
+    "specifications": {
+      "Height": "40 cm",
+      "Material": "Polyester plush",
+      "Recommended age": "3+ years"
+    },
+    "attributes": {
+      "colors": [
+        "Pink"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Plush%20Toy",
+    "seed_keywords": [
+      "soft toy",
+      "plush toy for kids"
+    ]
+  },
+  {
+    "sku": "CAT-0129",
+    "name": "Mini Engineers Kit",
+    "category": "Toys & Baby",
+    "subcategory": "Building Blocks",
+    "price": 2869,
+    "currency": "INR",
+    "features": [
+      "Compatible with major brick brands"
+    ],
+    "specifications": {},
+    "attributes": {
+      "theme": "City"
+    },
+    "image_url": "https://placehold.co/600x600?text=Building%20Blocks",
+    "seed_keywords": [
+      "building blocks",
+      "educational toys"
+    ]
+  },
+  {
+    "sku": "CAT-0130",
+    "name": "Linen Cover Journal",
+    "category": "Books & Stationery",
+    "subcategory": "Notebook",
+    "brand": "Paper Trail",
+    "price": 159,
+    "currency": "INR",
+    "features": [
+      "Numbered pages",
+      "Lay-flat binding",
+      "Recycled paper cover"
+    ],
+    "specifications": {
+      "Pages": "240",
+      "Size": "A5",
+      "Paper weight": "80 GSM",
+      "Ruling": "Dot grid"
+    },
+    "attributes": {
+      "colors": [
+        "Kraft"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Notebook",
+    "seed_keywords": [
+      "notebook",
+      "dot grid notebook"
+    ]
+  },
+  {
+    "sku": "CAT-0131",
+    "name": "Classic Nib Pen",
+    "category": "Books & Stationery",
+    "subcategory": "Fountain Pen",
+    "brand": "Paper Trail",
+    "price": 2039,
+    "currency": "INR",
+    "features": [
+      "Smooth steel nib",
+      "Converter and cartridges included",
+      "Ink window",
+      "Gift box"
+    ],
+    "specifications": {
+      "Nib": "Broad",
+      "Body": "Resin",
+      "Filling": "Cartridge or converter"
+    },
+    "attributes": {
+      "colors": [
+        "Clear"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Fountain%20Pen",
+    "seed_keywords": [
+      "calligraphy pen",
+      "fountain pen"
+    ]
+  },
+  {
+    "sku": "CAT-0132",
+    "name": "Goal Setting Planner",
+    "category": "Books & Stationery",
+    "subcategory": "Planner",
+    "brand": "Paper Trail",
+    "price": 1279,
+    "currency": "INR",
+    "features": [
+      "Undated so you can start any time",
+      "Habit and goal trackers",
+      "Hardcover"
+    ],
+    "specifications": {
+      "Pages": "160",
+      "Size": "B6",
+      "Paper weight": "100 GSM",
+      "Layout": "Daily"
+    },
+    "attributes": {
+      "colors": [
+        "Blush"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Planner",
+    "seed_keywords": [
+      "undated planner",
+      "planner"
+    ]
+  },
+  {
+    "sku": "CAT-0133",
+    "name": "Trifold Heritage",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Leather Wallet",
+    "brand": "Silver Sutra",
+    "price": 1669,
+    "currency": "INR",
+    "features": [
+      "Slim profile",
+      "RFID blocking",
+      "Genuine leather",
+      "Two note compartments"
+    ],
+    "specifications": {
+      "Material": "Full-grain leather",
+      "Card slots": "6",
+      "Dimensions": "11 x 9 cm"
+    },
+    "attributes": {
+      "colors": [
+        "Tan"
+      ],
+      "gender": "Unisex"
+    },
+    "image_url": "https://placehold.co/600x600?text=Leather%20Wallet",
+    "seed_keywords": [
+      "rfid wallet",
+      "wallet for men"
+    ]
+  },
+  {
+    "sku": "CAT-0134",
+    "name": "Temple Hoops",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Silver Earrings",
+    "brand": "Northline",
+    "price": 3409,
+    "currency": "INR",
+    "features": [
+      "Gift pouch included",
+      "Hallmarked",
+      "925 sterling silver"
+    ],
+    "specifications": {
+      "Metal": "925 sterling silver",
+      "Finish": "High polish",
+      "Weight": "8 g",
+      "Closure": "Hook"
+    },
+    "attributes": {
+      "occasion": "Festive"
+    },
+    "image_url": "https://placehold.co/600x600?text=Silver%20Earrings",
+    "seed_keywords": [
+      "silver earrings",
+      "oxidised earrings"
+    ]
+  },
+  {
+    "sku": "CAT-0135",
+    "name": "Cat Eye Glam",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Sunglasses",
+    "brand": "Northline",
+    "price": 2639,
+    "currency": "INR",
+    "features": [
+      "Polarised lenses",
+      "Lightweight frame",
+      "UV400 protection",
+      "Spring hinges"
+    ],
+    "specifications": {
+      "Lens": "Mirrored",
+      "Frame": "Metal",
+      "Protection": "UV400",
+      "Width": "145 mm"
+    },
+    "attributes": {
+      "colors": [
+        "Tortoise"
+      ],
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Sunglasses",
+    "seed_keywords": [
+      "sunglasses",
+      "polarised sunglasses"
+    ]
+  },
+  {
+    "sku": "CAT-0136",
+    "name": "PocketCell",
+    "category": "Electronics",
+    "subcategory": "Power Bank",
+    "brand": "Sonora",
+    "price": 1799,
+    "currency": "INR",
+    "features": [
+      "Slim aluminium body",
+      "LED charge indicator",
+      "USB-C input and output",
+      "Airline-safe capacity"
+    ],
+    "specifications": {
+      "Capacity": "10000 mAh",
+      "Ports": "2 x USB-A, 1 x USB-C",
+      "Weight": "393 g",
+      "Warranty": "1 year"
+    },
+    "attributes": {
+      "colors": [
+        "Navy",
+        "Graphite"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Power%20Bank",
+    "seed_keywords": [
+      "portable charger",
+      "fast charging power bank"
+    ]
+  },
+  {
+    "sku": "CAT-0137",
+    "name": "Vortex RGB",
+    "category": "Electronics",
+    "subcategory": "Gaming Mouse",
+    "brand": "Voltix",
+    "price": 2069,
+    "currency": "INR",
+    "features": [
+      "Braided cable",
+      "Six programmable buttons",
+      "On-board memory profiles",
+      "Adjustable DPI up to 12000",
+      "RGB lighting with 16.8 million colours"
+    ],
+    "specifications": {
+      "Max DPI": "12000",
+      "Buttons": "6",
+      "Weight": "73 g",
+      "Connection": "2.4 GHz wireless"
+    },
+    "attributes": {
+      "grip": "Fingertip"
+    },
+    "image_url": "https://placehold.co/600x600?text=Gaming%20Mouse",
+    "seed_keywords": [
+      "gaming mouse",
+      "rgb mouse"
+    ]
+  },
+  {
+    "sku": "CAT-0138",
+    "name": "Quill Compact",
+    "category": "Electronics",
+    "subcategory": "Mechanical Keyboard",
+    "brand": "Sonora",
+    "price": 8389,
+    "currency": "INR",
+    "features": [
+      "Per-key RGB backlight",
+      "Hot-swappable switches",
+      "Anti-ghosting with full N-key rollover"
+    ],
+    "specifications": {
+      "Layout": "Full size (104 keys)",
+      "Switches": "Red linear",
+      "Connection": "Wired USB-C",
+      "Weight": "710 g"
+    },
+    "attributes": {
+      "colors": [
+        "Sage"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Mechanical%20Keyboard",
+    "seed_keywords": [
+      "mechanical keyboard",
+      "rgb keyboard"
+    ]
+  },
+  {
+    "sku": "CAT-0139",
+    "name": "SportNeck",
+    "category": "Electronics",
+    "subcategory": "Neckband Earphones",
+    "brand": "Sonora",
+    "price": 1969,
+    "currency": "INR",
+    "features": [
+      "Magnetic earbuds that switch off when clipped",
+      "Fast charging",
+      "Environmental noise cancellation for calls",
+      "Up to 30 hours playback",
+      "Vibration call alert"
+    ],
+    "specifications": {
+      "Battery life": "35 hours",
+      "Bluetooth": "5.3",
+      "Driver size": "12 mm",
+      "Weight": "31 g"
+    },
+    "attributes": {
+      "colors": [
+        "Black",
+        "Green"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Neckband%20Earphones",
+    "seed_keywords": [
+      "wireless neckband",
+      "bluetooth neckband"
+    ]
+  },
+  {
+    "sku": "CAT-0140",
+    "name": "Pulse Buds Neo",
+    "category": "Electronics",
+    "subcategory": "Wireless Earbuds",
+    "brand": "Sonora",
+    "price": 2619,
+    "currency": "INR",
+    "features": [
+      "Fast charging: 10 min for 2 hours of playback",
+      "Low-latency gaming mode",
+      "Active noise cancellation"
+    ],
+    "specifications": {
+      "Battery life": "31 hours with case",
+      "Driver size": "12 mm",
+      "Bluetooth": "5.4",
+      "Weight": "5 g per bud"
+    },
+    "attributes": {
+      "colors": [
+        "Midnight Black",
+        "Ocean Blue"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Wireless%20Earbuds",
+    "seed_keywords": [
+      "wireless earbuds",
+      "bluetooth earphones"
+    ]
+  },
+  {
+    "sku": "CAT-0141",
+    "name": "Orbit Fit Plus",
+    "category": "Electronics",
+    "subcategory": "Smartwatch",
+    "brand": "Aurex",
+    "price": 2999,
+    "currency": "INR",
+    "features": [
+      "100+ sports modes",
+      "5 ATM water resistance",
+      "Bluetooth calling",
+      "Built-in GPS",
+      "SpO2 and heart-rate monitoring"
+    ],
+    "specifications": {
+      "Display": "2.01-inch AMOLED",
+      "Battery life": "Up to 7 days",
+      "Water resistance": "5 ATM",
+      "Compatibility": "Android and iOS"
+    },
+    "attributes": {
+      "strap": "Silicone",
+      "colors": [
+        "Graphite",
+        "Rose Gold"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Smartwatch",
+    "seed_keywords": [
+      "fitness tracker",
+      "smartwatch"
+    ]
+  },
+  {
+    "sku": "CAT-0142",
+    "name": "Thunder Mini Edge",
+    "category": "Electronics",
+    "subcategory": "Bluetooth Speaker",
+    "brand": "Voltix",
+    "price": 7839,
+    "currency": "INR",
+    "features": [
+      "IP67 waterproof and dustproof",
+      "Party pairing with a second speaker",
+      "Built-in microphone",
+      "Deep bass radiator"
+    ],
+    "specifications": {
+      "Output": "16 W",
+      "Battery life": "17 hours",
+      "Water resistance": "IP67",
+      "Weight": "466 g"
+    },
+    "attributes": {
+      "colors": [
+        "Black",
+        "Teal"
+      ],
+      "use_case": "Outdoor and travel"
+    },
+    "image_url": "https://placehold.co/600x600?text=Bluetooth%20Speaker",
+    "seed_keywords": [
+      "bluetooth speaker",
+      "portable speaker"
+    ]
+  },
+  {
+    "sku": "CAT-0143",
+    "name": "Relaxed Straight Jeans",
+    "category": "Apparel",
+    "subcategory": "Denim Jeans",
+    "price": 1459,
+    "currency": "INR",
+    "features": [
+      "Machine washable"
+    ],
+    "specifications": {},
+    "attributes": {
+      "sizes": [
+        "28",
+        "30",
+        "32",
+        "34",
+        "36"
+      ],
+      "colors": [
+        "Black",
+        "Light Blue"
+      ],
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Denim%20Jeans",
+    "seed_keywords": [
+      "denim jeans",
+      "slim fit jeans"
+    ]
+  },
+  {
+    "sku": "CAT-0144",
+    "name": "Studio Hoodie",
+    "category": "Apparel",
+    "subcategory": "Hoodie",
+    "brand": "Kesari",
+    "price": 1769,
+    "currency": "INR",
+    "features": [
+      "Ribbed cuffs and hem",
+      "Pre-shrunk fabric",
+      "Kangaroo pocket",
+      "Brushed fleece lining"
+    ],
+    "specifications": {
+      "Fabric": "80% cotton, 20% polyester",
+      "GSM": "400",
+      "Fit": "Regular",
+      "Care": "Machine wash cold"
+    },
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Charcoal",
+        "Olive"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Hoodie",
+    "seed_keywords": [
+      "hoodie",
+      "cotton hoodie"
+    ]
+  },
+  {
+    "sku": "CAT-0145",
+    "name": "Handloom Cotton Saree",
+    "category": "Apparel",
+    "subcategory": "Saree",
+    "brand": "Northline",
+    "price": 9059,
+    "currency": "INR",
+    "features": [
+      "Handwoven by artisans",
+      "Festive and wedding wear",
+      "Comes with an unstitched blouse piece",
+      "Lightweight drape",
+      "Zari border"
+    ],
+    "specifications": {
+      "Fabric": "Linen",
+      "Length": "5.5 m saree, 0.8 m blouse piece",
+      "Care": "Gentle hand wash"
+    },
+    "attributes": {
+      "colors": [
+        "Maroon",
+        "Mustard"
+      ],
+      "occasion": "Festive"
+    },
+    "image_url": "https://placehold.co/600x600?text=Saree",
+    "seed_keywords": [
+      "cotton saree",
+      "silk saree"
+    ]
+  },
+  {
+    "sku": "CAT-0146",
+    "name": "Pima Polo Neo",
+    "category": "Apparel",
+    "subcategory": "T-Shirt",
+    "brand": "Kesari",
+    "price": 509,
+    "currency": "INR",
+    "features": [
+      "Breathable 180 GSM cotton",
+      "Reinforced shoulder seams",
+      "Tagless neck label"
+    ],
+    "specifications": {
+      "Fabric": "100% Supima cotton",
+      "Fit": "Slim",
+      "Neck": "Polo collar",
+      "Care": "Machine wash cold"
+    },
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Mustard",
+        "White",
+        "Olive"
+      ],
+      "gender": "Men"
+    },
+    "image_url": "https://placehold.co/600x600?text=T-Shirt",
+    "seed_keywords": [
+      "everyday t-shirt",
+      "cotton t-shirt"
+    ]
+  },
+  {
+    "sku": "CAT-0147",
+    "name": "CloudStep 2 Max",
+    "category": "Apparel",
+    "subcategory": "Running Shoes",
+    "brand": "Kesari",
+    "price": 4369,
+    "currency": "INR",
+    "features": [
+      "Reflective details for low light",
+      "Padded heel collar",
+      "Rubber outsole with multi-directional grip",
+      "Breathable engineered mesh upper",
+      "Responsive foam midsole"
+    ],
+    "specifications": {
+      "Heel-to-toe drop": "6 mm",
+      "Weight": "261 g (UK 8)",
+      "Upper": "Engineered mesh",
+      "Outsole": "Carbon rubber"
+    },
+    "attributes": {
+      "sizes": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10"
+      ],
+      "gender": "Men",
+      "terrain": "Treadmill"
+    },
+    "image_url": "https://placehold.co/600x600?text=Running%20Shoes",
+    "seed_keywords": [
+      "lightweight trainers",
+      "sports shoes"
+    ]
+  },
+  {
+    "sku": "CAT-0148",
+    "name": "Festive Silk Kurta Plus",
+    "category": "Apparel",
+    "subcategory": "Kurta",
+    "brand": "Kesari",
+    "price": 3369,
+    "currency": "INR",
+    "features": [
+      "Comes with matching dupatta",
+      "Side slits for easy movement",
+      "Hand-finished embroidery",
+      "Three-quarter sleeves"
+    ],
+    "specifications": {
+      "Fabric": "Rayon",
+      "Length": "Calf length",
+      "Neck": "Mandarin",
+      "Care": "Dry clean only"
+    },
+    "attributes": {
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "occasion": "Casual",
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Kurta",
+    "seed_keywords": [
+      "cotton kurta",
+      "ethnic wear"
+    ]
+  },
+  {
+    "sku": "CAT-0149",
+    "name": "TurboGrind",
+    "category": "Home & Kitchen",
+    "subcategory": "Mixer Grinder",
+    "brand": "HearthWare",
+    "price": 2639,
+    "currency": "INR",
+    "features": [
+      "Three stainless steel jars",
+      "Leak-proof lids",
+      "Overload protection"
+    ],
+    "specifications": {
+      "Power": "500 W",
+      "Jars": "3",
+      "Speed settings": "3 + pulse",
+      "Warranty": "2 years"
+    },
+    "attributes": {
+      "colors": [
+        "Red"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Mixer%20Grinder",
+    "seed_keywords": [
+      "mixer grinder 750 watt",
+      "kitchen mixer"
+    ]
+  },
+  {
+    "sku": "CAT-0150",
+    "name": "Glaze 18 Piece Set",
+    "category": "Home & Kitchen",
+    "subcategory": "Dinner Set",
+    "brand": "Pristine Home",
+    "price": 2189,
+    "currency": "INR",
+    "features": [
+      "Lead-free glaze",
+      "Microwave and dishwasher safe",
+      "Gift box packaging",
+      "Chip-resistant stoneware",
+      "Handcrafted finish"
+    ],
+    "specifications": {
+      "Pieces": "18",
+      "Material": "Ceramic",
+      "Serves": "4",
+      "Care": "Dishwasher safe"
+    },
+    "attributes": {
+      "colors": [
+        "Blue",
+        "Sage"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Dinner%20Set",
+    "seed_keywords": [
+      "dinner set",
+      "ceramic dinner set"
+    ]
+  },
+  {
+    "sku": "CAT-0151",
+    "name": "Zero Twist Towels",
+    "category": "Home & Kitchen",
+    "subcategory": "Towel Set",
+    "brand": "Casa Nova",
+    "price": 1859,
+    "currency": "INR",
+    "features": [
+      "Soft zero-twist loops",
+      "Quick drying",
+      "Highly absorbent"
+    ],
+    "specifications": {
+      "Material": "100% cotton",
+      "GSM": "600",
+      "Pieces": "6",
+      "Care": "Machine wash warm"
+    },
+    "attributes": {
+      "colors": [
+        "White",
+        "Grey"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Towel%20Set",
+    "seed_keywords": [
+      "bath towel set",
+      "cotton towels"
+    ]
+  },
+  {
+    "sku": "CAT-0152",
+    "name": "Citrus Morning",
+    "category": "Home & Kitchen",
+    "subcategory": "Scented Candle",
+    "brand": "Casa Nova",
+    "price": 889,
+    "currency": "INR",
+    "features": [
+      "Reusable glass jar",
+      "Soy wax blend",
+      "Long burn time",
+      "Hand-poured in small batches"
+    ],
+    "specifications": {
+      "Burn time": "60 hours",
+      "Net weight": "300 g",
+      "Wax": "Soy wax blend",
+      "Fragrance": "Jasmine"
+    },
+    "attributes": {
+      "gift_ready": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Scented%20Candle",
+    "seed_keywords": [
+      "scented candle",
+      "aromatherapy candle"
+    ]
+  },
+  {
+    "sku": "CAT-0153",
+    "name": "HealthyFry Max Edge",
+    "category": "Home & Kitchen",
+    "subcategory": "Air Fryer",
+    "brand": "Pristine Home",
+    "price": 8469,
+    "currency": "INR",
+    "features": [
+      "Shake reminder",
+      "Auto shut-off",
+      "Up to 90% less oil than deep frying",
+      "Digital touch panel with 8 presets"
+    ],
+    "specifications": {
+      "Capacity": "4.2 L",
+      "Power": "1500 W",
+      "Temperature range": "80-200 °C",
+      "Warranty": "1 year"
+    },
+    "attributes": {
+      "colors": [
+        "White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Air%20Fryer",
+    "seed_keywords": [
+      "air fryer",
+      "oil free fryer"
+    ]
+  },
+  {
+    "sku": "CAT-0154",
+    "name": "Egyptian Weave Set Neo",
+    "category": "Home & Kitchen",
+    "subcategory": "Bedsheet Set",
+    "brand": "Pristine Home",
+    "price": 3269,
+    "currency": "INR",
+    "features": [
+      "Fade-resistant colours",
+      "Soft, breathable weave",
+      "Includes two pillow covers"
+    ],
+    "specifications": {
+      "Thread count": "180 TC",
+      "Material": "Microfibre",
+      "Size": "King",
+      "Contents": "1 bedsheet, 2 pillow covers"
+    },
+    "attributes": {
+      "pattern": "Solid",
+      "colors": [
+        "Indigo",
+        "Ivory"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Bedsheet%20Set",
+    "seed_keywords": [
+      "bed linen",
+      "cotton bedsheet"
+    ]
+  },
+  {
+    "sku": "CAT-0155",
+    "name": "Hydra Steel Classic",
+    "category": "Home & Kitchen",
+    "subcategory": "Insulated Water Bottle",
+    "brand": "HearthWare",
+    "price": 799,
+    "currency": "INR",
+    "features": [
+      "Powder-coated grip",
+      "BPA-free",
+      "Leak-proof lid",
+      "Double-wall vacuum insulation"
+    ],
+    "specifications": {
+      "Capacity": "1000 ml",
+      "Material": "18/8 stainless steel",
+      "Weight": "306 g",
+      "Dishwasher safe": "Lid only"
+    },
+    "attributes": {
+      "colors": [
+        "Coral",
+        "Sky Blue",
+        "Forest Green"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Insulated%20Water%20Bottle",
+    "seed_keywords": [
+      "steel water bottle",
+      "insulated bottle"
+    ]
+  },
+  {
+    "sku": "CAT-0156",
+    "name": "Argan Repair Oil",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Hair Oil",
+    "brand": "Derma Lab",
+    "price": 249,
+    "currency": "INR",
+    "features": [
+      "Free from mineral oil",
+      "Non-sticky formula",
+      "Suitable for all hair types",
+      "Dropper for easy use"
+    ],
+    "specifications": {
+      "Volume": "200 ml",
+      "Key ingredient": "Onion seed",
+      "Hair type": "All hair types"
+    },
+    "attributes": {
+      "concern": "Frizz"
+    },
+    "image_url": "https://placehold.co/600x600?text=Hair%20Oil",
+    "seed_keywords": [
+      "hair growth oil",
+      "hair oil"
+    ]
+  },
+  {
+    "sku": "CAT-0157",
+    "name": "Salicylic Acne Wash",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Face Wash",
+    "brand": "Glowveda",
+    "price": 529,
+    "currency": "INR",
+    "features": [
+      "Fragrance-free",
+      "Removes excess oil",
+      "Dermatologically tested",
+      "pH balanced"
+    ],
+    "specifications": {
+      "Volume": "100 ml",
+      "Key ingredient": "Neem",
+      "Skin type": "Sensitive skin"
+    },
+    "attributes": {
+      "concern": "Acne"
+    },
+    "image_url": "https://placehold.co/600x600?text=Face%20Wash",
+    "seed_keywords": [
+      "face wash for oily skin",
+      "face wash"
+    ]
+  },
+  {
+    "sku": "CAT-0158",
+    "name": "SPF Lip Shield",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Lip Balm",
+    "brand": "PureLeaf",
+    "price": 299,
+    "currency": "INR",
+    "features": [
+      "Shea and cocoa butter",
+      "No parabens",
+      "Long-lasting moisture",
+      "Pocket-size tube"
+    ],
+    "specifications": {
+      "Net weight": "4.5 g",
+      "SPF": "None",
+      "Finish": "Clear"
+    },
+    "attributes": {
+      "shade": "Nude"
+    },
+    "image_url": "https://placehold.co/600x600?text=Lip%20Balm",
+    "seed_keywords": [
+      "lip balm for dry lips",
+      "tinted lip balm"
+    ]
+  },
+  {
+    "sku": "CAT-0159",
+    "name": "Vitamin C Brightening Serum Max",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Face Serum",
+    "brand": "PureLeaf",
+    "price": 1479,
+    "currency": "INR",
+    "features": [
+      "Suitable for daily use",
+      "Dermatologically tested",
+      "Dropper for mess-free application",
+      "Fragrance-free",
+      "Lightweight, fast-absorbing formula"
+    ],
+    "specifications": {
+      "Volume": "50 ml",
+      "Key ingredient": "10% Niacinamide + 1% Zinc",
+      "Skin type": "All skin types"
+    },
+    "attributes": {
+      "concern": "Dullness",
+      "cruelty_free": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Face%20Serum",
+    "seed_keywords": [
+      "face serum",
+      "serum for glowing skin"
+    ]
+  },
+  {
+    "sku": "CAT-0160",
+    "name": "Invisible Sun Gel Air",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Sunscreen",
+    "brand": "Glowveda",
+    "price": 739,
+    "currency": "INR",
+    "features": [
+      "Water resistant for 80 minutes",
+      "Non-greasy finish",
+      "Works under makeup",
+      "No white cast",
+      "Broad spectrum UVA and UVB protection"
+    ],
+    "specifications": {
+      "SPF": "SPF 50",
+      "PA": "PA++++",
+      "Volume": "50 g",
+      "Texture": "Gel"
+    },
+    "attributes": {
+      "skin_type": "Sensitive"
+    },
+    "image_url": "https://placehold.co/600x600?text=Sunscreen",
+    "seed_keywords": [
+      "no white cast sunscreen",
+      "sunscreen for oily skin"
+    ]
+  },
+  {
+    "sku": "CAT-0161",
+    "name": "Studio Bands",
+    "category": "Sports & Fitness",
+    "subcategory": "Resistance Bands",
+    "brand": "FlexCore",
+    "price": 1469,
+    "currency": "INR",
+    "features": [
+      "Non-slip inner grip",
+      "Carry pouch included",
+      "Latex-free fabric",
+      "Five resistance levels",
+      "Exercise guide included"
+    ],
+    "specifications": {
+      "Pieces": "5",
+      "Material": "Fabric",
+      "Resistance range": "10 to 40 kg"
+    },
+    "attributes": {
+      "level": "Beginner"
+    },
+    "image_url": "https://placehold.co/600x600?text=Resistance%20Bands",
+    "seed_keywords": [
+      "resistance bands",
+      "workout bands"
+    ]
+  },
+  {
+    "sku": "CAT-0162",
+    "name": "Pro League Ball",
+    "category": "Sports & Fitness",
+    "subcategory": "Football",
+    "brand": "FlexCore",
+    "price": 2179,
+    "currency": "INR",
+    "features": [
+      "Butyl bladder for air retention",
+      "Hand-stitched panels",
+      "Textured surface for grip",
+      "Suitable for grass and turf"
+    ],
+    "specifications": {
+      "Size": "4",
+      "Material": "TPU",
+      "Panels": "20",
+      "Weight": "426 g"
+    },
+    "attributes": {
+      "use": "Training"
+    },
+    "image_url": "https://placehold.co/600x600?text=Football",
+    "seed_keywords": [
+      "football size 5",
+      "football"
+    ]
+  },
+  {
+    "sku": "CAT-0163",
+    "name": "ChromeLift Pair",
+    "category": "Sports & Fitness",
+    "subcategory": "Dumbbell Set",
+    "brand": "Vayu Sports",
+    "price": 1649,
+    "currency": "INR",
+    "features": [
+      "Non-slip grip",
+      "Hexagonal heads that do not roll",
+      "Pair included",
+      "Floor-friendly coating"
+    ],
+    "specifications": {
+      "Weight": "Adjustable up to 20 kg",
+      "Material": "Neoprene-coated cast iron",
+      "Grip": "Knurled handle"
+    },
+    "attributes": {
+      "level": "Beginner"
+    },
+    "image_url": "https://placehold.co/600x600?text=Dumbbell%20Set",
+    "seed_keywords": [
+      "dumbbells",
+      "dumbbell set"
+    ]
+  },
+  {
+    "sku": "CAT-0164",
+    "name": "GripFlow Mat Studio",
+    "category": "Sports & Fitness",
+    "subcategory": "Yoga Mat",
+    "brand": "FlexCore",
+    "price": 2309,
+    "currency": "INR",
+    "features": [
+      "Alignment lines",
+      "Extra cushioning for joints",
+      "Easy to wipe clean",
+      "Non-slip textured surface"
+    ],
+    "specifications": {
+      "Thickness": "10 mm",
+      "Material": "TPE",
+      "Dimensions": "183 x 61 cm",
+      "Weight": "0.9 kg"
+    },
+    "attributes": {
+      "colors": [
+        "Charcoal",
+        "Peach"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Yoga%20Mat",
+    "seed_keywords": [
+      "yoga mat",
+      "anti slip yoga mat"
+    ]
+  },
+  {
+    "sku": "CAT-0165",
+    "name": "English Willow Pro Neo",
+    "category": "Sports & Fitness",
+    "subcategory": "Cricket Bat",
+    "brand": "IronPeak",
+    "price": 9809,
+    "currency": "INR",
+    "features": [
+      "Thick edges for big hitting",
+      "Hand-picked willow",
+      "Cane handle with shock absorption",
+      "Comes with a padded cover",
+      "Pre-knocked and ready to play"
+    ],
+    "specifications": {
+      "Willow": "Kashmir willow",
+      "Weight": "1204 g",
+      "Size": "Size 6",
+      "Grains": "12"
+    },
+    "attributes": {
+      "level": "Club",
+      "ball_type": "Tennis ball"
+    },
+    "image_url": "https://placehold.co/600x600?text=Cricket%20Bat",
+    "seed_keywords": [
+      "kashmir willow bat",
+      "english willow bat"
+    ]
+  },
+  {
+    "sku": "CAT-0166",
+    "name": "Chikmagalur Estate Roast",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Coffee Beans",
+    "brand": "Himalayan Harvest",
+    "price": 1059,
+    "currency": "INR",
+    "features": [
+      "Degassing valve bag",
+      "Notes of chocolate and caramel",
+      "Whole bean or ground"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Roast": "Medium",
+      "Origin": "Araku Valley",
+      "Form": "Whole bean"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Coffee%20Beans",
+    "seed_keywords": [
+      "coffee beans",
+      "arabica coffee"
+    ]
+  },
+  {
+    "sku": "CAT-0167",
+    "name": "Extra Long Grain",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Basmati Rice",
+    "brand": "Himalayan Harvest",
+    "price": 629,
+    "currency": "INR",
+    "features": [
+      "Hand sorted",
+      "Aged for aroma",
+      "Sealed freshness pack",
+      "Extra long grains"
+    ],
+    "specifications": {
+      "Net weight": "5 kg",
+      "Grain length": "8.5 mm",
+      "Aged": "12 months",
+      "Shelf life": "24 months"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Basmati%20Rice",
+    "seed_keywords": [
+      "biryani rice",
+      "long grain basmati"
+    ]
+  },
+  {
+    "sku": "CAT-0168",
+    "name": "Afghan Raisins",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Dry Fruits",
+    "brand": "Spice Route",
+    "price": 1049,
+    "currency": "INR",
+    "features": [
+      "Freshly packed",
+      "No added preservatives",
+      "Hand-picked and graded",
+      "Resealable zip pouch"
+    ],
+    "specifications": {
+      "Net weight": "1000 g",
+      "Grade": "Premium",
+      "Shelf life": "6 months",
+      "Origin": "California"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Dry%20Fruits",
+    "seed_keywords": [
+      "dry fruits",
+      "almonds"
+    ]
+  },
+  {
+    "sku": "CAT-0169",
+    "name": "Mustard Flower Honey",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Honey",
+    "brand": "Farm Fable",
+    "price": 499,
+    "currency": "INR",
+    "features": [
+      "Raw and unprocessed",
+      "Sourced from small beekeepers",
+      "Glass jar",
+      "No added sugar"
+    ],
+    "specifications": {
+      "Net weight": "500 g",
+      "Source": "Himalayan foothills",
+      "Shelf life": "24 months"
+    },
+    "attributes": {
+      "diet": [
+        "Vegetarian"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Honey",
+    "seed_keywords": [
+      "raw honey",
+      "natural honey"
+    ]
+  },
+  {
+    "sku": "CAT-0170",
+    "name": "Kashmiri Kahwa Neo",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Green Tea",
+    "brand": "Spice Route",
+    "price": 619,
+    "currency": "INR",
+    "features": [
+      "Whole-leaf tea",
+      "Resealable pouch",
+      "Rich in antioxidants",
+      "Sourced from hill estates"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Form": "Loose leaf",
+      "Shelf life": "18 months",
+      "Origin": "Darjeeling"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Green%20Tea",
+    "seed_keywords": [
+      "green tea",
+      "organic green tea"
+    ]
+  },
+  {
+    "sku": "CAT-0171",
+    "name": "Orange Peel Dark Classic",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Dark Chocolate",
+    "brand": "Himalayan Harvest",
+    "price": 239,
+    "currency": "INR",
+    "features": [
+      "Low sugar",
+      "No palm oil",
+      "Made with Indian cacao",
+      "Small-batch production"
+    ],
+    "specifications": {
+      "Cocoa content": "70%",
+      "Net weight": "50 g",
+      "Shelf life": "12 months",
+      "Allergens": "Contains nuts"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan"
+      ],
+      "gift_ready": false
+    },
+    "image_url": "https://placehold.co/600x600?text=Dark%20Chocolate",
+    "seed_keywords": [
+      "craft chocolate",
+      "dark chocolate"
+    ]
+  },
+  {
+    "sku": "CAT-0172",
+    "name": "Number Train Puzzle",
+    "category": "Toys & Baby",
+    "subcategory": "Wooden Puzzle",
+    "brand": "Little Sprout",
+    "price": 489,
+    "currency": "INR",
+    "features": [
+      "Non-toxic water-based paints",
+      "Made from sustainably sourced wood",
+      "Builds shape and colour recognition"
+    ],
+    "specifications": {
+      "Pieces": "12",
+      "Recommended age": "3+ years",
+      "Material": "Pine wood"
+    },
+    "attributes": {
+      "theme": "Numbers"
+    },
+    "image_url": "https://placehold.co/600x600?text=Wooden%20Puzzle",
+    "seed_keywords": [
+      "educational toys",
+      "wooden puzzle"
+    ]
+  },
+  {
+    "sku": "CAT-0173",
+    "name": "Panda Pal",
+    "category": "Toys & Baby",
+    "subcategory": "Plush Toy",
+    "brand": "Little Sprout",
+    "price": 799,
+    "currency": "INR",
+    "features": [
+      "Super-soft fabric",
+      "Gift-ready tag",
+      "Surface washable"
+    ],
+    "specifications": {
+      "Height": "40 cm",
+      "Material": "Polyester plush",
+      "Recommended age": "3+ years"
+    },
+    "attributes": {
+      "colors": [
+        "White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Plush%20Toy",
+    "seed_keywords": [
+      "plush toy for kids",
+      "soft toy"
+    ]
+  },
+  {
+    "sku": "CAT-0174",
+    "name": "Creative Bricks Box Prime",
+    "category": "Toys & Baby",
+    "subcategory": "Building Blocks",
+    "price": 1219,
+    "currency": "INR",
+    "features": [
+      "Compatible with major brick brands"
+    ],
+    "specifications": {},
+    "attributes": {
+      "theme": "Vehicles"
+    },
+    "image_url": "https://placehold.co/600x600?text=Building%20Blocks",
+    "seed_keywords": [
+      "construction toys for kids",
+      "educational toys"
+    ]
+  },
+  {
+    "sku": "CAT-0175",
+    "name": "Hardbound Sketchbook",
+    "category": "Books & Stationery",
+    "subcategory": "Notebook",
+    "brand": "Paper Trail",
+    "price": 679,
+    "currency": "INR",
+    "features": [
+      "Thick paper that resists bleed-through",
+      "Recycled paper cover",
+      "Lay-flat binding",
+      "Ribbon bookmark",
+      "Numbered pages"
+    ],
+    "specifications": {
+      "Pages": "192",
+      "Size": "B5",
+      "Paper weight": "80 GSM",
+      "Ruling": "Dot grid"
+    },
+    "attributes": {
+      "colors": [
+        "Navy"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Notebook",
+    "seed_keywords": [
+      "notebook",
+      "dot grid notebook"
+    ]
+  },
+  {
+    "sku": "CAT-0176",
+    "name": "Student Starter Pen",
+    "category": "Books & Stationery",
+    "subcategory": "Fountain Pen",
+    "brand": "Inkwell",
+    "price": 2569,
+    "currency": "INR",
+    "features": [
+      "Converter and cartridges included",
+      "Smooth steel nib",
+      "Gift box",
+      "Ink window"
+    ],
+    "specifications": {
+      "Nib": "Broad",
+      "Body": "Ebonite",
+      "Filling": "Cartridge or converter"
+    },
+    "attributes": {
+      "colors": [
+        "Teal"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Fountain%20Pen",
+    "seed_keywords": [
+      "calligraphy pen",
+      "fountain pen"
+    ]
+  },
+  {
+    "sku": "CAT-0177",
+    "name": "Daily Focus Planner",
+    "category": "Books & Stationery",
+    "subcategory": "Planner",
+    "brand": "Inkwell",
+    "price": 1249,
+    "currency": "INR",
+    "features": [
+      "Habit and goal trackers",
+      "Hardcover",
+      "Pen loop and pocket",
+      "Monthly and weekly spreads"
+    ],
+    "specifications": {
+      "Pages": "200",
+      "Size": "B6",
+      "Paper weight": "80 GSM",
+      "Layout": "Monthly"
+    },
+    "attributes": {
+      "colors": [
+        "Charcoal"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Planner",
+    "seed_keywords": [
+      "weekly planner",
+      "undated planner"
+    ]
+  },
+  {
+    "sku": "CAT-0178",
+    "name": "RFID Travel Wallet",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Leather Wallet",
+    "brand": "Northline",
+    "price": 1709,
+    "currency": "INR",
+    "features": [
+      "Two note compartments",
+      "Six card slots",
+      "Slim profile",
+      "RFID blocking"
+    ],
+    "specifications": {
+      "Material": "Full-grain leather",
+      "Card slots": "4",
+      "Dimensions": "11 x 9 cm"
+    },
+    "attributes": {
+      "colors": [
+        "Tan"
+      ],
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Leather%20Wallet",
+    "seed_keywords": [
+      "leather wallet",
+      "wallet for men"
+    ]
+  },
+  {
+    "sku": "CAT-0179",
+    "name": "Leaf Danglers",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Silver Earrings",
+    "brand": "Northline",
+    "price": 1139,
+    "currency": "INR",
+    "features": [
+      "Nickel-free",
+      "Hallmarked",
+      "925 sterling silver"
+    ],
+    "specifications": {
+      "Metal": "925 sterling silver",
+      "Finish": "Oxidised",
+      "Weight": "5 g",
+      "Closure": "Hook"
+    },
+    "attributes": {
+      "occasion": "Festive"
+    },
+    "image_url": "https://placehold.co/600x600?text=Silver%20Earrings",
+    "seed_keywords": [
+      "jhumka earrings",
+      "oxidised earrings"
+    ]
+  },
+  {
+    "sku": "CAT-0180",
+    "name": "Clubmaster Edge",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Sunglasses",
+    "price": 919,
+    "currency": "INR",
+    "features": [
+      "Spring hinges"
+    ],
+    "specifications": {},
+    "attributes": {
+      "colors": [
+        "Tortoise"
+      ],
+      "gender": "Unisex"
+    },
+    "image_url": "https://placehold.co/600x600?text=Sunglasses",
+    "seed_keywords": [
+      "aviator sunglasses",
+      "polarised sunglasses"
+    ]
+  },
+  {
+    "sku": "CAT-0181",
+    "name": "ChargeMate Slim",
+    "category": "Electronics",
+    "subcategory": "Power Bank",
+    "brand": "Sonora",
+    "price": 1439,
+    "currency": "INR",
+    "features": [
+      "Slim aluminium body",
+      "USB-C input and output",
+      "LED charge indicator"
+    ],
+    "specifications": {
+      "Capacity": "20000 mAh",
+      "Ports": "2 x USB-A, 1 x USB-C",
+      "Weight": "372 g",
+      "Warranty": "1 year"
+    },
+    "attributes": {
+      "colors": [
+        "Graphite",
+        "White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Power%20Bank",
+    "seed_keywords": [
+      "portable charger",
+      "fast charging power bank"
+    ]
+  },
+  {
+    "sku": "CAT-0182",
+    "name": "Swift Claw",
+    "category": "Electronics",
+    "subcategory": "Gaming Mouse",
+    "brand": "Sonora",
+    "price": 1669,
+    "currency": "INR",
+    "features": [
+      "Six programmable buttons",
+      "RGB lighting with 16.8 million colours",
+      "Adjustable DPI up to 12000"
+    ],
+    "specifications": {
+      "Max DPI": "16000",
+      "Buttons": "7",
+      "Weight": "75 g",
+      "Connection": "2.4 GHz wireless"
+    },
+    "attributes": {
+      "grip": "Claw"
+    },
+    "image_url": "https://placehold.co/600x600?text=Gaming%20Mouse",
+    "seed_keywords": [
+      "rgb mouse",
+      "wireless gaming mouse"
+    ]
+  },
+  {
+    "sku": "CAT-0183",
+    "name": "TypeForge TKL",
+    "category": "Electronics",
+    "subcategory": "Mechanical Keyboard",
+    "brand": "Voltix",
+    "price": 2049,
+    "currency": "INR",
+    "features": [
+      "Per-key RGB backlight",
+      "Hot-swappable switches",
+      "Aluminium top plate"
+    ],
+    "specifications": {
+      "Layout": "65%",
+      "Switches": "Blue clicky",
+      "Connection": "Bluetooth and wired",
+      "Weight": "750 g"
+    },
+    "attributes": {
+      "colors": [
+        "Sage"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Mechanical%20Keyboard",
+    "seed_keywords": [
+      "rgb keyboard",
+      "gaming keyboard"
+    ]
+  },
+  {
+    "sku": "CAT-0184",
+    "name": "BassWire Neo",
+    "category": "Electronics",
+    "subcategory": "Neckband Earphones",
+    "price": 969,
+    "currency": "INR",
+    "features": [
+      "Up to 30 hours playback"
+    ],
+    "specifications": {},
+    "attributes": {
+      "colors": [
+        "Black",
+        "Blue"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Neckband%20Earphones",
+    "seed_keywords": [
+      "neckband earphones",
+      "bluetooth neckband"
+    ]
+  },
+  {
+    "sku": "CAT-0185",
+    "name": "Pulse Buds Max",
+    "category": "Electronics",
+    "subcategory": "Wireless Earbuds",
+    "brand": "Sonora",
+    "price": 5379,
+    "currency": "INR",
+    "features": [
+      "Low-latency gaming mode",
+      "IPX5 sweat resistance",
+      "Dual-device pairing",
+      "Fast charging: 10 min for 2 hours of playback"
+    ],
+    "specifications": {
+      "Battery life": "32 hours with case",
+      "Driver size": "10 mm",
+      "Bluetooth": "5.3",
+      "Weight": "6 g per bud"
+    },
+    "attributes": {
+      "colors": [
+        "Pearl White",
+        "Ocean Blue"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Wireless%20Earbuds",
+    "seed_keywords": [
+      "bluetooth earphones",
+      "noise cancelling earbuds"
+    ]
+  },
+  {
+    "sku": "CAT-0186",
+    "name": "Stride Watch Plus",
+    "category": "Electronics",
+    "subcategory": "Smartwatch",
+    "brand": "Aurex",
+    "price": 13689,
+    "currency": "INR",
+    "features": [
+      "Built-in GPS",
+      "Bluetooth calling",
+      "Sleep tracking",
+      "100+ sports modes"
+    ],
+    "specifications": {
+      "Display": "1.96-inch AMOLED",
+      "Battery life": "Up to 13 days",
+      "Water resistance": "5 ATM",
+      "Compatibility": "Android and iOS"
+    },
+    "attributes": {
+      "strap": "Metal mesh",
+      "colors": [
+        "Graphite",
+        "Rose Gold"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Smartwatch",
+    "seed_keywords": [
+      "smart watch with calling",
+      "fitness tracker"
+    ]
+  },
+  {
+    "sku": "CAT-0187",
+    "name": "Thunder Mini Signature",
+    "category": "Electronics",
+    "subcategory": "Bluetooth Speaker",
+    "brand": "Sonora",
+    "price": 8829,
+    "currency": "INR",
+    "features": [
+      "360-degree sound",
+      "USB-C charging",
+      "IP67 waterproof and dustproof"
+    ],
+    "specifications": {
+      "Output": "20 W",
+      "Battery life": "21 hours",
+      "Water resistance": "IP67",
+      "Weight": "852 g"
+    },
+    "attributes": {
+      "colors": [
+        "Black",
+        "Teal"
+      ],
+      "use_case": "Outdoor and travel"
+    },
+    "image_url": "https://placehold.co/600x600?text=Bluetooth%20Speaker",
+    "seed_keywords": [
+      "bluetooth speaker",
+      "portable speaker"
+    ]
+  },
+  {
+    "sku": "CAT-0188",
+    "name": "Stretch Skinny Jeans",
+    "category": "Apparel",
+    "subcategory": "Denim Jeans",
+    "brand": "Loomcraft",
+    "price": 1149,
+    "currency": "INR",
+    "features": [
+      "Reinforced stitching",
+      "Machine washable",
+      "Mid-rise waist",
+      "Comfort stretch denim"
+    ],
+    "specifications": {
+      "Fabric": "98% cotton, 2% elastane",
+      "Fit": "Straight",
+      "Rise": "Mid rise",
+      "Care": "Machine wash cold, inside out"
+    },
+    "attributes": {
+      "sizes": [
+        "28",
+        "30",
+        "32",
+        "34",
+        "36"
+      ],
+      "colors": [
+        "Indigo",
+        "Light Blue"
+      ],
+      "gender": "Men"
+    },
+    "image_url": "https://placehold.co/600x600?text=Denim%20Jeans",
+    "seed_keywords": [
+      "stretch jeans",
+      "slim fit jeans"
+    ]
+  },
+  {
+    "sku": "CAT-0189",
+    "name": "Cloud Fleece Hoodie",
+    "category": "Apparel",
+    "subcategory": "Hoodie",
+    "brand": "Northline",
+    "price": 1729,
+    "currency": "INR",
+    "features": [
+      "Ribbed cuffs and hem",
+      "Kangaroo pocket",
+      "Adjustable drawstring hood",
+      "Pre-shrunk fabric",
+      "Brushed fleece lining"
+    ],
+    "specifications": {
+      "Fabric": "80% cotton, 20% polyester",
+      "GSM": "280",
+      "Fit": "Regular",
+      "Care": "Machine wash cold"
+    },
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Olive",
+        "Navy"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Hoodie",
+    "seed_keywords": [
+      "oversized hoodie",
+      "cotton hoodie"
+    ]
+  },
+  {
+    "sku": "CAT-0190",
+    "name": "Banarasi Silk Saree",
+    "category": "Apparel",
+    "subcategory": "Saree",
+    "brand": "Urban Thread",
+    "price": 11579,
+    "currency": "INR",
+    "features": [
+      "Festive and wedding wear",
+      "Zari border",
+      "Comes with an unstitched blouse piece"
+    ],
+    "specifications": {
+      "Fabric": "Cotton",
+      "Length": "5.5 m saree, 0.8 m blouse piece",
+      "Care": "Dry clean only"
+    },
+    "attributes": {
+      "colors": [
+        "Maroon",
+        "Teal"
+      ],
+      "occasion": "Festive"
+    },
+    "image_url": "https://placehold.co/600x600?text=Saree",
+    "seed_keywords": [
+      "saree",
+      "silk saree"
+    ]
+  },
+  {
+    "sku": "CAT-0191",
+    "name": "Everyday Crew Tee Studio",
+    "category": "Apparel",
+    "subcategory": "T-Shirt",
+    "brand": "Loomcraft",
+    "price": 1179,
+    "currency": "INR",
+    "features": [
+      "Colourfast dyes",
+      "Tagless neck label",
+      "Breathable 180 GSM cotton"
+    ],
+    "specifications": {
+      "Fabric": "60% cotton, 40% polyester",
+      "Fit": "Slim",
+      "Neck": "V-neck",
+      "Care": "Machine wash cold"
+    },
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Navy",
+        "Olive",
+        "White"
+      ],
+      "gender": "Unisex"
+    },
+    "image_url": "https://placehold.co/600x600?text=T-Shirt",
+    "seed_keywords": [
+      "cotton t-shirt",
+      "casual tee"
+    ]
+  },
+  {
+    "sku": "CAT-0192",
+    "name": "CloudStep 2 Studio",
+    "category": "Apparel",
+    "subcategory": "Running Shoes",
+    "brand": "Loomcraft",
+    "price": 7349,
+    "currency": "INR",
+    "features": [
+      "Responsive foam midsole",
+      "Reflective details for low light",
+      "Padded heel collar",
+      "Breathable engineered mesh upper"
+    ],
+    "specifications": {
+      "Heel-to-toe drop": "4 mm",
+      "Weight": "280 g (UK 8)",
+      "Upper": "Engineered mesh",
+      "Outsole": "Carbon rubber"
+    },
+    "attributes": {
+      "sizes": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10"
+      ],
+      "gender": "Women",
+      "terrain": "Treadmill"
+    },
+    "image_url": "https://placehold.co/600x600?text=Running%20Shoes",
+    "seed_keywords": [
+      "running shoes",
+      "sports shoes"
+    ]
+  },
+  {
+    "sku": "CAT-0193",
+    "name": "Block Print A-Line Kurta Air",
+    "category": "Apparel",
+    "subcategory": "Kurta",
+    "brand": "Loomcraft",
+    "price": 1239,
+    "currency": "INR",
+    "features": [
+      "Hand-finished embroidery",
+      "Side slits for easy movement",
+      "Three-quarter sleeves"
+    ],
+    "specifications": {
+      "Fabric": "Rayon",
+      "Length": "Calf length",
+      "Neck": "Round",
+      "Care": "Hand wash"
+    },
+    "attributes": {
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "occasion": "Festive",
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Kurta",
+    "seed_keywords": [
+      "ethnic wear",
+      "cotton kurta"
+    ]
+  },
+  {
+    "sku": "CAT-0194",
+    "name": "KitchenPro 3 Jar",
+    "category": "Home & Kitchen",
+    "subcategory": "Mixer Grinder",
+    "brand": "Pristine Home",
+    "price": 3829,
+    "currency": "INR",
+    "features": [
+      "Three stainless steel jars",
+      "Overload protection",
+      "Three speed settings with pulse",
+      "Leak-proof lids"
+    ],
+    "specifications": {
+      "Power": "500 W",
+      "Jars": "4",
+      "Speed settings": "3 + pulse",
+      "Warranty": "5 years on motor"
+    },
+    "attributes": {
+      "colors": [
+        "Red"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Mixer%20Grinder",
+    "seed_keywords": [
+      "mixer grinder",
+      "mixer grinder 750 watt"
+    ]
+  },
+  {
+    "sku": "CAT-0195",
+    "name": "Heritage Dinnerware",
+    "category": "Home & Kitchen",
+    "subcategory": "Dinner Set",
+    "brand": "Casa Nova",
+    "price": 6349,
+    "currency": "INR",
+    "features": [
+      "Lead-free glaze",
+      "Gift box packaging",
+      "Microwave and dishwasher safe",
+      "Handcrafted finish"
+    ],
+    "specifications": {
+      "Pieces": "32",
+      "Material": "Stoneware",
+      "Serves": "6",
+      "Care": "Dishwasher safe"
+    },
+    "attributes": {
+      "colors": [
+        "Sage",
+        "White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Dinner%20Set",
+    "seed_keywords": [
+      "dinner set",
+      "stoneware dinner set"
+    ]
+  },
+  {
+    "sku": "CAT-0196",
+    "name": "Hotel Luxe Set",
+    "category": "Home & Kitchen",
+    "subcategory": "Towel Set",
+    "brand": "Casa Nova",
+    "price": 1129,
+    "currency": "INR",
+    "features": [
+      "Set of bath, hand and face towels",
+      "Colourfast dyes",
+      "Quick drying"
+    ],
+    "specifications": {
+      "Material": "60% bamboo, 40% cotton",
+      "GSM": "450",
+      "Pieces": "4",
+      "Care": "Machine wash warm"
+    },
+    "attributes": {
+      "colors": [
+        "Beige",
+        "Sage"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Towel%20Set",
+    "seed_keywords": [
+      "towel set",
+      "cotton towels"
+    ]
+  },
+  {
+    "sku": "CAT-0197",
+    "name": "Lavender Calm Candle",
+    "category": "Home & Kitchen",
+    "subcategory": "Scented Candle",
+    "brand": "HearthWare",
+    "price": 899,
+    "currency": "INR",
+    "features": [
+      "Soy wax blend",
+      "Reusable glass jar",
+      "Cotton wick",
+      "Long burn time"
+    ],
+    "specifications": {
+      "Burn time": "40 hours",
+      "Net weight": "300 g",
+      "Wax": "Soy wax blend",
+      "Fragrance": "Jasmine"
+    },
+    "attributes": {
+      "gift_ready": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Scented%20Candle",
+    "seed_keywords": [
+      "aromatherapy candle",
+      "scented candle"
+    ]
+  },
+  {
+    "sku": "CAT-0198",
+    "name": "HealthyFry Max Classic",
+    "category": "Home & Kitchen",
+    "subcategory": "Air Fryer",
+    "brand": "HearthWare",
+    "price": 7339,
+    "currency": "INR",
+    "features": [
+      "Auto shut-off",
+      "Up to 90% less oil than deep frying",
+      "Digital touch panel with 8 presets"
+    ],
+    "specifications": {
+      "Capacity": "3.5 L",
+      "Power": "1500 W",
+      "Temperature range": "80-200 °C",
+      "Warranty": "1 year"
+    },
+    "attributes": {
+      "colors": [
+        "Black"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Air%20Fryer",
+    "seed_keywords": [
+      "air fryer",
+      "oil free fryer"
+    ]
+  },
+  {
+    "sku": "CAT-0199",
+    "name": "Percale Comfort Set Plus",
+    "category": "Home & Kitchen",
+    "subcategory": "Bedsheet Set",
+    "brand": "HearthWare",
+    "price": 3499,
+    "currency": "INR",
+    "features": [
+      "Elasticated fitted corners",
+      "Fade-resistant colours",
+      "Gets softer with every wash",
+      "Soft, breathable weave"
+    ],
+    "specifications": {
+      "Thread count": "210 TC",
+      "Material": "100% cotton",
+      "Size": "Queen",
+      "Contents": "1 bedsheet, 2 pillow covers"
+    },
+    "attributes": {
+      "pattern": "Floral",
+      "colors": [
+        "Ivory",
+        "Blush"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Bedsheet%20Set",
+    "seed_keywords": [
+      "bed linen",
+      "double bedsheet with pillow covers"
+    ]
+  },
+  {
+    "sku": "CAT-0200",
+    "name": "ThermoFlask Select",
+    "category": "Home & Kitchen",
+    "subcategory": "Insulated Water Bottle",
+    "brand": "HearthWare",
+    "price": 1639,
+    "currency": "INR",
+    "features": [
+      "Double-wall vacuum insulation",
+      "Leak-proof lid",
+      "Powder-coated grip"
+    ],
+    "specifications": {
+      "Capacity": "1000 ml",
+      "Material": "18/8 stainless steel",
+      "Weight": "415 g",
+      "Dishwasher safe": "Lid only"
+    },
+    "attributes": {
+      "colors": [
+        "Sky Blue",
+        "Matte Black",
+        "Forest Green"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Insulated%20Water%20Bottle",
+    "seed_keywords": [
+      "steel water bottle",
+      "insulated bottle"
+    ]
+  },
+  {
+    "sku": "CAT-0201",
+    "name": "Rosemary Scalp Oil",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Hair Oil",
+    "brand": "Glowveda",
+    "price": 269,
+    "currency": "INR",
+    "features": [
+      "Suitable for all hair types",
+      "Dropper for easy use",
+      "Non-sticky formula",
+      "Cold-pressed oils",
+      "Free from mineral oil"
+    ],
+    "specifications": {
+      "Volume": "100 ml",
+      "Key ingredient": "Bhringraj",
+      "Hair type": "All hair types"
+    },
+    "attributes": {
+      "concern": "Frizz"
+    },
+    "image_url": "https://placehold.co/600x600?text=Hair%20Oil",
+    "seed_keywords": [
+      "hair oil",
+      "hair growth oil"
+    ]
+  },
+  {
+    "sku": "CAT-0202",
+    "name": "Gentle Foaming Cleanser",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Face Wash",
+    "brand": "PureLeaf",
+    "price": 529,
+    "currency": "INR",
+    "features": [
+      "Fragrance-free",
+      "pH balanced",
+      "Removes excess oil",
+      "Soap-free formula"
+    ],
+    "specifications": {
+      "Volume": "150 ml",
+      "Key ingredient": "Rice water",
+      "Skin type": "All skin types"
+    },
+    "attributes": {
+      "concern": "Acne"
+    },
+    "image_url": "https://placehold.co/600x600?text=Face%20Wash",
+    "seed_keywords": [
+      "face wash for oily skin",
+      "gentle cleanser"
+    ]
+  },
+  {
+    "sku": "CAT-0203",
+    "name": "Cocoa Butter Balm",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Lip Balm",
+    "brand": "PureLeaf",
+    "price": 379,
+    "currency": "INR",
+    "features": [
+      "No parabens",
+      "Shea and cocoa butter",
+      "Long-lasting moisture"
+    ],
+    "specifications": {
+      "Net weight": "10 g",
+      "SPF": "None",
+      "Finish": "Clear"
+    },
+    "attributes": {
+      "shade": "Nude"
+    },
+    "image_url": "https://placehold.co/600x600?text=Lip%20Balm",
+    "seed_keywords": [
+      "lip balm",
+      "tinted lip balm"
+    ]
+  },
+  {
+    "sku": "CAT-0204",
+    "name": "Vitamin C Brightening Serum Edge",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Face Serum",
+    "brand": "PureLeaf",
+    "price": 1219,
+    "currency": "INR",
+    "features": [
+      "Suitable for daily use",
+      "Dermatologically tested",
+      "Fragrance-free",
+      "Lightweight, fast-absorbing formula"
+    ],
+    "specifications": {
+      "Volume": "50 ml",
+      "Key ingredient": "2% Hyaluronic acid",
+      "Skin type": "Oily and acne-prone"
+    },
+    "attributes": {
+      "concern": "Dehydration",
+      "cruelty_free": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Face%20Serum",
+    "seed_keywords": [
+      "skincare serum",
+      "serum for glowing skin"
+    ]
+  },
+  {
+    "sku": "CAT-0205",
+    "name": "Invisible Sun Gel Prime",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Sunscreen",
+    "brand": "Glowveda",
+    "price": 399,
+    "currency": "INR",
+    "features": [
+      "Water resistant for 80 minutes",
+      "Broad spectrum UVA and UVB protection",
+      "Non-greasy finish",
+      "No white cast",
+      "Works under makeup"
+    ],
+    "specifications": {
+      "SPF": "SPF 30",
+      "PA": "PA++++",
+      "Volume": "50 g",
+      "Texture": "Fluid"
+    },
+    "attributes": {
+      "skin_type": "All"
+    },
+    "image_url": "https://placehold.co/600x600?text=Sunscreen",
+    "seed_keywords": [
+      "sunscreen spf 50",
+      "sunscreen for oily skin"
+    ]
+  },
+  {
+    "sku": "CAT-0206",
+    "name": "Travel Gym Bands",
+    "category": "Sports & Fitness",
+    "subcategory": "Resistance Bands",
+    "brand": "FlexCore",
+    "price": 1249,
+    "currency": "INR",
+    "features": [
+      "Non-slip inner grip",
+      "Five resistance levels",
+      "Latex-free fabric"
+    ],
+    "specifications": {
+      "Pieces": "5",
+      "Material": "Natural latex",
+      "Resistance range": "5 to 25 kg"
+    },
+    "attributes": {
+      "level": "All levels"
+    },
+    "image_url": "https://placehold.co/600x600?text=Resistance%20Bands",
+    "seed_keywords": [
+      "home gym equipment",
+      "workout bands"
+    ]
+  },
+  {
+    "sku": "CAT-0207",
+    "name": "Street Kick",
+    "category": "Sports & Fitness",
+    "subcategory": "Football",
+    "brand": "FlexCore",
+    "price": 2029,
+    "currency": "INR",
+    "features": [
+      "Suitable for grass and turf",
+      "Textured surface for grip",
+      "Butyl bladder for air retention"
+    ],
+    "specifications": {
+      "Size": "4",
+      "Material": "PVC",
+      "Panels": "20",
+      "Weight": "421 g"
+    },
+    "attributes": {
+      "use": "Match"
+    },
+    "image_url": "https://placehold.co/600x600?text=Football",
+    "seed_keywords": [
+      "football",
+      "football size 5"
+    ]
+  },
+  {
+    "sku": "CAT-0208",
+    "name": "HexGrip Pair",
+    "category": "Sports & Fitness",
+    "subcategory": "Dumbbell Set",
+    "brand": "FlexCore",
+    "price": 6909,
+    "currency": "INR",
+    "features": [
+      "Non-slip grip",
+      "Floor-friendly coating",
+      "Pair included",
+      "Hexagonal heads that do not roll"
+    ],
+    "specifications": {
+      "Weight": "2 x 2 kg",
+      "Material": "Neoprene-coated cast iron",
+      "Grip": "Knurled handle"
+    },
+    "attributes": {
+      "level": "Beginner"
+    },
+    "image_url": "https://placehold.co/600x600?text=Dumbbell%20Set",
+    "seed_keywords": [
+      "dumbbells",
+      "dumbbell set"
+    ]
+  },
+  {
+    "sku": "CAT-0209",
+    "name": "Eco Cork Mat Lite",
+    "category": "Sports & Fitness",
+    "subcategory": "Yoga Mat",
+    "brand": "FlexCore",
+    "price": 2959,
+    "currency": "INR",
+    "features": [
+      "Lightweight with carry strap",
+      "Non-slip textured surface",
+      "Easy to wipe clean"
+    ],
+    "specifications": {
+      "Thickness": "8 mm",
+      "Material": "Natural cork and rubber",
+      "Dimensions": "183 x 61 cm",
+      "Weight": "1.8 kg"
+    },
+    "attributes": {
+      "colors": [
+        "Peach",
+        "Teal"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Yoga%20Mat",
+    "seed_keywords": [
+      "exercise mat",
+      "anti slip yoga mat"
+    ]
+  },
+  {
+    "sku": "CAT-0210",
+    "name": "Kashmir Willow Bat Select",
+    "category": "Sports & Fitness",
+    "subcategory": "Cricket Bat",
+    "brand": "Vayu Sports",
+    "price": 8199,
+    "currency": "INR",
+    "features": [
+      "Hand-picked willow",
+      "Thick edges for big hitting",
+      "Cane handle with shock absorption"
+    ],
+    "specifications": {
+      "Willow": "Kashmir willow",
+      "Weight": "1232 g",
+      "Size": "Short handle",
+      "Grains": "8"
+    },
+    "attributes": {
+      "level": "Club",
+      "ball_type": "Leather ball"
+    },
+    "image_url": "https://placehold.co/600x600?text=Cricket%20Bat",
+    "seed_keywords": [
+      "english willow bat",
+      "kashmir willow bat"
+    ]
+  },
+  {
+    "sku": "CAT-0211",
+    "name": "Filter Coffee Blend",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Coffee Beans",
+    "brand": "Himalayan Harvest",
+    "price": 1249,
+    "currency": "INR",
+    "features": [
+      "Single-estate arabica",
+      "Roasted to order",
+      "Notes of chocolate and caramel",
+      "Whole bean or ground"
+    ],
+    "specifications": {
+      "Net weight": "500 g",
+      "Roast": "Light",
+      "Origin": "Chikmagalur",
+      "Form": "Ground for espresso"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Coffee%20Beans",
+    "seed_keywords": [
+      "coffee beans",
+      "arabica coffee"
+    ]
+  },
+  {
+    "sku": "CAT-0212",
+    "name": "Everyday Basmati",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Basmati Rice",
+    "brand": "Spice Route",
+    "price": 819,
+    "currency": "INR",
+    "features": [
+      "Aged for aroma",
+      "Extra long grains",
+      "Non-sticky when cooked"
+    ],
+    "specifications": {
+      "Net weight": "1 kg",
+      "Grain length": "8.3 mm",
+      "Aged": "12 months",
+      "Shelf life": "24 months"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Basmati%20Rice",
+    "seed_keywords": [
+      "biryani rice",
+      "long grain basmati"
+    ]
+  },
+  {
+    "sku": "CAT-0213",
+    "name": "Salted Pistachios",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Dry Fruits",
+    "brand": "Farm Fable",
+    "price": 1719,
+    "currency": "INR",
+    "features": [
+      "Hand-picked and graded",
+      "No added preservatives",
+      "Resealable zip pouch",
+      "Rich in protein and fibre"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Grade": "W240",
+      "Shelf life": "6 months",
+      "Origin": "Kerala"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Dry%20Fruits",
+    "seed_keywords": [
+      "almonds",
+      "healthy snacks"
+    ]
+  },
+  {
+    "sku": "CAT-0214",
+    "name": "Multiflora Honey",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Honey",
+    "brand": "Spice Route",
+    "price": 509,
+    "currency": "INR",
+    "features": [
+      "Sourced from small beekeepers",
+      "Batch-tested for purity",
+      "Raw and unprocessed"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Source": "Forest",
+      "Shelf life": "24 months"
+    },
+    "attributes": {
+      "diet": [
+        "Vegetarian"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Honey",
+    "seed_keywords": [
+      "natural honey",
+      "raw honey"
+    ]
+  },
+  {
+    "sku": "CAT-0215",
+    "name": "Tulsi Green Tea Signature",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Green Tea",
+    "brand": "Farm Fable",
+    "price": 209,
+    "currency": "INR",
+    "features": [
+      "Resealable pouch",
+      "Sourced from hill estates",
+      "Rich in antioxidants",
+      "Whole-leaf tea"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Form": "25 tea bags",
+      "Shelf life": "18 months",
+      "Origin": "Nilgiris"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Green%20Tea",
+    "seed_keywords": [
+      "herbal tea",
+      "organic green tea"
+    ]
+  },
+  {
+    "sku": "CAT-0216",
+    "name": "Orange Peel Dark Max",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Dark Chocolate",
+    "brand": "Spice Route",
+    "price": 289,
+    "currency": "INR",
+    "features": [
+      "No palm oil",
+      "Made with Indian cacao",
+      "Low sugar",
+      "Bean-to-bar craft chocolate"
+    ],
+    "specifications": {
+      "Cocoa content": "65%",
+      "Net weight": "50 g",
+      "Shelf life": "12 months",
+      "Allergens": "Contains nuts"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan"
+      ],
+      "gift_ready": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Dark%20Chocolate",
+    "seed_keywords": [
+      "dark chocolate",
+      "craft chocolate"
+    ]
+  },
+  {
+    "sku": "CAT-0217",
+    "name": "Alphabet Board Puzzle",
+    "category": "Toys & Baby",
+    "subcategory": "Wooden Puzzle",
+    "brand": "Little Sprout",
+    "price": 1299,
+    "currency": "INR",
+    "features": [
+      "Builds shape and colour recognition",
+      "Smooth rounded edges",
+      "Made from sustainably sourced wood",
+      "Non-toxic water-based paints"
+    ],
+    "specifications": {
+      "Pieces": "48",
+      "Recommended age": "3+ years",
+      "Material": "Pine wood"
+    },
+    "attributes": {
+      "theme": "Alphabet"
+    },
+    "image_url": "https://placehold.co/600x600?text=Wooden%20Puzzle",
+    "seed_keywords": [
+      "educational toys",
+      "wooden puzzle"
+    ]
+  },
+  {
+    "sku": "CAT-0218",
+    "name": "Owl Hugs",
+    "category": "Toys & Baby",
+    "subcategory": "Plush Toy",
+    "brand": "Little Sprout",
+    "price": 1499,
+    "currency": "INR",
+    "features": [
+      "Embroidered eyes, no small parts",
+      "Gift-ready tag",
+      "Hypoallergenic filling",
+      "Super-soft fabric"
+    ],
+    "specifications": {
+      "Height": "30 cm",
+      "Material": "Polyester plush",
+      "Recommended age": "3+ years"
+    },
+    "attributes": {
+      "colors": [
+        "Pink"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Plush%20Toy",
+    "seed_keywords": [
+      "plush toy for kids",
+      "soft toy"
+    ]
+  },
+  {
+    "sku": "CAT-0219",
+    "name": "Creative Bricks Box Pro",
+    "category": "Toys & Baby",
+    "subcategory": "Building Blocks",
+    "brand": "Playloop",
+    "price": 3099,
+    "currency": "INR",
+    "features": [
+      "Storage box included",
+      "Illustrated build guide",
+      "Non-toxic, BPA-free plastic",
+      "Builds fine motor skills"
+    ],
+    "specifications": {
+      "Pieces": "300",
+      "Recommended age": "6+ years",
+      "Material": "ABS plastic",
+      "Certification": "BIS certified"
+    },
+    "attributes": {
+      "theme": "Space"
+    },
+    "image_url": "https://placehold.co/600x600?text=Building%20Blocks",
+    "seed_keywords": [
+      "construction toys for kids",
+      "building blocks"
+    ]
+  },
+  {
+    "sku": "CAT-0220",
+    "name": "Spiral Study Pad",
+    "category": "Books & Stationery",
+    "subcategory": "Notebook",
+    "brand": "Studio Desk",
+    "price": 199,
+    "currency": "INR",
+    "features": [
+      "Ribbon bookmark",
+      "Thick paper that resists bleed-through",
+      "Lay-flat binding",
+      "Numbered pages"
+    ],
+    "specifications": {
+      "Pages": "192",
+      "Size": "A5",
+      "Paper weight": "100 GSM",
+      "Ruling": "Dot grid"
+    },
+    "attributes": {
+      "colors": [
+        "Sage"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Notebook",
+    "seed_keywords": [
+      "notebook",
+      "dot grid notebook"
+    ]
+  },
+  {
+    "sku": "CAT-0221",
+    "name": "Calligraphy Set",
+    "category": "Books & Stationery",
+    "subcategory": "Fountain Pen",
+    "brand": "Paper Trail",
+    "price": 2629,
+    "currency": "INR",
+    "features": [
+      "Converter and cartridges included",
+      "Ink window",
+      "Gift box"
+    ],
+    "specifications": {
+      "Nib": "1.1 mm italic",
+      "Body": "Brass",
+      "Filling": "Cartridge or converter"
+    },
+    "attributes": {
+      "colors": [
+        "Black"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Fountain%20Pen",
+    "seed_keywords": [
+      "fountain pen",
+      "ink pen"
+    ]
+  },
+  {
+    "sku": "CAT-0222",
+    "name": "Student Planner",
+    "category": "Books & Stationery",
+    "subcategory": "Planner",
+    "brand": "Paper Trail",
+    "price": 399,
+    "currency": "INR",
+    "features": [
+      "Habit and goal trackers",
+      "Pen loop and pocket",
+      "Monthly and weekly spreads"
+    ],
+    "specifications": {
+      "Pages": "200",
+      "Size": "B6",
+      "Paper weight": "80 GSM",
+      "Layout": "Monthly"
+    },
+    "attributes": {
+      "colors": [
+        "Charcoal"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Planner",
+    "seed_keywords": [
+      "weekly planner",
+      "undated planner"
+    ]
+  },
+  {
+    "sku": "CAT-0223",
+    "name": "Bifold Classic Wallet",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Leather Wallet",
+    "brand": "Silver Sutra",
+    "price": 1569,
+    "currency": "INR",
+    "features": [
+      "Two note compartments",
+      "Slim profile",
+      "Genuine leather",
+      "RFID blocking"
+    ],
+    "specifications": {
+      "Material": "Top-grain leather",
+      "Card slots": "8",
+      "Dimensions": "11 x 9 cm"
+    },
+    "attributes": {
+      "colors": [
+        "Brown"
+      ],
+      "gender": "Men"
+    },
+    "image_url": "https://placehold.co/600x600?text=Leather%20Wallet",
+    "seed_keywords": [
+      "rfid wallet",
+      "leather wallet"
+    ]
+  },
+  {
+    "sku": "CAT-0224",
+    "name": "Minimal Studs",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Silver Earrings",
+    "brand": "Northline",
+    "price": 2629,
+    "currency": "INR",
+    "features": [
+      "925 sterling silver",
+      "Hallmarked",
+      "Nickel-free",
+      "Handcrafted detailing"
+    ],
+    "specifications": {
+      "Metal": "925 sterling silver",
+      "Finish": "High polish",
+      "Weight": "5 g",
+      "Closure": "Push back"
+    },
+    "attributes": {
+      "occasion": "Everyday"
+    },
+    "image_url": "https://placehold.co/600x600?text=Silver%20Earrings",
+    "seed_keywords": [
+      "oxidised earrings",
+      "silver earrings"
+    ]
+  },
+  {
+    "sku": "CAT-0225",
+    "name": "Aviator Classic",
+    "category": "Jewellery & Accessories",
+    "subcategory": "Sunglasses",
+    "price": 1629,
+    "currency": "INR",
+    "features": [
+      "Spring hinges"
+    ],
+    "specifications": {},
+    "attributes": {
+      "colors": [
+        "Black"
+      ],
+      "gender": "Unisex"
+    },
+    "image_url": "https://placehold.co/600x600?text=Sunglasses",
+    "seed_keywords": [
+      "polarised sunglasses",
+      "aviator sunglasses"
+    ]
+  },
+  {
+    "sku": "CAT-0226",
+    "name": "TravelVolt",
+    "category": "Electronics",
+    "subcategory": "Power Bank",
+    "brand": "Aurex",
+    "price": 2089,
+    "currency": "INR",
+    "features": [
+      "Airline-safe capacity",
+      "USB-C input and output",
+      "Charges two devices at once",
+      "LED charge indicator"
+    ],
+    "specifications": {
+      "Capacity": "20000 mAh",
+      "Ports": "1 x USB-A, 1 x USB-C",
+      "Weight": "259 g",
+      "Warranty": "1 year"
+    },
+    "attributes": {
+      "colors": [
+        "Navy",
+        "White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Power%20Bank",
+    "seed_keywords": [
+      "power bank",
+      "fast charging power bank"
+    ]
+  },
+  {
+    "sku": "CAT-0227",
+    "name": "Nova Glide",
+    "category": "Electronics",
+    "subcategory": "Gaming Mouse",
+    "brand": "Voltix",
+    "price": 1149,
+    "currency": "INR",
+    "features": [
+      "Lightweight honeycomb shell",
+      "On-board memory profiles",
+      "Braided cable",
+      "Adjustable DPI up to 12000"
+    ],
+    "specifications": {
+      "Max DPI": "12000",
+      "Buttons": "8",
+      "Weight": "73 g",
+      "Connection": "2.4 GHz wireless"
+    },
+    "attributes": {
+      "grip": "Fingertip"
+    },
+    "image_url": "https://placehold.co/600x600?text=Gaming%20Mouse",
+    "seed_keywords": [
+      "wireless gaming mouse",
+      "rgb mouse"
+    ]
+  },
+  {
+    "sku": "CAT-0228",
+    "name": "Clack Pro",
+    "category": "Electronics",
+    "subcategory": "Mechanical Keyboard",
+    "brand": "Voltix",
+    "price": 2119,
+    "currency": "INR",
+    "features": [
+      "Hot-swappable switches",
+      "Per-key RGB backlight",
+      "Anti-ghosting with full N-key rollover"
+    ],
+    "specifications": {
+      "Layout": "65%",
+      "Switches": "Brown tactile",
+      "Connection": "Bluetooth and wired",
+      "Weight": "1054 g"
+    },
+    "attributes": {
+      "colors": [
+        "Black"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Mechanical%20Keyboard",
+    "seed_keywords": [
+      "gaming keyboard",
+      "rgb keyboard"
+    ]
+  },
+  {
+    "sku": "CAT-0229",
+    "name": "AirLink Band",
+    "category": "Electronics",
+    "subcategory": "Neckband Earphones",
+    "brand": "Aurex",
+    "price": 869,
+    "currency": "INR",
+    "features": [
+      "Magnetic earbuds that switch off when clipped",
+      "Up to 30 hours playback",
+      "Environmental noise cancellation for calls",
+      "IPX5 sweat resistance"
+    ],
+    "specifications": {
+      "Battery life": "25 hours",
+      "Bluetooth": "5.3",
+      "Driver size": "13 mm",
+      "Weight": "25 g"
+    },
+    "attributes": {
+      "colors": [
+        "Black",
+        "Blue"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Neckband%20Earphones",
+    "seed_keywords": [
+      "neckband earphones",
+      "bluetooth neckband"
+    ]
+  },
+  {
+    "sku": "CAT-0230",
+    "name": "Pulse Buds Pro",
+    "category": "Electronics",
+    "subcategory": "Wireless Earbuds",
+    "brand": "Voltix",
+    "price": 4929,
+    "currency": "INR",
+    "features": [
+      "IPX5 sweat resistance",
+      "Quad-mic call clarity",
+      "Fast charging: 10 min for 2 hours of playback",
+      "Low-latency gaming mode"
+    ],
+    "specifications": {
+      "Battery life": "31 hours with case",
+      "Driver size": "12 mm",
+      "Bluetooth": "5.4",
+      "Weight": "4 g per bud"
+    },
+    "attributes": {
+      "colors": [
+        "Sage Green",
+        "Ocean Blue"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Wireless%20Earbuds",
+    "seed_keywords": [
+      "noise cancelling earbuds",
+      "bluetooth earphones"
+    ]
+  },
+  {
+    "sku": "CAT-0231",
+    "name": "Pulse Active Select",
+    "category": "Electronics",
+    "subcategory": "Smartwatch",
+    "brand": "Aurex",
+    "price": 6759,
+    "currency": "INR",
+    "features": [
+      "Bluetooth calling",
+      "AMOLED always-on display",
+      "Sleep tracking",
+      "100+ sports modes",
+      "SpO2 and heart-rate monitoring"
+    ],
+    "specifications": {
+      "Display": "1.43-inch AMOLED",
+      "Battery life": "Up to 6 days",
+      "Water resistance": "5 ATM",
+      "Compatibility": "Android and iOS"
+    },
+    "attributes": {
+      "strap": "Metal mesh",
+      "colors": [
+        "Graphite",
+        "Rose Gold"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Smartwatch",
+    "seed_keywords": [
+      "smartwatch",
+      "smart watch with calling"
+    ]
+  },
+  {
+    "sku": "CAT-0232",
+    "name": "Wave Go Signature",
+    "category": "Electronics",
+    "subcategory": "Bluetooth Speaker",
+    "brand": "Voltix",
+    "price": 5549,
+    "currency": "INR",
+    "features": [
+      "360-degree sound",
+      "Deep bass radiator",
+      "IP67 waterproof and dustproof",
+      "Party pairing with a second speaker"
+    ],
+    "specifications": {
+      "Output": "40 W",
+      "Battery life": "15 hours",
+      "Water resistance": "IP67",
+      "Weight": "807 g"
+    },
+    "attributes": {
+      "colors": [
+        "Camo",
+        "Red"
+      ],
+      "use_case": "Outdoor and travel"
+    },
+    "image_url": "https://placehold.co/600x600?text=Bluetooth%20Speaker",
+    "seed_keywords": [
+      "portable speaker",
+      "waterproof speaker"
+    ]
+  },
+  {
+    "sku": "CAT-0233",
+    "name": "Raw Indigo Denim",
+    "category": "Apparel",
+    "subcategory": "Denim Jeans",
+    "brand": "Northline",
+    "price": 2099,
+    "currency": "INR",
+    "features": [
+      "Reinforced stitching",
+      "Five-pocket styling",
+      "Comfort stretch denim",
+      "Machine washable"
+    ],
+    "specifications": {
+      "Fabric": "98% cotton, 2% elastane",
+      "Fit": "Slim",
+      "Rise": "Mid rise",
+      "Care": "Machine wash cold, inside out"
+    },
+    "attributes": {
+      "sizes": [
+        "28",
+        "30",
+        "32",
+        "34",
+        "36"
+      ],
+      "colors": [
+        "Light Blue",
+        "Black"
+      ],
+      "gender": "Men"
+    },
+    "image_url": "https://placehold.co/600x600?text=Denim%20Jeans",
+    "seed_keywords": [
+      "stretch jeans",
+      "slim fit jeans"
+    ]
+  },
+  {
+    "sku": "CAT-0234",
+    "name": "Everyday Hoodie",
+    "category": "Apparel",
+    "subcategory": "Hoodie",
+    "brand": "Urban Thread",
+    "price": 2719,
+    "currency": "INR",
+    "features": [
+      "Brushed fleece lining",
+      "Ribbed cuffs and hem",
+      "Kangaroo pocket",
+      "Adjustable drawstring hood",
+      "Pre-shrunk fabric"
+    ],
+    "specifications": {
+      "Fabric": "80% cotton, 20% polyester",
+      "GSM": "280",
+      "Fit": "Oversized",
+      "Care": "Machine wash cold"
+    },
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Olive",
+        "Charcoal"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Hoodie",
+    "seed_keywords": [
+      "oversized hoodie",
+      "cotton hoodie"
+    ]
+  },
+  {
+    "sku": "CAT-0235",
+    "name": "Printed Georgette Saree",
+    "category": "Apparel",
+    "subcategory": "Saree",
+    "brand": "Urban Thread",
+    "price": 3369,
+    "currency": "INR",
+    "features": [
+      "Handwoven by artisans",
+      "Lightweight drape",
+      "Festive and wedding wear"
+    ],
+    "specifications": {
+      "Fabric": "Georgette",
+      "Length": "5.5 m saree, 0.8 m blouse piece",
+      "Care": "Gentle hand wash"
+    },
+    "attributes": {
+      "colors": [
+        "Maroon",
+        "Mustard"
+      ],
+      "occasion": "Everyday"
+    },
+    "image_url": "https://placehold.co/600x600?text=Saree",
+    "seed_keywords": [
+      "cotton saree",
+      "silk saree"
+    ]
+  },
+  {
+    "sku": "CAT-0236",
+    "name": "Pima Polo Signature",
+    "category": "Apparel",
+    "subcategory": "T-Shirt",
+    "brand": "Loomcraft",
+    "price": 1309,
+    "currency": "INR",
+    "features": [
+      "Reinforced shoulder seams",
+      "Colourfast dyes",
+      "Tagless neck label",
+      "Breathable 180 GSM cotton"
+    ],
+    "specifications": {
+      "Fabric": "60% cotton, 40% polyester",
+      "Fit": "Oversized",
+      "Neck": "V-neck",
+      "Care": "Machine wash cold"
+    },
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "colors": [
+        "Black",
+        "Olive",
+        "Navy"
+      ],
+      "gender": "Men"
+    },
+    "image_url": "https://placehold.co/600x600?text=T-Shirt",
+    "seed_keywords": [
+      "everyday t-shirt",
+      "casual tee"
+    ]
+  },
+  {
+    "sku": "CAT-0237",
+    "name": "Trail Blaze Classic",
+    "category": "Apparel",
+    "subcategory": "Running Shoes",
+    "brand": "Kesari",
+    "price": 7949,
+    "currency": "INR",
+    "features": [
+      "Breathable engineered mesh upper",
+      "Reflective details for low light",
+      "Responsive foam midsole",
+      "Padded heel collar"
+    ],
+    "specifications": {
+      "Heel-to-toe drop": "6 mm",
+      "Weight": "261 g (UK 8)",
+      "Upper": "Engineered mesh",
+      "Outsole": "Carbon rubber"
+    },
+    "attributes": {
+      "sizes": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10"
+      ],
+      "gender": "Women",
+      "terrain": "Road"
+    },
+    "image_url": "https://placehold.co/600x600?text=Running%20Shoes",
+    "seed_keywords": [
+      "lightweight trainers",
+      "sports shoes"
+    ]
+  },
+  {
+    "sku": "CAT-0238",
+    "name": "Chikankari Straight Kurta Prime",
+    "category": "Apparel",
+    "subcategory": "Kurta",
+    "brand": "Loomcraft",
+    "price": 1869,
+    "currency": "INR",
+    "features": [
+      "Side slits for easy movement",
+      "Hand-finished embroidery",
+      "Breathable natural fabric",
+      "Comes with matching dupatta",
+      "Three-quarter sleeves"
+    ],
+    "specifications": {
+      "Fabric": "Art silk",
+      "Length": "Calf length",
+      "Neck": "V-neck",
+      "Care": "Dry clean only"
+    },
+    "attributes": {
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "occasion": "Festive",
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Kurta",
+    "seed_keywords": [
+      "cotton kurta",
+      "ethnic wear"
+    ]
+  },
+  {
+    "sku": "CAT-0239",
+    "name": "ChefMix",
+    "category": "Home & Kitchen",
+    "subcategory": "Mixer Grinder",
+    "brand": "Casa Nova",
+    "price": 4009,
+    "currency": "INR",
+    "features": [
+      "Three speed settings with pulse",
+      "Overload protection",
+      "Three stainless steel jars"
+    ],
+    "specifications": {
+      "Power": "500 W",
+      "Jars": "4",
+      "Speed settings": "3 + pulse",
+      "Warranty": "2 years"
+    },
+    "attributes": {
+      "colors": [
+        "Red"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Mixer%20Grinder",
+    "seed_keywords": [
+      "kitchen mixer",
+      "mixer grinder 750 watt"
+    ]
+  },
+  {
+    "sku": "CAT-0240",
+    "name": "Moonlight Ceramic Set",
+    "category": "Home & Kitchen",
+    "subcategory": "Dinner Set",
+    "brand": "HearthWare",
+    "price": 6469,
+    "currency": "INR",
+    "features": [
+      "Microwave and dishwasher safe",
+      "Lead-free glaze",
+      "Chip-resistant stoneware",
+      "Handcrafted finish"
+    ],
+    "specifications": {
+      "Pieces": "32",
+      "Material": "Stoneware",
+      "Serves": "4",
+      "Care": "Dishwasher safe"
+    },
+    "attributes": {
+      "colors": [
+        "White",
+        "Sage"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Dinner%20Set",
+    "seed_keywords": [
+      "ceramic dinner set",
+      "stoneware dinner set"
+    ]
+  }
+]

@@ -104,6 +104,12 @@ One free [Render](https://render.com) web service runs the API and serves the bu
 
 Free Render services sleep after 15 minutes without traffic, so the first request after a pause takes about 30 seconds; an open Batch page keeps the service awake while it polls. To try production mode locally: `npm run build`, then `SERVE_CLIENT=true npm start -w server` and open http://localhost:4000.
 
+### Demo catalog (240 products)
+
+`data/catalog/` holds 240 fictional products across 9 categories and 45 product types, every one with its own name and a `CAT-` SKU that never clashes with the 60-product sample (`SKU-`). Load it with **Demo catalog (240)** on the Catalog tab, or for a given account with `npm run db:seed -- --email you@example.com --demo --photos`. Regenerate it with `node scripts/generate-synthetic.js --count 240 --seed 7 --out data/catalog --sku-prefix CAT`.
+
+Generating copy for all of it at once needs about 1.2M tokens, so on Groq's free tier (about 200k tokens a day) filter by category and generate in smaller batches.
+
 ### Product photos
 
 Each product page has **Add photo**: upload your own (stored in the public Supabase Storage bucket `product-images`, created by `supabase/setup.sql`) or pick a free stock photo. Stock photo search uses Pexels: get a free key at [pexels.com/api](https://www.pexels.com/api/) and set `PEXELS_API_KEY` in `server/.env`. With the key set, **Sample products** also gets a matching photo for each product type, and every picked photo shows its photographer's credit.
@@ -123,7 +129,8 @@ Put your logo at `client/public/logo.png` (square works best). It appears in the
 | `npm run doctor` | Check env keys, database tables, auth access and model settings |
 | `npm run build` | Production build of the web app to `client/dist` |
 | `npm run data:generate` | Regenerate the synthetic catalog in `data/generated/` (`--count`, `--seed`) |
-| `npm run db:seed` | Upsert `data/generated/products.json` into Supabase |
+| `npm run db:seed -- --email <login> --demo --photos` | Add the 240-product demo catalog (and stock photos) to that account, keeping its existing products |
+| `npm run db:seed -- --email <login>` | Add the 60-product sample instead |
 
 ## Project structure
 

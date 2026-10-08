@@ -9,7 +9,8 @@ import { checkCompleteness } from '../services/quality.js';
 import { brandProfile } from '../services/brand.js';
 import { generateAndSave, toProductInput } from '../services/descriptions.js';
 import { respond } from '../lib/progressStream.js';
-import { isPexelsUrl, isPhotoSearchConfigured, isPlaceholderImage, searchPhotos } from '../lib/photos.js';
+import { isPexelsUrl } from '../lib/photos.js';
+import { autoPhotos } from '../services/photos.js';
 import { config } from '../config/env.js';
 
 export const productsRouter = Router();
@@ -17,6 +18,7 @@ export const productsRouter = Router();
 productsRouter.use(requireUser, requireRetailer);
 
 const SAMPLE_FILE = new URL('../../../data/generated/products.json', import.meta.url);
+const DEMO_FILE = new URL('../../../data/catalog/products.json', import.meta.url);
 
 // Returns a Supabase response's data, or throws it as an API error.
 function check({ data, error }) {
@@ -147,31 +149,10 @@ productsRouter.delete('/:id/image', async (req, res) => {
   res.json({ product });
 });
 
-// POST /api/products/auto-photos  -> { updated, types }
-// Gives every product without a real photo the top Pexels result for its product type
-// (one search per type), so a fresh sample catalog looks like a real store.
+// POST /api/products/auto-photos  -> { updated, types, configured }
+// Gives every product without a real photo a free stock photo for its product type.
 productsRouter.post('/auto-photos', async (req, res) => {
-  if (!isPhotoSearchConfigured()) return res.json({ updated: 0, types: 0, configured: false });
-  const supabase = requireSupabase();
-  const rows = check(await supabase.from('products').select('id, name, category, subcategory, image_url').eq('retailer_id', req.retailer.id).limit(500));
-  const groups = new Map();
-  for (const row of rows.filter((item) => isPlaceholderImage(item.image_url))) {
-    const type = (row.subcategory || row.category).trim();
-    groups.set(type, [...(groups.get(type) ?? []), row.id]);
-  }
-
-  let updated = 0;
-  for (const [type, ids] of [...groups].slice(0, 40)) {
-    const photos = await searchPhotos(type, { perPage: Math.min(ids.length, 10) }).catch(() => []);
-    if (!photos.length) continue;
-    // Different photos for products of the same type, where Pexels returns enough.
-    await Promise.all(ids.map((id, i) => {
-      const photo = photos[i % photos.length];
-      return supabase.from('products').update({ image_url: photo.url, image_credit: photo.credit, image_credit_url: photo.credit_url }).eq('id', id);
-    }));
-    updated += ids.length;
-  }
-  res.json({ updated, types: groups.size, configured: true });
+  res.json(await autoPhotos(req.retailer.id));
 });
 
 const ImportRequest = z.object({
@@ -195,6 +176,12 @@ productsRouter.post('/import', async (req, res) => {
 
 // POST /api/products/import-sample  -> loads synthetic products from data/generated in the retailer's categories
 productsRouter.post('/import-sample', async (req, res) => {
+  // { set: 'demo' } loads the 240-product demo catalog (every category), to show scale.
+  if (req.body?.set === 'demo') {
+    const records = JSON.parse(readFileSync(DEMO_FILE, 'utf8'));
+    const result = await saveProducts(req.retailer.id, records, 'synthetic');
+    return res.json({ ...result, scope: 'the 240-product demo catalog' });
+  }
   const all = JSON.parse(readFileSync(SAMPLE_FILE, 'utf8'));
   // Only the categories this retailer sells, so the demo catalog matches their business.
   const wanted = new Set(req.retailer.categories.map((category) => category.toLowerCase()));

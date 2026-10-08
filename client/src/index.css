@@ -389,8 +389,8 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
 .result p { margin: 0.5rem 0; }
 
 .empty-catalog { text-align: center; padding: 48px 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-.empty-options { display: grid; grid-template-columns: repeat(2, minmax(0, 280px)); gap: 16px; margin: 12px 0 4px; }
-@media (max-width: 640px) { .empty-options { grid-template-columns: 1fr; } }
+.empty-options { display: grid; grid-template-columns: repeat(3, minmax(0, 260px)); gap: 16px; margin: 12px 0 4px; }
+@media (max-width: 860px) { .empty-options { grid-template-columns: 1fr; } }
 .option-card { flex-direction: column; align-items: flex-start; text-align: left; gap: 6px; padding: 20px; border-radius: 16px; font-weight: 500; }
 .option-card strong { font-size: 1rem; margin-top: 6px; }
 .option-card > span:last-child { color: var(--muted); font-size: 0.88rem; }
