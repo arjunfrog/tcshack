@@ -49,6 +49,7 @@ if (supabase) {
 
   // Columns added by later migrations: a table can exist while its newer columns don't.
   const COLUMNS = {
+    products: ['image_credit', 'image_credit_url'],
     generation_jobs: ['retailer_id', 'started_at'],
     feedback: ['reviewer_id'],
     descriptions: ['edited_from', 'reviewed_by', 'reviewed_at'],
@@ -86,6 +87,16 @@ else ok(`VITE_SUPABASE_PUBLISHABLE_KEY set (${viteKey.slice(0, 15)}…)`);
 console.log('\nMarket insights (Anakin)');
 if (config.anakin.apiKey) ok(`ANAKIN_API_KEY set (${config.anakin.apiKey.slice(0, 8)}…): descriptions use live market data`);
 else bad('ANAKIN_API_KEY is not set', 'Optional, but without it descriptions skip market insights');
+
+console.log('\nProduct photos');
+if (supabase) {
+  const { data: buckets, error: bucketError } = await supabase.storage.listBuckets();
+  if (bucketError) bad(`could not list storage buckets: ${bucketError.message}`);
+  else if (buckets.some((bucket) => bucket.id === config.photos.bucket)) ok(`storage bucket ${config.photos.bucket} exists (photo uploads work)`);
+  else bad(`storage bucket ${config.photos.bucket} is missing`, 'Run supabase/setup.sql again (it creates the bucket)');
+}
+if (config.photos.pexelsKey) ok('PEXELS_API_KEY set: "Find a photo" and auto-photos for sample products work');
+else bad('PEXELS_API_KEY is not set', 'Optional: get a free key at pexels.com/api to search stock photos; uploads work without it');
 
 console.log('\nLLM');
 const provider = config.llm.provider;

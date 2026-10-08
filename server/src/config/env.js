@@ -68,6 +68,13 @@ export const config = {
   anakin: {
     apiKey: process.env.ANAKIN_API_KEY || '',
   },
+
+  // Product photos: uploads go to a public Supabase Storage bucket; PEXELS_API_KEY (free at
+  // pexels.com/api) enables searching free stock photos for a product type.
+  photos: {
+    bucket: process.env.PRODUCT_IMAGE_BUCKET || 'product-images',
+    pexelsKey: process.env.PEXELS_API_KEY || '',
+  },
 };
 
 // The model name to report for a provider (health check, eval reports).

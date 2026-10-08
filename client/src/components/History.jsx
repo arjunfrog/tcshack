@@ -55,7 +55,7 @@ export default function History({ refreshKey }) {
           ))}
         </ul>
       </section>
-      <div>{selected && <DescriptionView result={toResult(selected)} />}</div>
+      <div>{selected && <DescriptionView result={toResult(selected)} product={selected.product} />}</div>
     </div>
   );
 }

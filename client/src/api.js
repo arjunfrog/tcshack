@@ -93,6 +93,10 @@ export const api = {
   importSample: () => post('/products/import-sample'),
   generateForProduct: (id, options, onProgress) => postStream(`/products/${id}/generate`, { options }, onProgress),
   quickGenerate: (product, options, onProgress) => postStream('/products/quick', { product, options }, onProgress),
+  searchPhotos: (query) => request(`/photos?${new URLSearchParams({ query })}`),
+  setProductImage: (id, body) => post(`/products/${id}/image`, body),
+  removeProductImage: (id) => request(`/products/${id}/image`, { method: 'DELETE' }),
+  autoPhotos: () => post('/products/auto-photos'),
   history: (limit = 100) => request(`/history?limit=${limit}`),
   checkProduct: (product) => post('/generate/check', { product }),
 

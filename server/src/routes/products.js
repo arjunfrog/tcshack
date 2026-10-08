@@ -9,6 +9,8 @@ import { checkCompleteness } from '../services/quality.js';
 import { brandProfile } from '../services/brand.js';
 import { generateAndSave, toProductInput } from '../services/descriptions.js';
 import { respond } from '../lib/progressStream.js';
+import { isPexelsUrl, isPhotoSearchConfigured, isPlaceholderImage, searchPhotos } from '../lib/photos.js';
+import { config } from '../config/env.js';
 
 export const productsRouter = Router();
 // Every route works on the logged-in retailer's own catalog.
@@ -85,6 +87,91 @@ productsRouter.patch('/:id', async (req, res) => {
       .single(),
   );
   res.json({ product });
+});
+
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+const IMAGE_TYPES = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
+
+const ImageRequest = z.union([
+  // An uploaded photo, as a data URL (the app resizes it to about 1200 px first).
+  z.object({ upload: z.string().regex(/^data:image\/(jpeg|png|webp);base64,/, 'Upload a JPEG, PNG or WebP image') }),
+  // A free stock photo picked from /api/photos.
+  z.object({ photo: z.object({ url: z.string().url(), credit: z.string().max(120), credit_url: z.string().url().optional() }) }),
+]);
+
+async function ownedProduct(req) {
+  return check(
+    await requireSupabase().from('products').select('*').eq('id', req.params.id).eq('retailer_id', req.retailer.id).maybeSingle(),
+  );
+}
+
+// POST /api/products/:id/image  { upload } | { photo }  -> { product }
+// Uploads go to the public Supabase Storage bucket; picked photos keep their Pexels URL and credit.
+productsRouter.post('/:id/image', async (req, res) => {
+  const body = ImageRequest.parse(req.body);
+  const row = await ownedProduct(req);
+  if (!row) return res.status(404).json({ error: 'Product not found' });
+  const supabase = requireSupabase();
+
+  let fields;
+  if (body.upload) {
+    const [, mime, base64] = body.upload.match(/^data:(image\/[a-z]+);base64,(.+)$/);
+    const buffer = Buffer.from(base64, 'base64');
+    if (buffer.length > MAX_IMAGE_BYTES) return res.status(413).json({ error: 'That image is over 5 MB. Choose a smaller one.' });
+    const path = `${req.retailer.id}/${row.id}-${Date.now()}.${IMAGE_TYPES[mime]}`;
+    const bucket = supabase.storage.from(config.photos.bucket);
+    const { error } = await bucket.upload(path, buffer, { contentType: mime, upsert: true });
+    if (error) {
+      const missing = /bucket not found/i.test(error.message);
+      return res.status(missing ? 503 : 502).json({
+        error: missing ? 'The product-images storage bucket is missing. Run supabase/setup.sql again.' : `Upload failed: ${error.message}`,
+      });
+    }
+    fields = { image_url: bucket.getPublicUrl(path).data.publicUrl, image_credit: null, image_credit_url: null };
+  } else {
+    if (!isPexelsUrl(body.photo.url)) return res.status(400).json({ error: 'Only photos from the photo search can be picked.' });
+    fields = { image_url: body.photo.url, image_credit: body.photo.credit, image_credit_url: body.photo.credit_url ?? null };
+  }
+
+  const product = check(await supabase.from('products').update(fields).eq('id', row.id).select().single());
+  res.json({ product });
+});
+
+// DELETE /api/products/:id/image  -> { product }  (the category tile shows again)
+productsRouter.delete('/:id/image', async (req, res) => {
+  const row = await ownedProduct(req);
+  if (!row) return res.status(404).json({ error: 'Product not found' });
+  const product = check(
+    await requireSupabase().from('products').update({ image_url: null, image_credit: null, image_credit_url: null }).eq('id', row.id).select().single(),
+  );
+  res.json({ product });
+});
+
+// POST /api/products/auto-photos  -> { updated, types }
+// Gives every product without a real photo the top Pexels result for its product type
+// (one search per type), so a fresh sample catalog looks like a real store.
+productsRouter.post('/auto-photos', async (req, res) => {
+  if (!isPhotoSearchConfigured()) return res.json({ updated: 0, types: 0, configured: false });
+  const supabase = requireSupabase();
+  const rows = check(await supabase.from('products').select('id, name, category, subcategory, image_url').eq('retailer_id', req.retailer.id).limit(500));
+  const groups = new Map();
+  for (const row of rows.filter((item) => isPlaceholderImage(item.image_url))) {
+    const type = (row.subcategory || row.category).trim();
+    groups.set(type, [...(groups.get(type) ?? []), row.id]);
+  }
+
+  let updated = 0;
+  for (const [type, ids] of [...groups].slice(0, 40)) {
+    const photos = await searchPhotos(type, { perPage: Math.min(ids.length, 10) }).catch(() => []);
+    if (!photos.length) continue;
+    // Different photos for products of the same type, where Pexels returns enough.
+    await Promise.all(ids.map((id, i) => {
+      const photo = photos[i % photos.length];
+      return supabase.from('products').update({ image_url: photo.url, image_credit: photo.credit, image_credit_url: photo.credit_url }).eq('id', id);
+    }));
+    updated += ids.length;
+  }
+  res.json({ updated, types: groups.size, configured: true });
 });
 
 const ImportRequest = z.object({

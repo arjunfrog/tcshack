@@ -2,7 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { api } from '../api.js';
 import Icon from '../ui/Icon.jsx';
 import { ProductHero, ProductThumb } from '../ui/Art.jsx';
-import { CopyPanel, QualityPanel, copyJson, toResult } from './DescriptionView.jsx';
+import { CopyPanel, QualityReport, SearchPreview, copyJson, toResult } from './DescriptionView.jsx';
+import PhotoDialog from './PhotoDialog.jsx';
 import GenerationTimeline, { stageLabel } from './GenerationTimeline.jsx';
 import ImportDialog from './ImportDialog.jsx';
 import { Elapsed, Spinner, ToastStack, useToasts } from './Feedback.jsx';
@@ -22,6 +23,7 @@ export default function Catalog({ choices }) {
   const [batch, setBatch] = useState(null); // { done, total, failed }
   const [loadingSample, setLoadingSample] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
+  const [photoFor, setPhotoFor] = useState(null); // product whose photo is being changed
   const { toasts, push, dismiss } = useToasts();
 
   const load = useCallback(async () => {
@@ -46,7 +48,13 @@ export default function Catalog({ choices }) {
     try {
       const { imported, scope } = await api.importSample();
       push('success', `Added ${imported} sample product${imported === 1 ? '' : 's'} from ${scope}.`);
-      load();
+      await load();
+      // Free stock photos per product type, when a Pexels key is set up.
+      const photos = await api.autoPhotos().catch(() => null);
+      if (photos?.updated) {
+        push('success', `Added photos to ${photos.updated} product${photos.updated === 1 ? '' : 's'}.`);
+        load();
+      }
     } catch (err) {
       push('error', err.message);
     } finally {
@@ -226,19 +234,39 @@ export default function Catalog({ choices }) {
                 options={options}
                 onVersion={setVersionId}
                 onGenerate={() => generateOne(selected.product.id)}
+                onPhoto={() => setPhotoFor(selected.product)}
+                onRemovePhoto={async () => {
+                  try {
+                    await api.removeProductImage(selected.product.id);
+                    await Promise.all([load(), open(selected.product.id, versionId)]);
+                  } catch (err) {
+                    push('error', err.message);
+                  }
+                }}
               />
             )}
           </section>
         </div>
       )}
 
+      {photoFor && (
+        <PhotoDialog
+          product={photoFor}
+          onClose={() => setPhotoFor(null)}
+          onSaved={async () => {
+            setPhotoFor(null);
+            push('success', `Photo saved for ${photoFor.name}.`);
+            await Promise.all([load(), open(photoFor.id, versionId)]);
+          }}
+        />
+      )}
       {importOpen && <ImportDialog onClose={() => setImportOpen(false)} onImported={(message) => { push('success', message); load(); }} />}
       <ToastStack toasts={toasts} dismiss={dismiss} />
     </div>
   );
 }
 
-function ProductDetail({ detail, shown, run, queued, fresh, options, onVersion, onGenerate }) {
+function ProductDetail({ detail, shown, run, queued, fresh, options, onVersion, onGenerate, onPhoto, onRemovePhoto }) {
   const { product, descriptions } = detail;
   const result = shown ? toResult(shown) : null;
   const specs = [
@@ -250,7 +278,16 @@ function ProductDetail({ detail, shown, run, queued, fresh, options, onVersion, 
   return (
     <>
       <div className="card product-top">
-        <ProductHero product={product} />
+        <div className="hero-wrap">
+          <ProductHero product={product} />
+          <div className="hero-photo-actions">
+            <button type="button" onClick={onPhoto}><Icon name="upload" size={15} /> {hasPhoto(product) ? 'Change photo' : 'Add photo'}</button>
+            {hasPhoto(product) && <button type="button" className="icon-only" aria-label="Remove photo" title="Remove photo" onClick={onRemovePhoto}><Icon name="x" size={15} /></button>}
+          </div>
+          {product.image_credit && (
+            <a className="photo-credit" href={product.image_credit_url ?? undefined} target="_blank" rel="noreferrer">Photo: {product.image_credit}</a>
+          )}
+        </div>
         <div className="product-info">
           <nav className="breadcrumb" aria-label="Category">
             <span>{product.category}</span>
@@ -324,18 +361,20 @@ function ProductDetail({ detail, shown, run, queued, fresh, options, onVersion, 
                 </dl>
               ) : <p className="muted">No specifications in the product data.</p>}
             </div>
-            {result && (
-              <div className="card">
-                <div className="card-header"><h3><Icon name="shield" size={18} /> Quality</h3></div>
-                <QualityPanel result={result} />
-              </div>
-            )}
           </div>
         </div>
+      )}
+      {!run && result && (
+        <>
+          <SearchPreview output={result.output} quality={result.quality} product={product} />
+          <QualityReport result={result} />
+        </>
       )}
     </>
   );
 }
+
+const hasPhoto = (product) => Boolean(product.image_url) && !/placehold\.co|placeholder/i.test(product.image_url);
 
 function EmptyCatalog({ onImport, onSample, loadingSample }) {
   return (

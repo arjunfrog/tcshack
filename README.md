@@ -104,6 +104,10 @@ One free [Render](https://render.com) web service runs the API and serves the bu
 
 Free Render services sleep after 15 minutes without traffic, so the first request after a pause takes about 30 seconds; an open Batch page keeps the service awake while it polls. To try production mode locally: `npm run build`, then `SERVE_CLIENT=true npm start -w server` and open http://localhost:4000.
 
+### Product photos
+
+Each product page has **Add photo**: upload your own (stored in the public Supabase Storage bucket `product-images`, created by `supabase/setup.sql`) or pick a free stock photo. Stock photo search uses Pexels: get a free key at [pexels.com/api](https://www.pexels.com/api/) and set `PEXELS_API_KEY` in `server/.env`. With the key set, **Sample products** also gets a matching photo for each product type, and every picked photo shows its photographer's credit.
+
 ### Logo
 
 Put your logo at `client/public/logo.png` (square works best). It appears in the header, homepage, login and onboarding, and as the browser tab icon; until the file exists, a drawn leaf-and-bag mark stands in.

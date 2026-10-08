@@ -11,6 +11,7 @@ import { historyRouter } from './routes/history.js';
 import { jobsRouter } from './routes/jobs.js';
 import { reviewRouter } from './routes/review.js';
 import { signupRouter } from './routes/signup.js';
+import { photosRouter } from './routes/photos.js';
 import { errorHandler, notFound } from './middleware/errorHandler.js';
 
 const CLIENT_DIST = fileURLToPath(new URL('../../client/dist', import.meta.url));
@@ -27,6 +28,7 @@ export function createApp() {
   app.use('/api/signup', signupRouter);
   app.use('/api/me', meRouter);
   app.use('/api/history', historyRouter);
+  app.use('/api/photos', photosRouter);
   app.use('/api/jobs', jobsRouter);
   // /api/review, /api/descriptions/:id, /api/descriptions/:id/feedback, /api/metrics
   app.use('/api', reviewRouter);
