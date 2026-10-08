@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase.js';
+import { api } from '../api.js';
 
 // Login / sign-up, chosen by the URL hash (#/login or #/signup).
 export default function AuthPage({ mode }) {
@@ -16,17 +17,11 @@ export default function AuthPage({ mode }) {
     setMessage(null);
     try {
       if (isSignup) {
-        const { data, error } = await supabase.auth.signUp({ email, password });
-        if (error) throw error;
-        // With "Confirm email" on in Supabase, there is no session until the link is clicked.
-        if (!data.session) {
-          setMessage({ kind: 'info', text: 'Account created. Check your email for the confirmation link, then log in.' });
-          window.location.hash = '#/login';
-        }
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
+        // Our API creates the account already confirmed (no confirmation email), then we log in.
+        await api.signup(email, password);
       }
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
       // On success, App's auth listener takes over.
     } catch (err) {
       setMessage({ kind: 'error', text: err.message });

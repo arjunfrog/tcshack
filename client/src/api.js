@@ -29,6 +29,7 @@ export const api = {
   options: () => request('/generate/options'),
   generate: (product, options) => post('/generate', { product, options }),
 
+  signup: (email, password) => post('/signup', { email, password }),
   me: () => request('/me'),
   saveRetailer: (retailer) => request('/me/retailer', { method: 'PUT', body: JSON.stringify(retailer) }),
 

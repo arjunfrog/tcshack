@@ -42,7 +42,7 @@ Get a key at [console.groq.com](https://console.groq.com/keys) and set `GROQ_API
 
 1. Also run [`supabase/migrations/20261008010000_retailers.sql`](supabase/migrations/20261008010000_retailers.sql) in the SQL editor. It adds retailer profiles and links products to them.
 2. Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` to `server/.env` (Vite reads its `VITE_*` variables from there).
-3. For quick testing, turn off **Authentication → Sign In / Providers → Email → Confirm email**, so new accounts can log in immediately.
+3. No email confirmation is needed: sign-up goes through `POST /api/signup`, which creates the account already confirmed with the secret key, then the app logs straight in.
 
 After signing up, onboarding asks whether you already sell online (Amazon, Flipkart, Shopify…) or are just starting, plus categories, price positioning and brand personality. Each account sees only its own catalog.
 
