@@ -18,7 +18,7 @@ before(async () => {
 after(() => server.close());
 
 test('account and product routes need a login', async () => {
-  for (const path of ['/me', '/products']) {
+  for (const path of ['/me', '/products', '/history']) {
     const res = await fetch(`${base}${path}`);
     assert.equal(res.status, 401, path);
     assert.match((await res.json()).error, /log in/i);

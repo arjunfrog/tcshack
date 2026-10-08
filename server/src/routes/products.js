@@ -89,10 +89,16 @@ productsRouter.post('/import', async (req, res) => {
   res.json(await saveProducts(req.retailer.id, records, format));
 });
 
-// POST /api/products/import-sample  -> loads the 60 synthetic products from data/generated
+// POST /api/products/import-sample  -> loads synthetic products from data/generated in the retailer's categories
 productsRouter.post('/import-sample', async (req, res) => {
-  const records = JSON.parse(readFileSync(SAMPLE_FILE, 'utf8'));
-  res.json(await saveProducts(req.retailer.id, records, 'synthetic'));
+  const all = JSON.parse(readFileSync(SAMPLE_FILE, 'utf8'));
+  // Only the categories this retailer sells, so the demo catalog matches their business.
+  const wanted = new Set(req.retailer.categories.map((category) => category.toLowerCase()));
+  const matching = all.filter((record) => wanted.has(record.category.toLowerCase()));
+  const records = matching.length ? matching : all;
+
+  const result = await saveProducts(req.retailer.id, records, 'synthetic');
+  res.json({ ...result, scope: matching.length ? 'your categories' : 'all categories (none matched yours)' });
 });
 
 async function saveProducts(retailerId, records, source) {
@@ -119,22 +125,15 @@ async function saveProducts(retailerId, records, source) {
 
 const GenerateRequest = z.object({ options: GenerationOptions.prefault({}) });
 
-// POST /api/products/:id/generate  { options? }  -> saved description row
-productsRouter.post('/:id/generate', async (req, res) => {
-  const { options } = GenerateRequest.parse(req.body ?? {});
+// Generates copy for a stored product and saves it as the product's next version.
+async function generateAndSave(row, options) {
   const supabase = requireSupabase();
-
-  const row = check(
-    await supabase.from('products').select('*').eq('id', req.params.id).eq('retailer_id', req.retailer.id).maybeSingle(),
-  );
-  if (!row) return res.status(404).json({ error: 'Product not found' });
-
   const { output, meta, quality } = await generateForProduct(toProductInput(row), options);
 
   const latest = check(
     await supabase.from('descriptions').select('version').eq('product_id', row.id).order('version', { ascending: false }).limit(1),
   );
-  const description = check(
+  return check(
     await supabase
       .from('descriptions')
       .insert({
@@ -153,5 +152,38 @@ productsRouter.post('/:id/generate', async (req, res) => {
       .select()
       .single(),
   );
-  res.status(201).json({ description });
+}
+
+// POST /api/products/:id/generate  { options? }  -> saved description row
+productsRouter.post('/:id/generate', async (req, res) => {
+  const { options } = GenerateRequest.parse(req.body ?? {});
+  const row = check(
+    await requireSupabase().from('products').select('*').eq('id', req.params.id).eq('retailer_id', req.retailer.id).maybeSingle(),
+  );
+  if (!row) return res.status(404).json({ error: 'Product not found' });
+
+  res.status(201).json({ description: await generateAndSave(row, options) });
+});
+
+const QuickRequest = z.object({ product: ProductInput, options: GenerationOptions.prefault({}) });
+
+// POST /api/products/quick  { product, options? }  -> { product, description }
+// The Quick generate form: saves the product to the catalog (reusing it when the same
+// SKU, or the same name and category, was entered before) and its new description.
+productsRouter.post('/quick', async (req, res) => {
+  const { product, options } = QuickRequest.parse(req.body);
+  const supabase = requireSupabase();
+
+  let existing = supabase.from('products').select('*').eq('retailer_id', req.retailer.id).limit(1);
+  existing = product.sku
+    ? existing.eq('sku', product.sku)
+    : existing.is('sku', null).ilike('name', product.name).ilike('category', product.category);
+  const [match] = check(await existing);
+
+  const fields = { ...product, retailer_id: req.retailer.id, source: 'manual', completeness_score: checkCompleteness(product).score };
+  const row = match
+    ? check(await supabase.from('products').update(fields).eq('id', match.id).select().single())
+    : check(await supabase.from('products').insert(fields).select().single());
+
+  res.status(201).json({ product: row, description: await generateAndSave(row, options) });
 });

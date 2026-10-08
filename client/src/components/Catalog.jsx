@@ -1,28 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '../api.js';
-import DescriptionView from './DescriptionView.jsx';
+import DescriptionView, { toResult } from './DescriptionView.jsx';
 
 const BATCH_CONCURRENCY = 3;
-
-// Shape a saved description row like a fresh /api/generate result so DescriptionView can show it.
-const toResult = (row) => ({
-  output: {
-    title: row.title,
-    short_description: row.short_description,
-    long_description: row.long_description,
-    bullet_points: row.bullet_points,
-    seo_keywords: row.seo_keywords,
-    meta_description: row.meta_description,
-  },
-  meta: {
-    provider: row.provider,
-    model: row.model,
-    input_tokens: row.input_tokens ?? 0,
-    output_tokens: row.output_tokens ?? 0,
-    latency_ms: row.latency_ms ?? 0,
-  },
-  quality: row.quality,
-});
 
 export default function Catalog({ choices }) {
   const [products, setProducts] = useState([]);
@@ -46,10 +26,10 @@ export default function Catalog({ choices }) {
 
   const categories = [...new Set(products.map((product) => product.category))].sort();
 
-  const showImportResult = ({ imported, errors }) => {
+  const showImportResult = ({ imported, errors, scope }) => {
     setNotice({
       kind: errors.length ? 'error' : 'info',
-      text: `Imported ${imported} product${imported === 1 ? '' : 's'}${errors.length ? `, ${errors.length} row(s) rejected` : ''}.`,
+      text: `Imported ${imported} product${imported === 1 ? '' : 's'}${scope ? ` from ${scope}` : ''}${errors.length ? `, ${errors.length} row(s) rejected` : ''}.`,
       details: errors.map((error) => `Row ${error.row}: ${error.issues.join('; ')}`),
     });
     load();
@@ -131,7 +111,7 @@ export default function Catalog({ choices }) {
             Import CSV / JSON
             <input type="file" accept=".csv,.json" onChange={importFile} hidden />
           </label>
-          <button type="button" onClick={importSample}>Load 60 sample products</button>
+          <button type="button" onClick={importSample}>Load sample products</button>
         </div>
         <div className="row-actions">
           <select value={options.tone} onChange={(event) => setOptions({ ...options, tone: event.target.value })}>
@@ -177,7 +157,7 @@ export default function Catalog({ choices }) {
           </div>
 
           {products.length === 0 ? (
-            <p className="empty">No products yet. Import a CSV/JSON file or load the sample products.</p>
+            <p className="empty">No products yet. Import a CSV/JSON file, load sample products for your categories, or use Quick generate.</p>
           ) : (
             <div className="table-wrap">
               <table>

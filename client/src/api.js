@@ -37,4 +37,6 @@ export const api = {
   importProducts: (format, data) => post('/products/import', { format, data }),
   importSample: () => post('/products/import-sample'),
   generateForProduct: (id, options) => post(`/products/${id}/generate`, { options }),
+  quickGenerate: (product, options) => post('/products/quick', { product, options }),
+  history: (limit = 100) => request(`/history?limit=${limit}`),
 };
