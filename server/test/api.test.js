@@ -70,3 +70,9 @@ test('account routes also need the database', async () => {
   const res = await fetch(`${base}/me`);
   assert.equal(res.status, 503);
 });
+
+test('unknown API paths stay JSON 404s (the client is only served in production)', async () => {
+  const res = await fetch(`${base}/nothing-here`);
+  assert.equal(res.status, 404);
+  assert.match((await res.json()).error, /No route/);
+});

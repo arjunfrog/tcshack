@@ -18,6 +18,7 @@
     "build": "npm run build -w client",
     "test": "npm test -w server",
     "eval": "npm run eval -w server --",
+    "judge": "npm run judge -w server --",
     "data:generate": "node scripts/generate-synthetic.js",
     "db:seed": "npm run seed -w server",
     "anakin:catalog": "npm run anakin:catalog -w server --",

@@ -1,0 +1,33 @@
+# Render blueprint: one free web service runs the API and serves the built React app.
+# New → Blueprint in the Render dashboard, pick this repo, then fill in the secret values.
+services:
+  - type: web
+    name: product-copy-studio
+    runtime: node
+    plan: free
+    # --include=dev: the client build needs Vite, a dev dependency, and NODE_ENV=production would skip it.
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start -w server
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      - key: GENERATION_CONCURRENCY
+        value: "2"
+      # Secrets: set these in the dashboard. The VITE_ ones are read at build time.
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SECRET_KEY
+        sync: false
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: ANAKIN_API_KEY
+        sync: false

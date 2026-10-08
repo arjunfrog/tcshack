@@ -24,6 +24,8 @@ const defaultProvider = groqApiKey ? 'groq' : openrouterApiKey ? 'openrouter' : 
 
 export const config = {
   port: num(process.env.PORT, 4000),
+  // Serve client/dist from this server (production, or SERVE_CLIENT=true to try it locally).
+  serveClient: process.env.NODE_ENV === 'production' || process.env.SERVE_CLIENT === 'true',
   corsOrigins: (process.env.CORS_ORIGIN || 'http://localhost:5173')
     .split(',')
     .map((origin) => origin.trim())

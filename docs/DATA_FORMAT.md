@@ -63,6 +63,14 @@ POST /api/products/import   { "format": "csv" | "json", "data": "<file contents>
 
 Rows with a `sku` update the existing product with that SKU; rows without one are added as new products. Invalid rows are skipped and reported, the rest are saved.
 
+## Exporting
+
+A batch job's results download from the Batch tab, or from `GET /api/jobs/:id/export?format=csv|json`. One row per product, with these columns:
+
+`sku, name, category, status, error, title, short_description, long_description, bullet_points, seo_keywords, meta_description, seo_checks, fact_flags, style_issues, model, version`
+
+Lists (`bullet_points`, `seo_keywords`, `fact_flags`, `style_issues`) are joined with ` | `, as in the import format; `seo_checks` reads like `6/6`.
+
 ## Generated output
 
 Every generation returns this shape (`GeneratedDescription` in the same schema file):

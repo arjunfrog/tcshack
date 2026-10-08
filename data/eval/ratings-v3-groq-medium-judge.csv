@@ -1,0 +1,13 @@
+id,sku,category,tone,config,relevance,creativity,comment
+SKU-0001-friendly,SKU-0001,Electronics,friendly,"openai/gpt-oss-120b, effort medium",5,4,"judge (openai/gpt-oss-20b): Accurate and thorough description with friendly tone, but slightly generic phrasing."
+SKU-0033-friendly,SKU-0033,Electronics,friendly,"openai/gpt-oss-120b, effort medium",5,4,"judge (openai/gpt-oss-20b): The copy accurately lists all key specs and features while maintaining a friendly tone, though it contains a few generic phrases."
+SKU-0018-friendly,SKU-0018,Electronics,friendly,"openai/gpt-oss-120b, effort medium",5,4,"judge (openai/gpt-oss-20b): Accurate, comprehensive details with a friendly, engaging tone that avoids generic clichés."
+SKU-0037-friendly,SKU-0037,Apparel,friendly,"openai/gpt-oss-120b, effort medium",5,5,judge (openai/gpt-oss-20b): The description is both accurate to the product data and engagingly written in a friendly tone.
+SKU-0008-friendly,SKU-0008,Home & Kitchen,friendly,"openai/gpt-oss-120b, effort medium",5,5,"judge (openai/gpt-oss-20b): The copy accurately reflects all product data while maintaining a friendly, engaging tone."
+SKU-0011-friendly,SKU-0011,Beauty & Personal Care,friendly,"openai/gpt-oss-120b, effort medium",5,5,"judge (openai/gpt-oss-20b): The description accurately reflects all product features and reads with engaging, friendly tone."
+SKU-0013-friendly,SKU-0013,Sports & Fitness,friendly,"openai/gpt-oss-120b, effort medium",5,5,"judge (openai/gpt-oss-20b): The description is accurate, detailed, and reads like a polished, friendly human copywriter."
+SKU-0060-friendly,SKU-0060,Sports & Fitness,friendly,"openai/gpt-oss-120b, effort medium",5,5,"judge (openai/gpt-oss-20b): The description is both factually accurate and engagingly written, matching all product details without filler."
+SKU-0014-friendly,SKU-0014,Grocery & Gourmet,friendly,"openai/gpt-oss-120b, effort medium",5,5,"judge (openai/gpt-oss-20b): Engaging, friendly tone with accurate, complete product details."
+SKU-0047-friendly,SKU-0047,Grocery & Gourmet,friendly,"openai/gpt-oss-120b, effort medium",5,4,"judge (openai/gpt-oss-20b): The description accurately reflects all key product attributes while maintaining a friendly tone, though it could be slightly more engaging."
+SKU-0016-friendly,SKU-0016,Toys & Baby,friendly,"openai/gpt-oss-120b, effort medium",5,4,judge (openai/gpt-oss-20b): The description accurately covers all product details and reads engagingly with a friendly tone.
+SKU-0048-friendly,SKU-0048,Toys & Baby,friendly,"openai/gpt-oss-120b, effort medium",5,4,"judge (openai/gpt-oss-20b): Accurate and useful details are fully supported by the product data, while the copy reads engagingly and fits a friendly tone."

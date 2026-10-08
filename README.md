@@ -94,6 +94,16 @@ After signing up and onboarding (your brand profile: personality, target custome
 
 Every description shows its SEO checks, readability, fact-check flags, style issues and whether the fix-up pass changed it.
 
+## Deploying
+
+One free [Render](https://render.com) web service runs the API and serves the built React app on the same origin (`render.yaml`), so there's no CORS or API URL to set up:
+
+1. Push the repo to GitHub. In Render: **New → Blueprint**, pick the repo.
+2. Fill in the secrets it asks for: `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `GROQ_API_KEY`, and optionally `OPENROUTER_API_KEY` and `ANAKIN_API_KEY`. The `VITE_` values are baked into the app at build time.
+3. Run `supabase/setup.sql` in the Supabase project if you haven't, then open the service URL.
+
+Free Render services sleep after 15 minutes without traffic, so the first request after a pause takes about 30 seconds; an open Batch page keeps the service awake while it polls. To try production mode locally: `npm run build`, then `SERVE_CLIENT=true npm start -w server` and open http://localhost:4000.
+
 ## Scripts
 
 | Command | What it does |
@@ -101,6 +111,8 @@ Every description shows its SEO checks, readability, fact-check flags, style iss
 | `npm run dev` | Start API and web app with hot reload |
 | `npm test` | Server tests (`node:test`, offline, uses the mock provider) |
 | `npm run eval` | Run the 15-product eval set and write `data/eval/report.md` (see [Evaluating quality](#evaluating-quality)) |
+| `npm run judge -- <results file>` | LLM-as-judge: rate an eval run for relevance and creativity with a strict rubric (a second opinion, not a replacement for the team's ratings) |
+| `npm run doctor` | Check env keys, database tables, auth access and model settings |
 | `npm run build` | Production build of the web app to `client/dist` |
 | `npm run data:generate` | Regenerate the synthetic catalog in `data/generated/` (`--count`, `--seed`) |
 | `npm run db:seed` | Upsert `data/generated/products.json` into Supabase |

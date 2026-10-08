@@ -48,6 +48,14 @@ export async function refineDescription(product, output, problems, settings = {}
   }).then(({ output: changes, meta }) => ({ changes, meta }));
 }
 
+// Any JSON-returning request on the configured (or overridden) provider, e.g. the judge.
+// Returns { output, meta }, or null for the mock provider.
+export async function completeJson({ messages, schema }, settings = {}) {
+  const provider = providerFor(settings);
+  if (provider === 'mock' || !PROVIDERS[provider]) return null;
+  return chatJson(provider, settings, { messages, schema });
+}
+
 const OUTPUT_SCHEMA = (() => {
   const { $schema, ...schema } = z.toJSONSchema(GeneratedDescription);
   return schema;
