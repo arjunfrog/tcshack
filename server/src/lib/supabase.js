@@ -20,9 +20,14 @@ export function requireSupabase() {
   return supabase;
 }
 
-// Cheap connectivity check used by /api/health.
+// Cheap connectivity check used by /api/health. Selects a row rather than a HEAD
+// count, because HEAD requests come back without an error message (e.g. missing tables).
 export async function pingDatabase() {
   if (!supabase) return 'not_configured';
-  const { error } = await supabase.from('products').select('id', { head: true, count: 'exact' });
-  return error ? `error: ${error.message}` : 'connected';
+  const { error } = await supabase.from('products').select('id').limit(1);
+  if (!error) return 'connected';
+  if (error.code === 'PGRST205' || /schema cache|does not exist/.test(error.message)) {
+    return 'error: tables missing, run the SQL migration';
+  }
+  return `error: ${error.message || 'unknown'}`;
 }
