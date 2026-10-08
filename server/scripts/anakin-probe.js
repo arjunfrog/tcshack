@@ -4,6 +4,7 @@
 //   npm run anakin:probe
 //   npm run anakin:probe -- --query "air fryer" --only am_search_products,am_product_details
 //   npm run anakin:probe -- --yes          (skip the confirmation)
+//   npm run anakin:probe -- --only am_product_details,am_product_reviews --asin B0BN729YJ8
 
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { createInterface } from 'node:readline/promises';
@@ -21,6 +22,8 @@ const { values: args } = parseArgs({
     pincode: { type: 'string', default: '560001' },
     store: { type: 'string', default: 'https://www.boat-lifestyle.com' },
     only: { type: 'string' },
+    // Starting ASIN for Amazon details/reviews when search returns nothing.
+    asin: { type: 'string' },
     yes: { type: 'boolean', default: false },
   },
 });
@@ -37,6 +40,7 @@ const STEPS = [
   { id: 'jm_search_products', params: () => ({ query: args.query, page_size: 5 }) },
   { id: 'me_search_products', params: () => ({ query: args.query, limit: 5 }) },
   { id: 'sh_products', params: () => ({ store_url: args.store, limit: 3 }) },
+  { id: 'sh_product', params: (ctx) => ctx.shopifyHandle && { store_url: args.store, handle: ctx.shopifyHandle } },
 ].filter((step) => !args.only || args.only.split(',').includes(step.id));
 
 if (!config.anakin.apiKey) {
@@ -106,8 +110,10 @@ function outline(value, indent = '  ', depth = 0, lines = []) {
         lines.push(`${indent}${key}:${Array.isArray(child) ? ` [${child.length}]` : ''}`);
         outline(Array.isArray(child) ? child[0] : child, indent + '  ', depth + 1, lines);
       } else {
+        // Copy-like fields are what we care about most, so show more of them.
+        const limit = /description|details|highlight|body|bullet|feature|about|review|text/i.test(key) ? 600 : 90;
         const example = JSON.stringify(child) ?? 'null';
-        lines.push(`${indent}${key}: ${example.length > 90 ? `${example.slice(0, 90)}…` : example}`);
+        lines.push(`${indent}${key}: ${example.length > limit ? `${example.slice(0, limit)}…` : example}`);
       }
     }
   } else {
@@ -139,7 +145,7 @@ if (!args.yes) {
   if (answer.trim().toLowerCase() !== 'y') process.exit(0);
 }
 
-const ctx = {};
+const ctx = { asin: args.asin };
 const report = [`# Anakin probe: "${args.query}"`, ''];
 
 for (const step of STEPS) {
@@ -169,6 +175,10 @@ for (const step of STEPS) {
   ctx.asin ??= find(raw, (k, v) => /^asin$/i.test(k) && typeof v === 'string' && /^[A-Z0-9]{10}$/.test(v));
   ctx.flipkartUrl ??= find(raw, (k, v) => typeof v === 'string' && /flipkart\.com\/.+\/p\//.test(v));
   if (ctx.flipkartUrl && !ctx.flipkartUrl.startsWith('http')) ctx.flipkartUrl = `https://www.flipkart.com${ctx.flipkartUrl}`;
+  ctx.shopifyHandle ??= find(raw, (k, v) => k === 'handle' && typeof v === 'string');
+  // Print every suggestion, since the outline only shows the first list item.
+  const suggestions = find(raw, (k, v) => k === 'suggestions' && Array.isArray(v));
+  if (suggestions) console.log(`all suggestions: ${suggestions.map((item) => item.text ?? item).join(' | ')}`);
 }
 
 writeFileSync(new URL('probe-report.md', OUT_DIR), report.join('\n'));
