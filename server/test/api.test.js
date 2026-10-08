@@ -33,6 +33,22 @@ test('POST /api/generate returns copy, metadata and quality checks', async () =>
   assert.ok(body.output.title.includes('Pulse Buds'));
   assert.equal(body.meta.provider, 'mock');
   assert.ok(body.quality.seo.total > 0);
+  assert.equal(body.quality.facts.passed, true);
+  assert.ok(Array.isArray(body.quality.style.issues));
+  assert.equal(body.quality.input.sparse, true);
+});
+
+test('POST /api/generate/check scores completeness without generating', async () => {
+  const res = await fetch(`${base}/generate/check`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ product: { name: 'Pulse Buds', category: 'Electronics', features: ['ANC'] } }),
+  });
+  assert.equal(res.status, 200);
+  const body = await res.json();
+  assert.equal(body.sparse, true);
+  assert.ok(body.score < 50);
+  assert.ok(body.issues.includes('No brand'));
 });
 
 test('POST /api/generate rejects a product without a name', async () => {

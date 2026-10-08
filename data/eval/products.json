@@ -1,0 +1,458 @@
+[
+  {
+    "eval_notes": "Sparse: one feature, no specs, no brand. Copy should be short and invent no battery life, codec or rating.",
+    "sku": "SKU-0001",
+    "name": "AirFlow Pro",
+    "category": "Electronics",
+    "subcategory": "Wireless Earbuds",
+    "price": 7039,
+    "currency": "INR",
+    "features": [
+      "Touch controls"
+    ],
+    "specifications": {},
+    "attributes": {
+      "colors": [
+        "Sage Green",
+        "Ocean Blue"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Wireless%20Earbuds",
+    "seed_keywords": [
+      "wireless earbuds",
+      "bluetooth earphones"
+    ]
+  },
+  {
+    "eval_notes": "Feature-rich earbuds. IPX5 is sweat resistance: watch for \"waterproof\". Uses 38 hours, 13 mm, Bluetooth 5.3 exactly?",
+    "sku": "SKU-0033",
+    "name": "AirFlow Pro",
+    "category": "Electronics",
+    "subcategory": "Wireless Earbuds",
+    "brand": "Sonora",
+    "price": 2549,
+    "currency": "INR",
+    "features": [
+      "Active noise cancellation",
+      "Low-latency gaming mode",
+      "IPX5 sweat resistance",
+      "Touch controls",
+      "Dual-device pairing"
+    ],
+    "specifications": {
+      "Battery life": "38 hours with case",
+      "Driver size": "13 mm",
+      "Bluetooth": "5.3",
+      "Weight": "4 g per bud"
+    },
+    "attributes": {
+      "colors": [
+        "Midnight Black",
+        "Pearl White"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Wireless%20Earbuds",
+    "seed_keywords": [
+      "noise cancelling earbuds",
+      "bluetooth earphones"
+    ]
+  },
+  {
+    "eval_notes": "Smartwatch with many figures (2.01-inch, 12 days, 5 ATM, 100+ modes). Watch for unit drift (5 ATM is not 50 m).",
+    "sku": "SKU-0018",
+    "name": "Orbit Fit",
+    "category": "Electronics",
+    "subcategory": "Smartwatch",
+    "brand": "Voltix",
+    "price": 12269,
+    "currency": "INR",
+    "features": [
+      "Bluetooth calling",
+      "Built-in GPS",
+      "5 ATM water resistance",
+      "100+ sports modes"
+    ],
+    "specifications": {
+      "Display": "2.01-inch AMOLED",
+      "Battery life": "Up to 12 days",
+      "Water resistance": "5 ATM",
+      "Compatibility": "Android and iOS"
+    },
+    "attributes": {
+      "strap": "Metal mesh",
+      "colors": [
+        "Rose Gold",
+        "Graphite"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Smartwatch",
+    "seed_keywords": [
+      "smart watch with calling",
+      "fitness tracker"
+    ]
+  },
+  {
+    "eval_notes": "Seed keyword \"cotton kurta\" contradicts the Rayon fabric. It should be dropped, not used.",
+    "sku": "SKU-0054",
+    "name": "Chikankari Straight Kurta",
+    "category": "Apparel",
+    "subcategory": "Kurta",
+    "brand": "Loomcraft",
+    "price": 2559,
+    "currency": "INR",
+    "features": [
+      "Comes with matching dupatta",
+      "Breathable natural fabric",
+      "Three-quarter sleeves",
+      "Side slits for easy movement",
+      "Hand-finished embroidery"
+    ],
+    "specifications": {
+      "Fabric": "Rayon",
+      "Length": "Calf length",
+      "Neck": "Mandarin",
+      "Care": "Dry clean only"
+    },
+    "attributes": {
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "occasion": "Office",
+      "gender": "Women"
+    },
+    "image_url": "https://placehold.co/600x600?text=Kurta",
+    "seed_keywords": [
+      "cotton kurta",
+      "ethnic wear"
+    ]
+  },
+  {
+    "eval_notes": "Sparse running shoes: one feature, no specs, no brand. No invented cushioning tech, weight or drop.",
+    "sku": "SKU-0037",
+    "name": "Trail Blaze",
+    "category": "Apparel",
+    "subcategory": "Running Shoes",
+    "price": 2639,
+    "currency": "INR",
+    "features": [
+      "Responsive foam midsole"
+    ],
+    "specifications": {},
+    "attributes": {
+      "sizes": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10"
+      ],
+      "gender": "Women",
+      "terrain": "Treadmill"
+    },
+    "image_url": "https://placehold.co/600x600?text=Running%20Shoes",
+    "seed_keywords": [
+      "running shoes",
+      "lightweight trainers"
+    ]
+  },
+  {
+    "eval_notes": "Name says 4L but the capacity spec is 5.5 L. Copy should use 5.5 L, not present 4 litres as the capacity.",
+    "sku": "SKU-0007",
+    "name": "CrispAir 4L",
+    "category": "Home & Kitchen",
+    "subcategory": "Air Fryer",
+    "brand": "Casa Nova",
+    "price": 7189,
+    "currency": "INR",
+    "features": [
+      "Auto shut-off",
+      "Up to 90% less oil than deep frying",
+      "Dishwasher-safe non-stick basket",
+      "Digital touch panel with 8 presets"
+    ],
+    "specifications": {
+      "Capacity": "5.5 L",
+      "Power": "1200 W",
+      "Temperature range": "80-200 °C",
+      "Warranty": "1 year"
+    },
+    "attributes": {
+      "colors": [
+        "Black"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Air%20Fryer",
+    "seed_keywords": [
+      "digital air fryer",
+      "oil free fryer"
+    ]
+  },
+  {
+    "eval_notes": "Seed keyword \"cotton bedsheet\" contradicts the Microfibre material. \"Two pillow covers\" is fine.",
+    "sku": "SKU-0008",
+    "name": "Percale Comfort Set",
+    "category": "Home & Kitchen",
+    "subcategory": "Bedsheet Set",
+    "brand": "HearthWare",
+    "price": 1889,
+    "currency": "INR",
+    "features": [
+      "Includes two pillow covers",
+      "Soft, breathable weave",
+      "Fade-resistant colours"
+    ],
+    "specifications": {
+      "Thread count": "180 TC",
+      "Material": "Microfibre",
+      "Size": "Queen",
+      "Contents": "1 bedsheet, 2 pillow covers"
+    },
+    "attributes": {
+      "pattern": "Stripes",
+      "colors": [
+        "Ivory",
+        "Indigo"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Bedsheet%20Set",
+    "seed_keywords": [
+      "double bedsheet with pillow covers",
+      "cotton bedsheet"
+    ]
+  },
+  {
+    "eval_notes": "Seed keyword \"sunscreen spf 50\" contradicts SPF 30. Any SPF 50 in the copy is a serious error.",
+    "sku": "SKU-0011",
+    "name": "Matte Shield Sunscreen",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Sunscreen",
+    "brand": "Derma Lab",
+    "price": 859,
+    "currency": "INR",
+    "features": [
+      "Works under makeup",
+      "Water resistant for 80 minutes",
+      "No white cast",
+      "Broad spectrum UVA and UVB protection",
+      "Non-greasy finish"
+    ],
+    "specifications": {
+      "SPF": "SPF 30",
+      "PA": "PA++++",
+      "Volume": "50 g",
+      "Texture": "Cream"
+    },
+    "attributes": {
+      "skin_type": "Oily"
+    },
+    "image_url": "https://placehold.co/600x600?text=Sunscreen",
+    "seed_keywords": [
+      "sunscreen spf 50",
+      "sunscreen for oily skin"
+    ]
+  },
+  {
+    "eval_notes": "Name says Hyaluronic but the key ingredient is 10% Vitamin C. Copy must not claim hyaluronic acid.",
+    "sku": "SKU-0042",
+    "name": "Hyaluronic Hydra Serum",
+    "category": "Beauty & Personal Care",
+    "subcategory": "Face Serum",
+    "brand": "PureLeaf",
+    "price": 929,
+    "currency": "INR",
+    "features": [
+      "Suitable for daily use",
+      "Lightweight, fast-absorbing formula",
+      "Dropper for mess-free application",
+      "Fragrance-free"
+    ],
+    "specifications": {
+      "Volume": "30 ml",
+      "Key ingredient": "10% Vitamin C",
+      "Skin type": "Oily and acne-prone"
+    },
+    "attributes": {
+      "concern": "Dehydration",
+      "cruelty_free": true
+    },
+    "image_url": "https://placehold.co/600x600?text=Face%20Serum",
+    "seed_keywords": [
+      "face serum",
+      "serum for glowing skin"
+    ]
+  },
+  {
+    "eval_notes": "Seed keyword \"kashmir willow bat\" contradicts the English willow spec. Beginner level, tennis ball.",
+    "sku": "SKU-0013",
+    "name": "Power Hitter",
+    "category": "Sports & Fitness",
+    "subcategory": "Cricket Bat",
+    "brand": "FlexCore",
+    "price": 3119,
+    "currency": "INR",
+    "features": [
+      "Pre-knocked and ready to play",
+      "Cane handle with shock absorption",
+      "Thick edges for big hitting"
+    ],
+    "specifications": {
+      "Willow": "Grade 2 English willow",
+      "Weight": "1152 g",
+      "Size": "Size 6",
+      "Grains": "8"
+    },
+    "attributes": {
+      "level": "Beginner",
+      "ball_type": "Tennis ball"
+    },
+    "image_url": "https://placehold.co/600x600?text=Cricket%20Bat",
+    "seed_keywords": [
+      "cricket bat",
+      "kashmir willow bat"
+    ]
+  },
+  {
+    "eval_notes": "Straightforward yoga mat with good data. Baseline for tone and style.",
+    "sku": "SKU-0060",
+    "name": "GripFlow Mat",
+    "category": "Sports & Fitness",
+    "subcategory": "Yoga Mat",
+    "brand": "IronPeak",
+    "price": 1779,
+    "currency": "INR",
+    "features": [
+      "Non-slip textured surface",
+      "Extra cushioning for joints",
+      "Lightweight with carry strap"
+    ],
+    "specifications": {
+      "Thickness": "8 mm",
+      "Material": "Natural cork and rubber",
+      "Dimensions": "183 x 61 cm",
+      "Weight": "0.9 kg"
+    },
+    "attributes": {
+      "colors": [
+        "Peach",
+        "Charcoal"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Yoga%20Mat",
+    "seed_keywords": [
+      "exercise mat",
+      "yoga mat"
+    ]
+  },
+  {
+    "eval_notes": "Seed keyword \"organic green tea\" is unsupported. \"Rich in antioxidants\" must not become a health promise.",
+    "sku": "SKU-0014",
+    "name": "Tulsi Green Tea",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Green Tea",
+    "brand": "Himalayan Harvest",
+    "price": 719,
+    "currency": "INR",
+    "features": [
+      "Whole-leaf tea",
+      "Rich in antioxidants",
+      "Resealable pouch",
+      "No artificial flavours",
+      "Sourced from hill estates"
+    ],
+    "specifications": {
+      "Net weight": "250 g",
+      "Form": "50 tea bags",
+      "Shelf life": "18 months",
+      "Origin": "Assam"
+    },
+    "attributes": {
+      "diet": [
+        "Vegan",
+        "Gluten-free"
+      ]
+    },
+    "image_url": "https://placehold.co/600x600?text=Green%20Tea",
+    "seed_keywords": [
+      "green tea",
+      "organic green tea"
+    ]
+  },
+  {
+    "eval_notes": "Sparse chocolate with \"healthy chocolate\" seed keyword: no health claims, no invented cocoa %.",
+    "sku": "SKU-0047",
+    "name": "Sea Salt Almond Dark",
+    "category": "Grocery & Gourmet",
+    "subcategory": "Dark Chocolate",
+    "price": 369,
+    "currency": "INR",
+    "features": [
+      "Small-batch production"
+    ],
+    "specifications": {},
+    "attributes": {
+      "diet": [
+        "Vegan"
+      ],
+      "gift_ready": false
+    },
+    "image_url": "https://placehold.co/600x600?text=Dark%20Chocolate",
+    "seed_keywords": [
+      "healthy chocolate",
+      "craft chocolate"
+    ]
+  },
+  {
+    "eval_notes": "Toy with age (6+ years), 500 pieces and BIS certification. Safety copy must stick to the data.",
+    "sku": "SKU-0016",
+    "name": "Mini Engineers Kit",
+    "category": "Toys & Baby",
+    "subcategory": "Building Blocks",
+    "brand": "Playloop",
+    "price": 3029,
+    "currency": "INR",
+    "features": [
+      "Compatible with major brick brands",
+      "Builds fine motor skills",
+      "Non-toxic, BPA-free plastic"
+    ],
+    "specifications": {
+      "Pieces": "500",
+      "Recommended age": "6+ years",
+      "Material": "ABS plastic",
+      "Certification": "BIS certified"
+    },
+    "attributes": {
+      "theme": "Space"
+    },
+    "image_url": "https://placehold.co/600x600?text=Building%20Blocks",
+    "seed_keywords": [
+      "building blocks",
+      "educational toys"
+    ]
+  },
+  {
+    "eval_notes": "Sparse building blocks: no age range in the data, so the copy must not invent one.",
+    "sku": "SKU-0048",
+    "name": "Mini Engineers Kit",
+    "category": "Toys & Baby",
+    "subcategory": "Building Blocks",
+    "price": 1399,
+    "currency": "INR",
+    "features": [
+      "Compatible with major brick brands"
+    ],
+    "specifications": {},
+    "attributes": {
+      "theme": "Vehicles"
+    },
+    "image_url": "https://placehold.co/600x600?text=Building%20Blocks",
+    "seed_keywords": [
+      "building blocks",
+      "educational toys"
+    ]
+  }
+]

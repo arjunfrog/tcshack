@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { z } from 'zod';
 import { GenerationOptions, LENGTHS, ProductInput, TONES } from '../schemas/product.js';
 import { generateForProduct } from '../services/generator.js';
+import { checkCompleteness } from '../services/quality.js';
 
 export const generateRouter = Router();
 
@@ -12,6 +13,13 @@ generateRouter.get('/options', (req, res) => {
 const SingleRequest = z.object({
   product: ProductInput,
   options: GenerationOptions.prefault({}),
+});
+
+// POST /api/generate/check  { product } -> { score, sparse, issues }
+// Lets the UI warn about thin product data before spending a generation on it.
+generateRouter.post('/check', (req, res) => {
+  const { product } = z.object({ product: ProductInput }).parse(req.body);
+  res.json(checkCompleteness(product));
 });
 
 // POST /api/generate  { product, options? } -> { output, meta, quality }
