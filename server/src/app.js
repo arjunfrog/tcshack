@@ -6,6 +6,7 @@ import { generateRouter } from './routes/generate.js';
 import { productsRouter } from './routes/products.js';
 import { meRouter } from './routes/me.js';
 import { historyRouter } from './routes/history.js';
+import { jobsRouter } from './routes/jobs.js';
 import { signupRouter } from './routes/signup.js';
 import { errorHandler, notFound } from './middleware/errorHandler.js';
 
@@ -21,6 +22,7 @@ export function createApp() {
   app.use('/api/signup', signupRouter);
   app.use('/api/me', meRouter);
   app.use('/api/history', historyRouter);
+  app.use('/api/jobs', jobsRouter);
 
   app.use(notFound);
   app.use(errorHandler);

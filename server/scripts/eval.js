@@ -18,6 +18,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { activeModel, config, modelFor } from '../src/config/env.js';
+import { toCsv } from '../src/lib/csv.js';
 import { mapPool } from '../src/lib/pool.js';
 import { JSON_OUTPUT_INSTRUCTIONS, SYSTEM_PROMPT, WORD_RANGES } from '../src/prompts/productDescription.js';
 import { LENGTHS, ProductInput, TONES } from '../src/schemas/product.js';
@@ -291,15 +292,9 @@ ${sections.join('\n\n')}
 
 // --- Ratings ---
 
-const csvCell = (value) => {
-  const text = String(value ?? '');
-  return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
-};
-
 function renderRatingSheet(results) {
-  const header = ['id', 'sku', 'category', 'tone', 'config', 'relevance', 'creativity', 'comment'];
-  const rows = results.filter((result) => !result.error).map((result) => [result.id, result.sku, result.category, result.tone, result.config, '', '', '']);
-  return [header, ...rows].map((row) => row.map(csvCell).join(',')).join('\n') + '\n';
+  const columns = ['id', 'sku', 'category', 'tone', 'config', 'relevance', 'creativity', 'comment'];
+  return toCsv(results.filter((result) => !result.error), columns);
 }
 
 function parseCsv(text) {

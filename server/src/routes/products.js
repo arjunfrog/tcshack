@@ -4,9 +4,9 @@ import { z } from 'zod';
 import { dbError, requireSupabase } from '../lib/supabase.js';
 import { requireRetailer, requireUser } from '../middleware/auth.js';
 import { parseProductsCsv } from '../lib/csv.js';
-import { GenerationOptions, ProductInput } from '../schemas/product.js';
+import { GenerationOptions, ProductInput, parseProductUpdate } from '../schemas/product.js';
 import { checkCompleteness } from '../services/quality.js';
-import { generateForProduct } from '../services/generator.js';
+import { generateAndSave, toProductInput } from '../services/descriptions.js';
 
 export const productsRouter = Router();
 // Every route works on the logged-in retailer's own catalog.
@@ -20,36 +20,33 @@ function check({ data, error }) {
   return data;
 }
 
-// Product columns as stored, minus bookkeeping, so rows can go straight back into ProductInput.
-const toProductInput = (row) =>
-  ProductInput.parse({
-    ...row,
-    price: row.price ?? undefined,
-    sku: row.sku ?? undefined,
-    subcategory: row.subcategory ?? undefined,
-    brand: row.brand ?? undefined,
-    image_url: row.image_url ?? undefined,
-  });
+const ListQuery = z.object({
+  limit: z.coerce.number().int().min(1).max(500).default(500),
+  offset: z.coerce.number().int().min(0).default(0),
+});
 
-// GET /api/products?category=&search=  -> products with their latest description
+// GET /api/products?category=&search=&limit=&offset=  -> { products, total }
+// Products come with their latest description; `total` counts every match, for paging.
 productsRouter.get('/', async (req, res) => {
+  const { limit, offset } = ListQuery.parse(req.query);
   let query = requireSupabase()
     .from('products')
-    .select('*, descriptions(id, version, title, status, created_at)')
+    .select('*, descriptions(id, version, title, status, created_at)', { count: 'exact' })
     .eq('retailer_id', req.retailer.id)
     .order('sku', { ascending: true, nullsFirst: false })
-    .limit(500);
+    .range(offset, offset + limit - 1);
   if (req.query.category) query = query.eq('category', req.query.category);
   // Commas and parentheses would break PostgREST's or() syntax, so strip them.
   const search = String(req.query.search ?? '').replace(/[,()]/g, ' ').trim();
   if (search) query = query.or(`name.ilike.%${search}%,sku.ilike.%${search}%`);
 
-  const products = check(await query).map(({ descriptions, ...product }) => ({
+  const { data, error, count } = await query;
+  const products = check({ data, error }).map(({ descriptions, ...product }) => ({
     ...product,
     latest_description: descriptions.sort((a, b) => b.version - a.version)[0] ?? null,
     description_count: descriptions.length,
   }));
-  res.json({ products });
+  res.json({ products, total: count ?? products.length });
 });
 
 // GET /api/products/:id  -> product and all description versions, newest first
@@ -64,6 +61,28 @@ productsRouter.get('/:id', async (req, res) => {
     await supabase.from('descriptions').select('*').eq('product_id', req.params.id).order('version', { ascending: false }),
   );
   res.json({ product, descriptions });
+});
+
+// PATCH /api/products/:id  { ...fields }  -> { product }
+// Edits a product; the completeness score is recomputed from the result.
+productsRouter.patch('/:id', async (req, res) => {
+  const changes = parseProductUpdate(req.body);
+  const supabase = requireSupabase();
+  const row = check(
+    await supabase.from('products').select('*').eq('id', req.params.id).eq('retailer_id', req.retailer.id).maybeSingle(),
+  );
+  if (!row) return res.status(404).json({ error: 'Product not found' });
+
+  const updated = toProductInput({ ...row, ...changes });
+  const product = check(
+    await supabase
+      .from('products')
+      .update({ ...changes, completeness_score: checkCompleteness(updated).score })
+      .eq('id', row.id)
+      .select()
+      .single(),
+  );
+  res.json({ product });
 });
 
 const ImportRequest = z.object({
@@ -120,35 +139,6 @@ async function saveProducts(retailerId, records, source) {
 }
 
 const GenerateRequest = z.object({ options: GenerationOptions.prefault({}) });
-
-// Generates copy for a stored product and saves it as the product's next version.
-async function generateAndSave(row, options) {
-  const supabase = requireSupabase();
-  const { output, meta, quality } = await generateForProduct(toProductInput(row), options);
-
-  const latest = check(
-    await supabase.from('descriptions').select('version').eq('product_id', row.id).order('version', { ascending: false }).limit(1),
-  );
-  return check(
-    await supabase
-      .from('descriptions')
-      .insert({
-        product_id: row.id,
-        version: (latest[0]?.version ?? 0) + 1,
-        tone: options.tone,
-        length: options.length,
-        ...output,
-        quality,
-        provider: meta.provider,
-        model: meta.model,
-        input_tokens: meta.input_tokens,
-        output_tokens: meta.output_tokens,
-        latency_ms: meta.latency_ms,
-      })
-      .select()
-      .single(),
-  );
-}
 
 // POST /api/products/:id/generate  { options? }  -> saved description row
 productsRouter.post('/:id/generate', async (req, res) => {

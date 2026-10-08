@@ -17,6 +17,13 @@ export const ProductInput = z.object({
   seed_keywords: z.array(z.string().trim().min(1)).default([]),
 });
 
+// Validates a partial product edit. Only the fields the client sent are returned:
+// ProductInput's defaults would otherwise wipe features, specs and so on.
+export function parseProductUpdate(body) {
+  const parsed = ProductInput.partial().strict().parse(body ?? {});
+  return Object.fromEntries(Object.entries(parsed).filter(([key]) => Object.hasOwn(body, key)));
+}
+
 export const TONES = ['professional', 'friendly', 'luxury', 'playful', 'technical', 'minimal'];
 export const LENGTHS = ['short', 'medium', 'long'];
 

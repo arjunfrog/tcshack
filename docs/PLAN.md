@@ -81,14 +81,18 @@ Defined in `supabase/migrations/20261008000000_init.sql`:
 | `GET /api/generate/options` | Available tones and lengths | ✅ |
 | `POST /api/generate/check` | Completeness score and `sparse` flag, before generating | ✅ (phase 1) |
 | `POST /api/generate` | Generate for one product (no DB needed); `quality` includes the fact check | ✅ |
-| `GET /api/products` | List products (filter by category, search, paginate) | Phase 2 |
-| `POST /api/products` | Create or update one product | Phase 2 |
-| `POST /api/products/import` | Upload a CSV or JSON file, validate, upsert, return per-row errors | Phase 2 |
-| `POST /api/products/:id/generate` | Generate and save a new description version | Phase 2 |
-| `GET /api/products/:id/descriptions` | Version history for a product | Phase 2 |
-| `POST /api/jobs` | Start a batch: `{ productIds \| filter, options }` | Phase 3 |
-| `GET /api/jobs/:id` | Job progress plus results so far | Phase 3 |
-| `GET /api/jobs/:id/export?format=csv\|json` | Download results | Phase 3 |
+| `GET /api/products` | List products (filter by category, search, `limit`/`offset` paging, `total`) | ✅ (phase 2) |
+| `POST /api/products/quick` | Save one product (or reuse a match) and generate for it | ✅ (phase 2) |
+| `PATCH /api/products/:id` | Edit a product; completeness is recomputed | ✅ (phase 2) |
+| `POST /api/products/import` | Upload a CSV or JSON file, validate, upsert, return per-row errors | ✅ (phase 2) |
+| `POST /api/products/:id/generate` | Generate and save a new description version | ✅ (phase 2) |
+| `GET /api/products/:id` | Product plus its description versions, newest first | ✅ (phase 2) |
+| `GET /api/history` | The retailer's generated descriptions, newest first | ✅ |
+| `POST /api/jobs` | Start a batch: `{ product_ids \| category, missing_only, options }` | ✅ (phase 3) |
+| `GET /api/jobs` | Recent jobs | ✅ (phase 3) |
+| `GET /api/jobs/:id` | Job progress plus one row per product | ✅ (phase 3) |
+| `POST /api/jobs/:id/resume` | Rerun products that haven't succeeded | ✅ (phase 3) |
+| `GET /api/jobs/:id/export?format=csv\|json` | Download results | ✅ (phase 3) |
 | `PATCH /api/descriptions/:id` | Approve, reject or hand-edit | Phase 4 |
 | `POST /api/descriptions/:id/feedback` | Submit relevance and creativity ratings | Phase 4 |
 | `GET /api/metrics` | % rated ≥4, average scores, SEO pass rate, tokens and cost | Phase 4 |
@@ -150,7 +154,7 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
 
 ### Phase 2: Catalog and persistence
 
-> **Basic version done:** `routes/products.js` (list, detail, CSV/JSON import, sample import, generate + save version) and a Catalog tab with import, table, per-product generate and a simple client-side "Generate all missing" batch. Still to do: pagination, editing products, a `/catalog/:id` version history view, and the server-side job runner in phase 3.
+> **Server done; some UI left:** `routes/products.js` (list with `limit`/`offset` paging and `total`, detail with versions, `PATCH` edit, CSV/JSON import, sample import, generate + save version, quick generate) and a Catalog tab with import, table, per-product generate and a client-side "Generate all missing" batch. Still to do in the UI: paging controls, a product edit form and a `/catalog/:id` version history view.
 
 1. **Server:** add `routes/products.js` with list (filters: category, search on name/sku, pagination), create/update, and get-by-id.
 2. **Import endpoint.** Accept a JSON array or a CSV upload (`multer` for multipart, `csv-parse` for CSV). Parse CSV with the conventions in `DATA_FORMAT.md`, validate each row with `ProductInput.safeParse`, compute `completeness_score`, and upsert on `sku`. Return `{ inserted, updated, errors: [{ row, issues }] }` so the UI can show exactly which rows failed.
@@ -166,18 +170,20 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
 
 ### Phase 3: Batch processing (the 50+ products requirement)
 
-1. **Job runner** (`services/batch.js`):
-   - `POST /api/jobs` creates a `generation_jobs` row (`queued`), responds immediately with the job id, then processes in the background.
-   - Run with a concurrency limit (`GENERATION_CONCURRENCY`, default 5) using a small promise pool. No extra library is needed, or use `p-limit`.
-   - After each product, insert into `descriptions` (with `job_id`) and increment `succeeded` or `failed`.
-   - Retries: `server/src/lib/llm.js` already retries 429 and 5xx with backoff. On final failure, record the error on the product and continue. Never fail the whole job for one product.
-   - Final status: `completed`, `partial` (some failed) or `failed`.
-2. **Progress:** the client polls `GET /api/jobs/:id` every 2 seconds for a progress bar and a live results table. Polling is simpler and more reliable for a demo than websockets. Supabase Realtime is an optional upgrade.
-3. **Batch page** (`/batch`): select products (all, by category, or a checkbox list), choose tone, length and brand voice, start, watch progress, then export.
-4. **Export:** CSV and JSON download of the job's results (sku, title, descriptions, bullets, keywords, meta, quality).
-5. **Resilience:** if the server restarts mid-job, a "Resume" button reprocesses products in the job that have no description yet.
+> **Server done (job runner, progress, export, resume); the Batch page is still to do.** Run `supabase/setup.sql` again (or `migrations/20261009000000_batch_jobs.sql`) to add the job tables. The Catalog tab's client-side "Generate all missing" can switch to `POST /api/jobs` with `missing_only: true`.
 
-**Done when:** all 60 products generate in one batch with a visible progress bar and export to CSV. Time it: at concurrency 5, expect a few minutes, and tune concurrency or effort if it is too slow for a live demo.
+1. [x] **Job runner** (`services/batch.js`, storage in `services/jobStore.js`, routes in `routes/jobs.js`):
+   - `POST /api/jobs` creates a `generation_jobs` row (`queued`) owned by the retailer, plus one `generation_job_items` row per product, responds 202 with the job, then processes in the background.
+   - Runs with `GENERATION_CONCURRENCY` products in flight, using the small promise pool in `lib/pool.js`.
+   - Each product's item moves `queued` → `running` → `succeeded` (linked to its saved description, which carries `job_id`) or `failed` (with the error). Workers only touch their own item row, so there are no shared counters to race on.
+   - Retries: `lib/llm.js` retries 429 and 5xx within a request; on top of that, a rate-limited product waits a minute and tries again, twice. On final failure the error is recorded on the item and the job carries on.
+   - Final status: `completed`, `partial` (some failed) or `failed`, with `succeeded`/`failed` totals on the job row.
+2. [x] **Progress:** `GET /api/jobs/:id` returns progress counts and one row per product (status, error, description title and quality). The client should poll it every 2 seconds.
+3. [ ] **Batch page** (`/batch`, frontend): select products (all, by category, missing only, or a checkbox list), choose tone, length and brand voice, start, watch progress, then export.
+4. [x] **Export:** `GET /api/jobs/:id/export?format=csv|json` with sku, name, category, status, error, all copy fields, SEO checks, fact flags, style issues, model and version.
+5. [x] **Resilience:** `GET /api/jobs/:id` reports `active: false` for a job that was interrupted by a restart; `POST /api/jobs/:id/resume` reruns every product that hasn't succeeded. The same call finishes a `partial` job after a free-tier daily quota resets.
+
+**Done when:** all 60 products generate in one batch with a visible progress bar and export to CSV. On free tiers, budget for it: Groq's 8K tokens a minute means about 1-2 products a minute (roughly 40 minutes for 60), and 60 products need more than one model's 200K daily tokens. So pre-generate the demo batch, and finish a `partial` job with Resume the next day, or on `openai/gpt-oss-20b` or OpenRouter. For the live demo, run a small batch (5-10 products).
 
 ### Phase 4: Review, feedback and metrics (the 85% metric)
 
