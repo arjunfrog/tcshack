@@ -6,7 +6,7 @@
 import { config } from '../src/config/env.js';
 import { supabase } from '../src/lib/supabase.js';
 
-const TABLES = ['products', 'descriptions', 'generation_jobs', 'feedback', 'retailers'];
+const TABLES = ['products', 'descriptions', 'generation_jobs', 'generation_job_items', 'feedback', 'retailers'];
 let problems = 0;
 const ok = (message) => console.log(`  ✓ ${message}`);
 const bad = (message, fix) => {
