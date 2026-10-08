@@ -6,7 +6,13 @@ async function request(path, options = {}) {
     ...options,
   });
   const body = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(body.error || `Request failed (${res.status})`);
+  if (!res.ok) {
+    // The Vite proxy answers 502/504 with no JSON when the Express server isn't running.
+    if (!body.error && (res.status === 502 || res.status === 504)) {
+      throw new Error('Cannot reach the API server on port 4000. Check the [server] lines in the npm run dev terminal.');
+    }
+    throw new Error(body.error || `Request failed (${res.status})`);
+  }
   return body;
 }
 
