@@ -12,7 +12,8 @@
     "anakin:catalog": "node scripts/anakin-catalog.js",
     "anakin:probe": "node scripts/anakin-probe.js",
     "eval": "node scripts/eval.js",
-    "doctor": "node scripts/doctor.js"
+    "doctor": "node scripts/doctor.js",
+    "judge": "node scripts/judge.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",

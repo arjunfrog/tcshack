@@ -211,7 +211,7 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
    - [x] `GET /api/metrics`: **% of rated descriptions with relevance ≥ 4 and creativity ≥ 4** (each description averaged over its reviewers; target 85%), average relevance and creativity by category, tone and model, SEO pass rate, keyword coverage, fact-check clean rate and top flags, style clean rate and issue counts, products and descriptions generated, tokens, average latency, review counts and how much humans changed the copy. Cost isn't shown: both providers run on free tiers.
    - [x] UI (Dashboard tab): the headline % rated 4+ with a meter against the 85% target, KPI tiles, breakdowns by category, tone and model, style issues, top fact flags, catalog consistency, usage and review counts.
 4. [ ] **Get real ratings:** before the demo, have every team member (and ideally a few colleagues) rate the 60-product batch. Report the number honestly. The prompt work in phase 1 is what gets it above 85%.
-5. [ ] *Optional:* an **LLM-as-judge** script that rates each description against a rubric (accuracy against attributes, persuasiveness, readability, SEO). Use it to pre-screen and as a second signal next to human ratings, not as a replacement.
+5. [x] *Optional:* **LLM-as-judge** (`npm run judge -- <results file>`): Groq `gpt-oss-20b` (a different model from the writer, with its own free quota) rates each description against a strict relevance and creativity rubric and writes a rating sheet in the team's format. On the v3-medium and v4 eval outputs it rated 17 of 17 at 4+ on both (averages: relevance 4.8-5.0, creativity 4.2-4.5). LLM judges run generous, so read that as "no obvious failures", not as the 85% result; only the team's ratings count for that.
 
 **Done when:** the dashboard shows a real % rated ≥4 across 50+ rated descriptions.
 
@@ -228,10 +228,10 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
 
 ### Phase 6: Docs, deploy and demo
 
-1. Update `README.md` with screenshots and `docs/DATA_FORMAT.md` with the import endpoint.
-2. **Deploy:** client on Vercel or Netlify, server on Render or Railway. Set the `CORS_ORIGIN` and API base URL; Supabase is already hosted.
-3. **Pre-generate** the 60-product batch before demo day, so the dashboard and catalog are full even if the live call is slow. Keep the mock provider as an emergency fallback.
-4. Record the demo video (section 8) and rehearse the live demo twice.
+1. [x] Docs: `README.md` (setup, providers, fix-up pass, app tour, API, batch jobs, review, evaluation, deployment) and `docs/DATA_FORMAT.md` (import, export, quality report). [ ] Screenshots once the demo data is in.
+2. [x] **Deploy config:** one Render web service (`render.yaml`) runs the API and serves the built React app on the same origin, so there is no CORS or API URL to configure. [ ] Create the service and fill in the secrets.
+3. [ ] **Pre-generate** the 60-product batch before demo day, so the dashboard and catalog are full even if the live call is slow (free-tier quota: spread it over two days or across models, then Resume). Keep the mock provider as an emergency fallback.
+4. [ ] Record the demo video (section 8) and rehearse the live demo twice.
 
 ### Stretch goals (only after phases 0–4 are solid)
 
@@ -272,9 +272,11 @@ With 2 people, merge A+D and B+C. Agree on API shapes in section 4 first so fron
 
 ## 8. Demo script (3–4 minutes)
 
+Before recording: run `supabase/setup.sql`, sign up as a demo retailer (fill the brand profile: personality, customers, price positioning, words to avoid), load the sample products, and pre-generate the batch the day before (free-tier quota). Rate at least 50 descriptions on the Review tab so the dashboard has real numbers.
+
 1. **Problem (20 s):** a large catalog, with manual copy that is slow, costly and inconsistent.
-2. **Data (30 s):** show `products.csv`, then import it and point out the completeness warnings on incomplete rows (data quality checks).
-3. **Single product (45 s):** fill the form and generate in "friendly", then regenerate in "luxury". Walk through the title, bullets, meta and the SEO checks passing.
-4. **Batch (60 s):** select all 60 products, choose a brand voice and start. Show the progress bar, open a few results across categories to show consistent style, then export to CSV.
-5. **Quality (45 s):** review queue with quick ratings, then the dashboard: **% rated ≥4**, SEO pass rate, fact-check flags, cost per product.
-6. **Close (20 s):** architecture slide, what's next (images, multilingual, marketplace export).
+2. **Brand and data (30 s):** show the onboarding brand profile, then Catalog → import `products.csv`; point out the completeness scores and the thin-data warning (data quality checks).
+3. **Single product (45 s):** Quick generate in "friendly", then "luxury". Walk through the title, bullets and meta, then the checks: 6/6 SEO, the fact check ("nothing invented"), style, readability, and the fix-up note. Show a trap product (SPF 30 with an "spf 50" seed keyword) and that the copy never claims SPF 50.
+4. **Batch (60 s):** Batch tab → all products without a description, start. Show per-product progress and the consistency panel, open a few results across categories to show one brand voice, then Export CSV.
+5. **Quality (45 s):** Review tab with keyboard ratings (4, 5, A), one hand edit, then the Dashboard: **% rated 4+ against the 85% target**, pass rates, top fact flags, how much humans changed the copy.
+6. **Close (20 s):** architecture slide (React → Express → Groq/OpenRouter, Supabase, Anakin market insights), what's next (images, multilingual, marketplace export).
