@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api } from '../api.js';
 import DescriptionView, { toResult } from './DescriptionView.jsx';
+import { ProductThumb } from '../ui/Art.jsx';
 
 const timeAgo = (iso) => {
   const seconds = Math.round((Date.now() - new Date(iso).getTime()) / 1000);
@@ -41,10 +42,14 @@ export default function History({ refreshKey }) {
         <ul className="history-list">
           {items.map((item) => (
             <li key={item.id}>
-              <button type="button" className={item.id === selectedId ? 'selected' : ''} onClick={() => setSelectedId(item.id)}>
-                <strong>{item.product.brand ? `${item.product.brand} ` : ''}{item.product.name}</strong>
-                <span className="muted">{item.product.category} · v{item.version} · {item.tone}, {item.length}</span>
-                <span className="muted">{timeAgo(item.created_at)}</span>
+              <button type="button" className={`product-item ${item.id === selectedId ? 'selected' : ''}`} onClick={() => setSelectedId(item.id)}>
+                <ProductThumb product={item.product} size={44} />
+                <span className="item-text">
+                  <strong>{item.product.brand ? `${item.product.brand} ` : ''}{item.product.name}</strong>
+                  <small>{item.product.category} · {item.tone}, {item.length}</small>
+                  <small className="sku">{timeAgo(item.created_at)}</small>
+                </span>
+                <span className="status done">v{item.version}</span>
               </button>
             </li>
           ))}

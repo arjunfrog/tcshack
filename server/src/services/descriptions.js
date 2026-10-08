@@ -21,19 +21,29 @@ export const toProductInput = (row) =>
   });
 
 // Generates copy for a stored product and saves it as the product's next version.
-// `jobId` links the description to a batch job.
-export async function generateAndSave(row, options, { jobId = null } = {}) {
+// `jobId` links the description to a batch job. `onProgress(stage, status, detail)` receives
+// each step as it happens (brand, market, write, checks, refine, save) for live progress.
+export async function generateAndSave(row, options, { jobId = null, onProgress = () => {} } = {}) {
   const supabase = requireSupabase();
   const product = toProductInput(row);
 
   // Context for the prompt: when Anakin is set up, what's ranking for this product type
   // (cached per type, see services/market.js). The routes pass the retailer's brand profile in
   // options.brand; if a caller didn't, the retailer's row stands in for it.
-  const [retailer, market] = await Promise.all([
-    options.brand ? null : supabase.from('retailers').select('*').eq('id', row.retailer_id).maybeSingle().then(({ data }) => data),
-    getMarketInsights(product),
-  ]);
-  const { output, meta, quality } = await generateForProduct(product, options, { context: { brand: retailer, market } });
+  // Market research runs while the brand profile is loaded, so the progress shows brand first.
+  const marketPromise = getMarketInsights(product, onProgress);
+  const retailer = options.brand
+    ? null
+    : await supabase.from('retailers').select('*').eq('id', row.retailer_id).maybeSingle().then(({ data }) => data);
+  onProgress('brand', 'done', {
+    business_name: options.brand?.seller ?? retailer?.business_name ?? null,
+    personality: options.brand?.personality ?? retailer?.brand_personality ?? [],
+  });
+  const market = await marketPromise;
+  const { output, meta, quality } = await generateForProduct(product, options, {
+    context: { brand: retailer, market },
+    onProgress,
+  });
 
   // Two generations for the same product can race for the next version number; the loser
   // of the unique (product_id, version) check simply takes the one after.
@@ -60,6 +70,8 @@ export async function generateAndSave(row, options, { jobId = null } = {}) {
       .select()
       .single();
     if (error?.code === '23505' && attempt < 3) continue;
-    return check({ data, error });
+    const saved = check({ data, error });
+    onProgress('save', 'done', { version: saved.version });
+    return saved;
   }
 }

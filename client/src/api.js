@@ -26,6 +26,46 @@ async function request(path, options = {}) {
 }
 
 const post = (path, body = {}) => request(path, { method: 'POST', body: JSON.stringify(body) });
+
+// POST that streams live progress (NDJSON, see server/src/lib/progressStream.js): calls
+// onProgress(event) for each step and resolves with the final result.
+async function postStream(path, body, onProgress) {
+  const res = await fetch(`/api${path}${path.includes('?') ? '&' : '?'}stream=1`, {
+    method: 'POST',
+    headers: await authHeaders(),
+    body: JSON.stringify(body),
+  });
+  if (!res.ok || !res.body) {
+    const payload = await res.json().catch(() => ({}));
+    if (!payload.error && (res.status === 502 || res.status === 504)) {
+      throw new Error('Cannot reach the API server on port 4000. Check the [server] lines in the npm run dev terminal.');
+    }
+    throw Object.assign(new Error(payload.error || `Request failed (${res.status})`), { status: res.status, details: payload.details });
+  }
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+  let result = null;
+  const handle = (line) => {
+    if (!line.trim()) return;
+    const event = JSON.parse(line);
+    if (event.type === 'progress') onProgress?.(event);
+    else if (event.type === 'error') throw Object.assign(new Error(event.error), { status: event.status });
+    else if (event.type === 'result') result = event;
+  };
+  for (;;) {
+    const { value, done } = await reader.read();
+    buffer += decoder.decode(value ?? new Uint8Array(), { stream: !done });
+    const lines = buffer.split('\n');
+    buffer = lines.pop();
+    lines.forEach(handle);
+    if (done) break;
+  }
+  handle(buffer);
+  if (!result) throw new Error('The server closed the connection before finishing. Check the [server] lines in the terminal.');
+  return result;
+}
 const patch = (path, body = {}) => request(path, { method: 'PATCH', body: JSON.stringify(body) });
 
 // Fetches a file the API serves (e.g. a job export) and hands it to the browser to save.
@@ -51,8 +91,8 @@ export const api = {
   product: (id) => request(`/products/${id}`),
   importProducts: (format, data) => post('/products/import', { format, data }),
   importSample: () => post('/products/import-sample'),
-  generateForProduct: (id, options) => post(`/products/${id}/generate`, { options }),
-  quickGenerate: (product, options) => post('/products/quick', { product, options }),
+  generateForProduct: (id, options, onProgress) => postStream(`/products/${id}/generate`, { options }, onProgress),
+  quickGenerate: (product, options, onProgress) => postStream('/products/quick', { product, options }, onProgress),
   history: (limit = 100) => request(`/history?limit=${limit}`),
   checkProduct: (product) => post('/generate/check', { product }),
 

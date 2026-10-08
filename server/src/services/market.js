@@ -64,10 +64,21 @@ export function summarize(query, { suggestions, flipkart }) {
   };
 }
 
-async function fetchInsights(query) {
+// `progress(stage, status, detail)` reports each source as it starts and finishes (see
+// services/descriptions.js); it's a no-op unless a caller is streaming progress.
+async function fetchInsights(query, progress) {
+  const track = (source, promise, count) => {
+    progress('market_source', 'start', { source });
+    return promise.then(
+      (value) => { progress('market_source', 'done', { source, count: count(value) }); return value; },
+      (error) => { progress('market_source', 'failed', { source, message: error.message }); throw error; },
+    );
+  };
   const [suggestions, flipkart] = await Promise.allSettled([
-    runAction('am_search_suggestions', { query, limit: 12 }, { timeoutMs: 30_000 }),
-    runAction('fk_search_products', { query, limit: 10 }, { timeoutMs: 75_000 }),
+    track('amazon_search_suggestions', runAction('am_search_suggestions', { query, limit: 12 }, { timeoutMs: 30_000 }),
+      (value) => value?.suggestions?.length ?? 0),
+    track('flipkart_search', runAction('fk_search_products', { query, limit: 10 }, { timeoutMs: 75_000 }),
+      (value) => value?.products?.length ?? 0),
   ]);
   for (const result of [suggestions, flipkart]) {
     if (result.status === 'rejected') console.warn(`Market insights for "${query}": ${result.reason.message}`);
@@ -81,18 +92,27 @@ async function fetchInsights(query) {
 
 // Cached insights for the product's type, fetching them when missing or stale.
 // Returns null when Anakin isn't configured or has nothing; generation then goes ahead without.
-export async function getMarketInsights(product) {
-  if (!isAnakinConfigured() || !supabase) return null;
+export async function getMarketInsights(product, progress = () => {}) {
   const query = marketQuery(product);
+  if (!isAnakinConfigured() || !supabase) {
+    progress('market', 'skipped', { query, reason: 'Anakin is not configured' });
+    return null;
+  }
   const key = keyFor(query);
+  progress('market', 'start', { query });
 
   const { data: cached } = await supabase.from('market_insights').select('insights, fetched_at').eq('query_key', key).maybeSingle();
-  if (cached && Date.now() - new Date(cached.fetched_at).getTime() < MAX_AGE_MS) return cached.insights;
+  if (cached && Date.now() - new Date(cached.fetched_at).getTime() < MAX_AGE_MS) {
+    progress('market', 'done', { query, cached: true, fetched_at: cached.fetched_at, insights: cached.insights });
+    return cached.insights;
+  }
 
-  if (!inflight.has(key)) {
+  if (inflight.has(key)) {
+    progress('market', 'waiting', { query });
+  } else {
     inflight.set(key, (async () => {
       try {
-        const insights = await fetchInsights(query);
+        const insights = await fetchInsights(query, progress);
         if (insights) {
           await requireSupabase().from('market_insights').upsert(
             { query_key: key, query, insights, fetched_at: new Date().toISOString() },
@@ -109,5 +129,7 @@ export async function getMarketInsights(product) {
       }
     })());
   }
-  return inflight.get(key);
+  const insights = await inflight.get(key);
+  progress('market', insights ? 'done' : 'failed', { query, cached: false, insights });
+  return insights;
 }

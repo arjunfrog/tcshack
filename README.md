@@ -104,6 +104,10 @@ One free [Render](https://render.com) web service runs the API and serves the bu
 
 Free Render services sleep after 15 minutes without traffic, so the first request after a pause takes about 30 seconds; an open Batch page keeps the service awake while it polls. To try production mode locally: `npm run build`, then `SERVE_CLIENT=true npm start -w server` and open http://localhost:4000.
 
+### Logo
+
+Put your logo at `client/public/logo.png` (square works best). It appears in the header, homepage, login and onboarding, and as the browser tab icon; until the file exists, a drawn leaf-and-bag mark stands in.
+
 ## Scripts
 
 | Command | What it does |

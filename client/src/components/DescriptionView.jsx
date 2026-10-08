@@ -38,23 +38,11 @@ export const toResult = (row) => ({
   quality: row.quality,
 });
 
-export default function DescriptionView({ result }) {
-  const { output, meta, quality } = result;
-
+// The copy itself: title, short and long description, bullets and meta description.
+export function CopyPanel({ output, showTitle = true }) {
   return (
-    <section className="card result">
-      <div className="card-header">
-        <h2>Generated copy</h2>
-        <button
-          type="button"
-          className="ghost"
-          onClick={() => navigator.clipboard?.writeText(JSON.stringify(output, null, 2))}
-        >
-          Copy JSON
-        </button>
-      </div>
-
-      <h3 className="product-title">{output.title}</h3>
+    <div className="copy-panel">
+      {showTitle && <h3 className="product-title">{output.title}</h3>}
       <p className="lead">{output.short_description}</p>
       {output.long_description.split(/\n{2,}/).map((paragraph, i) => <p key={i}>{paragraph}</p>)}
       <ul>{output.bullet_points.map((bullet, i) => <li key={i}>{bullet}</li>)}</ul>
@@ -62,6 +50,15 @@ export default function DescriptionView({ result }) {
       <h4>Meta description <small>{output.meta_description.length} chars</small></h4>
       <p className="meta">{output.meta_description}</p>
 
+    </div>
+  );
+}
+
+// Everything measured about the copy: SEO, facts, style, auto-fix, market and brand checks.
+export function QualityPanel({ result }) {
+  const { output, meta, quality } = result;
+  return (
+    <div className="quality-panel">
       <h4>SEO keywords <small>{quality.seo.keyword_coverage}% used in the copy</small></h4>
       <div className="chips">{output.seo_keywords.map((keyword) => <span key={keyword} className="chip">{keyword}</span>)}</div>
 
@@ -131,6 +128,21 @@ export default function DescriptionView({ result }) {
       <p className="muted">
         {meta.provider} · {meta.model} · {meta.input_tokens} in / {meta.output_tokens} out tokens · {(meta.latency_ms / 1000).toFixed(1)} s
       </p>
+    </div>
+  );
+}
+
+export const copyJson = (output) => navigator.clipboard?.writeText(JSON.stringify(output, null, 2));
+
+export default function DescriptionView({ result }) {
+  return (
+    <section className="card result">
+      <div className="card-header">
+        <h2>Generated copy</h2>
+        <button type="button" className="ghost" onClick={() => copyJson(result.output)}>Copy JSON</button>
+      </div>
+      <CopyPanel output={result.output} />
+      <QualityPanel result={result} />
     </section>
   );
 }

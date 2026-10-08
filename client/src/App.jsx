@@ -7,7 +7,10 @@ import Catalog from './components/Catalog.jsx';
 import AuthPage from './components/AuthPage.jsx';
 import Landing from './components/Landing.jsx';
 import History from './components/History.jsx';
-import { GeneratingCard } from './components/Feedback.jsx';
+import GenerationTimeline from './components/GenerationTimeline.jsx';
+import Icon from './ui/Icon.jsx';
+import { Spinner } from './components/Feedback.jsx';
+import { Logo } from './ui/Brand.jsx';
 import Batch from './components/Batch.jsx';
 import Review from './components/Review.jsx';
 import Dashboard from './components/Dashboard.jsx';
@@ -28,6 +31,15 @@ function useHashRoute() {
     return () => window.removeEventListener('hashchange', onChange);
   }, []);
   return route;
+}
+
+function FullPageLoader({ text = 'Loading…' }) {
+  return (
+    <div className="full-loader">
+      <Logo href={null} />
+      <span className="muted-lg"><Spinner /> {text}</span>
+    </div>
+  );
 }
 
 // Homepage → login/sign-up → onboarding (once) → the app.
@@ -72,7 +84,7 @@ export default function App() {
       </div>
     );
   }
-  if (session === undefined) return <div className="centered muted">Loading…</div>;
+  if (session === undefined) return <FullPageLoader />;
   if (!session) {
     if (route === 'login' || route === 'signup') return <AuthPage mode={route} />;
     return <Landing />;
@@ -89,7 +101,7 @@ export default function App() {
       </div>
     );
   }
-  if (!account) return <div className="centered muted">Loading your account…</div>;
+  if (!account) return <FullPageLoader text="Loading your account…" />;
 
   if (!account.retailer || editingProfile) {
     return (
@@ -107,14 +119,23 @@ export default function App() {
   return <Studio account={account} onEditProfile={() => setEditingProfile(true)} />;
 }
 
+const TABS = [
+  { id: 'catalog', label: 'Catalog', icon: 'layers' },
+  { id: 'generate', label: 'Quick generate', icon: 'zap' },
+  { id: 'batch', label: 'Batch', icon: 'list' },
+  { id: 'review', label: 'Review', icon: 'clipboardCheck' },
+  { id: 'dashboard', label: 'Dashboard', icon: 'chart' },
+  { id: 'history', label: 'History', icon: 'clock' },
+];
+
 function Studio({ account, onEditProfile }) {
   const [health, setHealth] = useState(null);
   const [choices, setChoices] = useState(FALLBACK_CHOICES);
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
-  const [busy, setBusy] = useState(null); // start time while Quick generate runs
+  const [run, setRun] = useState(null); // { startedAt, events } while Quick generate runs
   const [tab, setTab] = useState('catalog');
-  const [saved, setSaved] = useState(0); // bumps when copy is saved or reviewed, so History and Dashboard reload
+  const [saved, setSaved] = useState(0); // bumps when Quick generate saves, so History reloads
 
   useEffect(() => {
     api.health().then(setHealth).catch(() => setHealth({ status: 'down' }));
@@ -122,64 +143,109 @@ function Studio({ account, onEditProfile }) {
   }, []);
 
   const generate = async (product, options) => {
-    setBusy(Date.now());
+    setRun({ startedAt: Date.now(), events: [] });
     setError('');
+    setResult(null);
     try {
       // Saved to the account: the product lands in Catalog and the copy in History.
-      const { description } = await api.quickGenerate(product, options);
+      const { description } = await api.quickGenerate(product, options, (event) =>
+        setRun((current) => current && { ...current, events: [...current.events, { ...event, receivedAt: Date.now() }] }));
       setResult(toResult(description));
       setSaved((n) => n + 1);
     } catch (err) {
       setError(err.message);
     } finally {
-      setBusy(null);
+      setRun(null);
     }
   };
 
   const { retailer, user } = account;
 
   return (
-    <div className="app">
-      <header className="topbar">
-        <h1 className="logo"><span className="logo-mark">P</span>Product Copy Studio</h1>
-        <nav className="tabs">
-          <button type="button" className={tab === 'catalog' ? 'active' : ''} onClick={() => setTab('catalog')}>Catalog</button>
-          <button type="button" className={tab === 'generate' ? 'active' : ''} onClick={() => setTab('generate')}>Quick generate</button>
-          <button type="button" className={tab === 'batch' ? 'active' : ''} onClick={() => setTab('batch')}>Batch</button>
-          <button type="button" className={tab === 'review' ? 'active' : ''} onClick={() => setTab('review')}>Review</button>
-          <button type="button" className={tab === 'dashboard' ? 'active' : ''} onClick={() => setTab('dashboard')}>Dashboard</button>
-          <button type="button" className={tab === 'history' ? 'active' : ''} onClick={() => setTab('history')}>History</button>
-        </nav>
-        <StatusBadge health={health} />
-        <div className="account">
-          <span>
-            <strong>{retailer.business_name}</strong>
-            <small> · {retailer.seller_type === 'existing' ? 'Existing seller' : 'New seller'} · {user.email}</small>
-          </span>
-          <button type="button" className="ghost" onClick={onEditProfile}>Profile</button>
-          <button type="button" className="ghost" onClick={() => supabase.auth.signOut()}>Log out</button>
+    <div className="app-shell">
+      <header className="app-header">
+        <div className="app-header-inner">
+          <Logo href={null} />
+          <nav className="tabs" aria-label="Sections">
+            {TABS.map((item) => (
+              <button key={item.id} type="button" className={tab === item.id ? 'active' : ''} onClick={() => setTab(item.id)}>
+                <Icon name={item.icon} size={16} /> <span>{item.label}</span>
+              </button>
+            ))}
+          </nav>
+          <AccountMenu retailer={retailer} user={user} health={health} onEditProfile={onEditProfile} />
         </div>
       </header>
 
-      {tab === 'catalog' && <Catalog choices={choices} />}
-      {tab === 'batch' && <Batch choices={choices} />}
-      {tab === 'review' && <Review onReviewed={() => setSaved((n) => n + 1)} />}
-      {tab === 'dashboard' && <Dashboard refreshKey={saved} />}
-      {tab === 'history' && <History refreshKey={saved} />}
+      <div className="app">
+        {tab === 'catalog' && <Catalog choices={choices} />}
+        {tab === 'batch' && <Batch choices={choices} />}
+        {tab === 'review' && <Review onReviewed={() => setSaved((n) => n + 1)} />}
+        {tab === 'dashboard' && <Dashboard refreshKey={saved} />}
+        {tab === 'history' && <History refreshKey={saved} />}
 
-      <main className="layout" hidden={tab !== 'generate'}>
-        <ProductForm choices={choices} busy={Boolean(busy)} onSubmit={generate} />
-        <div className="detail-column">
-          {error && <div className="card notice error">{error}</div>}
-          {busy ? <GeneratingCard startedAt={busy} />
-            : result ? (
-              <>
-                <div className="card notice info saved-note">✓ Saved to your catalog and history.</div>
-                <div className="fresh"><DescriptionView result={result} /></div>
-              </>
-            ) : <div className="card empty">Fill in the product attributes and generate a description.</div>}
+        <div hidden={tab !== 'generate'}>
+          <div className="page-head">
+            <div>
+              <h1>Quick generate</h1>
+              <p className="muted-lg">Type one product, get copy in your brand voice. It is saved to your catalog and history.</p>
+            </div>
+          </div>
+          <main className="layout">
+            <ProductForm choices={choices} busy={Boolean(run)} onSubmit={generate} />
+            <div className="detail-column">
+              {error && <div className="card notice error"><Icon name="alert" size={16} /> {error}</div>}
+              {run ? <GenerationTimeline events={run.events} startedAt={run.startedAt} />
+                : result ? (
+                  <>
+                    <div className="card notice info saved-note"><Icon name="check" size={16} /> Saved to your catalog and history.</div>
+                    <div className="fresh"><DescriptionView result={result} /></div>
+                  </>
+                ) : (
+                  <div className="card empty">
+                    <span className="icon-dot xl"><Icon name="zap" size={26} /></span>
+                    <h2>Your copy appears here</h2>
+                    <p className="muted-lg">Fill in the product attributes and generate. You'll see each step live.</p>
+                  </div>
+                )}
+            </div>
+          </main>
         </div>
-      </main>
+      </div>
+    </div>
+  );
+}
+
+function AccountMenu({ retailer, user, health, onEditProfile }) {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (!open) return undefined;
+    const close = (event) => { if (!event.target.closest?.('.account-menu')) setOpen(false); };
+    window.addEventListener('mousedown', close);
+    return () => window.removeEventListener('mousedown', close);
+  }, [open]);
+
+  const ok = health?.status === 'ok';
+  return (
+    <div className="account-menu">
+      <button type="button" className="account-button" aria-expanded={open} onClick={() => setOpen(!open)}>
+        <span className={`health-dot ${!health ? 'pending' : ok ? 'ok' : 'bad'}`} title={ok ? 'API connected' : 'API offline'} />
+        <span className="account-text"><strong>{retailer.business_name}</strong><small>{retailer.seller_type === 'existing' ? 'Existing seller' : 'New seller'}</small></span>
+        <span className="avatar">{retailer.business_name.trim().charAt(0).toUpperCase()}</span>
+      </button>
+      {open && (
+        <div className="menu" role="menu">
+          <div className="menu-head">
+            <strong>{retailer.business_name}</strong>
+            <small>{user.email}</small>
+          </div>
+          <div className="menu-status">
+            <StatusBadge health={health} />
+          </div>
+          <button type="button" role="menuitem" onClick={() => { setOpen(false); onEditProfile(); }}><Icon name="settings" size={16} /> Business profile</button>
+          <button type="button" role="menuitem" onClick={() => supabase.auth.signOut()}><Icon name="logOut" size={16} /> Log out</button>
+        </div>
+      )}
     </div>
   );
 }
@@ -189,7 +255,8 @@ function StatusBadge({ health }) {
   if (health.status !== 'ok') return <span className="badge bad">API offline</span>;
   return (
     <span className="badge">
-      LLM: {health.llm.provider === 'mock' ? 'mock (no API key)' : health.llm.model} · DB: {health.database.replace('_', ' ')}
+      <Icon name="sparkles" size={13} /> {health.llm.provider === 'mock' ? 'mock (no API key)' : health.llm.model}
+      <span className="badge-sep" /> <Icon name="database" size={13} /> {health.database.replace('_', ' ')}
     </span>
   );
 }

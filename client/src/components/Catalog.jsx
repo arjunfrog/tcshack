@@ -1,9 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '../api.js';
-import DescriptionView, { toResult } from './DescriptionView.jsx';
-import { Elapsed, GeneratingCard, Spinner, ToastStack, useToasts } from './Feedback.jsx';
+import Icon from '../ui/Icon.jsx';
+import { ProductHero, ProductThumb } from '../ui/Art.jsx';
+import { CopyPanel, QualityPanel, copyJson, toResult } from './DescriptionView.jsx';
+import GenerationTimeline, { stageLabel } from './GenerationTimeline.jsx';
+import ImportDialog from './ImportDialog.jsx';
+import { Elapsed, Spinner, ToastStack, useToasts } from './Feedback.jsx';
 
 const BATCH_CONCURRENCY = 3;
+const rupees = (value) => `₹${Number(value).toLocaleString('en-IN')}`;
 
 export default function Catalog({ choices }) {
   const [products, setProducts] = useState(null); // null = first load
@@ -12,11 +17,11 @@ export default function Catalog({ choices }) {
   const [selected, setSelected] = useState(null); // { product, descriptions }
   const [versionId, setVersionId] = useState(null); // which description version is shown
   const [freshId, setFreshId] = useState(null); // just-generated description, briefly highlighted
-  const [importReport, setImportReport] = useState(null); // { text, details } for rejected rows
-  const [running, setRunning] = useState({}); // product id -> start time (ms)
+  const [running, setRunning] = useState({}); // product id -> { startedAt, events }
   const [queued, setQueued] = useState(new Set());
   const [batch, setBatch] = useState(null); // { done, total, failed }
-  const [importing, setImporting] = useState(''); // '' | 'file' | 'sample'
+  const [loadingSample, setLoadingSample] = useState(false);
+  const [importOpen, setImportOpen] = useState(false);
   const { toasts, push, dismiss } = useToasts();
 
   const load = useCallback(async () => {
@@ -34,33 +39,19 @@ export default function Catalog({ choices }) {
   const list = products ?? [];
   const categories = [...new Set(list.map((product) => product.category))].sort();
   const nameOf = (id) => list.find((product) => product.id === id)?.name ?? 'product';
+  const withoutCopy = list.filter((product) => !product.latest_description).length;
 
-  const showImportResult = ({ imported, errors, scope }) => {
-    push(errors.length ? 'error' : 'success',
-      `Imported ${imported} product${imported === 1 ? '' : 's'}${scope ? ` from ${scope}` : ''}${errors.length ? `, ${errors.length} row(s) rejected` : ''}.`);
-    setImportReport(errors.length
-      ? { text: `${errors.length} row(s) could not be imported`, details: errors.map((error) => `Row ${error.row}: ${error.issues.join('; ')}`) }
-      : null);
-    load();
-  };
-
-  const runImport = async (kind, action) => {
-    setImporting(kind);
+  const loadSample = async () => {
+    setLoadingSample(true);
     try {
-      showImportResult(await action());
+      const { imported, scope } = await api.importSample();
+      push('success', `Added ${imported} sample product${imported === 1 ? '' : 's'} from ${scope}.`);
+      load();
     } catch (err) {
       push('error', err.message);
     } finally {
-      setImporting('');
+      setLoadingSample(false);
     }
-  };
-
-  const importFile = (event) => {
-    const file = event.target.files[0];
-    event.target.value = '';
-    if (!file) return;
-    const format = file.name.toLowerCase().endsWith('.json') ? 'json' : 'csv';
-    runImport('file', async () => api.importProducts(format, await file.text()));
   };
 
   const open = async (id, showVersionId = null) => {
@@ -73,12 +64,15 @@ export default function Catalog({ choices }) {
     }
   };
 
-  // Generates one product; returns the new description or null.
+  // Generates one product, streaming its steps into `running`; returns the new description or null.
   const generate = async (id) => {
     setQueued((ids) => { const next = new Set(ids); next.delete(id); return next; });
-    setRunning((map) => ({ ...map, [id]: Date.now() }));
+    setRunning((map) => ({ ...map, [id]: { startedAt: Date.now(), events: [] } }));
+    const onProgress = (event) => setRunning((map) => (map[id]
+      ? { ...map, [id]: { ...map[id], events: [...map[id].events, { ...event, receivedAt: Date.now() }] } }
+      : map));
     try {
-      return (await api.generateForProduct(id, options)).description;
+      return (await api.generateForProduct(id, options, onProgress)).description;
     } catch (err) {
       push('error', `${nameOf(id)}: ${err.message}`);
       return null;
@@ -126,18 +120,18 @@ export default function Catalog({ choices }) {
   const shown = selected?.descriptions.find((description) => description.id === versionId) ?? selected?.descriptions[0];
 
   return (
-    <div className="catalog">
-      <section className="card toolbar">
-        <div className="row-actions">
-          <label className={`file-button ${importing ? 'disabled' : ''}`}>
-            {importing === 'file' ? <><Spinner /> Importing…</> : 'Import CSV / JSON'}
-            <input type="file" accept=".csv,.json" onChange={importFile} disabled={Boolean(importing)} hidden />
-          </label>
-          <button type="button" disabled={Boolean(importing)} onClick={() => runImport('sample', api.importSample)}>
-            {importing === 'sample' ? <><Spinner /> Loading…</> : 'Load sample products'}
-          </button>
+    <div className="catalog-page">
+      <div className="page-head">
+        <div>
+          <h1>Catalog</h1>
+          <p className="muted-lg">{list.length} product{list.length === 1 ? '' : 's'}{withoutCopy ? ` · ${withoutCopy} without copy` : ''}</p>
         </div>
-        <div className="row-actions">
+        <div className="page-actions">
+          <button type="button" onClick={() => setImportOpen(true)}><Icon name="upload" size={16} /> Import CSV / JSON</button>
+          <button type="button" disabled={loadingSample} onClick={loadSample}>
+            {loadingSample ? <><Spinner /> Adding…</> : <><Icon name="layers" size={16} /> Sample products</>}
+          </button>
+          <span className="divider" />
           <label className="inline-label">Tone
             <select value={options.tone} onChange={(event) => setOptions({ ...options, tone: event.target.value })}>
               {choices.tones.map((tone) => <option key={tone}>{tone}</option>)}
@@ -148,11 +142,11 @@ export default function Catalog({ choices }) {
               {choices.lengths.map((length) => <option key={length}>{length}</option>)}
             </select>
           </label>
-          <button type="button" className="primary inline" disabled={Boolean(batch) || !list.length} onClick={generateMissing}>
-            {batch ? <><Spinner /> Generating {batch.done}/{batch.total}</> : 'Generate all missing'}
+          <button type="button" className="primary" disabled={Boolean(batch) || !withoutCopy} onClick={generateMissing}>
+            {batch ? <><Spinner /> {batch.done}/{batch.total}</> : <><Icon name="sparkles" size={16} /> Generate all missing</>}
           </button>
         </div>
-      </section>
+      </div>
 
       {batch && (
         <div className="card batch-card">
@@ -164,146 +158,204 @@ export default function Catalog({ choices }) {
         </div>
       )}
 
-      {importReport && (
-        <div className="card notice error">
-          <div className="card-header">
-            <span>{importReport.text}</span>
-            <button type="button" className="ghost" onClick={() => setImportReport(null)}>Dismiss</button>
-          </div>
-          <ul className="muted">{importReport.details.slice(0, 20).map((line) => <li key={line}>{line}</li>)}</ul>
-        </div>
-      )}
-
-      <div className="layout">
-        <section className="card">
-          <div className="card-header">
-            <h2>Catalog <small>{list.length} products</small></h2>
-            <div className="row-actions">
+      {products !== null && list.length === 0 && !filters.search && !filters.category ? (
+        <EmptyCatalog onImport={() => setImportOpen(true)} onSample={loadSample} loadingSample={loadingSample} />
+      ) : (
+        <div className="catalog-grid">
+          <aside className="card product-list">
+            <div className="list-filters">
+              <span className="input-icon">
+                <Icon name="search" />
+                <input type="search" placeholder="Search name or SKU" value={filters.search} onChange={(event) => setFilters({ ...filters, search: event.target.value })} />
+              </span>
               <select value={filters.category} onChange={(event) => setFilters({ ...filters, category: event.target.value })}>
                 <option value="">All categories</option>
                 {categories.map((category) => <option key={category}>{category}</option>)}
               </select>
-              <input
-                type="search"
-                placeholder="Search name or SKU"
-                value={filters.search}
-                onChange={(event) => setFilters({ ...filters, search: event.target.value })}
-              />
             </div>
-          </div>
-
-          {products === null ? (
-            <div className="table-skeleton">{[1, 2, 3, 4].map((n) => <span key={n} className="line w-100" />)}</div>
-          ) : list.length === 0 ? (
-            <div className="empty">
-              <p>No products yet.</p>
-              <p className="muted">Import a CSV/JSON file, load sample products for your categories, or use Quick generate.</p>
-            </div>
-          ) : (
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr><th>SKU</th><th>Product</th><th>Data</th><th>Copy</th><th /></tr>
-                </thead>
-                <tbody>
-                  {list.map((product) => {
-                    const startedAt = running[product.id];
-                    const isQueued = queued.has(product.id);
-                    return (
-                      <tr
-                        key={product.id}
-                        className={[selectedId === product.id && 'selected', startedAt && 'generating'].filter(Boolean).join(' ')}
+            {products === null ? (
+              <div className="list-skeleton">{[1, 2, 3, 4, 5].map((n) => <span key={n} className="line" />)}</div>
+            ) : list.length === 0 ? (
+              <p className="empty">No products match.</p>
+            ) : (
+              <ul className="product-items">
+                {list.map((product) => {
+                  const run = running[product.id];
+                  const isQueued = queued.has(product.id);
+                  return (
+                    <li key={product.id}>
+                      <button
+                        type="button"
+                        className={`product-item ${selectedId === product.id ? 'selected' : ''} ${run ? 'generating' : ''}`}
                         onClick={() => open(product.id)}
                       >
-                        <td className="muted">{product.sku ?? '—'}</td>
-                        <td>
+                        <ProductThumb product={product} size={52} />
+                        <span className="item-text">
                           <strong>{product.name}</strong>
-                          <div className="muted">{product.category}{product.price != null && ` · ₹${Number(product.price).toLocaleString('en-IN')}`}</div>
-                        </td>
-                        <td>
-                          <span className={`score ${product.completeness_score < 50 ? 'low' : ''}`} title="Completeness of the product data (0-100)">
-                            {product.completeness_score ?? '—'}
+                          <small>{product.subcategory || product.category} · {product.sku ?? 'No SKU'}</small>
+                          <span className="item-state">
+                            {run ? <span className="status writing"><Spinner size={11} /> {stageLabel(run.events)} <Elapsed startedAt={run.startedAt} /></span>
+                              : isQueued ? <span className="status queued">Queued</span>
+                                : product.latest_description ? <span className="status done">Copy v{product.latest_description.version}</span>
+                                  : <span className="status none">No copy yet</span>}
                           </span>
-                        </td>
-                        <td>
-                          {startedAt ? <span className="status writing">Writing… <Elapsed startedAt={startedAt} /></span>
-                            : isQueued ? <span className="status queued">Queued</span>
-                              : product.latest_description ? <span className="status done">v{product.latest_description.version}</span>
-                                : <span className="muted">none</span>}
-                        </td>
-                        <td>
-                          <button
-                            type="button"
-                            className={product.latest_description ? 'ghost' : 'ghost accent'}
-                            disabled={Boolean(startedAt) || isQueued}
-                            onClick={(event) => { event.stopPropagation(); generateOne(product.id); }}
-                          >
-                            {startedAt ? <Spinner /> : product.latest_description ? 'Regenerate' : 'Generate'}
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
-
-        <div className="detail-column">
-          {!selected && (
-            <div className="card empty">
-              <p>Select a product to see its descriptions.</p>
-              <p className="muted">Click Generate on any row to write one.</p>
-            </div>
-          )}
-          {selected && (
-            <>
-              <section className="card product-card">
-                <h2>{selected.product.brand ? `${selected.product.brand} ` : ''}{selected.product.name}</h2>
-                <p className="muted">{selected.product.sku} · {selected.product.category}{selected.product.subcategory && ` › ${selected.product.subcategory}`}</p>
-                {selected.product.features.length > 0 && <ul>{selected.product.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>}
-                {selected.descriptions.length > 0 && (
-                  <div className="versions">
-                    <span className="muted">Versions</span>
-                    {selected.descriptions.map((description) => (
-                      <button
-                        key={description.id}
-                        type="button"
-                        className={`version-tab ${description.id === shown?.id ? 'active' : ''}`}
-                        title={`${description.tone}, ${description.length} · ${new Date(description.created_at).toLocaleString()}`}
-                        onClick={() => setVersionId(description.id)}
-                      >
-                        v{description.version}
+                        </span>
+                        <Icon name="chevronRight" size={16} className="chev" />
                       </button>
-                    ))}
-                    {shown && <span className="muted">{shown.tone}, {shown.length}</span>}
-                  </div>
-                )}
-                <button
-                  type="button"
-                  className="primary inline"
-                  disabled={Boolean(running[selected.product.id]) || queued.has(selected.product.id)}
-                  onClick={() => generateOne(selected.product.id)}
-                >
-                  {running[selected.product.id] ? <><Spinner /> Generating…</>
-                    : selected.descriptions.length ? `Regenerate (${options.tone}, ${options.length})` : `Generate (${options.tone}, ${options.length})`}
-                </button>
-              </section>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </aside>
 
-              {running[selected.product.id] ? (
-                <GeneratingCard startedAt={running[selected.product.id]} title={selected.descriptions.length ? 'Writing a new version' : 'Generating description'} />
-              ) : shown ? (
-                <div className={shown.id === freshId ? 'fresh' : ''}><DescriptionView result={toResult(shown)} /></div>
-              ) : (
-                <div className="card empty">No description yet. Click Generate.</div>
-              )}
-            </>
+          <section className="product-detail">
+            {!selected ? (
+              <div className="card empty select-prompt">
+                <span className="icon-dot xl"><Icon name="layers" size={28} /></span>
+                <h2>Pick a product</h2>
+                <p className="muted-lg">Select a product on the left to see its copy, or generate copy for every product without one.</p>
+              </div>
+            ) : (
+              <ProductDetail
+                detail={selected}
+                shown={shown}
+                run={running[selected.product.id]}
+                queued={queued.has(selected.product.id)}
+                fresh={shown?.id === freshId}
+                options={options}
+                onVersion={setVersionId}
+                onGenerate={() => generateOne(selected.product.id)}
+              />
+            )}
+          </section>
+        </div>
+      )}
+
+      {importOpen && <ImportDialog onClose={() => setImportOpen(false)} onImported={(message) => { push('success', message); load(); }} />}
+      <ToastStack toasts={toasts} dismiss={dismiss} />
+    </div>
+  );
+}
+
+function ProductDetail({ detail, shown, run, queued, fresh, options, onVersion, onGenerate }) {
+  const { product, descriptions } = detail;
+  const result = shown ? toResult(shown) : null;
+  const specs = [
+    ...(product.brand ? [['Brand', product.brand]] : []),
+    ...Object.entries(product.specifications ?? {}),
+    ...Object.entries(product.attributes ?? {}).map(([key, value]) => [key.replace(/_/g, ' '), Array.isArray(value) ? value.join(', ') : String(value)]),
+  ];
+
+  return (
+    <>
+      <div className="card product-top">
+        <ProductHero product={product} />
+        <div className="product-info">
+          <nav className="breadcrumb" aria-label="Category">
+            <span>{product.category}</span>
+            {product.subcategory && <><Icon name="chevronRight" size={14} /><span>{product.subcategory}</span></>}
+          </nav>
+          <h2 className="product-name">{shown?.title ?? `${product.brand ? `${product.brand} ` : ''}${product.name}`}</h2>
+          <div className="meta-row">
+            <span>{product.sku ?? 'No SKU'}</span>
+            {shown && <span className="version-chip">v{shown.version}</span>}
+            {shown && <span>{shown.tone}, {shown.length}</span>}
+            <span className={`data-score ${product.completeness_score < 50 ? 'low' : ''}`} title="Completeness of the product data">
+              Data {product.completeness_score ?? '—'}/100
+            </span>
+          </div>
+          {shown && <p className="product-lead">{shown.short_description}</p>}
+          {product.price != null && <div className="price">{rupees(product.price)}</div>}
+
+          <div className="detail-actions">
+            <button type="button" className="primary large" disabled={Boolean(run) || queued} onClick={onGenerate}>
+              {run ? <><Spinner /> Generating…</> : <><Icon name="sparkles" /> {descriptions.length ? 'Regenerate' : 'Generate'} · {options.tone}, {options.length}</>}
+            </button>
+            {result && <button type="button" className="large" onClick={() => copyJson(result.output)}><Icon name="copy" /> Copy JSON</button>}
+          </div>
+
+          {product.features?.length > 0 && (
+            <div className="feature-chips">
+              {product.features.slice(0, 4).map((feature) => (
+                <span key={feature} className="feature-chip"><span className="icon-dot"><Icon name="leaf" size={15} /></span>{feature}</span>
+              ))}
+            </div>
+          )}
+
+          {descriptions.length > 1 && (
+            <div className="versions">
+              <span className="muted">Versions</span>
+              {descriptions.map((description) => (
+                <button
+                  key={description.id}
+                  type="button"
+                  className={`version-tab ${description.id === shown?.id ? 'active' : ''}`}
+                  title={`${description.tone}, ${description.length} · ${new Date(description.created_at).toLocaleString()}`}
+                  onClick={() => onVersion(description.id)}
+                >
+                  v{description.version}
+                </button>
+              ))}
+            </div>
           )}
         </div>
       </div>
 
-      <ToastStack toasts={toasts} dismiss={dismiss} />
+      {run ? (
+        <GenerationTimeline events={run.events} startedAt={run.startedAt} title={descriptions.length ? 'Writing a new version' : 'Generating description'} />
+      ) : (
+        <div className={`detail-grid ${fresh ? 'fresh' : ''}`}>
+          <div className="card">
+            <div className="card-header"><h3><Icon name="pen" size={18} /> Description</h3></div>
+            {result ? <CopyPanel output={result.output} showTitle={false} /> : (
+              <div className="empty small">
+                <p>No copy yet for this product.</p>
+                <button type="button" className="primary" disabled={queued} onClick={onGenerate}><Icon name="sparkles" size={16} /> Generate now</button>
+              </div>
+            )}
+          </div>
+          <div className="detail-side">
+            <div className="card">
+              <div className="card-header"><h3><Icon name="list" size={18} /> Specifications</h3></div>
+              {specs.length ? (
+                <dl className="spec-table">
+                  {specs.map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}
+                </dl>
+              ) : <p className="muted">No specifications in the product data.</p>}
+            </div>
+            {result && (
+              <div className="card">
+                <div className="card-header"><h3><Icon name="shield" size={18} /> Quality</h3></div>
+                <QualityPanel result={result} />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+function EmptyCatalog({ onImport, onSample, loadingSample }) {
+  return (
+    <div className="card empty-catalog">
+      <span className="icon-dot xl"><Icon name="layers" size={28} /></span>
+      <h2>Add your first products</h2>
+      <p className="muted-lg">Bring in your catalog, or try the tool with sample products in your categories.</p>
+      <div className="empty-options">
+        <button type="button" className="option-card" onClick={onImport}>
+          <span className="icon-dot large"><Icon name="upload" size={20} /></span>
+          <strong>Import a file</strong>
+          <span>CSV or JSON with product attributes. A template is included.</span>
+        </button>
+        <button type="button" className="option-card" disabled={loadingSample} onClick={onSample}>
+          <span className="icon-dot large">{loadingSample ? <Spinner size={18} /> : <Icon name="layers" size={20} />}</span>
+          <strong>{loadingSample ? 'Adding sample products…' : 'Use sample products'}</strong>
+          <span>Fictional products in the categories you picked during setup.</span>
+        </button>
+      </div>
+      <p className="muted">You can also type a single product in Quick generate.</p>
     </div>
   );
 }

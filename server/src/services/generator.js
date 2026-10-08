@@ -1,4 +1,4 @@
-import { config } from '../config/env.js';
+import { activeModel, config } from '../config/env.js';
 import { generateDescription, refineDescription } from '../lib/llm.js';
 import { brandProfile } from './brand.js';
 import { checkBrand, checkCompleteness, checkFacts, checkMarket, checkSeo, checkStyle } from './quality.js';
@@ -57,6 +57,14 @@ export function refineProblems(quality, output) {
   return problems;
 }
 
+// A compact view of a quality report for live progress.
+const checkSummary = (quality) => ({
+  seo: { passed: quality.seo.passed, total: quality.seo.total },
+  facts: quality.facts.unsupported.length,
+  style: quality.style.issues.length,
+  brand_ok: quality.brand?.ok ?? null,
+});
+
 // Lower is better. Fact flags count double: an invented spec is worse than a cliché.
 const problemScore = (quality) =>
   (quality.seo.total - quality.seo.passed) + quality.facts.unsupported.length * 2 + quality.style.issues.length;
@@ -68,14 +76,19 @@ const problemScore = (quality) =>
 // `settings.context` adds market insights (and a retailer row, if options carry no brand).
 export async function generateForProduct(product, rawOptions, settings = {}) {
   const context = settings.context ?? {};
+  const progress = settings.onProgress ?? (() => {});
   const options = { ...rawOptions, brand: rawOptions.brand ?? brandProfile(context.brand) };
+  progress('write', 'start', { provider: settings.provider ?? config.llm.provider, model: settings.model ?? activeModel() });
   const generated = await generateDescription(product, options, settings);
   const meta = { ...generated.meta };
+  progress('write', 'done', { model: meta.model, output_tokens: meta.output_tokens, latency_ms: meta.latency_ms });
   let output = cleanOutput(generated.output);
   let quality = qualityReport(product, output, options, context);
+  progress('checks', 'done', checkSummary(quality));
 
   const problems = config.llm.refine && settings.refine !== false ? refineProblems(quality, output) : [];
   if (problems.length) {
+    progress('refine', 'start', { problems: problems.length });
     let refine = { problems, accepted: false };
     try {
       const refined = await refineDescription(product, output, problems, settings);
@@ -99,6 +112,7 @@ export async function generateForProduct(product, rawOptions, settings = {}) {
       refine = { problems, accepted: false, error: error.message };
     }
     quality = { ...quality, refine };
+    progress('refine', 'done', { accepted: refine.accepted, problems: problems.length, error: refine.error });
   }
   return { output, meta, quality };
 }

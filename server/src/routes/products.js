@@ -8,6 +8,7 @@ import { GenerationOptions, ProductInput, parseProductUpdate } from '../schemas/
 import { checkCompleteness } from '../services/quality.js';
 import { brandProfile } from '../services/brand.js';
 import { generateAndSave, toProductInput } from '../services/descriptions.js';
+import { respond } from '../lib/progressStream.js';
 
 export const productsRouter = Router();
 // Every route works on the logged-in retailer's own catalog.
@@ -141,7 +142,8 @@ async function saveProducts(retailerId, records, source) {
 
 const GenerateRequest = z.object({ options: GenerationOptions.prefault({}) });
 
-// POST /api/products/:id/generate  { options? }  -> saved description row
+// POST /api/products/:id/generate[?stream=1]  { options? }  -> { description }
+// With ?stream=1 the steps arrive live as NDJSON (see lib/progressStream.js).
 productsRouter.post('/:id/generate', async (req, res) => {
   const { options } = GenerateRequest.parse(req.body ?? {});
   const row = check(
@@ -149,12 +151,14 @@ productsRouter.post('/:id/generate', async (req, res) => {
   );
   if (!row) return res.status(404).json({ error: 'Product not found' });
 
-  res.status(201).json({ description: await generateAndSave(row, { ...options, brand: brandProfile(req.retailer) }) });
+  await respond(req, res, 201, async (onProgress) => ({
+    description: await generateAndSave(row, { ...options, brand: brandProfile(req.retailer) }, { onProgress }),
+  }));
 });
 
 const QuickRequest = z.object({ product: ProductInput, options: GenerationOptions.prefault({}) });
 
-// POST /api/products/quick  { product, options? }  -> { product, description }
+// POST /api/products/quick[?stream=1]  { product, options? }  -> { product, description }
 // The Quick generate form: saves the product to the catalog (reusing it when the same
 // SKU, or the same name and category, was entered before) and its new description.
 productsRouter.post('/quick', async (req, res) => {
@@ -172,5 +176,8 @@ productsRouter.post('/quick', async (req, res) => {
     ? check(await supabase.from('products').update(fields).eq('id', match.id).select().single())
     : check(await supabase.from('products').insert(fields).select().single());
 
-  res.status(201).json({ product: row, description: await generateAndSave(row, { ...options, brand: brandProfile(req.retailer) }) });
+  await respond(req, res, 201, async (onProgress) => ({
+    product: row,
+    description: await generateAndSave(row, { ...options, brand: brandProfile(req.retailer) }, { onProgress }),
+  }));
 });
