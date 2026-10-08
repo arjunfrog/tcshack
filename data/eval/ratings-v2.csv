@@ -1,0 +1,9 @@
+id,sku,category,tone,config,relevance,creativity,comment
+SKU-0018-friendly,SKU-0018,Electronics,friendly,nvidia/nemotron-3-super-120b-a12b:free,,,
+SKU-0054-friendly,SKU-0054,Apparel,friendly,nvidia/nemotron-3-super-120b-a12b:free,,,
+SKU-0037-friendly,SKU-0037,Apparel,friendly,nvidia/nemotron-3-super-120b-a12b:free,,,
+SKU-0011-friendly,SKU-0011,Beauty & Personal Care,friendly,nvidia/nemotron-3-super-120b-a12b:free,,,
+SKU-0042-friendly,SKU-0042,Beauty & Personal Care,friendly,nvidia/nemotron-3-super-120b-a12b:free,,,
+SKU-0013-friendly,SKU-0013,Sports & Fitness,friendly,nvidia/nemotron-3-super-120b-a12b:free,,,
+SKU-0060-friendly,SKU-0060,Sports & Fitness,friendly,nvidia/nemotron-3-super-120b-a12b:free,,,
+SKU-0014-friendly,SKU-0014,Grocery & Gourmet,friendly,nvidia/nemotron-3-super-120b-a12b:free,,,
