@@ -47,6 +47,19 @@ if (supabase) {
     bad('products.retailer_id column is missing', 'Run supabase/setup.sql (the second part adds it)');
   } else if (!colError) ok(`products.retailer_id column exists${retailerCol.length ? '' : ' (no products yet)'}`);
 
+  // Columns added by later migrations: a table can exist while its newer columns don't.
+  const COLUMNS = {
+    generation_jobs: ['retailer_id', 'started_at'],
+    feedback: ['reviewer_id'],
+    descriptions: ['edited_from', 'reviewed_by', 'reviewed_at'],
+  };
+  for (const [table, columns] of Object.entries(COLUMNS)) {
+    const { error: columnError } = await supabase.from(table).select(columns.join(', ')).limit(1);
+    if (columnError && /column|schema cache/.test(columnError.message)) {
+      bad(`${table} is missing newer columns (${columns.join(', ')})`, `Run supabase/setup.sql again in project ${projectRef(url)}`);
+    } else if (!columnError) ok(`${table} has its newer columns (${columns.join(', ')})`);
+  }
+
   const { data: users, error: adminError } = await supabase.auth.admin.listUsers({ perPage: 200 });
   if (adminError) {
     bad(`auth admin access failed: ${adminError.message}`, 'Sign-up needs the secret key; check SUPABASE_SECRET_KEY');
