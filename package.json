@@ -1,0 +1,29 @@
+{
+  "name": "tcshack",
+  "private": true,
+  "version": "0.1.0",
+  "description": "GenAI retail product description generator (TCS Technology Day)",
+  "type": "module",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,magenta \"npm:dev -w server\" \"npm:dev -w client\"",
+    "dev:server": "npm run dev -w server",
+    "dev:client": "npm run dev -w client",
+    "build": "npm run build -w client",
+    "test": "npm test -w server",
+    "data:generate": "node scripts/generate-synthetic.js",
+    "db:seed": "npm run seed -w server"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  },
+  "overrides": {
+    "shell-quote": "^1.11.0"
+  }
+}
