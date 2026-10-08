@@ -93,9 +93,10 @@ Defined in `supabase/migrations/20261008000000_init.sql`:
 | `GET /api/jobs/:id` | Job progress plus one row per product | ✅ (phase 3) |
 | `POST /api/jobs/:id/resume` | Rerun products that haven't succeeded | ✅ (phase 3) |
 | `GET /api/jobs/:id/export?format=csv\|json` | Download results | ✅ (phase 3) |
-| `PATCH /api/descriptions/:id` | Approve, reject or hand-edit | Phase 4 |
-| `POST /api/descriptions/:id/feedback` | Submit relevance and creativity ratings | Phase 4 |
-| `GET /api/metrics` | % rated ≥4, average scores, SEO pass rate, tokens and cost | Phase 4 |
+| `GET /api/review` | Review queue: latest AI draft per product, not yet rated by you | ✅ (phase 4) |
+| `PATCH /api/descriptions/:id` | Approve, reject or hand-edit (edits become a new version) | ✅ (phase 4) |
+| `POST /api/descriptions/:id/feedback` | Submit relevance and creativity ratings (one per reviewer) | ✅ (phase 4) |
+| `GET /api/metrics` | % rated ≥4, averages by category/tone/model, SEO, fact and style pass rates, tokens, review counts | ✅ (phase 4) |
 
 ---
 
@@ -187,15 +188,19 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
 
 ### Phase 4: Review, feedback and metrics (the 85% metric)
 
-1. **Review queue** (`/review`): one description at a time next to its attributes, with 1–5 stars for **relevance** and **creativity**, an optional comment, and approve/reject. Keyboard shortcuts (1–5, A, R, →) make rating 50+ items fast.
-2. Inline editing of a description before approving. Store the edit as a new version so you can show how much humans changed the copy.
+> **Server done; the Review page and Dashboard are still to do.** Run `supabase/setup.sql` again (or `migrations/20261009010000_review.sql`) to add the reviewer and edit columns.
+
+1. **Review queue** (`/review`):
+   - [x] Server: `GET /api/review` returns each product's latest AI draft that the logged-in reviewer hasn't rated, oldest first, with the product's attributes. `POST /api/descriptions/:id/feedback` stores relevance and creativity (1–5) and a comment, one rating per reviewer per description. `PATCH /api/descriptions/:id` approves or rejects.
+   - [ ] UI: one description at a time next to its attributes, 1–5 stars for **relevance** and **creativity**, an optional comment, and approve/reject. Keyboard shortcuts (1–5, A, R, →) make rating 50+ items fast.
+2. **Inline editing** before approving:
+   - [x] Server: `PATCH` with `edits` saves the edited copy as a new version (`provider: "human"`, `edited_from` the AI version), re-runs every quality check on it and stores `quality.human_edit.changed_pct`.
+   - [ ] UI: an edit mode in the review card.
 3. **Metrics endpoint and dashboard** (`/dashboard`):
-   - **% of rated descriptions with relevance ≥ 4 and creativity ≥ 4** (the headline 85% number)
-   - Average relevance and creativity, by category and by tone
-   - SEO check pass rate, keyword coverage and fact-check flags
-   - Products generated, tokens used and estimated cost
-4. **Get real ratings:** before the demo, have every team member (and ideally a few colleagues) rate the 60-product batch. Report the number honestly. The prompt work in phase 1 is what gets it above 85%.
-5. *Optional:* an **LLM-as-judge** script that rates each description against a rubric (accuracy against attributes, persuasiveness, readability, SEO). Use it to pre-screen and as a second signal next to human ratings, not as a replacement.
+   - [x] `GET /api/metrics`: **% of rated descriptions with relevance ≥ 4 and creativity ≥ 4** (each description averaged over its reviewers; target 85%), average relevance and creativity by category, tone and model, SEO pass rate, keyword coverage, fact-check clean rate and top flags, style clean rate and issue counts, products and descriptions generated, tokens, average latency, review counts and how much humans changed the copy. Cost isn't shown: both providers run on free tiers.
+   - [ ] UI: the dashboard page.
+4. [ ] **Get real ratings:** before the demo, have every team member (and ideally a few colleagues) rate the 60-product batch. Report the number honestly. The prompt work in phase 1 is what gets it above 85%.
+5. [ ] *Optional:* an **LLM-as-judge** script that rates each description against a rubric (accuracy against attributes, persuasiveness, readability, SEO). Use it to pre-screen and as a second signal next to human ratings, not as a replacement.
 
 **Done when:** the dashboard shows a real % rated ≥4 across 50+ rated descriptions.
 

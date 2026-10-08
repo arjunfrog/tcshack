@@ -86,12 +86,12 @@ client/                 React + Vite web app
   src/api.js            Fetch wrapper (/api is proxied to Express in dev)
 server/                 Express 5 API
   src/app.js            Middleware and route wiring
-  src/routes/           health, generate, products (list, edit, import, generate + save), me, history, jobs
+  src/routes/           health, generate, products (list, edit, import, generate + save), me, history, jobs, review
   src/lib/csv.js        CSV import parser (conventions in docs/DATA_FORMAT.md)
   src/lib/llm.js        Groq, OpenRouter and mock providers (JSON output validated with Zod)
   src/prompts/          System prompt (tones, categories, few-shot examples) and prompt builder
   src/schemas/          Zod schemas: product input, options, generated output
-  src/services/         generator, quality checks (completeness, SEO, fact check, style), batch job runner
+  src/services/         generator, quality checks (completeness, SEO, fact check, style), batch job runner, metrics
   scripts/seed.js       Load a dataset into Supabase
   scripts/eval.js       Run the eval set, write a report and a rating sheet
   test/                 API, provider, prompt and quality tests
@@ -126,8 +126,12 @@ docs/                   Plan and data format
 | `GET /api/jobs/:id` | Job status, progress counts and one row per product (poll every 2 seconds) |
 | `POST /api/jobs/:id/resume` | Rerun every product in the job that hasn't succeeded |
 | `GET /api/jobs/:id/export?format=csv\|json` | Download the job's results |
+| `GET /api/review?limit=20` | Review queue: each product's latest AI draft that you haven't rated, oldest first, with the product's attributes |
+| `PATCH /api/descriptions/:id` | `{ status?, edits? }`: approve or reject; with `edits`, save the hand-edited copy as a new version |
+| `POST /api/descriptions/:id/feedback` | `{ relevance, creativity, comment? }` (1-5 each): your rating; rating again replaces it |
+| `GET /api/metrics` | Dashboard numbers: % rated 4+ on both scores (target 85%), averages by category, tone and model, SEO, fact and style pass rates, tokens, review counts |
 
-The `/api/me`, `/api/products`, `/api/history` and `/api/jobs` routes need a Supabase access token (`Authorization: Bearer <token>`); the React app sends it automatically.
+The `/api/me`, `/api/products`, `/api/history`, `/api/jobs`, review, description and metrics routes need a Supabase access token (`Authorization: Bearer <token>`); the React app sends it automatically.
 
 `quality` has four parts: `input` (completeness score and `sparse` flag), `seo` (length and keyword checks), `facts` (numbers, codes and claims in the copy that the product data doesn't support) and `style` (stock openers, clichés, keyword stuffing, title case). The shapes are in [`docs/DATA_FORMAT.md`](docs/DATA_FORMAT.md#quality-report).
 
@@ -141,7 +145,11 @@ curl -s localhost:4000/api/generate -H 'content-type: application/json' -d '{
 }'
 ```
 
-Endpoints for review, feedback and metrics are planned; see [`docs/PLAN.md`](docs/PLAN.md#4-api-surface).
+### Review and metrics
+
+Ratings measure the AI's copy, so rate a description before editing it. Each reviewer rates a description once (`feedback.reviewer_id`); the headline metric averages each description's ratings across reviewers and counts it as "rated 4+" when both averages are at least 4.
+
+Editing never overwrites: `PATCH /api/descriptions/:id` with `edits` saves a new version with `provider: "human"` and `edited_from` pointing at the AI version, re-runs the SEO, fact and style checks on it, and stores `quality.human_edit.changed_pct`, the share of words changed. The dashboard averages that to show how much humans rewrote the AI's copy.
 
 ### Batch jobs
 

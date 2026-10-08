@@ -18,7 +18,7 @@ before(async () => {
 after(() => server.close());
 
 test('account and product routes need a login', async () => {
-  for (const path of ['/me', '/products', '/history', '/jobs']) {
+  for (const path of ['/me', '/products', '/history', '/jobs', '/review', '/metrics']) {
     const res = await fetch(`${base}${path}`);
     assert.equal(res.status, 401, path);
     assert.match((await res.json()).error, /log in/i);
@@ -61,4 +61,9 @@ test('sign-up validates email and password before calling Supabase', async () =>
   const messages = (await res.json()).details.map((issue) => issue.message).join(' ');
   assert.match(messages, /valid email/);
   assert.match(messages, /at least 6/);
+});
+
+test('unknown API paths are a 404, not a login prompt', async () => {
+  const res = await fetch(`${base}/no-such-route`);
+  assert.equal(res.status, 404);
 });
