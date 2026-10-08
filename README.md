@@ -56,6 +56,15 @@ Models without schema-enforced JSON output still work: the prompt spells out the
 3. From **Project Settings → API**, copy the project URL and the secret key (`sb_secret_...`, not the publishable key) into `SUPABASE_URL` and `SUPABASE_SECRET_KEY` in `server/.env`.
 4. Load the synthetic catalog: click **Load 60 sample products** on the Catalog tab, or run `npm run db:seed`.
 
+### Market insights (Anakin, optional)
+
+Set `ANAKIN_API_KEY` in `server/.env`. For every catalog generation, the server looks up the product type (subcategory, else category) and adds two kinds of context to the prompt, next to the retailer's brand profile from onboarding:
+
+- **Real shopper searches** from Amazon search suggestions (`am_search_suggestions`)
+- **Top-ranking listings** from Flipkart search (`fk_search_products`): their titles and the phrases that recur in them
+
+The prompt treats these as hints for keywords and emphasis, never as facts about the product. Results are cached per product type in the `market_insights` table for 7 days (about 3 credits per new type), and a batch fetches each type once. Each description shows which searches it used and whether it avoided the brand's banned words. Without a key, generation works as before. `npm run anakin:probe` shows the raw data these actions return.
+
 ### Login (Supabase Auth)
 
 1. Retailer profiles and the product-to-retailer link are created by `supabase/setup.sql` too.

@@ -307,3 +307,24 @@ export function checkStyle(output, options = {}) {
 
   return { passed: issues.length === 0, issues };
 }
+
+const copyText = (output) =>
+  [output.title, output.short_description, output.long_description, output.bullet_points.join(' '), output.meta_description]
+    .join(' ')
+    .toLowerCase();
+
+// The brand profile's "avoid" list, e.g. "cheap, best in the world": any of these in the copy is a miss.
+export function checkBrand(output, brand) {
+  const avoid = (brand?.words_to_avoid ?? '').split(/[,;\n]/).map((word) => word.trim().toLowerCase()).filter(Boolean);
+  const text = copyText(output);
+  const found = avoid.filter((word) => new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(text));
+  return { brand: brand?.business_name ?? null, avoid_words: avoid, avoid_words_found: found, ok: found.length === 0 };
+}
+
+// Which real shopper searches (from market insights) the copy and keywords picked up.
+export function checkMarket(output, market) {
+  if (!market) return null;
+  const text = `${copyText(output)} ${output.seo_keywords.join(' ').toLowerCase()}`;
+  const used = (market.search_terms ?? []).filter((term) => text.includes(term));
+  return { query: market.query, sources: market.sources, search_terms: market.search_terms, search_terms_used: used };
+}

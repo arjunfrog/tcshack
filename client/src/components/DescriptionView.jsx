@@ -59,6 +59,19 @@ export default function DescriptionView({ result }) {
           <li key={key} className={quality.seo[key] ? 'pass' : 'fail'}>{quality.seo[key] ? '✓' : '✗'} {label}</li>
         ))}
       </ul>
+      {quality.market && <MarketPanel market={quality.market} />}
+      {quality.brand && (
+        <>
+          <h4>Brand voice <small>{quality.brand.brand}</small></h4>
+          <ul className="checks">
+            <li className={quality.brand.ok ? 'pass' : 'fail'}>
+              {quality.brand.ok
+                ? `✓ None of your avoided words${quality.brand.avoid_words.length ? ` (${quality.brand.avoid_words.join(', ')})` : ''}`
+                : `✗ Uses avoided words: ${quality.brand.avoid_words_found.join(', ')}`}
+            </li>
+          </ul>
+        </>
+      )}
       <p className="muted">
         Input completeness: {quality.input.score}/100
         {quality.input.issues.length > 0 && ` (${quality.input.issues.join(', ')})`}
@@ -67,5 +80,29 @@ export default function DescriptionView({ result }) {
         {meta.provider} · {meta.model} · {meta.input_tokens} in / {meta.output_tokens} out tokens · {(meta.latency_ms / 1000).toFixed(1)} s
       </p>
     </section>
+  );
+}
+
+const SOURCE_LABELS = { amazon_search_suggestions: 'Amazon search suggestions', flipkart_search: 'Flipkart top listings' };
+
+// What Anakin found for this product type, and which real searches the copy picked up.
+function MarketPanel({ market }) {
+  const used = new Set(market.search_terms_used);
+  return (
+    <>
+      <h4>
+        Market insights <small>"{market.query}" · {market.sources.map((source) => SOURCE_LABELS[source] ?? source).join(' + ')}</small>
+      </h4>
+      {market.search_terms.length > 0 ? (
+        <>
+          <p className="muted">Real shopper searches. Highlighted ones are used in this copy ({used.size}/{market.search_terms.length}):</p>
+          <div className="chips">
+            {market.search_terms.map((term) => (
+              <span key={term} className={`chip ${used.has(term) ? 'chip-used' : 'chip-unused'}`}>{term}</span>
+            ))}
+          </div>
+        </>
+      ) : <p className="muted">No search suggestions for this type; top listings shaped the emphasis.</p>}
+    </>
   );
 }

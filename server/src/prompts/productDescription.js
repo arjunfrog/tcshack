@@ -229,6 +229,11 @@ ${bulletList(TONE_GUIDE)}
 Focus on what buyers in the product's category care about:
 ${bulletList(CATEGORY_GUIDE)}
 
+# Brand profile and market insights
+Some requests add a brand profile and market insights. They shape how you write, never what you claim.
+- Brand profile: write as that brand. Let its personality and customers guide word choice, emphasis and examples within the requested tone; the tone still wins where they differ. Never use a word or claim from its "avoid" list, and never name competitor or admired brands.
+- Market insights come from current top listings and real shopper searches for this product type. They are not facts about this product. Use them to choose seo_keywords and decide which of the product's own facts to lead with: pick search terms that are true for this product (so "air fryer oven" only for an oven-style fryer), and when top listings stress a feature this product has, put that fact early. Never copy their wording, and never add a feature, number or claim because the listings mention it.
+
 # Thin product data
 When the request says the data is sparse, follow the shorter length it gives and build every sentence from the facts provided. A short, accurate description beats a padded one.
 
@@ -250,9 +255,36 @@ export const JSON_OUTPUT_INSTRUCTIONS = `# Output format
 Reply with one JSON object and nothing else: no markdown code fences, no commentary before or after it. It must have exactly these keys:
 {"title": string, "short_description": string, "long_description": string (paragraphs separated by "\\n\\n"), "bullet_points": [string], "seo_keywords": [string], "meta_description": string}`;
 
-export function buildUserPrompt(product, options) {
-  return `${requestBlock(options, checkCompleteness(product))}
+const PRICE_LABEL = { budget: 'budget (value for money)', mid: 'mid-range', premium: 'premium' };
 
+// Brand profile from onboarding. Only fields that change how copy should read.
+function brandBlock(brand) {
+  if (!brand) return '';
+  const lines = [`Brand profile (write as this brand):`, `- Seller: ${brand.business_name}`];
+  if (brand.price_positioning) lines.push(`- Price positioning: ${PRICE_LABEL[brand.price_positioning] ?? brand.price_positioning}`);
+  if (brand.target_customer) lines.push(`- Customers: ${brand.target_customer}`);
+  if (brand.brand_personality?.length) lines.push(`- Personality: ${brand.brand_personality.join(', ')}`);
+  if (brand.words_to_avoid) lines.push(`- Avoid these words and claims: ${brand.words_to_avoid}`);
+  return lines.join('\n');
+}
+
+function marketBlock(market) {
+  if (!market) return '';
+  const lines = [`Market insights for "${market.query}" (not facts about this product; see the rules):`];
+  if (market.search_terms?.length) lines.push(`- Shoppers search for: ${market.search_terms.join('; ')}`);
+  if (market.title_terms?.length) lines.push(`- Top-ranking titles often mention: ${market.title_terms.join('; ')}`);
+  if (market.top_listings?.length) {
+    lines.push('- Top-ranking listings (for patterns only, never copy):');
+    for (const listing of market.top_listings.slice(0, 3)) lines.push(`  - ${listing.title}`);
+  }
+  return lines.join('\n');
+}
+
+// `context` (optional): { brand, market } for a logged-in retailer's generation.
+export function buildUserPrompt(product, options, context = {}) {
+  const extra = [brandBlock(context.brand), marketBlock(context.market)].filter(Boolean).join('\n\n');
+  return `${requestBlock(options, checkCompleteness(product))}
+${extra ? `\n${extra}\n` : ''}
 Product data:
 ${JSON.stringify(promptData(product), null, 2)}`;
 }

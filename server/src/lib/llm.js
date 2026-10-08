@@ -13,7 +13,8 @@ export class LlmError extends Error {
 }
 
 // Returns { output, meta } where output matches GeneratedDescription.
-// `settings` overrides the configured provider, model or effort for one call (used by the eval script).
+// `settings` overrides the configured provider, model or effort for one call (used by the eval script),
+// and `settings.context` adds the retailer's brand profile and market insights to the prompt.
 export async function generateDescription(product, options, settings = {}) {
   const provider = settings.provider ?? config.llm.provider;
   if (provider === 'mock') return mockGenerate(product, options);
@@ -26,18 +27,29 @@ const OUTPUT_SCHEMA = (() => {
   return schema;
 })();
 
+// Output cap for Groq: at most 4,000 tokens, and never more than the free tier's 8K
+// tokens-per-minute budget minus the prompt. Prompt tokens are estimated generously
+// (4 characters per token, which matches the 4,000 cap that already fits a plain prompt)
+// plus a safety margin, so the total stays under the limit.
+const GROQ_TPM_LIMIT = 8000;
+export function groqOutputCap(messages) {
+  const promptTokens = Math.ceil(messages.reduce((sum, message) => sum + message.content.length, 0) / 4);
+  return Math.max(1500, Math.min(4000, GROQ_TPM_LIMIT - promptTokens - 200));
+}
+
 // Groq and OpenRouter both speak the OpenAI chat completions API. These are the parts that differ.
 const PROVIDERS = {
   groq: {
     keyName: 'GROQ_API_KEY',
     settings: () => config.groq,
     // JSON mode guarantees valid JSON but not our shape, so the prompt spells out the fields and Zod checks them.
-    body: ({ model, effort, temperature }) => ({
+    body: ({ model, effort, temperature }, messages) => ({
       temperature,
       // Reasoning models spend part of this budget thinking before they answer (replies use
       // 600-2,500 tokens). Groq's free tier rejects a request (413) when prompt + this cap
-      // exceeds its 8K tokens-per-minute limit, so keep the cap well under 8K minus the prompt.
-      max_completion_tokens: 4000,
+      // exceeds its 8K tokens-per-minute limit, so the cap shrinks as the prompt grows
+      // (retailer generations add a brand profile and market insights).
+      max_completion_tokens: groqOutputCap(messages),
       response_format: { type: 'json_object' },
       ...(model.startsWith('openai/gpt-oss') && effort && { reasoning_effort: effort }),
     }),
@@ -75,13 +87,14 @@ async function chatGenerate(providerId, product, options, overrides) {
     throw new LlmError(`${provider.keyName} is not set. Add it to server/.env or set LLM_PROVIDER=mock.`, 503);
   }
 
+  const messages = [
+    { role: 'system', content: `${SYSTEM_PROMPT}\n\n${JSON_OUTPUT_INSTRUCTIONS}` },
+    { role: 'user', content: buildUserPrompt(product, options, overrides.context) },
+  ];
   const body = {
     model: settings.model,
-    messages: [
-      { role: 'system', content: `${SYSTEM_PROMPT}\n\n${JSON_OUTPUT_INSTRUCTIONS}` },
-      { role: 'user', content: buildUserPrompt(product, options) },
-    ],
-    ...provider.body(settings),
+    messages,
+    ...provider.body(settings, messages),
   };
 
   const started = Date.now();

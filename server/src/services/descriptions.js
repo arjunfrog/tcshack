@@ -1,6 +1,7 @@
 import { dbError, requireSupabase } from '../lib/supabase.js';
 import { ProductInput } from '../schemas/product.js';
 import { generateForProduct } from './generator.js';
+import { getMarketInsights } from './market.js';
 
 // Returns a Supabase response's data, or throws it as an API error.
 function check({ data, error }) {
@@ -23,7 +24,15 @@ export const toProductInput = (row) =>
 // `jobId` links the description to a batch job.
 export async function generateAndSave(row, options, { jobId = null } = {}) {
   const supabase = requireSupabase();
-  const { output, meta, quality } = await generateForProduct(toProductInput(row), options);
+  const product = toProductInput(row);
+
+  // Context for the prompt: the retailer's onboarding answers and, when Anakin is set up,
+  // what's ranking for this product type (cached per type, see services/market.js).
+  const [{ data: brand }, market] = await Promise.all([
+    supabase.from('retailers').select('*').eq('id', row.retailer_id).maybeSingle(),
+    getMarketInsights(product),
+  ]);
+  const { output, meta, quality } = await generateForProduct(product, options, { context: { brand, market } });
 
   // Two generations for the same product can race for the next version number; the loser
   // of the unique (product_id, version) check simply takes the one after.
