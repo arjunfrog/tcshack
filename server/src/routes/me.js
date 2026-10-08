@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { requireSupabase } from '../lib/supabase.js';
+import { dbError, requireSupabase } from '../lib/supabase.js';
 import { requireUser } from '../middleware/auth.js';
 import { CHANNELS, PRICE_POSITIONING, RetailerInput } from '../schemas/retailer.js';
 
@@ -7,7 +7,7 @@ export const meRouter = Router();
 meRouter.use(requireUser);
 
 const check = ({ data, error }) => {
-  if (error) throw Object.assign(new Error(`Database error: ${error.message}`), { status: 500 });
+  if (error) throw dbError(error);
   return data;
 };
 

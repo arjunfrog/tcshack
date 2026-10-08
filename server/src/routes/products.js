@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { Router } from 'express';
 import { z } from 'zod';
-import { requireSupabase } from '../lib/supabase.js';
+import { dbError, requireSupabase } from '../lib/supabase.js';
 import { requireRetailer, requireUser } from '../middleware/auth.js';
 import { parseProductsCsv } from '../lib/csv.js';
 import { GenerationOptions, ProductInput } from '../schemas/product.js';
@@ -14,13 +14,9 @@ productsRouter.use(requireUser, requireRetailer);
 
 const SAMPLE_FILE = new URL('../../../data/generated/products.json', import.meta.url);
 
-// Throws a 4xx/5xx-shaped error from a Supabase response.
-function check({ data, error }, status = 500) {
-  if (error) {
-    const err = new Error(`Database error: ${error.message}`);
-    err.status = status;
-    throw err;
-  }
+// Returns a Supabase response's data, or throws it as an API error.
+function check({ data, error }) {
+  if (error) throw dbError(error);
   return data;
 }
 

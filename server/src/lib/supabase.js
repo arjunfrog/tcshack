@@ -20,6 +20,17 @@ export function requireSupabase() {
   return supabase;
 }
 
+// Turns a Supabase error into an API error, with a clear hint when tables are missing.
+export function dbError(error) {
+  const missing = error.code === 'PGRST205' || /schema cache|does not exist/.test(error.message);
+  return Object.assign(
+    new Error(missing
+      ? 'Database tables are missing. Run supabase/setup.sql in the Supabase SQL Editor (paste the whole file, click Run), then try again.'
+      : `Database error: ${error.message}`),
+    { status: missing ? 503 : 500 },
+  );
+}
+
 // Cheap connectivity check used by /api/health. Selects a row rather than a HEAD
 // count, because HEAD requests come back without an error message (e.g. missing tables).
 export async function pingDatabase() {
@@ -27,7 +38,7 @@ export async function pingDatabase() {
   const { error } = await supabase.from('products').select('id').limit(1);
   if (!error) return 'connected';
   if (error.code === 'PGRST205' || /schema cache|does not exist/.test(error.message)) {
-    return 'error: tables missing, run the SQL migration';
+    return 'error: tables missing, run supabase/setup.sql';
   }
   return `error: ${error.message || 'unknown'}`;
 }

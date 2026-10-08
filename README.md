@@ -34,13 +34,13 @@ Get a key at [console.groq.com](https://console.groq.com/keys) and set `GROQ_API
 ### Supabase
 
 1. Create a project at [supabase.com](https://supabase.com).
-2. In **SQL Editor**, paste and run [`supabase/migrations/20261008000000_init.sql`](supabase/migrations/20261008000000_init.sql).
+2. In **SQL Editor**, paste the whole of [`supabase/setup.sql`](supabase/setup.sql) and click **Run**. It creates every table and is safe to re-run. (It combines the files in `supabase/migrations/`.)
 3. From **Project Settings → API**, copy the project URL and the secret key (`sb_secret_...`, not the publishable key) into `SUPABASE_URL` and `SUPABASE_SECRET_KEY` in `server/.env`.
 4. Load the synthetic catalog: click **Load 60 sample products** on the Catalog tab, or run `npm run db:seed`.
 
 ### Login (Supabase Auth)
 
-1. Also run [`supabase/migrations/20261008010000_retailers.sql`](supabase/migrations/20261008010000_retailers.sql) in the SQL editor. It adds retailer profiles and links products to them.
+1. Retailer profiles and the product-to-retailer link are created by `supabase/setup.sql` too.
 2. Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` to `server/.env` (Vite reads its `VITE_*` variables from there).
 3. No email confirmation is needed: sign-up goes through `POST /api/signup`, which creates the account already confirmed with the secret key, then the app logs straight in.
 

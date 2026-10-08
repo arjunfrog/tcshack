@@ -1,4 +1,4 @@
-import { requireSupabase } from '../lib/supabase.js';
+import { dbError, requireSupabase } from '../lib/supabase.js';
 
 const httpError = (status, message) => Object.assign(new Error(message), { status });
 
@@ -21,7 +21,7 @@ export async function requireRetailer(req, res, next) {
     .select('*')
     .eq('owner_id', req.user.id)
     .maybeSingle();
-  if (error) throw httpError(500, `Database error: ${error.message}`);
+  if (error) throw dbError(error);
   if (!data) throw httpError(403, 'Finish onboarding first.');
   req.retailer = data;
   next();

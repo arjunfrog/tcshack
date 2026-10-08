@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { requireSupabase } from '../lib/supabase.js';
+import { dbError, requireSupabase } from '../lib/supabase.js';
 import { requireRetailer, requireUser } from '../middleware/auth.js';
 
 export const historyRouter = Router();
@@ -15,6 +15,6 @@ historyRouter.get('/', async (req, res) => {
     .eq('product.retailer_id', req.retailer.id)
     .order('created_at', { ascending: false })
     .limit(limit);
-  if (error) throw Object.assign(new Error(`Database error: ${error.message}`), { status: 500 });
+  if (error) throw dbError(error);
   res.json({ items: data });
 });
