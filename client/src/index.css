@@ -185,7 +185,7 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
 .badge-sep { width: 1px; height: 12px; background: var(--border); }
 
 .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.08rem; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
-.logo-img { object-fit: contain; border-radius: 6px; }
+.logo-img { object-fit: cover; border-radius: 9px; box-shadow: var(--shadow-sm); }
 .logo.light { color: #fff; }
 
 .fade-up { animation: fade-up 0.55s ease both; }
