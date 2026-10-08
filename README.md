@@ -86,12 +86,12 @@ client/                 React + Vite web app
   src/api.js            Fetch wrapper (/api is proxied to Express in dev)
 server/                 Express 5 API
   src/app.js            Middleware and route wiring
-  src/routes/           health, generate, products (list, import, generate + save), me (account)
+  src/routes/           health, generate, products (list, edit, import, generate + save), me, history, jobs
   src/lib/csv.js        CSV import parser (conventions in docs/DATA_FORMAT.md)
   src/lib/llm.js        Groq, OpenRouter and mock providers (JSON output validated with Zod)
   src/prompts/          System prompt (tones, categories, few-shot examples) and prompt builder
   src/schemas/          Zod schemas: product input, options, generated output
-  src/services/         generator, quality checks (completeness, SEO, fact check, style)
+  src/services/         generator, quality checks (completeness, SEO, fact check, style), batch job runner
   scripts/seed.js       Load a dataset into Supabase
   scripts/eval.js       Run the eval set, write a report and a rating sheet
   test/                 API, provider, prompt and quality tests
@@ -112,16 +112,22 @@ docs/                   Plan and data format
 | `POST /api/generate` | `{ product, options? }` → `{ output, meta, quality }` (no login needed) |
 | `GET /api/me` | Logged-in user and retailer profile (`null` until onboarding is done) |
 | `PUT /api/me/retailer` | Create or update the retailer profile |
-| `GET /api/products` | The retailer's catalog (`?category=&search=`), with each product's latest description |
+| `GET /api/products` | The retailer's catalog (`?category=&search=&limit=&offset=`), with each product's latest description, plus `total` for paging |
 | `GET /api/products/:id` | One product and all its description versions |
+| `PATCH /api/products/:id` | Edit a product (only the fields sent change); the completeness score is recomputed |
 | `POST /api/products/import` | `{ format: "csv" \| "json", data }` → `{ imported, errors }` |
 | `POST /api/products/import-sample` | Load the 60 synthetic products |
 | `POST /api/products/:id/generate` | Generate and save a new description version |
 | `POST /api/products/quick` | `{ product, options? }`: save the product (or reuse a match) and generate a description for it |
 | `GET /api/history` | The retailer's generated descriptions, newest first (`?limit=`, max 200) |
 | `POST /api/signup` | `{ email, password }`: create an already-confirmed account (no confirmation email) |
+| `POST /api/jobs` | `{ product_ids? \| category?, missing_only?, options? }` → 202 `{ job }`: start a batch in the background |
+| `GET /api/jobs` | The retailer's recent batch jobs |
+| `GET /api/jobs/:id` | Job status, progress counts and one row per product (poll every 2 seconds) |
+| `POST /api/jobs/:id/resume` | Rerun every product in the job that hasn't succeeded |
+| `GET /api/jobs/:id/export?format=csv\|json` | Download the job's results |
 
-The `/api/me`, `/api/products` and `/api/history` routes need a Supabase access token (`Authorization: Bearer <token>`); the React app sends it automatically.
+The `/api/me`, `/api/products`, `/api/history` and `/api/jobs` routes need a Supabase access token (`Authorization: Bearer <token>`); the React app sends it automatically.
 
 `quality` has four parts: `input` (completeness score and `sparse` flag), `seo` (length and keyword checks), `facts` (numbers, codes and claims in the copy that the product data doesn't support) and `style` (stock openers, clichés, keyword stuffing, title case). The shapes are in [`docs/DATA_FORMAT.md`](docs/DATA_FORMAT.md#quality-report).
 
@@ -135,7 +141,15 @@ curl -s localhost:4000/api/generate -H 'content-type: application/json' -d '{
 }'
 ```
 
-Endpoints for batch jobs, feedback and metrics are planned; see [`docs/PLAN.md`](docs/PLAN.md#4-api-surface).
+Endpoints for review, feedback and metrics are planned; see [`docs/PLAN.md`](docs/PLAN.md#4-api-surface).
+
+### Batch jobs
+
+A job covers up to 500 products. `POST /api/jobs` with no selection takes the whole catalog; `category` narrows it, and `missing_only: true` skips products that already have a description. The job runs on the server with `GENERATION_CONCURRENCY` products at a time. Each product is a row in `generation_job_items` that moves `queued` → `running` → `succeeded` or `failed`, and one product failing never stops the job. Rate-limited products wait a minute and try again, twice.
+
+The job ends `completed`, `partial` or `failed`. If the server restarts mid-job, `GET /api/jobs/:id` shows `active: false` while the status is still `running`; `POST /api/jobs/:id/resume` picks up where it stopped. Resume is also how to finish a `partial` job after a free-tier daily quota resets.
+
+The export has one row per product: `sku, name, category, status, error, title, short_description, long_description, bullet_points, seo_keywords, meta_description, seo_checks, fact_flags, style_issues, model, version`. Lists are joined with ` | `, as in the import format.
 
 ## Evaluating quality
 

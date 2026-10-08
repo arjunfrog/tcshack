@@ -37,3 +37,12 @@ export function parseProductsCsv(text) {
     return record;
   });
 }
+
+// Writes objects as CSV with the given columns, quoting cells that need it.
+export function toCsv(rows, columns) {
+  const cell = (value) => {
+    const text = String(value ?? '');
+    return /[",\n\r]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+  };
+  return [columns, ...rows.map((row) => columns.map((column) => row[column]))].map((cells) => cells.map(cell).join(',')).join('\n') + '\n';
+}
