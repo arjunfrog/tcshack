@@ -9,7 +9,8 @@
     "start": "node src/index.js",
     "seed": "node scripts/seed.js",
     "test": "node --test",
-    "anakin:catalog": "node scripts/anakin-catalog.js"
+    "anakin:catalog": "node scripts/anakin-catalog.js",
+    "anakin:probe": "node scripts/anakin-probe.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",
