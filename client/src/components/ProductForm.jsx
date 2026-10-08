@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Spinner } from './Feedback.jsx';
 
 export const SAMPLE_PRODUCT = {
   name: 'Pulse Buds',
@@ -92,7 +93,7 @@ export default function ProductForm({ choices, busy, onSubmit }) {
       </label>
 
       <button type="submit" className="primary" disabled={busy}>
-        {busy ? 'Generating…' : 'Generate description'}
+        {busy ? <><Spinner /> Generating…</> : 'Generate description'}
       </button>
     </form>
   );
