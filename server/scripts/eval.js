@@ -8,7 +8,8 @@
 //   npm run eval -- ratings ratings.csv [more.csv]     summarise filled-in rating sheets
 //
 // Other flags: --length short|medium|long (default medium), --limit N, --provider,
-// --concurrency N, --force (skip the free-tier quota guard).
+// --concurrency N, --no-refine (score the first draft, without the fix-up request),
+// --force (skip the free-tier quota guard).
 //
 // Writes report[-label].md (copy plus quality checks, for reading), results[-label].json
 // (raw results) and ratings[-label].csv (a blank sheet: relevance and creativity, 1-5).
@@ -23,6 +24,7 @@ import { mapPool } from '../src/lib/pool.js';
 import { JSON_OUTPUT_INSTRUCTIONS, SYSTEM_PROMPT, WORD_RANGES } from '../src/prompts/productDescription.js';
 import { LENGTHS, ProductInput, TONES } from '../src/schemas/product.js';
 import { generateForProduct } from '../src/services/generator.js';
+import { checkConsistency } from '../src/services/quality.js';
 
 const EVAL_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '../../data/eval');
 // Free OpenRouter models allow 50 requests a day (1,000 once $10 of credits has ever been bought).
@@ -58,7 +60,7 @@ async function runEval(flags) {
   const efforts = list(flags.efforts ?? flags.effort);
   const defaultModel = provider === config.llm.provider ? activeModel() : modelFor(provider);
   const configs = (models.length ? models : [defaultModel]).flatMap((model) =>
-    (efforts.length ? efforts : [undefined]).map((effort) => ({ provider, model, effort })),
+    (efforts.length ? efforts : [undefined]).map((effort) => ({ provider, model, effort, refine: !flags['no-refine'] })),
   );
 
   const jobs = configs.flatMap((settings, configIndex) =>
@@ -162,6 +164,7 @@ function summarise(results, configLabels) {
       factsClean: percent(ok.filter((result) => result.quality.facts.passed).length, ok.length),
       flags: sum((result) => result.quality.facts.unsupported.length),
       styleClean: percent(ok.filter((result) => result.quality.style.passed).length, ok.length),
+      refined: `${ok.filter((result) => result.quality.refine?.accepted).length}/${ok.filter((result) => result.quality.refine).length}`,
       wordsInRange: percent(ok.filter(wordsInRange).length, ok.length),
       latency: ok.length ? `${(sum((result) => result.meta.latency_ms) / ok.length / 1000).toFixed(1)} s` : 'n/a',
       tokens: ok.length ? `${Math.round(sum((result) => result.meta.input_tokens) / ok.length)} / ${Math.round(sum((result) => result.meta.output_tokens) / ok.length)}` : 'n/a',
@@ -216,7 +219,7 @@ ${output.bullet_points.map((bullet) => `- ${bullet}`).join('\n')}
 > SEO ${quality.seo.passed}/${quality.seo.total}${failedSeo.length ? ` (failed: ${failedSeo.join(', ')})` : ''} · keyword coverage ${quality.seo.keyword_coverage}% · ${countWords(output.long_description)} words (target ${min}-${max}) · ${output.bullet_points.length} bullets
 > Fact check: ${facts}
 > Style: ${style}
-> ${meta.model} · ${meta.input_tokens} in / ${meta.output_tokens} out tokens · ${(meta.latency_ms / 1000).toFixed(1)} s`;
+> ${quality.refine ? `Fix-up: ${quality.refine.accepted ? 'kept' : 'not kept'} (${quality.refine.problems.length} problem(s)${quality.refine.error ? `; ${quality.refine.error}` : ''})\n> ` : ''}${meta.model}${meta.effort ? ` (${meta.effort})` : ''} · ${meta.input_tokens} in / ${meta.output_tokens} out tokens · ${(meta.latency_ms / 1000).toFixed(1)} s`;
 }
 
 function renderReport(run, results, configLabels) {
@@ -267,13 +270,28 @@ Read each output against its product data, then fill in \`ratings.csv\` (relevan
 ## Summary
 
 ${table(
-  ['Config', 'OK', 'Errors', 'SEO checks passed', 'Keyword coverage', 'Fact check clean', 'Flags', 'Style clean', 'Words in range', 'Avg latency', 'Avg tokens in / out', 'Total cost'],
-  summary.map((row) => [row.config, `${row.ok}/${row.total}`, row.errors, row.seo, row.coverage, row.factsClean, row.flags, row.styleClean, row.wordsInRange, row.latency, row.tokens, row.cost]),
+  ['Config', 'OK', 'Errors', 'SEO checks passed', 'Keyword coverage', 'Fact check clean', 'Flags', 'Style clean', 'Fixes kept', 'Words in range', 'Avg latency', 'Avg tokens in / out', 'Total cost'],
+  summary.map((row) => [row.config, `${row.ok}/${row.total}`, row.errors, row.seo, row.coverage, row.factsClean, row.flags, row.styleClean, row.refined, row.wordsInRange, row.latency, row.tokens, row.cost]),
 )}
 
 ## Style issues
 
 ${styleCounts.length ? table(['Issue', 'Outputs', 'Examples'], styleCounts) : 'None.'}
+
+## Consistency
+
+${configLabels.map((configLabel) => {
+  const consistency = checkConsistency(results.filter((result) => result.config === configLabel && !result.error).map((result) => ({
+    id: result.id, title: result.output.title, long_description: result.output.long_description, sparse: result.quality.input.sparse,
+  })));
+  if (consistency.passed) return `- ${configLabel}: no duplicate titles, repeated openings or length outliers.`;
+  const parts = [
+    ...consistency.duplicate_titles.map((group) => `duplicate title "${group.title}" (${group.ids.join(', ')})`),
+    ...consistency.repeated_openings.map((group) => `same opening "${group.opening}…" (${group.ids.join(', ')})`),
+    ...consistency.length_outliers.map((item) => `${item.id}: ${item.words} words vs median ${item.median}`),
+  ];
+  return `- ${configLabel}: ${parts.join('; ')}`;
+}).join('\n')}
 
 ## Fact-check flags
 

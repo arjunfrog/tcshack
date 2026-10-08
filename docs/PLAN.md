@@ -141,15 +141,26 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
    - [x] Accuracy rules for the eval set's traps: never upgrade ratings (IPX5 is not waterproof), treat seed keywords as search terms rather than facts, trust specs over the product name, don't quote the price.
    - [x] A fixed bullet format ("Benefit phrase: fact") and a primary-keyword rule that matches the SEO checks, for consistency across the catalog.
    - [x] Baseline run on the live model (`report-baseline.md`, 30 generations): every trap handled and no fact-check flags, but the copy read as machine-written (stock "For those who" openers, keyword stuffing, narrating the data, inconsistent title case). Prompt v2 targets these, and a **style check** (`checkStyle`, returned as `quality.style`) now measures them. v2 on the 8 worst products (`report-v2.md`): style-clean outputs went from 1/8 to 5/8.
-   - [ ] Keep iterating against live outputs: read the report, change one thing, re-run the same slice with a new `--label`.
-5. [ ] **Choose model and effort.** `npm run eval -- --provider groq --models a,b --efforts low,medium` runs each combination on the same products and the report compares them side by side; run it once per provider with a different `--label` to compare providers. Compare Groq `openai/gpt-oss-120b` (effort `low` and `medium`) with OpenRouter's `nvidia/nemotron-3-super-120b-a12b:free` on a 10-product, one-tone slice. Pick the fastest setting the team rates as good enough.
+   - [x] v3 (`report-v3-groq*.md`): "When you…" became the new formula opener in v2, so openers now must lead with the product's most distinctive fact; varied openers in every v3 output.
+   - [x] v4 adds the brand profile and a fix-up pass (phase 5). On Groq `gpt-oss-120b` at medium effort (`report-v4-groq-refine.md`): SEO 100%, fact check clean 100%, style clean 80%, word target 100%; the fix-up ran on 3 of 5 products and was kept every time.
+   - [ ] Keep iterating as ratings come in: read the low-rated outputs, change one thing, re-run the same slice with a new `--label`.
+5. [x] **Choose model and effort.** Decision: **Groq `openai/gpt-oss-120b` at `medium` effort, with the fix-up pass on.**
+
+   | Setting (15 products, friendly) | SEO checks | Fact check clean | Style clean | Word target | Avg time |
+   |---|---|---|---|---|---|
+   | OpenRouter nemotron-3-super (v2 prompt, 8 products) | 100% | 88% | 63% | 100% | 63 s |
+   | Groq gpt-oss-120b, low effort | 87% | 100% | 40% | 33% | 23 s |
+   | Groq gpt-oss-120b, medium effort | 95% | 100% | 58% | 100% | 33 s |
+   | Groq gpt-oss-120b, medium + fix-up (5 hardest products) | 100% | 100% | 80% | 100% | 40 s |
+
+   Low effort skimps on instructions (short copy, long metas); medium fixes that. Medium sometimes thinks past the 4,000-token cap Groq's 8K-per-minute limit allows, so such a reply retries at low effort. Cost: about 6,500 tokens per description plus ~2,000 for a fix-up, so roughly 25-30 descriptions a day per model on the free tier. OpenRouter stays as the backup provider. Compare more settings with `npm run eval -- --provider groq --models a,b --efforts low,medium`.
 6. **Handle incomplete products.**
    - [x] Server: `checkCompleteness` returns `sparse: true` below 50. For sparse products the prompt asks for a 40-70 word description and 3 bullets built only from the facts given, whatever length was requested. `POST /api/generate/check` returns the score before generating.
-   - [ ] UI (frontend): call `/api/generate/check` before generating, and show a warning with the missing items when `sparse` is true. Show `quality.facts.unsupported` in the result panel.
+   - [x] UI: Quick generate checks completeness as you type and warns about thin data before generating; the result panel shows fact-check flags, style issues, readability and the fix-up outcome.
 
 *Public style references:* the Amazon product datasets on Kaggle and Hugging Face are good sources for real description styles. Use them only as style references in the prompt, not as product data.
 
-**Still to do:** set `OPENROUTER_API_KEY` in `server/.env`, run `npm run eval -- --tones friendly,luxury` (30 requests, within the free daily quota), have the team rate the outputs, then iterate on the prompt and pick a model.
+**Still to do:** the team rates the eval outputs (`data/eval/ratings-*.csv`, then `npm run eval -- ratings <files>`), or rates the generated catalog on the Review tab.
 
 **Done when:** the team rates 80%+ of the eval outputs 4 or 5, and the fact-check finds no invented numbers.
 
@@ -171,7 +182,7 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
 
 ### Phase 3: Batch processing (the 50+ products requirement)
 
-> **Server done (job runner, progress, export, resume); the Batch page is still to do.** Run `supabase/setup.sql` again (or `migrations/20261009000000_batch_jobs.sql`) to add the job tables. The Catalog tab's client-side "Generate all missing" can switch to `POST /api/jobs` with `missing_only: true`.
+> **Done (server and Batch tab).** Run `supabase/setup.sql` again (or `migrations/20261009000000_batch_jobs.sql`) to add the job tables. Remaining: run the 60-product batch on the real database (needs about two days of free-tier quota, or Resume across models).
 
 1. [x] **Job runner** (`services/batch.js`, storage in `services/jobStore.js`, routes in `routes/jobs.js`):
    - `POST /api/jobs` creates a `generation_jobs` row (`queued`) owned by the retailer, plus one `generation_job_items` row per product, responds 202 with the job, then processes in the background.
@@ -180,7 +191,7 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
    - Retries: `lib/llm.js` retries 429 and 5xx within a request; on top of that, a rate-limited product waits a minute and tries again, twice. On final failure the error is recorded on the item and the job carries on.
    - Final status: `completed`, `partial` (some failed) or `failed`, with `succeeded`/`failed` totals on the job row.
 2. [x] **Progress:** `GET /api/jobs/:id` returns progress counts and one row per product (status, error, description title and quality). The client should poll it every 2 seconds.
-3. [ ] **Batch page** (`/batch`, frontend): select products (all, by category, missing only, or a checkbox list), choose tone, length and brand voice, start, watch progress, then export.
+3. [x] **Batch tab:** select products (all or one category, optionally only those without a description), choose tone, length and extra voice notes, start, watch progress per product (polling every 2 seconds), see batch consistency warnings, export CSV or JSON, and resume an interrupted or partial batch.
 4. [x] **Export:** `GET /api/jobs/:id/export?format=csv|json` with sku, name, category, status, error, all copy fields, SEO checks, fact flags, style issues, model and version.
 5. [x] **Resilience:** `GET /api/jobs/:id` reports `active: false` for a job that was interrupted by a restart; `POST /api/jobs/:id/resume` reruns every product that hasn't succeeded. The same call finishes a `partial` job after a free-tier daily quota resets.
 
@@ -188,17 +199,17 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
 
 ### Phase 4: Review, feedback and metrics (the 85% metric)
 
-> **Server done; the Review page and Dashboard are still to do.** Run `supabase/setup.sql` again (or `migrations/20261009010000_review.sql`) to add the reviewer and edit columns.
+> **Done (server, Review tab and Dashboard tab).** Run `supabase/setup.sql` again (or `migrations/20261009010000_review.sql`) to add the reviewer and edit columns. Remaining: real ratings from the team.
 
 1. **Review queue** (`/review`):
    - [x] Server: `GET /api/review` returns each product's latest AI draft that the logged-in reviewer hasn't rated, oldest first, with the product's attributes. `POST /api/descriptions/:id/feedback` stores relevance and creativity (1–5) and a comment, one rating per reviewer per description. `PATCH /api/descriptions/:id` approves or rejects.
-   - [ ] UI: one description at a time next to its attributes, 1–5 stars for **relevance** and **creativity**, an optional comment, and approve/reject. Keyboard shortcuts (1–5, A, R, →) make rating 50+ items fast.
+   - [x] UI (Review tab): one description at a time next to the product's attributes, 1–5 for **relevance** and **creativity**, an optional comment, and approve/reject. Keys: 1–5 rate (relevance, then creativity), A approve, R reject, → skip or save rating, E edit. Approving or rejecting needs both ratings, which are saved on the AI version first.
 2. **Inline editing** before approving:
    - [x] Server: `PATCH` with `edits` saves the edited copy as a new version (`provider: "human"`, `edited_from` the AI version), re-runs every quality check on it and stores `quality.human_edit.changed_pct`.
-   - [ ] UI: an edit mode in the review card.
+   - [x] UI: an edit mode in the review card; saving approves the edited version.
 3. **Metrics endpoint and dashboard** (`/dashboard`):
    - [x] `GET /api/metrics`: **% of rated descriptions with relevance ≥ 4 and creativity ≥ 4** (each description averaged over its reviewers; target 85%), average relevance and creativity by category, tone and model, SEO pass rate, keyword coverage, fact-check clean rate and top flags, style clean rate and issue counts, products and descriptions generated, tokens, average latency, review counts and how much humans changed the copy. Cost isn't shown: both providers run on free tiers.
-   - [ ] UI: the dashboard page.
+   - [x] UI (Dashboard tab): the headline % rated 4+ with a meter against the 85% target, KPI tiles, breakdowns by category, tone and model, style issues, top fact flags, catalog consistency, usage and review counts.
 4. [ ] **Get real ratings:** before the demo, have every team member (and ideally a few colleagues) rate the 60-product batch. Report the number honestly. The prompt work in phase 1 is what gets it above 85%.
 5. [ ] *Optional:* an **LLM-as-judge** script that rates each description against a rubric (accuracy against attributes, persuasiveness, readability, SEO). Use it to pre-screen and as a second signal next to human ratings, not as a replacement.
 
@@ -206,11 +217,14 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
 
 ### Phase 5: SEO and consistency polish
 
-1. **Readability score** (Flesch reading ease) per description, aiming for 60+.
-2. **Keyword checks:** primary keyword in the first 100 words, keyword density under about 3% (no stuffing), no duplicate titles across the catalog.
-3. **Batch consistency check:** flag descriptions in a batch that reuse the same opening phrase, or whose tone drifts (length far from the batch median).
-4. **Saved brand voice presets:** a `style_profiles` table (name, tone, voice notes, example descriptions) that you choose from a dropdown. This is a strong story for "style consistency at catalog scale".
-5. **Auto-fix:** if a hard check fails (title > 70 characters, meta > 155), make one follow-up request asking the model to fix only that field.
+> **Done.**
+
+1. [x] **Readability score** (Flesch reading ease) per description in `quality.seo.readability`, shown in the result panel and averaged on the dashboard (aim 60+).
+2. [x] **Keyword checks:** primary keyword in the first 100 words is the sixth SEO check; keyword stuffing is caught by the style check (more than 2 uses, 4 for the primary keyword); duplicate titles are caught by the consistency check.
+3. [x] **Batch consistency check** (`checkConsistency`): duplicate titles, several products opening the same way, and lengths far from the batch median (sparse products excluded). Shown per batch, across the catalog on the dashboard, and in eval reports.
+4. [x] **Brand voice:** instead of a separate `style_profiles` table, each retailer's onboarding answers (personality, target customer, price positioning, tone references, words to avoid) become a brand profile sent with every catalog, quick and batch generation, so the whole catalog sounds like one brand. Batch jobs store the profile, so a resumed job keeps the same voice. The style check flags any avoided word.
+6. [x] **Market insights (Anakin, optional):** with `ANAKIN_API_KEY` set, each product type's real shopper searches (Amazon search suggestions) and top-ranking Flipkart listings are fetched once, cached for a week in `market_insights`, and added to the prompt as hints for keywords and emphasis, never as facts. Each description reports which of those searches it used. This is the first step towards the mentor's "existing catalog and competitors" context.
+5. [x] **Auto-fix:** when the checks find problems (overlong title or meta, missing primary keyword, unsupported claims, clichés, formula openers, avoided words), one short low-effort request asks the model to fix only those. The fix is kept only if it scores better and adds no fact flags; `quality.refine` records what happened. `LLM_REFINE=false` turns it off.
 
 ### Phase 6: Docs, deploy and demo
 

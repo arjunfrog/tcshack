@@ -190,6 +190,20 @@ alter table public.descriptions add column if not exists reviewed_by uuid refere
 alter table public.descriptions add column if not exists reviewed_at timestamptz;
 
 
+-- --- From migrations/20261010000000_market_insights.sql ---
+-- Market insights per product type (e.g. "Air Fryer"), fetched from Anakin: real shopper
+-- searches and top-ranking listings. Shared by all retailers and refreshed after a week.
+-- Run after 20261009000000_batch_jobs.sql (setup.sql includes it).
+
+create table if not exists public.market_insights (
+  query_key   text primary key,          -- lower-cased product type
+  query       text not null,
+  insights    jsonb not null,            -- { search_terms, title_terms, top_listings, sources }
+  fetched_at  timestamptz not null default now()
+);
+
+alter table public.market_insights enable row level security;
+
 
 -- Accounts created by the old sign-up flow were left waiting for an email
 -- confirmation. Confirm them so they can log in.

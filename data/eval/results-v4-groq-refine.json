@@ -1,0 +1,558 @@
+{
+  "run": {
+    "date": "2026-10-08T08:58:30.151Z",
+    "provider": "groq",
+    "length": "medium",
+    "tones": [
+      "friendly"
+    ],
+    "configs": [
+      "openai/gpt-oss-120b"
+    ],
+    "prompt_version": "45980aed"
+  },
+  "results": [
+    {
+      "id": "SKU-0018-friendly",
+      "sku": "SKU-0018",
+      "name": "Orbit Fit",
+      "category": "Electronics",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b",
+      "eval_notes": "Smartwatch with many figures (2.01-inch, 12 days, 5 ATM, 100+ modes). Watch for unit drift (5 ATM is not 50 m).",
+      "product": {
+        "sku": "SKU-0018",
+        "name": "Orbit Fit",
+        "category": "Electronics",
+        "subcategory": "Smartwatch",
+        "brand": "Voltix",
+        "price": 12269,
+        "currency": "INR",
+        "features": [
+          "Bluetooth calling",
+          "Built-in GPS",
+          "5 ATM water resistance",
+          "100+ sports modes"
+        ],
+        "specifications": {
+          "Display": "2.01-inch AMOLED",
+          "Battery life": "Up to 12 days",
+          "Water resistance": "5 ATM",
+          "Compatibility": "Android and iOS"
+        },
+        "attributes": {
+          "strap": "Metal mesh",
+          "colors": [
+            "Rose Gold",
+            "Graphite"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Smartwatch",
+        "seed_keywords": [
+          "smart watch with calling",
+          "fitness tracker"
+        ]
+      },
+      "output": {
+        "title": "Voltix Orbit Fit Smartwatch with Calling, 5 ATM Water Resistance",
+        "short_description": "Stay connected on the move with Bluetooth calling, GPS tracking and a 5 ATM-rated metal mesh strap, while the 2.01-inch AMOLED display keeps your stats clear for up to 12 days.",
+        "long_description": "The Voltix Orbit Fit smartwatch with calling puts your phone right on your wrist, letting you answer Bluetooth calls without digging for your device. Its 5 ATM water resistance means you can swim, shower or get caught in a downpour and the metal mesh strap stays secure and comfortable.\n\nThe 2.01-inch AMOLED screen shows your stats in crisp colour, while the built-in GPS maps every run or ride. With over 100 sports modes you can track everything from yoga to cycling, and the battery lasts up to 12 days on a single charge. It pairs with Android and iOS phones, so you stay synced wherever you go. Choose a Rose Gold or Graphite finish to match your style, and the lightweight metal mesh band feels cool even in warm weather.",
+        "bullet_points": [
+          "Answer calls hands-free: Bluetooth calling from the wrist",
+          "Track routes accurately: Built-in GPS maps runs and rides",
+          "Long-lasting power: Up to 12 days battery life",
+          "All-sport coverage: Over 100 sports modes",
+          "Swim-proof confidence: 5 ATM water resistance with metal mesh strap"
+        ],
+        "seo_keywords": [
+          "smartwatch with calling",
+          "fitness tracker watch",
+          "5 ATM smartwatch",
+          "Bluetooth calling smartwatch",
+          "Android iOS smartwatch",
+          "metal mesh smartwatch"
+        ],
+        "meta_description": "Voltix Orbit Fit smartwatch with calling offers Bluetooth calls, GPS, 5 ATM water resistance and up to 12 days battery life – perfect for active life."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3686,
+        "output_tokens": 2677,
+        "cost_usd": null,
+        "latency_ms": 6386,
+        "attempts": 1,
+        "retry_reasons": [],
+        "effort": "medium"
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "primary_keyword_early": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 17,
+          "readability": 64,
+          "passed": 6,
+          "total": 6
+        },
+        "facts": {
+          "passed": true,
+          "checked": 13,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0054-friendly",
+      "sku": "SKU-0054",
+      "name": "Chikankari Straight Kurta",
+      "category": "Apparel",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b",
+      "eval_notes": "Seed keyword \"cotton kurta\" contradicts the Rayon fabric. It should be dropped, not used.",
+      "product": {
+        "sku": "SKU-0054",
+        "name": "Chikankari Straight Kurta",
+        "category": "Apparel",
+        "subcategory": "Kurta",
+        "brand": "Loomcraft",
+        "price": 2559,
+        "currency": "INR",
+        "features": [
+          "Comes with matching dupatta",
+          "Breathable natural fabric",
+          "Three-quarter sleeves",
+          "Side slits for easy movement",
+          "Hand-finished embroidery"
+        ],
+        "specifications": {
+          "Fabric": "Rayon",
+          "Length": "Calf length",
+          "Neck": "Mandarin",
+          "Care": "Dry clean only"
+        },
+        "attributes": {
+          "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+          ],
+          "occasion": "Office",
+          "gender": "Women"
+        },
+        "image_url": "https://placehold.co/600x600?text=Kurta",
+        "seed_keywords": [
+          "cotton kurta",
+          "ethnic wear"
+        ]
+      },
+      "output": {
+        "title": "Loomcraft Chikankari Straight Kurta with Matching Dupatta",
+        "short_description": "Enjoy a breezy office look with this straight kurta, featuring hand-finished Chikankari embroidery, three-quarter sleeves, side slits and a matching dupatta for a complete ethnic ensemble.",
+        "long_description": "The hand-finished Chikankari embroidery on this kurta catches the eye with its delicate threadwork, giving the straight kurta a subtle sparkle that works well in an office setting. Made from a breathable natural fabric, the piece feels light against the skin, while the mandarin collar adds a touch of modern elegance. Three-quarter sleeves and side slits let you move comfortably through the day, and the matching dupatta completes the look without extra effort.\n\nPair it with tailored trousers or a sleek skirt for a polished ethnic office outfit, and you’ll appreciate the easy-care dry-clean requirement that keeps the kurta looking fresh after each wear. Available in sizes XS to XL, the Loomcraft straight kurta offers a versatile fit for many body types, making it a reliable addition to your work-day wardrobe.",
+        "bullet_points": [
+          "Complete set: includes dupatta",
+          "Breathable comfort: lightweight natural fabric",
+          "Easy movement: side slits and three-quarter sleeves",
+          "Artisan detail: hand-finished Chikankari embroidery",
+          "Office ready: mandarin collar and calf length"
+        ],
+        "seo_keywords": [
+          "straight kurta",
+          "women's kurta",
+          "ethnic wear",
+          "office kurta",
+          "chikankari kurta"
+        ],
+        "meta_description": "Loomcraft straight kurta offers breathable fabric, hand-finished Chikankari embroidery and side slits – ideal for office wear."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 4517,
+        "output_tokens": 3645,
+        "cost_usd": null,
+        "latency_ms": 44166,
+        "attempts": 3,
+        "retry_reasons": [],
+        "effort": "medium"
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "primary_keyword_early": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 20,
+          "readability": 43,
+          "passed": 6,
+          "total": 6
+        },
+        "facts": {
+          "passed": true,
+          "checked": 0,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        },
+        "refine": {
+          "problems": [
+            "Keyword overused (\"matching dupatta\" 4 times): use it at most twice, or four times for the primary keyword."
+          ],
+          "accepted": true,
+          "remaining": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0007-friendly",
+      "sku": "SKU-0007",
+      "name": "CrispAir 4L",
+      "category": "Home & Kitchen",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b",
+      "eval_notes": "Name says 4L but the capacity spec is 5.5 L. Copy should use 5.5 L, not present 4 litres as the capacity.",
+      "product": {
+        "sku": "SKU-0007",
+        "name": "CrispAir 4L",
+        "category": "Home & Kitchen",
+        "subcategory": "Air Fryer",
+        "brand": "Casa Nova",
+        "price": 7189,
+        "currency": "INR",
+        "features": [
+          "Auto shut-off",
+          "Up to 90% less oil than deep frying",
+          "Dishwasher-safe non-stick basket",
+          "Digital touch panel with 8 presets"
+        ],
+        "specifications": {
+          "Capacity": "5.5 L",
+          "Power": "1200 W",
+          "Temperature range": "80-200 °C",
+          "Warranty": "1 year"
+        },
+        "attributes": {
+          "colors": [
+            "Black"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Air%20Fryer",
+        "seed_keywords": [
+          "digital air fryer",
+          "oil free fryer"
+        ]
+      },
+      "output": {
+        "title": "Casa Nova CrispAir 4L Digital Air Fryer, 5.5L Capacity",
+        "short_description": "Enjoy crispy meals with up to 90% less oil, thanks to the Casa Nova CrispAir 4L digital air fryer’s 5.5 L basket and auto shut-off safety.",
+        "long_description": "The Casa Nova CrispAir 4L is a digital air fryer that gives you crispy fries, golden nuggets and crunchy veggies while using up to 90% less oil than a deep fryer. Its 5.5 L non-stick basket holds enough for a family meal, and the 1200 W heating element reaches temperatures from 80 °C to 200 °C in minutes, so you can enjoy fast results without the mess.\n\nJust tap the digital touch panel and choose from eight preset programmes – from fries to chicken to desserts – and the fryer will manage time and temperature for you. With its generous 5.5 L space you can air-fry a whole chicken or a tray of spring rolls in one go. The auto shut-off feature adds safety, while the removable basket is dishwasher-safe, making cleanup a breeze. You also get a one-year warranty for peace of mind.",
+        "bullet_points": [
+          "Oil savings: up to 90% less oil than deep frying",
+          "Spacious cooking: 5.5 L basket fits family meals",
+          "Quick heat: 1200 W reaches 200 °C fast",
+          "Smart presets: eight digital programmes for fries, chicken, desserts",
+          "Easy cleanup: dishwasher-safe non-stick basket and auto shut-off safety"
+        ],
+        "seo_keywords": [
+          "digital air fryer",
+          "5.5 litre air fryer",
+          "1200 watt air fryer",
+          "air fryer with auto shut off",
+          "dishwasher safe air fryer basket",
+          "oil free cooking appliance"
+        ],
+        "meta_description": "Experience healthier cooking with the Casa Nova CrispAir 4L digital air fryer – up to 90% less oil, auto shut-off and easy cleaning."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3689,
+        "output_tokens": 2859,
+        "cost_usd": null,
+        "latency_ms": 33846,
+        "attempts": 2,
+        "retry_reasons": [],
+        "effort": "medium"
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "primary_keyword_early": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 17,
+          "readability": 60,
+          "passed": 6,
+          "total": 6
+        },
+        "facts": {
+          "passed": true,
+          "checked": 18,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0042-friendly",
+      "sku": "SKU-0042",
+      "name": "Hyaluronic Hydra Serum",
+      "category": "Beauty & Personal Care",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b",
+      "eval_notes": "Name says Hyaluronic but the key ingredient is 10% Vitamin C. Copy must not claim hyaluronic acid.",
+      "product": {
+        "sku": "SKU-0042",
+        "name": "Hyaluronic Hydra Serum",
+        "category": "Beauty & Personal Care",
+        "subcategory": "Face Serum",
+        "brand": "PureLeaf",
+        "price": 929,
+        "currency": "INR",
+        "features": [
+          "Suitable for daily use",
+          "Lightweight, fast-absorbing formula",
+          "Dropper for mess-free application",
+          "Fragrance-free"
+        ],
+        "specifications": {
+          "Volume": "30 ml",
+          "Key ingredient": "10% Vitamin C",
+          "Skin type": "Oily and acne-prone"
+        },
+        "attributes": {
+          "concern": "Dehydration",
+          "cruelty_free": true
+        },
+        "image_url": "https://placehold.co/600x600?text=Face%20Serum",
+        "seed_keywords": [
+          "face serum",
+          "serum for glowing skin"
+        ]
+      },
+      "output": {
+        "title": "PureLeaf Hyaluronic Hydra Face Serum, Lightweight, Fragrance-Free",
+        "short_description": "A lightweight, fast-absorbing face serum with 10% Vitamin C, perfect for oily, acne-prone skin; fragrance-free, cruelty-free and easy daily use with a mess-free dropper.",
+        "long_description": "A light drop of this face serum glides over the skin, disappearing in seconds without a trace. The lightweight, fast-absorbing formula feels like a breath of fresh air, suitable for oily and acne-prone skin.\n\nEnriched with 10% Vitamin C, it tackles dehydration while the fragrance-free, mess-free dropper lets you apply the exact amount each day. Suitable for daily use, it leaves the complexion hydrated and balanced without greasiness. Its non-sticky finish means you can follow with moisturizer or makeup right away, and the gentle formula stays calm on sensitive zones.\n\nPureLeaf keeps the formula cruelty-free, and the 30 ml bottle fits neatly on any vanity. When prepping for work or winding down at night, this serum offers a simple, effective step to keep your skin comfortably hydrated. The clear bottle lets you see exactly how much product remains, so you never run out unexpectedly.",
+        "bullet_points": [
+          "Lightweight feel: fast-absorbing formula that disappears instantly",
+          "Daily hydration: 10% Vitamin C combats dehydration",
+          "Mess-free application: dropper delivers exact amount",
+          "Fragrance-free: suitable for sensitive, acne-prone skin",
+          "Cruelty-free: ethically made, 30 ml bottle fits vanity"
+        ],
+        "seo_keywords": [
+          "face serum",
+          "vitamin c serum",
+          "oil control serum",
+          "cruelty free serum",
+          "hydrating face serum",
+          "fragrance free serum"
+        ],
+        "meta_description": "PureLeaf Hyaluronic Hydra Face Serum – lightweight, fragrance-free with 10% Vitamin C for oily, acne-prone skin. Hydrate daily, cruelty-free."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 4540,
+        "output_tokens": 4331,
+        "cost_usd": null,
+        "latency_ms": 51503,
+        "attempts": 2,
+        "retry_reasons": [],
+        "effort": "medium"
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "primary_keyword_early": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 17,
+          "readability": 53,
+          "passed": 6,
+          "total": 6
+        },
+        "facts": {
+          "passed": true,
+          "checked": 6,
+          "unsupported": []
+        },
+        "style": {
+          "passed": false,
+          "issues": [
+            {
+              "type": "cliche",
+              "text": "perfect for"
+            }
+          ]
+        },
+        "refine": {
+          "problems": [
+            "meta_description is 157 characters; make it 120 to 155, keeping \"face serum\" word for word.",
+            "Remove the cliché \"whether you\" and say plainly what it means.",
+            "Remove the cliché \"perfect for\" and say plainly what it means."
+          ],
+          "accepted": true,
+          "remaining": [
+            "Remove the cliché \"perfect for\" and say plainly what it means."
+          ]
+        }
+      }
+    },
+    {
+      "id": "SKU-0060-friendly",
+      "sku": "SKU-0060",
+      "name": "GripFlow Mat",
+      "category": "Sports & Fitness",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b",
+      "eval_notes": "Straightforward yoga mat with good data. Baseline for tone and style.",
+      "product": {
+        "sku": "SKU-0060",
+        "name": "GripFlow Mat",
+        "category": "Sports & Fitness",
+        "subcategory": "Yoga Mat",
+        "brand": "IronPeak",
+        "price": 1779,
+        "currency": "INR",
+        "features": [
+          "Non-slip textured surface",
+          "Extra cushioning for joints",
+          "Lightweight with carry strap"
+        ],
+        "specifications": {
+          "Thickness": "8 mm",
+          "Material": "Natural cork and rubber",
+          "Dimensions": "183 x 61 cm",
+          "Weight": "0.9 kg"
+        },
+        "attributes": {
+          "colors": [
+            "Peach",
+            "Charcoal"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Yoga%20Mat",
+        "seed_keywords": [
+          "exercise mat",
+          "yoga mat"
+        ]
+      },
+      "output": {
+        "title": "IronPeak GripFlow Exercise Mat, Non-Slip Cork Surface",
+        "short_description": "Enjoy stable, cushioned practice on the IronPeak GripFlow Exercise Mat – an 8 mm cork-rubber surface that stays firm, comforts joints, and folds light enough to carry anywhere.",
+        "long_description": "The GripFlow feels different the first time you unroll it. Its natural cork and rubber blend creates a textured, non-slip surface that grips the floor and your feet, giving you confidence in every pose on this exercise mat. The subtle, earthy scent of cork adds a calming note to your practice, while the 8 mm thickness cushions your joints without feeling bulky. Measuring 183 by 61 centimetres, it offers ample space for full-body flows, and the lightweight 0.9 kg build means you can move it from room to room in seconds.\n\nCarry it effortlessly with the attached strap, and choose between soothing Peach or sleek Charcoal to match your studio vibe. When you flow through vinyasa, hold a restorative pose, or add a few stretches after a run, the extra cushioning protects knees and wrists, while the non-slip texture keeps you steady even when you break a sweat. It’s a simple, reliable companion for every workout.",
+        "bullet_points": [
+          "Secure footing: Non-slip textured surface grips floor and feet",
+          "Joint comfort: 8 mm extra cushioning protects knees and wrists",
+          "Easy transport: Lightweight 0.9 kg with built-in carry strap",
+          "Spacious area: 183 × 61 cm surface for full-body flows",
+          "Style choice: Available in Peach or Charcoal"
+        ],
+        "seo_keywords": [
+          "exercise mat",
+          "yoga mat",
+          "cork yoga mat",
+          "non slip yoga mat",
+          "lightweight exercise mat",
+          "extra cushioning yoga mat",
+          "ironpeak exercise mat"
+        ],
+        "meta_description": "Find stability and comfort with the IronPeak GripFlow exercise mat – non-slip cork surface, 8 mm cushioning and a handy carry strap for every workout."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 4479,
+        "output_tokens": 3383,
+        "cost_usd": null,
+        "latency_ms": 63206,
+        "attempts": 2,
+        "retry_reasons": [],
+        "effort": "medium"
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "primary_keyword_early": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 14,
+          "readability": 56,
+          "passed": 6,
+          "total": 6
+        },
+        "facts": {
+          "passed": true,
+          "checked": 10,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        },
+        "refine": {
+          "problems": [
+            "Remove the cliché \"whether you\" and say plainly what it means."
+          ],
+          "accepted": true,
+          "remaining": []
+        }
+      }
+    }
+  ]
+}

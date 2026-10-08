@@ -27,26 +27,67 @@ export function checkCompleteness(product) {
 
 const LIMITS = { title: 70, meta_description: 155 };
 
+const wordsOf = (text) => text.split(/\s+/).filter(Boolean);
+
+// Flesch reading ease: 60-70 is plain English, higher is easier. Syllables are estimated
+// from vowel groups, which is close enough for comparing descriptions with each other.
+export function readingEase(text) {
+  const words = wordsOf(text.replace(/[^A-Za-z\s.!?]/g, ' '));
+  if (!words.length) return null;
+  const sentences = Math.max(1, (text.match(/[.!?]+(\s|$)/g) ?? []).length);
+  const syllables = words.reduce((sum, word) => {
+    const groups = word.toLowerCase().replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '').match(/[aeiouy]{1,2}/g);
+    return sum + Math.max(1, groups?.length ?? 1);
+  }, 0);
+  return Math.round(206.835 - 1.015 * (words.length / sentences) - 84.6 * (syllables / words.length));
+}
+
 export function checkSeo(output) {
   const body = `${output.title} ${output.short_description} ${output.long_description} ${output.bullet_points.join(' ')}`.toLowerCase();
   const keywords = output.seo_keywords.map((keyword) => keyword.toLowerCase());
   const covered = keywords.filter((keyword) => body.includes(keyword));
   const primary = keywords[0] ?? '';
+  const intro = wordsOf(output.long_description).slice(0, 100).join(' ').toLowerCase();
 
   const checks = {
     title_length_ok: output.title.length <= LIMITS.title,
     meta_length_ok: output.meta_description.length <= LIMITS.meta_description,
     primary_keyword_in_title: primary !== '' && output.title.toLowerCase().includes(primary),
     primary_keyword_in_meta: primary !== '' && output.meta_description.toLowerCase().includes(primary),
+    primary_keyword_early: primary !== '' && intro.includes(primary),
     bullet_count_ok: output.bullet_points.length >= 3 && output.bullet_points.length <= 6,
   };
 
   return {
     ...checks,
     keyword_coverage: keywords.length ? Math.round((covered.length / keywords.length) * 100) : 0,
+    readability: readingEase(`${output.short_description} ${output.long_description}`),
     passed: Object.values(checks).filter(Boolean).length,
     total: Object.keys(checks).length,
   };
+}
+
+// Consistency across a batch or a catalog: copy that should differ but doesn't (duplicate
+// titles, several products opening the same way), and lengths far from the batch's typical
+// one. items: [{ id, title, long_description, sparse? }]; sparse products are short on purpose.
+export function checkConsistency(items) {
+  const normal = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const opening = (item) => normal(item.long_description).split(' ').slice(0, 4).join(' ');
+  const repeated = (key) => Object.values(Object.groupBy(items, key)).filter((group) => group.length > 1);
+
+  const lengths = items.filter((item) => !item.sparse).map((item) => wordsOf(item.long_description).length).sort((a, b) => a - b);
+  const median = lengths.length ? lengths[Math.floor(lengths.length / 2)] : 0;
+  const lengthOutliers = items
+    .filter((item) => !item.sparse && median)
+    .map((item) => ({ id: item.id, words: wordsOf(item.long_description).length, median }))
+    .filter(({ words }) => words < median * 0.5 || words > median * 1.75);
+
+  const result = {
+    duplicate_titles: repeated((item) => normal(item.title)).map((group) => ({ title: group[0].title, ids: group.map((item) => item.id) })),
+    repeated_openings: repeated(opening).map((group) => ({ opening: opening(group[0]), ids: group.map((item) => item.id) })),
+    length_outliers: lengthOutliers,
+  };
+  return { passed: Object.values(result).every((list) => !list.length), ...result };
 }
 
 // ---------------------------------------------------------------------------
@@ -290,6 +331,12 @@ export function checkStyle(output, options = {}) {
     if (count > (i === 0 ? 4 : 2)) issues.push({ type: 'keyword_stuffing', text: `"${output.seo_keywords[i]}" ${count} times` });
   });
 
+  // Words the retailer asked never to see (onboarding's "words to avoid").
+  for (const word of options.brand?.avoid_words ?? []) {
+    const pattern = new RegExp(`\\b${word.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`);
+    if (pattern.test(`${lower}\n${output.meta_description.toLowerCase()}`)) issues.push({ type: 'avoided_word', text: word });
+  }
+
   const exclamations = (body.match(/!/g) ?? []).length;
   if (exclamations > (options.tone === 'playful' ? 1 : 0)) issues.push({ type: 'exclamation', text: `${exclamations} exclamation mark(s)` });
 
@@ -306,4 +353,28 @@ export function checkStyle(output, options = {}) {
   if (lowercase.length) issues.push({ type: 'title_case', text: lowercase.join(', ') });
 
   return { passed: issues.length === 0, issues };
+}
+
+const copyText = (output) =>
+  [output.title, output.short_description, output.long_description, output.bullet_points.join(' '), output.meta_description]
+    .join(' ')
+    .toLowerCase();
+
+// The brand profile's "avoid" list, e.g. "cheap, best in the world": any of these in the copy is a miss.
+// `brand` is a brand profile (services/brand.js) or a retailer row.
+export function checkBrand(output, brand) {
+  const avoid = (Array.isArray(brand?.avoid_words) ? brand.avoid_words : (brand?.words_to_avoid ?? '').split(/[,;\n]/))
+    .map((word) => word.trim().toLowerCase())
+    .filter(Boolean);
+  const text = copyText(output);
+  const found = avoid.filter((word) => new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(text));
+  return { brand: brand?.seller ?? brand?.business_name ?? null, avoid_words: avoid, avoid_words_found: found, ok: found.length === 0 };
+}
+
+// Which real shopper searches (from market insights) the copy and keywords picked up.
+export function checkMarket(output, market) {
+  if (!market) return null;
+  const text = `${copyText(output)} ${output.seo_keywords.join(' ').toLowerCase()}`;
+  const used = (market.search_terms ?? []).filter((term) => text.includes(term));
+  return { query: market.query, sources: market.sources, search_terms: market.search_terms, search_terms_used: used };
 }

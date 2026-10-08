@@ -1,0 +1,1334 @@
+{
+  "run": {
+    "date": "2026-10-08T08:50:12.300Z",
+    "provider": "groq",
+    "length": "medium",
+    "tones": [
+      "friendly"
+    ],
+    "configs": [
+      "openai/gpt-oss-120b, effort medium"
+    ],
+    "prompt_version": "45980aed"
+  },
+  "results": [
+    {
+      "id": "SKU-0001-friendly",
+      "sku": "SKU-0001",
+      "name": "AirFlow Pro",
+      "category": "Electronics",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Sparse: one feature, no specs, no brand. Copy should be short and invent no battery life, codec or rating.",
+      "product": {
+        "sku": "SKU-0001",
+        "name": "AirFlow Pro",
+        "category": "Electronics",
+        "subcategory": "Wireless Earbuds",
+        "price": 7039,
+        "currency": "INR",
+        "features": [
+          "Touch controls"
+        ],
+        "specifications": {},
+        "attributes": {
+          "colors": [
+            "Sage Green",
+            "Ocean Blue"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Wireless%20Earbuds",
+        "seed_keywords": [
+          "wireless earbuds",
+          "bluetooth earphones"
+        ]
+      },
+      "output": {
+        "title": "AirFlow Pro Wireless Earbuds, Touch Controls, Sage Green & Ocean Blue",
+        "short_description": "Enjoy simple touch controls and vibrant Sage Green or Ocean Blue colour options with the AirFlow Pro wireless earbuds.",
+        "long_description": "A tap on the AirFlow Pro earbuds instantly plays, pauses or skips your favourite tracks. These wireless earbuds let you stay hands-free while the smooth Sage Green or cool Ocean Blue finish adds a splash of style. Touch controls mean you never need to fumble with your phone during a workout or commute.",
+        "bullet_points": [
+          "Easy tap control: touch controls manage play, pause and skip",
+          "Hands-free listening: wireless earbuds stay connected without cords",
+          "Colour choice: available in Sage Green and Ocean Blue"
+        ],
+        "seo_keywords": [
+          "wireless earbuds",
+          "bluetooth earphones",
+          "touch control earbuds",
+          "sage green earbuds",
+          "ocean blue earbuds"
+        ],
+        "meta_description": "AirFlow Pro wireless earbuds with touch controls and stylish Sage Green or Ocean Blue colours – tap to play, pause or skip effortlessly."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3655,
+        "output_tokens": 1657,
+        "cost_usd": null,
+        "latency_ms": 4506,
+        "attempts": 1,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 40,
+          "sparse": true,
+          "issues": [
+            "No brand",
+            "Fewer than 3 features",
+            "Fewer than 2 specifications"
+          ]
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 20,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 0,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0033-friendly",
+      "sku": "SKU-0033",
+      "name": "AirFlow Pro",
+      "category": "Electronics",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Feature-rich earbuds. IPX5 is sweat resistance: watch for \"waterproof\". Uses 38 hours, 13 mm, Bluetooth 5.3 exactly?",
+      "product": {
+        "sku": "SKU-0033",
+        "name": "AirFlow Pro",
+        "category": "Electronics",
+        "subcategory": "Wireless Earbuds",
+        "brand": "Sonora",
+        "price": 2549,
+        "currency": "INR",
+        "features": [
+          "Active noise cancellation",
+          "Low-latency gaming mode",
+          "IPX5 sweat resistance",
+          "Touch controls",
+          "Dual-device pairing"
+        ],
+        "specifications": {
+          "Battery life": "38 hours with case",
+          "Driver size": "13 mm",
+          "Bluetooth": "5.3",
+          "Weight": "4 g per bud"
+        },
+        "attributes": {
+          "colors": [
+            "Midnight Black",
+            "Pearl White"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Wireless%20Earbuds",
+        "seed_keywords": [
+          "noise cancelling earbuds",
+          "bluetooth earphones"
+        ]
+      },
+      "output": {
+        "title": "Sonora AirFlow Pro Noise Cancelling Earbuds, Active ANC & Gaming Mode",
+        "short_description": "These Sonora AirFlow Pro noise cancelling earbuds deliver active ANC, low-latency gaming mode, IPX5 sweat resistance and up to 38 hours of playtime, all in a lightweight 4 g design.",
+        "long_description": "The Sonora AirFlow Pro noise cancelling earbuds let you drift into your music while the world fades away. With active noise cancellation and a low-latency gaming mode, you stay focused whether you’re on a call, in a playlist, or battling online.\n\nEnjoy up to 38 hours of playtime with the charging case, and each earbud weighs just 4 g, so they feel barely there. The 13 mm drivers deliver clear sound, while IPX5 sweat resistance keeps them safe during workouts. Touch controls let you pause, skip or answer calls with a tap, and dual-device pairing means you can hop between your phone and laptop without re-pairing.\n\nChoose between Midnight Black or Pearl White to match your style, and stay connected with Bluetooth 5.3 for a stable link. Whether you’re commuting, exercising, or gaming, these earbuds give you the freedom to move and hear clearly.",
+        "bullet_points": [
+          "Long-lasting power: 38 hours of playback with charging case",
+          "Active noise cancellation: blocks ambient sound for immersive listening",
+          "Low-latency gaming mode: smooth audio sync during play",
+          "Sweat-proof design: IPX5 resistance for workouts",
+          "Touch control & dual pairing: easy commands and switch between devices"
+        ],
+        "seo_keywords": [
+          "noise cancelling earbuds",
+          "bluetooth earphones",
+          "wireless earbuds",
+          "sonora earbuds",
+          "gaming earbuds",
+          "sweat resistant earbuds",
+          "touch control earbuds"
+        ],
+        "meta_description": "Experience Sonora AirFlow Pro noise cancelling earbuds with 38-hour battery, IPX5 sweat resistance and low-latency gaming mode – perfect for music, calls and play."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3689,
+        "output_tokens": 2590,
+        "cost_usd": null,
+        "latency_ms": 15344,
+        "attempts": 2,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": false,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 14,
+          "passed": 4,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 12,
+          "unsupported": []
+        },
+        "style": {
+          "passed": false,
+          "issues": [
+            {
+              "type": "cliche",
+              "text": "whether you"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "SKU-0018-friendly",
+      "sku": "SKU-0018",
+      "name": "Orbit Fit",
+      "category": "Electronics",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Smartwatch with many figures (2.01-inch, 12 days, 5 ATM, 100+ modes). Watch for unit drift (5 ATM is not 50 m).",
+      "product": {
+        "sku": "SKU-0018",
+        "name": "Orbit Fit",
+        "category": "Electronics",
+        "subcategory": "Smartwatch",
+        "brand": "Voltix",
+        "price": 12269,
+        "currency": "INR",
+        "features": [
+          "Bluetooth calling",
+          "Built-in GPS",
+          "5 ATM water resistance",
+          "100+ sports modes"
+        ],
+        "specifications": {
+          "Display": "2.01-inch AMOLED",
+          "Battery life": "Up to 12 days",
+          "Water resistance": "5 ATM",
+          "Compatibility": "Android and iOS"
+        },
+        "attributes": {
+          "strap": "Metal mesh",
+          "colors": [
+            "Rose Gold",
+            "Graphite"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Smartwatch",
+        "seed_keywords": [
+          "smart watch with calling",
+          "fitness tracker"
+        ]
+      },
+      "output": {
+        "title": "Voltix Orbit Fit Smartwatch With Calling, GPS, 5 ATM Water Resistance",
+        "short_description": "A smartwatch with calling that lets you answer calls, track routes with GPS, and stay active with 100+ sports modes, all backed by 5 ATM water resistance.",
+        "long_description": "The moment you fasten the metal mesh strap, the 2.01-inch AMOLED display lights up with vivid colours, making the Orbit Fit feel like a piece of tech jewellery. This smartwatch with calling lets you pick up a call straight from your wrist, so you never have to fumble for your phone during a workout or a meeting. Built-in GPS maps your routes without needing a phone, and the 5 ATM water resistance means rain or a swim won’t slow you down.\n\nYou’ll enjoy up to 12 days of battery life on a single charge, keeping the watch on through work weeks and weekend adventures. With more than 100 sports modes, it acts as a fitness tracker that records everything from cycling to yoga, and all data syncs smoothly with Android and iOS devices. Notifications, music control and health stats appear on the crisp screen, so you stay informed without reaching for your phone.",
+        "bullet_points": [
+          "Answer calls hands-free: Bluetooth calling lets you speak directly from the watch",
+          "Never miss a turn: Built-in GPS maps routes, making it a reliable GPS smartwatch",
+          "All-day endurance: Up to 12 days of battery life on a single charge",
+          "Stay active: Over 100 sports modes monitor a wide range of workouts",
+          "Ready for any splash: 5 ATM water resistance protects this metal mesh strap smartwatch"
+        ],
+        "seo_keywords": [
+          "smartwatch with calling",
+          "fitness tracker",
+          "5 ATM smartwatch",
+          "GPS smartwatch",
+          "metal mesh strap smartwatch",
+          "Voltix smartwatch"
+        ],
+        "meta_description": "Voltix Orbit Fit smartwatch with calling offers GPS, 5 ATM water resistance and up to 12 days battery, perfect for staying connected and tracking fitness."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3686,
+        "output_tokens": 4492,
+        "cost_usd": null,
+        "latency_ms": 57579,
+        "attempts": 3,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 67,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 12,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0054-friendly",
+      "sku": "SKU-0054",
+      "name": "Chikankari Straight Kurta",
+      "category": "Apparel",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Seed keyword \"cotton kurta\" contradicts the Rayon fabric. It should be dropped, not used.",
+      "product": {
+        "sku": "SKU-0054",
+        "name": "Chikankari Straight Kurta",
+        "category": "Apparel",
+        "subcategory": "Kurta",
+        "brand": "Loomcraft",
+        "price": 2559,
+        "currency": "INR",
+        "features": [
+          "Comes with matching dupatta",
+          "Breathable natural fabric",
+          "Three-quarter sleeves",
+          "Side slits for easy movement",
+          "Hand-finished embroidery"
+        ],
+        "specifications": {
+          "Fabric": "Rayon",
+          "Length": "Calf length",
+          "Neck": "Mandarin",
+          "Care": "Dry clean only"
+        },
+        "attributes": {
+          "sizes": [
+            "XS",
+            "S",
+            "M",
+            "L",
+            "XL"
+          ],
+          "occasion": "Office",
+          "gender": "Women"
+        },
+        "image_url": "https://placehold.co/600x600?text=Kurta",
+        "seed_keywords": [
+          "cotton kurta",
+          "ethnic wear"
+        ]
+      },
+      "error": "LLM request failed (413): Request too large for model `openai/gpt-oss-120b` in organization `org_01krc57wrkfhes6v57bx4g5wpj` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 8208, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing"
+    },
+    {
+      "id": "SKU-0037-friendly",
+      "sku": "SKU-0037",
+      "name": "Trail Blaze",
+      "category": "Apparel",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Sparse running shoes: one feature, no specs, no brand. No invented cushioning tech, weight or drop.",
+      "product": {
+        "sku": "SKU-0037",
+        "name": "Trail Blaze",
+        "category": "Apparel",
+        "subcategory": "Running Shoes",
+        "price": 2639,
+        "currency": "INR",
+        "features": [
+          "Responsive foam midsole"
+        ],
+        "specifications": {},
+        "attributes": {
+          "sizes": [
+            "UK 6",
+            "UK 7",
+            "UK 8",
+            "UK 9",
+            "UK 10"
+          ],
+          "gender": "Women",
+          "terrain": "Treadmill"
+        },
+        "image_url": "https://placehold.co/600x600?text=Running%20Shoes",
+        "seed_keywords": [
+          "running shoes",
+          "lightweight trainers"
+        ]
+      },
+      "output": {
+        "title": "Trail Blaze Women’s Running Shoes, Responsive Foam Midsole",
+        "short_description": "These Trail Blaze women’s running shoes feature a responsive foam midsole for smooth treadmill runs and come in UK sizes 6 to 10.",
+        "long_description": "Feel the spring in every step with the responsive foam midsole of the Trail Blaze women’s running shoes, giving you a smooth ride on the treadmill. Designed for women, they fit UK sizes 6 through 10, so you’ll find the right match without hassle. The sleek silhouette keeps you looking fresh while you log miles.",
+        "bullet_points": [
+          "Responsive comfort: foam midsole cushions each stride",
+          "Perfect fit: UK sizes 6 to 10 for women",
+          "Treadmill ready: smooth ride on indoor tracks"
+        ],
+        "seo_keywords": [
+          "running shoes",
+          "women's running shoes",
+          "treadmill running shoes",
+          "responsive foam shoes",
+          "UK size running shoes",
+          "lightweight trainers"
+        ],
+        "meta_description": "Explore Trail Blaze women’s running shoes with a responsive foam midsole for smooth treadmill runs, available in UK sizes 6-10."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3688,
+        "output_tokens": 1913,
+        "cost_usd": null,
+        "latency_ms": 4764,
+        "attempts": 1,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 40,
+          "sparse": true,
+          "issues": [
+            "No brand",
+            "Fewer than 3 features",
+            "Fewer than 2 specifications"
+          ]
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 17,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 8,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0007-friendly",
+      "sku": "SKU-0007",
+      "name": "CrispAir 4L",
+      "category": "Home & Kitchen",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Name says 4L but the capacity spec is 5.5 L. Copy should use 5.5 L, not present 4 litres as the capacity.",
+      "product": {
+        "sku": "SKU-0007",
+        "name": "CrispAir 4L",
+        "category": "Home & Kitchen",
+        "subcategory": "Air Fryer",
+        "brand": "Casa Nova",
+        "price": 7189,
+        "currency": "INR",
+        "features": [
+          "Auto shut-off",
+          "Up to 90% less oil than deep frying",
+          "Dishwasher-safe non-stick basket",
+          "Digital touch panel with 8 presets"
+        ],
+        "specifications": {
+          "Capacity": "5.5 L",
+          "Power": "1200 W",
+          "Temperature range": "80-200 °C",
+          "Warranty": "1 year"
+        },
+        "attributes": {
+          "colors": [
+            "Black"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Air%20Fryer",
+        "seed_keywords": [
+          "digital air fryer",
+          "oil free fryer"
+        ]
+      },
+      "error": "LLM request failed (413): Request too large for model `openai/gpt-oss-120b` in organization `org_01krc57wrkfhes6v57bx4g5wpj` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 8181, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing"
+    },
+    {
+      "id": "SKU-0008-friendly",
+      "sku": "SKU-0008",
+      "name": "Percale Comfort Set",
+      "category": "Home & Kitchen",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Seed keyword \"cotton bedsheet\" contradicts the Microfibre material. \"Two pillow covers\" is fine.",
+      "product": {
+        "sku": "SKU-0008",
+        "name": "Percale Comfort Set",
+        "category": "Home & Kitchen",
+        "subcategory": "Bedsheet Set",
+        "brand": "HearthWare",
+        "price": 1889,
+        "currency": "INR",
+        "features": [
+          "Includes two pillow covers",
+          "Soft, breathable weave",
+          "Fade-resistant colours"
+        ],
+        "specifications": {
+          "Thread count": "180 TC",
+          "Material": "Microfibre",
+          "Size": "Queen",
+          "Contents": "1 bedsheet, 2 pillow covers"
+        },
+        "attributes": {
+          "pattern": "Stripes",
+          "colors": [
+            "Ivory",
+            "Indigo"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Bedsheet%20Set",
+        "seed_keywords": [
+          "double bedsheet with pillow covers",
+          "cotton bedsheet"
+        ]
+      },
+      "output": {
+        "title": "HearthWare Percale Comfort Queen Bedsheet Set with Pillow Covers",
+        "short_description": "Enjoy soft, breathable microfibre sheets with fade-resistant ivory-indigo stripes, plus two matching pillow covers – a complete queen set for cozy nights.",
+        "long_description": "The soft, breathable weave of the microfibre feels gentle against the skin, while the ivory and indigo stripes add a calm, stylish touch. As a queen bedsheet set, it offers a generous 180 TC count that balances smoothness with durability, making nightly comfort effortless.\n\nThe fade-resistant colours stay vivid wash after wash, and the set comes with two matching pillow covers for a coordinated look. It’s a queen bedsheet with pillow covers that match the striped design.\n\nWhether you’re curling up with a good book or drifting to sleep, the breathable fabric helps regulate temperature, keeping you cool in summer and cosy in winter. The striped pattern adds a subtle decorative accent to any bedroom décor, making the set a practical yet stylish upgrade.",
+        "bullet_points": [
+          "Soft breathable feel: microfibre weave with 180 TC",
+          "Stylish stripes: ivory and indigo fade-resistant colours",
+          "Complete set: 1 bedsheet and 2 pillow covers",
+          "Easy care: tumble dry low, colours stay vivid",
+          "Temperature regulation: breathable fabric keeps you cool or cosy"
+        ],
+        "seo_keywords": [
+          "queen bedsheet set",
+          "bedsheet with pillow covers",
+          "microfibre bedsheet",
+          "striped bedsheet",
+          "fade resistant bedsheet",
+          "queen size bedding"
+        ],
+        "meta_description": "HearthWare queen bedsheet set offers soft microfibre, fade-resistant ivory-indigo stripes and matching pillow covers for breathable, stylish sleep."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3687,
+        "output_tokens": 4291,
+        "cost_usd": null,
+        "latency_ms": 9619,
+        "attempts": 1,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 33,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 4,
+          "unsupported": []
+        },
+        "style": {
+          "passed": false,
+          "issues": [
+            {
+              "type": "cliche",
+              "text": "whether you"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "SKU-0011-friendly",
+      "sku": "SKU-0011",
+      "name": "Matte Shield Sunscreen",
+      "category": "Beauty & Personal Care",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Seed keyword \"sunscreen spf 50\" contradicts SPF 30. Any SPF 50 in the copy is a serious error.",
+      "product": {
+        "sku": "SKU-0011",
+        "name": "Matte Shield Sunscreen",
+        "category": "Beauty & Personal Care",
+        "subcategory": "Sunscreen",
+        "brand": "Derma Lab",
+        "price": 859,
+        "currency": "INR",
+        "features": [
+          "Works under makeup",
+          "Water resistant for 80 minutes",
+          "No white cast",
+          "Broad spectrum UVA and UVB protection",
+          "Non-greasy finish"
+        ],
+        "specifications": {
+          "SPF": "SPF 30",
+          "PA": "PA++++",
+          "Volume": "50 g",
+          "Texture": "Cream"
+        },
+        "attributes": {
+          "skin_type": "Oily"
+        },
+        "image_url": "https://placehold.co/600x600?text=Sunscreen",
+        "seed_keywords": [
+          "sunscreen spf 50",
+          "sunscreen for oily skin"
+        ]
+      },
+      "output": {
+        "title": "Derma Lab Matte Shield Sunscreen SPF 30, Non-Greasy Finish",
+        "short_description": "Enjoy a lightweight, non-greasy sunscreen that stays invisible under makeup, resists water for 80 minutes and protects oily skin with SPF 30 and PA++++ broad-spectrum coverage.",
+        "long_description": "A creamy, non-greasy veil glides over your skin, leaving no white cast and feeling feather-light under makeup. This Derma Lab Matte Shield Sunscreen SPF 30 delivers broad-spectrum UVA and UVB protection with a PA++++ rating, packed in a 50 g cream tube. The smooth texture lets you apply it quickly, and because it stays invisible, your foundation looks flawless all day.\n\nDesigned for oily skin, the formula controls shine while keeping your skin safe from sun damage. It resists water for up to 80 minutes, so a quick splash or a sweaty workout won’t wash the protection away. With its lightweight finish you can reapply throughout the day daily without feeling heavy, making it a reliable companion for outdoor errands or beach trips.",
+        "bullet_points": [
+          "Invisible under makeup: no white cast and non-greasy finish",
+          "Strong sun defence: SPF 30 and PA++++ broad-spectrum protection",
+          "Water resistant: stays effective for 80 minutes",
+          "Oil-control formula: suited for oily skin",
+          "Lightweight cream: 50 g tube feels feather-light"
+        ],
+        "seo_keywords": [
+          "sunscreen SPF 30",
+          "sunscreen for oily skin",
+          "non greasy sunscreen",
+          "water resistant sunscreen",
+          "broad spectrum sunscreen",
+          "SPF 30 cream",
+          "matte sunscreen"
+        ],
+        "meta_description": "Derma Lab Matte Shield Sunscreen SPF 30 offers a non-greasy, no-white-cast formula that stays on oily skin and resists water for 80 minutes."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3689,
+        "output_tokens": 2724,
+        "cost_usd": null,
+        "latency_ms": 48666,
+        "attempts": 2,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 14,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 11,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0042-friendly",
+      "sku": "SKU-0042",
+      "name": "Hyaluronic Hydra Serum",
+      "category": "Beauty & Personal Care",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Name says Hyaluronic but the key ingredient is 10% Vitamin C. Copy must not claim hyaluronic acid.",
+      "product": {
+        "sku": "SKU-0042",
+        "name": "Hyaluronic Hydra Serum",
+        "category": "Beauty & Personal Care",
+        "subcategory": "Face Serum",
+        "brand": "PureLeaf",
+        "price": 929,
+        "currency": "INR",
+        "features": [
+          "Suitable for daily use",
+          "Lightweight, fast-absorbing formula",
+          "Dropper for mess-free application",
+          "Fragrance-free"
+        ],
+        "specifications": {
+          "Volume": "30 ml",
+          "Key ingredient": "10% Vitamin C",
+          "Skin type": "Oily and acne-prone"
+        },
+        "attributes": {
+          "concern": "Dehydration",
+          "cruelty_free": true
+        },
+        "image_url": "https://placehold.co/600x600?text=Face%20Serum",
+        "seed_keywords": [
+          "face serum",
+          "serum for glowing skin"
+        ]
+      },
+      "error": "LLM request failed (413): Request too large for model `openai/gpt-oss-120b` in organization `org_01krc57wrkfhes6v57bx4g5wpj` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 8176, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing"
+    },
+    {
+      "id": "SKU-0013-friendly",
+      "sku": "SKU-0013",
+      "name": "Power Hitter",
+      "category": "Sports & Fitness",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Seed keyword \"kashmir willow bat\" contradicts the English willow spec. Beginner level, tennis ball.",
+      "product": {
+        "sku": "SKU-0013",
+        "name": "Power Hitter",
+        "category": "Sports & Fitness",
+        "subcategory": "Cricket Bat",
+        "brand": "FlexCore",
+        "price": 3119,
+        "currency": "INR",
+        "features": [
+          "Pre-knocked and ready to play",
+          "Cane handle with shock absorption",
+          "Thick edges for big hitting"
+        ],
+        "specifications": {
+          "Willow": "Grade 2 English willow",
+          "Weight": "1152 g",
+          "Size": "Size 6",
+          "Grains": "8"
+        },
+        "attributes": {
+          "level": "Beginner",
+          "ball_type": "Tennis ball"
+        },
+        "image_url": "https://placehold.co/600x600?text=Cricket%20Bat",
+        "seed_keywords": [
+          "cricket bat",
+          "kashmir willow bat"
+        ]
+      },
+      "output": {
+        "title": "FlexCore Power Hitter Cricket Bat, Pre-Knocked, Shock-Absorbing Cane Handle",
+        "short_description": "Ready to swing straight out of the box, the FlexCore Power Hitter cricket bat features a shock-absorbing cane handle, thick edges for big hits and Grade 2 English willow for solid performance.",
+        "long_description": "The first thing you notice about this cricket bat is its pre-knocked readiness – there’s no need for any extra preparation before you step onto the pitch. Weighing 1152 g and sized at a comfortable Size 6, it feels balanced in your hands, making it ideal for beginners who practice with a tennis ball. The eight-grain construction adds a solid feel without being too heavy, so you can swing confidently from the first over.\n\nWhat sets the Power Hitter apart is its cane handle designed with shock absorption, so every impact is softened and your wrists stay comfortable during long sessions. Thick edges give you extra surface area for big hitting, helping you send the ball farther with less effort. Crafted from Grade 2 English willow, the bat offers a reliable grain structure that holds up well as you develop your technique, giving you confidence to play more aggressively.",
+        "bullet_points": [
+          "Ready to play: pre-knocked and usable straight out of the box",
+          "Comfortable swing: 1152 g weight and Size 6 for balanced handling",
+          "Shock-absorbing handle: cane construction reduces impact on wrists",
+          "Big-hit edges: thick edges give extra surface for powerful strokes",
+          "Beginner friendly: Grade 2 English willow and eight grains suit tennis-ball play"
+        ],
+        "seo_keywords": [
+          "cricket bat",
+          "English willow cricket bat",
+          "cane handle cricket bat",
+          "beginner cricket bat",
+          "tennis ball cricket bat",
+          "pre-knocked cricket bat"
+        ],
+        "meta_description": "FlexCore Power Hitter cricket bat is pre-knocked, lightweight and features a shock-absorbing cane handle, perfect for beginners playing with a tennis ball."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3683,
+        "output_tokens": 2855,
+        "cost_usd": null,
+        "latency_ms": 6657,
+        "attempts": 1,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": false,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 17,
+          "passed": 4,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 7,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0060-friendly",
+      "sku": "SKU-0060",
+      "name": "GripFlow Mat",
+      "category": "Sports & Fitness",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Straightforward yoga mat with good data. Baseline for tone and style.",
+      "product": {
+        "sku": "SKU-0060",
+        "name": "GripFlow Mat",
+        "category": "Sports & Fitness",
+        "subcategory": "Yoga Mat",
+        "brand": "IronPeak",
+        "price": 1779,
+        "currency": "INR",
+        "features": [
+          "Non-slip textured surface",
+          "Extra cushioning for joints",
+          "Lightweight with carry strap"
+        ],
+        "specifications": {
+          "Thickness": "8 mm",
+          "Material": "Natural cork and rubber",
+          "Dimensions": "183 x 61 cm",
+          "Weight": "0.9 kg"
+        },
+        "attributes": {
+          "colors": [
+            "Peach",
+            "Charcoal"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Yoga%20Mat",
+        "seed_keywords": [
+          "exercise mat",
+          "yoga mat"
+        ]
+      },
+      "output": {
+        "title": "IronPeak GripFlow Exercise Mat, 8mm Cork & Rubber, Non-Slip",
+        "short_description": "Enjoy stable, cushioned practice on the 8 mm GripFlow exercise mat, featuring a non-slip cork-rubber surface and a handy carry strap for easy transport.",
+        "long_description": "The GripFlow exercise mat feels firm yet gentle underfoot, thanks to its 8 mm thick natural cork and rubber construction. Its non-slip textured surface keeps you steady during every pose, while the generous 183 × 61 cm area gives plenty of room to stretch. Choose a soft peach or sleek charcoal finish to match your studio style.\n\nExtra cushioning protects your joints, making longer sessions comfortable, and the mat weighs only 0.9 kg, so you can roll it up and carry it with the built-in strap. Whether you’re practicing yoga or a high-intensity workout, the lightweight design lets you set up quickly and store it without hassle.\n\nThe natural cork also offers antimicrobial properties, so the mat stays fresh between sessions. Simply wipe with a damp cloth after use, and the durable rubber base resists wear, ready for daily practice.",
+        "bullet_points": [
+          "Secure grip: non-slip textured surface",
+          "Joint comfort: 8 mm extra cushioning",
+          "Easy transport: lightweight 0.9 kg with built-in carry strap",
+          "Spacious area: 183 × 61 cm dimensions",
+          "Natural feel: cork and rubber material"
+        ],
+        "seo_keywords": [
+          "exercise mat",
+          "yoga mat",
+          "cork yoga mat",
+          "non slip yoga mat",
+          "lightweight yoga mat",
+          "extra cushioning mat",
+          "portable yoga mat"
+        ],
+        "meta_description": "IronPeak GripFlow exercise mat offers 8 mm cork-rubber cushioning, non-slip texture and a carry strap for comfortable, portable workouts."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3673,
+        "output_tokens": 2820,
+        "cost_usd": null,
+        "latency_ms": 49028,
+        "attempts": 3,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 14,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 11,
+          "unsupported": []
+        },
+        "style": {
+          "passed": false,
+          "issues": [
+            {
+              "type": "cliche",
+              "text": "whether you"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "SKU-0014-friendly",
+      "sku": "SKU-0014",
+      "name": "Tulsi Green Tea",
+      "category": "Grocery & Gourmet",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Seed keyword \"organic green tea\" is unsupported. \"Rich in antioxidants\" must not become a health promise.",
+      "product": {
+        "sku": "SKU-0014",
+        "name": "Tulsi Green Tea",
+        "category": "Grocery & Gourmet",
+        "subcategory": "Green Tea",
+        "brand": "Himalayan Harvest",
+        "price": 719,
+        "currency": "INR",
+        "features": [
+          "Whole-leaf tea",
+          "Rich in antioxidants",
+          "Resealable pouch",
+          "No artificial flavours",
+          "Sourced from hill estates"
+        ],
+        "specifications": {
+          "Net weight": "250 g",
+          "Form": "50 tea bags",
+          "Shelf life": "18 months",
+          "Origin": "Assam"
+        },
+        "attributes": {
+          "diet": [
+            "Vegan",
+            "Gluten-free"
+          ]
+        },
+        "image_url": "https://placehold.co/600x600?text=Green%20Tea",
+        "seed_keywords": [
+          "green tea",
+          "organic green tea"
+        ]
+      },
+      "output": {
+        "title": "Himalayan Harvest Tulsi Green Tea, Whole-leaf",
+        "short_description": "Enjoy Himalayan Harvest Tulsi Green Tea – whole-leaf, vegan and gluten-free, packed in a resealable pouch with 50 tea bags, free from artificial flavours and sourced from hill estates.",
+        "long_description": "Whole-leaf tea from hill estates in Assam gives this green tea a fresh, herbaceous aroma that fills the cup with natural brightness. Each resealable pouch holds 50 individually sealed tea bags, making it easy to brew a cup at home or on the go. The blend is vegan and gluten-free, and contains no artificial flavours, so you enjoy a pure taste every time.\n\nThe tea’s antioxidant profile adds a subtle health boost, while the 18-month shelf life ensures freshness long after purchase. Simply steep one bag in hot water for two minutes to release the full flavour, then savour the lingering notes of tulsi and green tea leaves. Ideal for morning rituals or afternoon pauses, it brings a calm, revitalising moment to any day.",
+        "bullet_points": [
+          "Whole-leaf freshness: harvested from hill estates in Assam",
+          "Convenient packaging: resealable pouch with 50 tea bags",
+          "Pure taste: no artificial flavours",
+          "Vegan & gluten-free: suitable for plant-based diets",
+          "Long shelf life: 18 months from pack date"
+        ],
+        "seo_keywords": [
+          "green tea",
+          "tulsi green tea",
+          "vegan green tea",
+          "gluten free tea",
+          "whole leaf green tea",
+          "hill estate tea"
+        ],
+        "meta_description": "Himalayan Harvest Tulsi Green Tea delivers whole-leaf, vegan green tea in a resealable pouch – antioxidant-rich, no artificial flavours, fresh pure brew."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3685,
+        "output_tokens": 3841,
+        "cost_usd": null,
+        "latency_ms": 50853,
+        "attempts": 2,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 33,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 5,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    },
+    {
+      "id": "SKU-0047-friendly",
+      "sku": "SKU-0047",
+      "name": "Sea Salt Almond Dark",
+      "category": "Grocery & Gourmet",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Sparse chocolate with \"healthy chocolate\" seed keyword: no health claims, no invented cocoa %.",
+      "product": {
+        "sku": "SKU-0047",
+        "name": "Sea Salt Almond Dark",
+        "category": "Grocery & Gourmet",
+        "subcategory": "Dark Chocolate",
+        "price": 369,
+        "currency": "INR",
+        "features": [
+          "Small-batch production"
+        ],
+        "specifications": {},
+        "attributes": {
+          "diet": [
+            "Vegan"
+          ],
+          "gift_ready": false
+        },
+        "image_url": "https://placehold.co/600x600?text=Dark%20Chocolate",
+        "seed_keywords": [
+          "healthy chocolate",
+          "craft chocolate"
+        ]
+      },
+      "output": {
+        "title": "Sea Salt Dark Chocolate with Almond, Small-Batch Vegan",
+        "short_description": "A vegan dark chocolate made in small batches, packed with crunchy almonds and a hint of sea salt for a satisfying bite.",
+        "long_description": "The bite of this sea salt dark chocolate reveals crunchy almonds and a whisper of sea salt, all crafted in small batches. Its smooth cocoa base stays creamy while the almond pieces add texture, and the vegan recipe means no dairy. Perfect for a quick indulgence that feels both rich and thoughtful.",
+        "bullet_points": [
+          "Small-Batch Quality: Crafted in small batches for fresh flavor",
+          "Vegan Friendly: Contains no dairy ingredients",
+          "Crunchy Almonds: Includes almond pieces for texture"
+        ],
+        "seo_keywords": [
+          "sea salt dark chocolate",
+          "vegan dark chocolate",
+          "almond chocolate",
+          "small batch chocolate",
+          "gourmet vegan chocolate",
+          "dark chocolate snack"
+        ],
+        "meta_description": "Enjoy Sea Salt Dark Chocolate with almond – a vegan, small-batch treat that offers creamy cocoa and a salty crunch, perfect for a guilt-free indulgence."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3656,
+        "output_tokens": 2171,
+        "cost_usd": null,
+        "latency_ms": 53347,
+        "attempts": 2,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 40,
+          "sparse": true,
+          "issues": [
+            "No brand",
+            "Fewer than 3 features",
+            "Fewer than 2 specifications"
+          ]
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 33,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 0,
+          "unsupported": []
+        },
+        "style": {
+          "passed": false,
+          "issues": [
+            {
+              "type": "cliche",
+              "text": "indulge"
+            },
+            {
+              "type": "cliche",
+              "text": "perfect for"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "SKU-0016-friendly",
+      "sku": "SKU-0016",
+      "name": "Mini Engineers Kit",
+      "category": "Toys & Baby",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Toy with age (6+ years), 500 pieces and BIS certification. Safety copy must stick to the data.",
+      "product": {
+        "sku": "SKU-0016",
+        "name": "Mini Engineers Kit",
+        "category": "Toys & Baby",
+        "subcategory": "Building Blocks",
+        "brand": "Playloop",
+        "price": 3029,
+        "currency": "INR",
+        "features": [
+          "Compatible with major brick brands",
+          "Builds fine motor skills",
+          "Non-toxic, BPA-free plastic"
+        ],
+        "specifications": {
+          "Pieces": "500",
+          "Recommended age": "6+ years",
+          "Material": "ABS plastic",
+          "Certification": "BIS certified"
+        },
+        "attributes": {
+          "theme": "Space"
+        },
+        "image_url": "https://placehold.co/600x600?text=Building%20Blocks",
+        "seed_keywords": [
+          "building blocks",
+          "educational toys"
+        ]
+      },
+      "output": {
+        "title": "Playloop Mini Engineers Kit Building Blocks, Space Theme",
+        "short_description": "A 500-piece space-themed building-blocks set that fits with major brick brands, helps develop fine motor skills, and is made from non-toxic BPA-free plastic.",
+        "long_description": "The moment you open the Playloop Mini Engineers Kit, the bright space-themed pieces spill out, inviting imagination and hours of building blocks fun. With 500 sturdy ABS plastic elements, you can snap together rockets, satellites and alien bases, all while the pieces click together just like the bricks you already own.\n\nBecause the blocks are compatible with major brick brands, they blend seamlessly into any existing collection, giving you endless possibilities without buying extra sets. The design encourages fine motor skill development, and the BPA-free, non-toxic plastic meets BIS certification, so parents can feel confident about safety for kids aged six and up.\n\nYou’ll love watching your child create their own space missions, then easily store the colourful pieces back into the handy box that comes with the kit. Whether building alone or sharing with friends, the Mini Engineers Kit turns playtime into a creative learning adventure.",
+        "bullet_points": [
+          "Compatible play: works with major brick brands",
+          "Motor skill boost: builds fine motor skills",
+          "Safe material: non-toxic BPA-free ABS plastic",
+          "Large set: 500 pieces for endless builds",
+          "Kid-friendly age: suitable for 6+ years"
+        ],
+        "seo_keywords": [
+          "building blocks",
+          "space building blocks",
+          "educational toys",
+          "BIS certified toys",
+          "500 piece building set",
+          "compatible brick toys",
+          "fine motor skill toys"
+        ],
+        "meta_description": "Playloop Mini Engineers Kit building blocks set offers 500 space-themed pieces, BPA-free safety and compatibility with major brick brands for play."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3662,
+        "output_tokens": 3248,
+        "cost_usd": null,
+        "latency_ms": 46224,
+        "attempts": 3,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 100,
+          "sparse": false,
+          "issues": []
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": true,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 14,
+          "passed": 5,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 5,
+          "unsupported": []
+        },
+        "style": {
+          "passed": false,
+          "issues": [
+            {
+              "type": "cliche",
+              "text": "seamless"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "SKU-0048-friendly",
+      "sku": "SKU-0048",
+      "name": "Mini Engineers Kit",
+      "category": "Toys & Baby",
+      "tone": "friendly",
+      "length": "medium",
+      "config": "openai/gpt-oss-120b, effort medium",
+      "eval_notes": "Sparse building blocks: no age range in the data, so the copy must not invent one.",
+      "product": {
+        "sku": "SKU-0048",
+        "name": "Mini Engineers Kit",
+        "category": "Toys & Baby",
+        "subcategory": "Building Blocks",
+        "price": 1399,
+        "currency": "INR",
+        "features": [
+          "Compatible with major brick brands"
+        ],
+        "specifications": {},
+        "attributes": {
+          "theme": "Vehicles"
+        },
+        "image_url": "https://placehold.co/600x600?text=Building%20Blocks",
+        "seed_keywords": [
+          "building blocks",
+          "educational toys"
+        ]
+      },
+      "output": {
+        "title": "Mini Engineers Kit Building Blocks Set – Vehicles Theme",
+        "short_description": "A friendly building blocks kit that works with major brick brands, letting kids create vehicle models like cars, trucks and buses.",
+        "long_description": "You’ll love that the Mini Engineers Kit building blocks snap together with the same bricks you already own, because it’s compatible with major brick brands. The set is themed around vehicles, so little engineers can build cars, trucks and buses right out of the box. It’s a simple way to expand play without buying new pieces.",
+        "bullet_points": [
+          "Easy compatibility: works with major brick brands",
+          "Vehicle theme: lets kids build cars, trucks and buses",
+          "No extra bricks needed: expands play with existing pieces"
+        ],
+        "seo_keywords": [
+          "building blocks",
+          "vehicle building blocks",
+          "compatible brick toys",
+          "building blocks set",
+          "kids construction toys",
+          "educational building blocks"
+        ],
+        "meta_description": "Mini Engineers Kit building blocks set is compatible with major brick brands and features a vehicles theme, letting kids expand play with the pieces they already have."
+      },
+      "meta": {
+        "provider": "groq",
+        "model": "openai/gpt-oss-120b",
+        "input_tokens": 3646,
+        "output_tokens": 1961,
+        "cost_usd": null,
+        "latency_ms": 50751,
+        "attempts": 3,
+        "retry_reasons": []
+      },
+      "quality": {
+        "input": {
+          "score": 40,
+          "sparse": true,
+          "issues": [
+            "No brand",
+            "Fewer than 3 features",
+            "Fewer than 2 specifications"
+          ]
+        },
+        "seo": {
+          "title_length_ok": true,
+          "meta_length_ok": false,
+          "primary_keyword_in_title": true,
+          "primary_keyword_in_meta": true,
+          "bullet_count_ok": true,
+          "keyword_coverage": 33,
+          "passed": 4,
+          "total": 5
+        },
+        "facts": {
+          "passed": true,
+          "checked": 0,
+          "unsupported": []
+        },
+        "style": {
+          "passed": true,
+          "issues": []
+        }
+      }
+    }
+  ]
+}

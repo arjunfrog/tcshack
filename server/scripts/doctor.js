@@ -6,7 +6,7 @@
 import { config } from '../src/config/env.js';
 import { supabase } from '../src/lib/supabase.js';
 
-const TABLES = ['products', 'descriptions', 'generation_jobs', 'generation_job_items', 'feedback', 'retailers'];
+const TABLES = ['products', 'descriptions', 'generation_jobs', 'generation_job_items', 'feedback', 'retailers', 'market_insights'];
 let problems = 0;
 const ok = (message) => console.log(`  ✓ ${message}`);
 const bad = (message, fix) => {
@@ -69,6 +69,10 @@ else ok('VITE_SUPABASE_URL matches SUPABASE_URL');
 if (!viteKey) bad('VITE_SUPABASE_PUBLISHABLE_KEY is not set');
 else if (viteKey.startsWith('sb_secret_')) bad('VITE_SUPABASE_PUBLISHABLE_KEY is a SECRET key', 'Never put the secret key in a VITE_ variable; use sb_publishable_...');
 else ok(`VITE_SUPABASE_PUBLISHABLE_KEY set (${viteKey.slice(0, 15)}…)`);
+
+console.log('\nMarket insights (Anakin)');
+if (config.anakin.apiKey) ok(`ANAKIN_API_KEY set (${config.anakin.apiKey.slice(0, 8)}…): descriptions use live market data`);
+else bad('ANAKIN_API_KEY is not set', 'Optional, but without it descriptions skip market insights');
 
 console.log('\nLLM');
 const provider = config.llm.provider;

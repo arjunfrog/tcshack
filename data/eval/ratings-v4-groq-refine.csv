@@ -1,0 +1,6 @@
+id,sku,category,tone,config,relevance,creativity,comment
+SKU-0018-friendly,SKU-0018,Electronics,friendly,openai/gpt-oss-120b,,,
+SKU-0054-friendly,SKU-0054,Apparel,friendly,openai/gpt-oss-120b,,,
+SKU-0007-friendly,SKU-0007,Home & Kitchen,friendly,openai/gpt-oss-120b,,,
+SKU-0042-friendly,SKU-0042,Beauty & Personal Care,friendly,openai/gpt-oss-120b,,,
+SKU-0060-friendly,SKU-0060,Sports & Fitness,friendly,openai/gpt-oss-120b,,,
