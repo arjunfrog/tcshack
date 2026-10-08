@@ -68,13 +68,13 @@ test('a retailer brand profile goes into the request, with price guidance and ba
   const prompt = buildUserPrompt(product, {
     tone: 'friendly',
     length: 'short',
-    brand: { personality: ['warm', 'playful'], target_customer: 'new runners', price_positioning: 'premium', admired_brands: 'Northline', avoid_words: ['cheap', 'amazing'] },
+    brand: { seller: 'FlexCore', personality: ['warm', 'playful'], target_customer: 'new runners', price_positioning: 'premium', avoid_words: ['cheap', 'amazing'] },
   });
   assert.match(prompt, /Brand profile/);
+  assert.match(prompt, /Seller: FlexCore/);
   assert.match(prompt, /Personality: warm, playful/);
-  assert.match(prompt, /Target customer: new runners/);
+  assert.match(prompt, /Customers: new runners/);
   assert.match(prompt, /never say cheap, affordable or bargain/);
-  assert.match(prompt, /never mention or compare with them/);
-  assert.match(prompt, /Never use these words: cheap, amazing/);
+  assert.match(prompt, /Avoid these words and claims: cheap, amazing/);
   assert.doesNotMatch(buildUserPrompt(product, { tone: 'friendly', length: 'short' }), /Brand profile/);
 });

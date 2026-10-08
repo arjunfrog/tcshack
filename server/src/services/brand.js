@@ -9,13 +9,11 @@ const splitWords = (text) =>
 
 export function brandProfile(retailer) {
   if (!retailer) return undefined;
-  const profile = {
+  return {
+    seller: retailer.business_name || undefined,
     personality: retailer.brand_personality ?? [],
     target_customer: retailer.target_customer || undefined,
     price_positioning: retailer.price_positioning || undefined,
-    admired_brands: retailer.admired_brands || undefined,
     avoid_words: splitWords(retailer.words_to_avoid),
   };
-  const empty = !profile.personality.length && !profile.target_customer && !profile.price_positioning && !profile.admired_brands && !profile.avoid_words.length;
-  return empty ? undefined : profile;
 }

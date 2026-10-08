@@ -100,7 +100,7 @@ test('a reply cut off at the token cap is retried at low effort', async () => {
 test('a request too large for the tier is retried with a smaller token cap', async () => {
   const sent = stub(new Response(JSON.stringify({ error: { message: 'Request too large: Limit 8000, Requested 8208' } }), { status: 413 }), reply(good));
   await generateDescription(product, options);
-  assert.equal(sent[0].max_completion_tokens, 4000);
-  assert.equal(sent[1].max_completion_tokens, 3000);
+  assert.ok(sent[0].max_completion_tokens <= 4000);
+  assert.equal(sent[1].max_completion_tokens, Math.round(sent[0].max_completion_tokens * 0.75));
   assert.equal(sent[1].reasoning_effort, 'low');
 });

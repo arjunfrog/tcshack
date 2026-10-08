@@ -306,3 +306,5 @@ label.checkbox input { width: auto; }
 .facts dt { color: var(--muted); }
 .facts dd { margin: 0; font-variant-numeric: tabular-nums; }
 @media (max-width: 480px) { .bars li { grid-template-columns: 1fr 1fr; } .bar-value { grid-column: 1 / -1; } }
+.chip-used { background: var(--accent); color: var(--accent-text); }
+.chip-unused { opacity: 0.7; }

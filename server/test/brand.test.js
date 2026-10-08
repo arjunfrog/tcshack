@@ -6,13 +6,13 @@ import { checkStyle } from '../src/services/quality.js';
 test('the brand profile comes from the onboarding answers', () => {
   const profile = brandProfile({
     business_name: 'NewBrew', brand_personality: ['bold'], target_customer: 'students', price_positioning: 'budget',
-    admired_brands: '', words_to_avoid: 'cheap, luxury;\nrevolutionary',
+    admired_brands: 'Philips', words_to_avoid: 'cheap, luxury;\nrevolutionary',
   });
   assert.deepEqual(profile, {
-    personality: ['bold'], target_customer: 'students', price_positioning: 'budget', admired_brands: undefined,
+    seller: 'NewBrew', personality: ['bold'], target_customer: 'students', price_positioning: 'budget',
     avoid_words: ['cheap', 'luxury', 'revolutionary'],
   });
-  assert.equal(brandProfile({ brand_personality: [], words_to_avoid: '' }), undefined);
+  assert.equal(JSON.stringify(profile).includes('Philips'), false, 'admired brands stay out');
   assert.equal(brandProfile(undefined), undefined);
 });
 

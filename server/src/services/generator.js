@@ -1,6 +1,7 @@
 import { config } from '../config/env.js';
 import { generateDescription, refineDescription } from '../lib/llm.js';
-import { checkCompleteness, checkFacts, checkSeo, checkStyle } from './quality.js';
+import { brandProfile } from './brand.js';
+import { checkBrand, checkCompleteness, checkFacts, checkMarket, checkSeo, checkStyle } from './quality.js';
 
 // Models often emit typographic hyphens and spaces (non-breaking hyphen U+2011, narrow
 // no-break space). They look identical but break keyword matching for search engines and
@@ -13,14 +14,18 @@ export function cleanOutput(output) {
   );
 }
 
-// Every rule-based check on one product's copy. Also used to score human edits.
-export function qualityReport(product, output, options) {
-  return {
+// Every rule-based check on one product's copy. Also used to score human edits. Brand and
+// market reports appear for retailer generations, which carry a brand profile or insights.
+export function qualityReport(product, output, options, context = {}) {
+  const report = {
     input: checkCompleteness(product),
     seo: checkSeo(output),
     facts: checkFacts(product, output),
     style: checkStyle(output, options),
   };
+  if (options.brand) report.brand = checkBrand(output, options.brand);
+  if (context.market) report.market = checkMarket(output, context.market);
+  return report;
 }
 
 // What a copy editor should fix, in words the model can act on, from a quality report.
@@ -59,12 +64,15 @@ const problemScore = (quality) =>
 // Generate copy for one already-validated product and attach quality reports. If the checks
 // find problems, one short follow-up request asks the model to fix just those, and the fix is
 // kept only if it scores better without adding fact flags. `settings` optionally overrides
-// provider, model or effort (see lib/llm.js); `settings.refine = false` skips the fix.
-export async function generateForProduct(product, options, settings = {}) {
+// provider, model or effort (see lib/llm.js); `settings.refine = false` skips the fix, and
+// `settings.context` adds market insights (and a retailer row, if options carry no brand).
+export async function generateForProduct(product, rawOptions, settings = {}) {
+  const context = settings.context ?? {};
+  const options = { ...rawOptions, brand: rawOptions.brand ?? brandProfile(context.brand) };
   const generated = await generateDescription(product, options, settings);
   const meta = { ...generated.meta };
   let output = cleanOutput(generated.output);
-  let quality = qualityReport(product, output, options);
+  let quality = qualityReport(product, output, options, context);
 
   const problems = config.llm.refine && settings.refine !== false ? refineProblems(quality, output) : [];
   if (problems.length) {
@@ -73,7 +81,7 @@ export async function generateForProduct(product, options, settings = {}) {
       const refined = await refineDescription(product, output, problems, settings);
       if (refined) {
         const candidate = cleanOutput({ ...output, ...refined.changes });
-        const candidateQuality = qualityReport(product, candidate, options);
+        const candidateQuality = qualityReport(product, candidate, options, context);
         const accepted =
           problemScore(candidateQuality) < problemScore(quality) &&
           candidateQuality.facts.unsupported.length <= quality.facts.unsupported.length;

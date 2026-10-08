@@ -17,7 +17,8 @@ export class LlmError extends Error {
 const providerFor = (settings) => settings.provider ?? config.llm.provider;
 
 // Returns { output, meta } where output matches GeneratedDescription.
-// `settings` overrides the configured provider, model or effort for one call (used by the eval script).
+// `settings` overrides the configured provider, model or effort for one call (used by the eval script),
+// and `settings.context` adds market insights (and a retailer row) to the prompt.
 export async function generateDescription(product, options, settings = {}) {
   const provider = providerFor(settings);
   if (provider === 'mock') return mockGenerate(product, options);
@@ -25,7 +26,7 @@ export async function generateDescription(product, options, settings = {}) {
   return chatJson(provider, settings, {
     messages: [
       { role: 'system', content: `${SYSTEM_PROMPT}\n\n${JSON_OUTPUT_INSTRUCTIONS}` },
-      { role: 'user', content: buildUserPrompt(product, options) },
+      { role: 'user', content: buildUserPrompt(product, options, settings.context) },
     ],
     schema: GeneratedDescription,
     jsonSchema: OUTPUT_SCHEMA,
@@ -56,14 +57,25 @@ const OUTPUT_SCHEMA = (() => {
 const responseFormat = (jsonSchema) =>
   jsonSchema ? { type: 'json_schema', json_schema: { name: 'product_description', strict: true, schema: jsonSchema } } : { type: 'json_object' };
 
+// Output cap for Groq: at most 4,000 tokens, and never more than the free tier's 8K
+// tokens-per-minute budget minus the prompt. Prompt tokens are estimated generously
+// (4 characters per token, which matches the 4,000 cap that already fits a plain prompt)
+// plus a safety margin, so the total stays under the limit.
+const GROQ_TPM_LIMIT = 8000;
+export function groqOutputCap(messages) {
+  const promptTokens = Math.ceil(messages.reduce((sum, message) => sum + message.content.length, 0) / 4);
+  return Math.max(1500, Math.min(4000, GROQ_TPM_LIMIT - promptTokens - 200));
+}
+
 // Groq and OpenRouter both speak the OpenAI chat completions API. These are the parts that differ.
 const PROVIDERS = {
   groq: {
     keyName: 'GROQ_API_KEY',
     settings: () => config.groq,
     // Groq's free tier rejects a request (413) when prompt + this cap exceeds its 8K
-    // tokens-per-minute limit. The ~3,700-token prompt leaves room for about 4,000.
-    maxTokens: 4000,
+    // tokens-per-minute limit, so the cap shrinks as the prompt grows (a brand profile and
+    // market insights add to it). A 413 or a cut-off reply still retries smaller and at low effort.
+    maxTokens: (messages) => groqOutputCap(messages),
     // JSON mode guarantees valid JSON but not our shape, so the prompt spells out the fields and Zod checks them.
     body: ({ model, effort, temperature, maxTokens }) => ({
       temperature,
@@ -76,7 +88,7 @@ const PROVIDERS = {
     keyName: 'OPENROUTER_API_KEY',
     settings: () => config.openrouter,
     // Reasoning tokens count toward max_tokens on thinking models (often 10K+), so leave plenty of room.
-    maxTokens: 32000,
+    maxTokens: () => 32000,
     // Not every free model supports response_format; those ignore it and follow the prompt instead.
     body: ({ effort, maxTokens }, jsonSchema) => ({
       response_format: responseFormat(jsonSchema),
@@ -99,7 +111,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // large for the tier) is retried at low reasoning effort, which thinks for fewer tokens.
 async function chatJson(providerId, overrides, { messages, schema, jsonSchema }) {
   const provider = PROVIDERS[providerId];
-  const settings = { ...provider.settings(), maxTokens: provider.maxTokens };
+  const settings = { ...provider.settings(), maxTokens: provider.maxTokens(messages) };
   if (overrides.model) settings.model = overrides.model;
   if (overrides.effort) settings.effort = overrides.effort;
   if (!settings.apiKey) {
