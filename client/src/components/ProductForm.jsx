@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api } from '../api.js';
 import { Spinner } from './Feedback.jsx';
+import { Icon } from './ui.jsx';
 
 export const SAMPLE_PRODUCT = {
   name: 'Pulse Buds',
@@ -62,12 +63,12 @@ export default function ProductForm({ choices, busy, onSubmit }) {
   };
 
   return (
-    <form className="card form" onSubmit={submit}>
-      <div className="card-header">
-        <h2>Product attributes</h2>
-        <div className="row-actions">
-          <button type="button" className="ghost" onClick={() => setForm(SAMPLE_PRODUCT)}>Sample</button>
-          <button type="button" className="ghost" onClick={() => setForm(EMPTY)}>Clear</button>
+    <form className="sidebar panel form-panel" onSubmit={submit}>
+      <div className="sidebar-head">
+        <h2>Product details</h2>
+        <div className="sidebar-tools">
+          <button type="button" className="button-quiet" onClick={() => setForm(SAMPLE_PRODUCT)}>Sample</button>
+          <button type="button" className="button-quiet" onClick={() => setForm(EMPTY)}>Clear</button>
         </div>
       </div>
 
@@ -77,12 +78,12 @@ export default function ProductForm({ choices, busy, onSubmit }) {
         <label>Subcategory<input {...field('subcategory')} /></label>
         <label>Brand<input {...field('brand')} /></label>
         <label>Price (INR)<input type="number" min="0" step="any" {...field('price')} /></label>
-        <label>Seed keywords<input placeholder="comma, separated" {...field('seed_keywords')} /></label>
+        <label>Target searches<input placeholder="comma, separated" {...field('seed_keywords')} /></label>
       </div>
-      <label>Features <small>one per line</small><textarea rows={4} {...field('features')} /></label>
-      <label>Specifications <small>Key: Value, one per line</small><textarea rows={3} {...field('specifications')} /></label>
+      <label>Features <span className="counter">one per line</span><textarea rows={4} {...field('features')} /></label>
+      <label>Specifications <span className="counter">Key: Value, one per line</span><textarea rows={3} {...field('specifications')} /></label>
 
-      <h3>Style</h3>
+      <h3>Voice</h3>
       <div className="grid-2">
         <label>Tone
           <select value={options.tone} onChange={(event) => setOptions({ ...options, tone: event.target.value })}>
@@ -95,7 +96,7 @@ export default function ProductForm({ choices, busy, onSubmit }) {
           </select>
         </label>
       </div>
-      <label>Brand voice notes <small>optional</small>
+      <label>Extra voice notes <span className="counter">optional; your brand profile always applies</span>
         <input
           placeholder="e.g. warm, eco-conscious, no exclamation marks"
           value={options.brand_voice}
@@ -104,14 +105,14 @@ export default function ProductForm({ choices, busy, onSubmit }) {
       </label>
 
       {completeness?.sparse && (
-        <p className="notice-inline" role="status">
+        <p className="inline-alert warn" role="status">
           Thin product data ({completeness.score}/100): {completeness.issues.join(', ').toLowerCase()}. The copy will be kept short
           rather than padded; add more details for a fuller description.
         </p>
       )}
 
-      <button type="submit" className="primary" disabled={busy}>
-        {busy ? <><Spinner /> Generating…</> : 'Generate description'}
+      <button type="submit" className="button-primary" disabled={busy}>
+        {busy ? <><Spinner /> Writing…</> : <><Icon name="sparkle" size={18} />Generate description</>}
       </button>
     </form>
   );

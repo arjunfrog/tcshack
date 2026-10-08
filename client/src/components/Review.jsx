@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '../api.js';
-import DescriptionView, { toResult } from './DescriptionView.jsx';
+import { toResult } from './DescriptionView.jsx';
+import ProductDetail from './ProductDetail.jsx';
+import { Icon, ProductThumb } from './ui.jsx';
 
 const SCORES = [1, 2, 3, 4, 5];
 const COPY_FIELDS = ['title', 'short_description', 'long_description', 'bullet_points', 'meta_description'];
@@ -97,11 +99,13 @@ export default function Review({ onReviewed }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [act, editing, startEditing]);
 
-  if (!queue) return message ? <div className="card error">{message.text}</div> : <div className="card empty">Loading the review queue…</div>;
+  if (!queue) return message ? <div className="inline-alert">{message.text}</div> : <div className="panel placeholder"><p>Loading the review queue…</p></div>;
   if (!item) {
     return (
-      <div className="card empty">
-        Nothing to review. Every draft has your rating. Generate more in Catalog or Batch, or see the results on the Dashboard.
+      <div className="panel placeholder">
+        <Icon name="check" size={40} />
+        <h2>All caught up</h2>
+        <p>Every draft has your rating. Write more in Catalog or Batch, or see the results on the Dashboard.</p>
       </div>
     );
   }
@@ -109,55 +113,52 @@ export default function Review({ onReviewed }) {
   const { product, description } = item;
   return (
     <div className="review">
-      <div className="card review-bar">
-        <div className="review-progress">
-          <strong>{queue.remaining - index} to review</strong>
-          <span className="muted">Keys: 1–5 rate · A approve · R reject · → skip · E edit</span>
+      <section className="panel review-bar" aria-label="Rate this description">
+        <div className="review-head">
+          <ProductThumb product={product} />
+          <div>
+            <strong>{queue.remaining - index} left to review</strong>
+            <span>Keys: 1–5 rate relevance, then creativity. A approves, R rejects, → skips, E edits.</span>
+          </div>
         </div>
-        <ScoreRow label="Relevance" hint="accurate, on-topic, useful to a shopper" value={rating.relevance} active={!rating.relevance} onChange={(relevance) => setRating({ ...rating, relevance })} />
-        <ScoreRow label="Creativity" hint="engaging, human, not generic" value={rating.creativity} active={Boolean(rating.relevance) && !rating.creativity} onChange={(creativity) => setRating({ ...rating, creativity })} />
+        <div className="review-scores">
+          <ScoreRow label="Relevance" hint="Accurate and useful to a shopper" value={rating.relevance} active={!rating.relevance} onChange={(relevance) => setRating({ ...rating, relevance })} />
+          <ScoreRow label="Creativity" hint="Engaging and human, not generic" value={rating.creativity} active={Boolean(rating.relevance) && !rating.creativity} onChange={(creativity) => setRating({ ...rating, creativity })} />
+        </div>
         <input
+          aria-label="Comment"
           placeholder="Comment (optional): what would make it better?"
           value={rating.comment}
           onChange={(event) => setRating({ ...rating, comment: event.target.value })}
         />
-        <div className="row-actions">
-          <button type="button" className="primary inline" disabled={busy} onClick={() => act('approved')}>Approve (A)</button>
-          <button type="button" disabled={busy} onClick={() => act('rejected')}>Reject (R)</button>
-          <button type="button" disabled={busy || Boolean(editing)} onClick={startEditing}>Edit (E)</button>
-          <button type="button" className="ghost" disabled={busy} onClick={() => act('skip')}>{rated ? 'Save rating, next (→)' : 'Skip (→)'}</button>
+        <div className="review-actions">
+          <button type="button" className="button-primary" disabled={busy} onClick={() => act('approved')}><Icon name="check" size={18} />Approve</button>
+          <button type="button" className="button-secondary" disabled={busy} onClick={() => act('rejected')}>Reject</button>
+          <button type="button" className="button-secondary" disabled={busy || Boolean(editing)} onClick={startEditing}>Edit</button>
+          <button type="button" className="button-quiet" disabled={busy} onClick={() => act('skip')}>{rated ? 'Save rating and skip' : 'Skip'}<Icon name="chevron" size={16} /></button>
         </div>
         {message && <p className={`form-message ${message.kind}`}>{message.text}</p>}
-      </div>
+      </section>
 
-      <div className="layout">
-        <section className="card product-card">
-          <h2>{product.brand ? `${product.brand} ` : ''}{product.name}</h2>
-          <p className="muted">{product.sku ?? 'No SKU'} · {product.category}{product.subcategory && ` › ${product.subcategory}`}{product.price != null && ` · ₹${Number(product.price).toLocaleString('en-IN')}`}</p>
-          <Attributes product={product} />
-          <p className="muted">Draft v{description.version} · {description.tone}, {description.length} · {description.model}</p>
+      {editing ? (
+        <section className="panel edit-panel">
+          <div className="edit-head">
+            <h2>Edit copy for {product.brand ? `${product.brand} ` : ''}{product.name}</h2>
+            <p>Saving approves your edited version as a new version; the AI draft stays as it was.</p>
+          </div>
+          <label>Title <span className={`counter ${editing.title.length > 70 ? 'over' : ''}`}>{editing.title.length}/70</span><input value={editing.title} onChange={(event) => setEditing({ ...editing, title: event.target.value })} /></label>
+          <label>Short description<textarea rows={2} value={editing.short_description} onChange={(event) => setEditing({ ...editing, short_description: event.target.value })} /></label>
+          <label>Long description<textarea rows={9} value={editing.long_description} onChange={(event) => setEditing({ ...editing, long_description: event.target.value })} /></label>
+          <label>Bullet points <span className="counter">one per line</span><textarea rows={5} value={editing.bullet_points} onChange={(event) => setEditing({ ...editing, bullet_points: event.target.value })} /></label>
+          <label>Meta description <span className={`counter ${editing.meta_description.length > 155 ? 'over' : ''}`}>{editing.meta_description.length}/155</span><textarea rows={2} value={editing.meta_description} onChange={(event) => setEditing({ ...editing, meta_description: event.target.value })} /></label>
+          <div className="review-actions">
+            <button type="button" className="button-primary" disabled={busy} onClick={() => act('edit')}>Save edit and approve</button>
+            <button type="button" className="button-quiet" onClick={() => setEditing(null)}>Cancel</button>
+          </div>
         </section>
-
-        {editing ? (
-          <section className="card form">
-            <div className="card-header">
-              <h2>Edit copy</h2>
-              <small>Saved as a new version and approved; the AI draft stays as it was.</small>
-            </div>
-            <label>Title <small>{editing.title.length}/70</small><input value={editing.title} onChange={(event) => setEditing({ ...editing, title: event.target.value })} /></label>
-            <label>Short description<textarea rows={2} value={editing.short_description} onChange={(event) => setEditing({ ...editing, short_description: event.target.value })} /></label>
-            <label>Long description<textarea rows={9} value={editing.long_description} onChange={(event) => setEditing({ ...editing, long_description: event.target.value })} /></label>
-            <label>Bullet points <small>one per line</small><textarea rows={5} value={editing.bullet_points} onChange={(event) => setEditing({ ...editing, bullet_points: event.target.value })} /></label>
-            <label>Meta description <small>{editing.meta_description.length}/155</small><textarea rows={2} value={editing.meta_description} onChange={(event) => setEditing({ ...editing, meta_description: event.target.value })} /></label>
-            <div className="row-actions">
-              <button type="button" className="primary inline" disabled={busy} onClick={() => act('edit')}>Save edit and approve</button>
-              <button type="button" className="ghost" onClick={() => setEditing(null)}>Cancel</button>
-            </div>
-          </section>
-        ) : (
-          <DescriptionView result={toResult(description)} />
-        )}
-      </div>
+      ) : (
+        <ProductDetail product={product} result={toResult(description)} versions={[description]} shownId={description.id} />
+      )}
     </div>
   );
 }
@@ -165,34 +166,25 @@ export default function Review({ onReviewed }) {
 function ScoreRow({ label, hint, value, active, onChange }) {
   return (
     <div className={`score-row ${active ? 'active' : ''}`} role="radiogroup" aria-label={label}>
-      <span className="score-label"><strong>{label}</strong> <small>{hint}</small></span>
-      <span className="score-buttons">
+      <span className="score-label"><strong>{label}</strong><small>{hint}</small></span>
+      <span className="stars">
         {SCORES.map((score) => (
           <button
             key={score}
             type="button"
             role="radio"
             aria-checked={value === score}
+            aria-label={`${score} of 5`}
             className={value && score <= value ? 'on' : ''}
             onClick={() => onChange(score)}
           >
-            {score}
+            <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+              <path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z" />
+            </svg>
           </button>
         ))}
+        <span className="score-value">{value ? `${value}/5` : ''}</span>
       </span>
     </div>
-  );
-}
-
-function Attributes({ product }) {
-  const specs = Object.entries(product.specifications ?? {});
-  const attributes = Object.entries(product.attributes ?? {});
-  return (
-    <>
-      {product.features?.length > 0 && (<><h4>Features</h4><ul>{product.features.map((feature) => <li key={feature}>{feature}</li>)}</ul></>)}
-      {specs.length > 0 && (<><h4>Specifications</h4><ul>{specs.map(([key, value]) => <li key={key}>{key}: {String(value)}</li>)}</ul></>)}
-      {attributes.length > 0 && (<><h4>Attributes</h4><ul>{attributes.map(([key, value]) => <li key={key}>{key}: {Array.isArray(value) ? value.join(', ') : String(value)}</li>)}</ul></>)}
-      {product.seed_keywords?.length > 0 && (<><h4>Seed keywords</h4><div className="chips">{product.seed_keywords.map((keyword) => <span key={keyword} className="chip">{keyword}</span>)}</div></>)}
-    </>
   );
 }

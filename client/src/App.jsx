@@ -2,7 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { api } from './api.js';
 import { isAuthConfigured, supabase } from './lib/supabase.js';
 import ProductForm from './components/ProductForm.jsx';
-import DescriptionView, { toResult } from './components/DescriptionView.jsx';
+import { toResult } from './components/DescriptionView.jsx';
+import ProductDetail from './components/ProductDetail.jsx';
+import { Icon } from './components/ui.jsx';
 import Catalog from './components/Catalog.jsx';
 import AuthPage from './components/AuthPage.jsx';
 import Landing from './components/Landing.jsx';
@@ -107,10 +109,19 @@ export default function App() {
   return <Studio account={account} onEditProfile={() => setEditingProfile(true)} />;
 }
 
-function Studio({ account, onEditProfile }) {
+const TABS = [
+  { id: 'catalog', label: 'Catalog' },
+  { id: 'generate', label: 'Quick generate' },
+  { id: 'batch', label: 'Batch' },
+  { id: 'review', label: 'Review' },
+  { id: 'dashboard', label: 'Dashboard' },
+  { id: 'history', label: 'History' },
+];
+
+export function Studio({ account, onEditProfile }) {
   const [health, setHealth] = useState(null);
   const [choices, setChoices] = useState(FALLBACK_CHOICES);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState(null); // { product, description } from Quick generate
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(null); // start time while Quick generate runs
   const [tab, setTab] = useState('catalog');
@@ -126,8 +137,7 @@ function Studio({ account, onEditProfile }) {
     setError('');
     try {
       // Saved to the account: the product lands in Catalog and the copy in History.
-      const { description } = await api.quickGenerate(product, options);
-      setResult(toResult(description));
+      setResult(await api.quickGenerate(product, options));
       setSaved((n) => n + 1);
     } catch (err) {
       setError(err.message);
@@ -141,23 +151,20 @@ function Studio({ account, onEditProfile }) {
   return (
     <div className="app">
       <header className="topbar">
-        <h1 className="logo"><span className="logo-mark">P</span>Product Copy Studio</h1>
-        <nav className="tabs">
-          <button type="button" className={tab === 'catalog' ? 'active' : ''} onClick={() => setTab('catalog')}>Catalog</button>
-          <button type="button" className={tab === 'generate' ? 'active' : ''} onClick={() => setTab('generate')}>Quick generate</button>
-          <button type="button" className={tab === 'batch' ? 'active' : ''} onClick={() => setTab('batch')}>Batch</button>
-          <button type="button" className={tab === 'review' ? 'active' : ''} onClick={() => setTab('review')}>Review</button>
-          <button type="button" className={tab === 'dashboard' ? 'active' : ''} onClick={() => setTab('dashboard')}>Dashboard</button>
-          <button type="button" className={tab === 'history' ? 'active' : ''} onClick={() => setTab('history')}>History</button>
+        <a className="logo" href="#/" onClick={(event) => { event.preventDefault(); setTab('catalog'); }}>
+          <span className="logo-mark"><Icon name="leaf" size={20} /></span>
+          <span>Copy Studio</span>
+        </a>
+        <nav className="tabs" aria-label="Sections">
+          {TABS.map(({ id, label }) => (
+            <button key={id} type="button" className={tab === id ? 'active' : ''} aria-current={tab === id ? 'page' : undefined} onClick={() => setTab(id)}>
+              {label}
+            </button>
+          ))}
         </nav>
-        <StatusBadge health={health} />
-        <div className="account">
-          <span>
-            <strong>{retailer.business_name}</strong>
-            <small> · {retailer.seller_type === 'existing' ? 'Existing seller' : 'New seller'} · {user.email}</small>
-          </span>
-          <button type="button" className="ghost" onClick={onEditProfile}>Profile</button>
-          <button type="button" className="ghost" onClick={() => supabase.auth.signOut()}>Log out</button>
+        <div className="topbar-end">
+          <StatusBadge health={health} />
+          <AccountMenu retailer={retailer} user={user} onEditProfile={onEditProfile} />
         </div>
       </header>
 
@@ -167,29 +174,53 @@ function Studio({ account, onEditProfile }) {
       {tab === 'dashboard' && <Dashboard refreshKey={saved} />}
       {tab === 'history' && <History refreshKey={saved} />}
 
-      <main className="layout" hidden={tab !== 'generate'}>
+      <div className="workspace" hidden={tab !== 'generate'}>
         <ProductForm choices={choices} busy={Boolean(busy)} onSubmit={generate} />
-        <div className="detail-column">
-          {error && <div className="card notice error">{error}</div>}
+        <main className="workspace-main">
+          {error && <div className="inline-alert">{error}</div>}
           {busy ? <GeneratingCard startedAt={busy} />
             : result ? (
               <>
-                <div className="card notice info saved-note">✓ Saved to your catalog and history.</div>
-                <div className="fresh"><DescriptionView result={result} /></div>
+                <p className="saved-note"><Icon name="check" size={16} />Saved to your catalog and history.</p>
+                <ProductDetail product={result.product} result={toResult(result.description)} fresh />
               </>
-            ) : <div className="card empty">Fill in the product attributes and generate a description.</div>}
-        </div>
-      </main>
+            ) : (
+              <div className="panel placeholder">
+                <Icon name="sparkle" size={40} />
+                <h2>Describe one product</h2>
+                <p>Fill in its attributes on the left and generate. The product and its copy are saved to your catalog.</p>
+              </div>
+            )}
+        </main>
+      </div>
     </div>
   );
 }
 
 function StatusBadge({ health }) {
-  if (!health) return <span className="badge">Connecting…</span>;
-  if (health.status !== 'ok') return <span className="badge bad">API offline</span>;
+  if (!health) return <span className="status-badge">Connecting…</span>;
+  if (health.status !== 'ok') return <span className="status-badge bad"><span className="pill-dot" />API offline</span>;
+  const dbOk = health.database === 'connected';
   return (
-    <span className="badge">
-      LLM: {health.llm.provider === 'mock' ? 'mock (no API key)' : health.llm.model} · DB: {health.database.replace('_', ' ')}
+    <span className={`status-badge ${dbOk ? '' : 'warn'}`} title={`Database: ${health.database.replace('_', ' ')}`}>
+      <span className="pill-dot" />
+      {health.llm.provider === 'mock' ? 'Mock model (no API key)' : health.llm.model.replace(/^openai\//, '')}
     </span>
+  );
+}
+
+function AccountMenu({ retailer, user, onEditProfile }) {
+  const initials = retailer.business_name.split(/\s+/).map((word) => word[0]).join('').slice(0, 2).toUpperCase();
+  return (
+    <details className="account-menu">
+      <summary aria-label="Account">{initials}</summary>
+      <div className="account-pop">
+        <strong>{retailer.business_name}</strong>
+        <span>{user.email}</span>
+        <span>{retailer.seller_type === 'existing' ? 'Existing seller' : 'New seller'}</span>
+        <button type="button" onClick={onEditProfile}><Icon name="user" size={16} />Brand profile</button>
+        <button type="button" onClick={() => supabase.auth.signOut()}><Icon name="logout" size={16} />Log out</button>
+      </div>
+    </details>
   );
 }

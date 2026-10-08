@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { api } from '../api.js';
+import { Icon } from './ui.jsx';
 
 const CHANNEL_LABELS = {
   amazon: 'Amazon',
@@ -98,7 +99,8 @@ export default function Onboarding({ initial, onDone, onCancel }) {
 
   return (
     <div className="onboarding">
-      <div className="card onboarding-card">
+      <span className="logo onboarding-logo"><span className="logo-mark"><Icon name="leaf" size={20} /></span><span>Copy Studio</span></span>
+      <div className="panel onboarding-card">
         <div className="card-header">
           <h2>{initial ? 'Edit business profile' : 'Set up your business'}</h2>
           <span className="muted">Step {step + 1} of {steps.length}</span>
@@ -179,7 +181,7 @@ export default function Onboarding({ initial, onDone, onCancel }) {
                 onKeyDown={(event) => { if (event.key === 'Enter') { event.preventDefault(); addCustomCategory(); } }}
                 placeholder="Another category, e.g. Coffee"
               />
-              <button type="button" onClick={addCustomCategory}>Add</button>
+              <button type="button" className="button-secondary" onClick={addCustomCategory}>Add</button>
             </div>
 
             <h3>Price positioning *</h3>
@@ -232,9 +234,9 @@ export default function Onboarding({ initial, onDone, onCancel }) {
 
         <div className="wizard-actions">
           {step > 0
-            ? <button type="button" onClick={() => { setError(''); setStep(step - 1); }}>Back</button>
-            : onCancel ? <button type="button" onClick={onCancel}>Cancel</button> : <span />}
-          <button type="button" className="primary inline" disabled={busy} onClick={next}>
+            ? <button type="button" className="button-secondary" onClick={() => { setError(''); setStep(step - 1); }}>Back</button>
+            : onCancel ? <button type="button" className="button-secondary" onClick={onCancel}>Cancel</button> : <span />}
+          <button type="button" className="button-primary" disabled={busy} onClick={next}>
             {busy ? 'Saving…' : step < steps.length - 1 ? 'Continue' : initial ? 'Save profile' : 'Finish setup'}
           </button>
         </div>

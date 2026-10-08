@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase.js';
 import { api } from '../api.js';
+import { Icon } from './ui.jsx';
+import { LeafArt } from './DescriptionView.jsx';
 
 // Login / sign-up, chosen by the URL hash (#/login or #/signup).
 export default function AuthPage({ mode }) {
@@ -33,7 +35,7 @@ export default function AuthPage({ mode }) {
   return (
     <div className="auth-split">
       <aside className="auth-aside">
-        <a href="#/" className="logo light"><span className="logo-mark">P</span>Product Copy Studio</a>
+        <a href="#/" className="logo light"><span className="logo-mark"><Icon name="leaf" size={20} /></span><span>Copy Studio</span></a>
         <div className="auth-aside-copy">
           <h2>{isSignup ? 'Your whole catalog, written in your voice.' : 'Welcome back.'}</h2>
           <ul>
@@ -42,7 +44,8 @@ export default function AuthPage({ mode }) {
             <li>Written only from your product data</li>
           </ul>
         </div>
-        <p className="auth-aside-foot">For sellers on Amazon, Flipkart, Meesho, Shopify, and those just starting out.</p>
+        <LeafArt className="auth-art" />
+        <p className="auth-aside-foot">For sellers on Amazon, Flipkart, Meesho and Shopify, and for those just starting out.</p>
       </aside>
 
       <main className="auth-main">
@@ -70,7 +73,7 @@ export default function AuthPage({ mode }) {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
-              <button type="button" className="ghost" onClick={() => setShowPassword(!showPassword)}>
+              <button type="button" className="button-quiet" onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? 'Hide' : 'Show'}
               </button>
             </div>
@@ -78,7 +81,7 @@ export default function AuthPage({ mode }) {
 
           {message && <p className={`form-message ${message.kind}`}>{message.text}</p>}
 
-          <button type="submit" className="primary large" disabled={busy}>
+          <button type="submit" className="button-primary large" disabled={busy}>
             {busy ? 'Please wait…' : isSignup ? 'Create account' : 'Log in'}
           </button>
           {isSignup && <p className="fine-print">Next, we'll ask a few questions about your business to set up your brand voice.</p>}

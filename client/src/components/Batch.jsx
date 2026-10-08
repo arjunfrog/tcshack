@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '../api.js';
+import { Icon, ProductThumb, StatusDot } from './ui.jsx';
 
 const POLL_MS = 2000;
 const STATUS_LABELS = { queued: 'Queued', running: 'Running', succeeded: 'Done', failed: 'Failed', completed: 'Completed', partial: 'Partly done' };
@@ -91,25 +92,25 @@ export default function Batch({ choices }) {
   const exportAs = (format) => api.exportJob(jobId, format).catch((err) => setError(err.message));
 
   return (
-    <div className="layout">
-      <div className="stack">
-        <form className="card form" onSubmit={start}>
-          <div className="card-header"><h2>New batch</h2></div>
+    <div className="workspace">
+      <aside className="sidebar sidebar-stack">
+        <form className="panel form-panel" onSubmit={start}>
+          <div className="sidebar-head"><h2>New batch</h2></div>
+          <label>Products
+            <select value={selection.category} onChange={(event) => setSelection({ ...selection, category: event.target.value })}>
+              <option value="">All categories</option>
+              {categories.map((category) => <option key={category}>{category}</option>)}
+            </select>
+          </label>
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              checked={selection.missing_only}
+              onChange={(event) => setSelection({ ...selection, missing_only: event.target.checked })}
+            />
+            Only products without a description
+          </label>
           <div className="grid-2">
-            <label>Products
-              <select value={selection.category} onChange={(event) => setSelection({ ...selection, category: event.target.value })}>
-                <option value="">All categories</option>
-                {categories.map((category) => <option key={category}>{category}</option>)}
-              </select>
-            </label>
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                checked={selection.missing_only}
-                onChange={(event) => setSelection({ ...selection, missing_only: event.target.checked })}
-              />
-              Only products without a description
-            </label>
             <label>Tone
               <select value={options.tone} onChange={(event) => setOptions({ ...options, tone: event.target.value })}>
                 {choices.tones.map((tone) => <option key={tone}>{tone}</option>)}
@@ -121,45 +122,53 @@ export default function Batch({ choices }) {
               </select>
             </label>
           </div>
-          <label>Extra voice notes <small>optional; your brand profile is always applied</small>
+          <label>Extra voice notes <span className="counter">optional</span>
             <input
               placeholder="e.g. mention festive gifting where it fits"
               value={options.brand_voice}
               onChange={(event) => setOptions({ ...options, brand_voice: event.target.value })}
             />
           </label>
-          <p className="muted">
-            {matching.length} product{matching.length === 1 ? '' : 's'} selected. Free-tier models write about 1–2 a minute;
-            if the daily quota runs out, the job stops as partly done and Resume finishes it later.
+          <p className="hint">
+            {matching.length} product{matching.length === 1 ? '' : 's'} selected. Free models write about one a minute. If the daily
+            limit runs out, the batch stops part way and Resume finishes it later.
           </p>
-          <button type="submit" className="primary" disabled={starting || matching.length === 0}>
-            {starting ? 'Starting…' : `Generate ${matching.length} description${matching.length === 1 ? '' : 's'}`}
+          <button type="submit" className="button-primary" disabled={starting || matching.length === 0}>
+            <Icon name="sparkle" size={18} />
+            {starting ? 'Starting…' : `Write ${matching.length} description${matching.length === 1 ? '' : 's'}`}
           </button>
         </form>
 
-        <section className="card">
-          <div className="card-header"><h2>Recent batches</h2></div>
-          {jobs.length === 0 ? <p className="muted">No batches yet.</p> : (
-            <ul className="history-list">
+        <section className="panel">
+          <div className="sidebar-head"><h2>Recent batches</h2></div>
+          {jobs.length === 0 ? <p className="hint">No batches yet.</p> : (
+            <ul className="job-list">
               {jobs.map((job) => (
                 <li key={job.id}>
                   <button type="button" className={job.id === jobId ? 'selected' : ''} onClick={() => setJobId(job.id)}>
-                    <strong>{job.total} products · {job.options?.tone}, {job.options?.length}</strong>
-                    <span className="muted">{STATUS_LABELS[job.status] ?? job.status}{job.active ? ' (working)' : ''} · {when(job.created_at)}</span>
+                    <strong>{job.total} products, {job.options?.tone}</strong>
+                    <span>{STATUS_LABELS[job.status] ?? job.status}{job.active ? ', working now' : ''}</span>
+                    <span>{when(job.created_at)}</span>
                   </button>
                 </li>
               ))}
             </ul>
           )}
         </section>
-      </div>
+      </aside>
 
-      <div>
-        {error && <div className="card error">{error}</div>}
-        {!jobId && <div className="card empty">Start a batch to generate descriptions for many products at once.</div>}
-        {jobId && !detail && <div className="card empty">Loading batch…</div>}
+      <main className="workspace-main">
+        {error && <div className="inline-alert">{error}</div>}
+        {!jobId && (
+          <div className="panel placeholder">
+            <Icon name="layers" size={40} />
+            <h2>Write a whole catalog at once</h2>
+            <p>Choose products and a voice on the left. The batch runs on the server, so you can watch it here or come back later.</p>
+          </div>
+        )}
+        {jobId && !detail && <div className="panel placeholder"><p>Loading batch…</p></div>}
         {detail && <JobDetail detail={detail} onResume={resume} onExport={exportAs} />}
-      </div>
+      </main>
     </div>
   );
 }
@@ -171,33 +180,41 @@ function JobDetail({ detail, onResume, onExport }) {
   const canResume = !job.active && progress.succeeded < progress.total;
 
   return (
-    <section className="card">
-      <div className="card-header">
-        <h2>
-          Batch <small>{when(job.created_at)} · {job.options?.tone}, {job.options?.length}</small>
-        </h2>
-        <div className="row-actions">
-          {canResume && <button type="button" onClick={onResume}>Resume</button>}
-          <button type="button" className="ghost" onClick={() => onExport('csv')} disabled={!progress.succeeded}>Export CSV</button>
-          <button type="button" className="ghost" onClick={() => onExport('json')} disabled={!progress.succeeded}>Export JSON</button>
+    <section className="panel job-panel">
+      <div className="job-head">
+        <div>
+          <h1 className="pd-title">Batch of {progress.total}</h1>
+          <p className="pd-meta"><span>{when(job.created_at)}</span><span>{job.options?.tone}, {job.options?.length}</span></p>
+        </div>
+        <div className="job-actions">
+          {canResume && <button type="button" className="button-primary" onClick={onResume}><Icon name="refresh" size={18} />Resume</button>}
+          <button type="button" className="button-secondary" onClick={() => onExport('csv')} disabled={!progress.succeeded}><Icon name="download" size={18} />CSV</button>
+          <button type="button" className="button-secondary" onClick={() => onExport('json')} disabled={!progress.succeeded}><Icon name="download" size={18} />JSON</button>
         </div>
       </div>
 
-      <p>
-        <strong>{STATUS_LABELS[job.status] ?? job.status}</strong>
-        {job.active && ' · working'}
-        {' · '}{progress.succeeded} done, {progress.failed} failed, {progress.running} writing, {progress.queued} waiting
-      </p>
-      <progress className="batch-progress" value={done} max={progress.total} aria-label={`${done} of ${progress.total} products processed`} />
-      {interrupted && <p className="notice-inline">This batch was interrupted (the server restarted). Resume picks up where it stopped.</p>}
+      <div className="pills">
+        <StatusDot kind={job.status === 'completed' ? 'good' : job.status === 'failed' ? 'bad' : 'warn'}>
+          {STATUS_LABELS[job.status] ?? job.status}{job.active ? ', working now' : ''}
+        </StatusDot>
+        <span className="pill">{progress.succeeded} done</span>
+        {progress.failed > 0 && <span className="pill">{progress.failed} failed</span>}
+        {progress.running + progress.queued > 0 && <span className="pill">{progress.running + progress.queued} to go</span>}
+      </div>
+      <div className="progress-track big progress-split" role="progressbar" aria-valuemin={0} aria-valuemax={progress.total} aria-valuenow={done}
+        aria-label={`${progress.succeeded} written and ${progress.failed} failed of ${progress.total} products`}>
+        <div className="progress-fill" style={{ width: `${(progress.succeeded / Math.max(1, progress.total)) * 100}%` }} />
+        {progress.failed > 0 && <div className="progress-fill progress-failed" style={{ width: `${(progress.failed / Math.max(1, progress.total)) * 100}%` }} />}
+      </div>
+      {interrupted && <p className="inline-alert warn">This batch was interrupted when the server restarted. Resume picks up where it stopped.</p>}
 
       {consistency && !consistency.passed && (
         <div className="consistency">
-          <h4>Consistency across the batch</h4>
-          <ul className="checks">
-            {consistency.duplicate_titles.map((group) => <li key={group.title} className="fail">✗ Same title “{group.title}”: {group.ids.join(', ')}</li>)}
-            {consistency.repeated_openings.map((group) => <li key={group.opening} className="fail">✗ Same opening “{group.opening}…”: {group.ids.join(', ')}</li>)}
-            {consistency.length_outliers.map((item) => <li key={item.id} className="fail">✗ {item.id}: {item.words} words (batch median {item.median})</li>)}
+          <h3>Across this batch</h3>
+          <ul className="checklist">
+            {consistency.duplicate_titles.map((group) => <li key={group.title} className="fail"><Icon name="alert" size={16} />Same title “{group.title}” on {group.ids.join(', ')}</li>)}
+            {consistency.repeated_openings.map((group) => <li key={group.opening} className="fail"><Icon name="alert" size={16} />Same opening “{group.opening}…” on {group.ids.join(', ')}</li>)}
+            {consistency.length_outliers.map((item) => <li key={item.id} className="fail"><Icon name="alert" size={16} />{item.id} is {item.words} words, against a typical {item.median}</li>)}
           </ul>
         </div>
       )}
@@ -205,23 +222,29 @@ function JobDetail({ detail, onResume, onExport }) {
       <div className="table-wrap">
         <table>
           <thead>
-            <tr><th>SKU</th><th>Product</th><th>Status</th><th>Title</th><th>SEO</th><th>Facts</th><th>Style</th></tr>
+            <tr><th>Product</th><th>Status</th><th>Title</th><th>SEO</th><th>Facts</th><th>Style</th></tr>
           </thead>
           <tbody>
             {items.map((item) => {
               const quality = item.description?.quality;
               return (
                 <tr key={item.product_id}>
-                  <td className="muted">{item.product?.sku ?? '—'}</td>
-                  <td>{item.product?.name ?? 'Deleted product'}</td>
                   <td>
-                    <span className={`status ${item.status}`}>{STATUS_LABELS[item.status] ?? item.status}</span>
-                    {item.error && <div className="muted">{item.error}</div>}
+                    <span className="table-product">
+                      <ProductThumb product={item.product} />
+                      <span><strong>{item.product?.name ?? 'Deleted product'}</strong><span>{item.product?.sku ?? ''}</span></span>
+                    </span>
                   </td>
-                  <td>{item.description?.title ?? ''}</td>
+                  <td>
+                    <span className={`tag tag-${item.status}`}>{STATUS_LABELS[item.status] ?? item.status}</span>
+                    {item.error && <div className="cell-note">{item.error}</div>}
+                  </td>
+                  <td className="cell-title">{item.description?.title ?? ''}</td>
                   <td>{quality?.seo ? `${quality.seo.passed}/${quality.seo.total}` : ''}</td>
-                  <td>{quality?.facts ? (quality.facts.passed ? '✓' : `${quality.facts.unsupported.length} to check`) : ''}</td>
-                  <td>{quality?.style ? (quality.style.passed ? '✓' : `${quality.style.issues.length} to polish`) : ''}</td>
+                  <td>{quality?.facts ? (quality.facts.passed ? <Icon name="check" size={18} title="Nothing invented" />
+                    : <span className="cell-issues" title={`${quality.facts.unsupported.length} to verify`}><Icon name="alert" size={16} />{quality.facts.unsupported.length}</span>) : ''}</td>
+                  <td>{quality?.style ? (quality.style.passed ? <Icon name="check" size={18} title="Reads naturally" />
+                    : <span className="cell-issues" title={`${quality.style.issues.length} to polish`}><Icon name="alert" size={16} />{quality.style.issues.length}</span>) : ''}</td>
                 </tr>
               );
             })}

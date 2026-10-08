@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { api } from '../api.js';
-import DescriptionView, { toResult } from './DescriptionView.jsx';
-import { Elapsed, GeneratingCard, Spinner, ToastStack, useToasts } from './Feedback.jsx';
+import { toResult } from './DescriptionView.jsx';
+import { Elapsed, Spinner, ToastStack, useToasts } from './Feedback.jsx';
+import ProductDetail from './ProductDetail.jsx';
+import { Icon, ProductThumb } from './ui.jsx';
 
 const BATCH_CONCURRENCY = 3;
 
@@ -18,6 +20,7 @@ export default function Catalog({ choices }) {
   const [batch, setBatch] = useState(null); // { done, total, failed }
   const [importing, setImporting] = useState(''); // '' | 'file' | 'sample'
   const { toasts, push, dismiss } = useToasts();
+  const mainRef = useRef(null);
 
   const load = useCallback(async () => {
     try {
@@ -33,6 +36,7 @@ export default function Catalog({ choices }) {
 
   const list = products ?? [];
   const categories = [...new Set(list.map((product) => product.category))].sort();
+  const missing = list.filter((product) => !product.latest_description).length;
   const nameOf = (id) => list.find((product) => product.id === id)?.name ?? 'product';
 
   const showImportResult = ({ imported, errors, scope }) => {
@@ -68,6 +72,8 @@ export default function Catalog({ choices }) {
       const detail = await api.product(id);
       setSelected(detail);
       setVersionId(showVersionId ?? detail.descriptions[0]?.id ?? null);
+      // On narrow screens the list sits above the product, so bring the product into view.
+      if (window.matchMedia('(max-width: 860px)').matches) mainRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } catch (err) {
       push('error', err.message);
     }
@@ -116,7 +122,7 @@ export default function Catalog({ choices }) {
     };
     await Promise.all(Array.from({ length: BATCH_CONCURRENCY }, worker));
     push(progress.failed ? 'error' : 'success',
-      `Batch finished: ${progress.done - progress.failed} of ${progress.total} generated${progress.failed ? `, ${progress.failed} failed` : ''}.`);
+      `Batch finished: ${progress.done - progress.failed} of ${progress.total} written${progress.failed ? `, ${progress.failed} failed` : ''}.`);
     setBatch(null);
     load();
     if (selected) open(selected.product.id);
@@ -124,184 +130,153 @@ export default function Catalog({ choices }) {
 
   const selectedId = selected?.product.id;
   const shown = selected?.descriptions.find((description) => description.id === versionId) ?? selected?.descriptions[0];
+  const startedAt = selectedId && running[selectedId];
 
   return (
-    <div className="catalog">
-      <section className="card toolbar">
-        <div className="row-actions">
-          <label className={`file-button ${importing ? 'disabled' : ''}`}>
-            {importing === 'file' ? <><Spinner /> Importing…</> : 'Import CSV / JSON'}
-            <input type="file" accept=".csv,.json" onChange={importFile} disabled={Boolean(importing)} hidden />
-          </label>
-          <button type="button" disabled={Boolean(importing)} onClick={() => runImport('sample', api.importSample)}>
-            {importing === 'sample' ? <><Spinner /> Loading…</> : 'Load sample products'}
-          </button>
-        </div>
-        <div className="row-actions">
-          <label className="inline-label">Tone
-            <select value={options.tone} onChange={(event) => setOptions({ ...options, tone: event.target.value })}>
-              {choices.tones.map((tone) => <option key={tone}>{tone}</option>)}
-            </select>
-          </label>
-          <label className="inline-label">Length
-            <select value={options.length} onChange={(event) => setOptions({ ...options, length: event.target.value })}>
-              {choices.lengths.map((length) => <option key={length}>{length}</option>)}
-            </select>
-          </label>
-          <button type="button" className="primary inline" disabled={Boolean(batch) || !list.length} onClick={generateMissing}>
-            {batch ? <><Spinner /> Generating {batch.done}/{batch.total}</> : 'Generate all missing'}
-          </button>
-        </div>
-      </section>
-
-      {batch && (
-        <div className="card batch-card">
-          <div className="batch-head">
-            <span><Spinner /> Generating {batch.total} descriptions, {BATCH_CONCURRENCY} at a time</span>
-            <span className="muted">{batch.done} done{batch.failed ? ` · ${batch.failed} failed` : ''} · {batch.total - batch.done} left</span>
+    <div className="workspace">
+      <aside className="sidebar panel">
+        <div className="sidebar-head">
+          <h2>Catalog <span className="count">{list.length} products</span></h2>
+          <div className="sidebar-tools">
+            <label className={`button button-quiet ${importing ? 'is-disabled' : ''}`} title="Import a CSV or JSON file of products">
+              {importing === 'file' ? <Spinner /> : <Icon name="upload" size={16} />} Import
+              <input type="file" accept=".csv,.json" onChange={importFile} disabled={Boolean(importing)} hidden />
+            </label>
+            <button type="button" className="button-quiet" disabled={Boolean(importing)} onClick={() => runImport('sample', api.importSample)}>
+              {importing === 'sample' ? <Spinner /> : <Icon name="box" size={16} />} Samples
+            </button>
           </div>
-          <div className="progress-track"><div className="progress-fill" style={{ width: `${(batch.done / batch.total) * 100}%` }} /></div>
         </div>
-      )}
 
-      {importReport && (
-        <div className="card notice error">
-          <div className="card-header">
-            <span>{importReport.text}</span>
-            <button type="button" className="ghost" onClick={() => setImportReport(null)}>Dismiss</button>
+        <label className="search-field">
+          <Icon name="search" size={18} />
+          <input
+            type="search"
+            placeholder="Search name or SKU"
+            aria-label="Search name or SKU"
+            value={filters.search}
+            onChange={(event) => setFilters({ ...filters, search: event.target.value })}
+          />
+        </label>
+        <select aria-label="Category" value={filters.category} onChange={(event) => setFilters({ ...filters, category: event.target.value })}>
+          <option value="">All categories</option>
+          {categories.map((category) => <option key={category}>{category}</option>)}
+        </select>
+
+        {importReport && (
+          <div className="inline-alert">
+            <strong>{importReport.text}</strong>
+            <ul>{importReport.details.slice(0, 8).map((line) => <li key={line}>{line}</li>)}</ul>
+            <button type="button" className="button-quiet" onClick={() => setImportReport(null)}>Dismiss</button>
           </div>
-          <ul className="muted">{importReport.details.slice(0, 20).map((line) => <li key={line}>{line}</li>)}</ul>
-        </div>
-      )}
+        )}
 
-      <div className="layout">
-        <section className="card">
-          <div className="card-header">
-            <h2>Catalog <small>{list.length} products</small></h2>
-            <div className="row-actions">
-              <select value={filters.category} onChange={(event) => setFilters({ ...filters, category: event.target.value })}>
-                <option value="">All categories</option>
-                {categories.map((category) => <option key={category}>{category}</option>)}
-              </select>
-              <input
-                type="search"
-                placeholder="Search name or SKU"
-                value={filters.search}
-                onChange={(event) => setFilters({ ...filters, search: event.target.value })}
-              />
-            </div>
+        {products === null ? (
+          <div className="list-skeleton">{[1, 2, 3, 4, 5].map((n) => <span key={n} />)}</div>
+        ) : list.length === 0 ? (
+          <div className="sidebar-empty">
+            <p>No products yet.</p>
+            <p>Import a CSV or JSON file, load the sample products, or add one in Quick generate.</p>
           </div>
+        ) : (
+          <ul className="product-list">
+            {list.map((product) => {
+              const since = running[product.id];
+              const isQueued = queued.has(product.id);
+              return (
+                <li key={product.id}>
+                  <button
+                    type="button"
+                    className={[selectedId === product.id && 'selected', since && 'writing'].filter(Boolean).join(' ')}
+                    onClick={() => open(product.id)}
+                  >
+                    <ProductThumb product={product} />
+                    <span className="product-list-text">
+                      <strong>{product.name}</strong>
+                      <span>{product.category}</span>
+                      <span className="product-list-sku">{product.sku ?? 'No SKU'}</span>
+                    </span>
+                    <span className="product-list-state">
+                      {since ? <span className="tag tag-writing"><Spinner size={11} /> <Elapsed startedAt={since} /></span>
+                        : isQueued ? <span className="tag">Queued</span>
+                          : product.latest_description ? <span className="tag tag-done">v{product.latest_description.version}</span>
+                            : <span className="tag tag-empty">No copy</span>}
+                      <Icon name="chevron" size={18} />
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
 
-          {products === null ? (
-            <div className="table-skeleton">{[1, 2, 3, 4].map((n) => <span key={n} className="line w-100" />)}</div>
-          ) : list.length === 0 ? (
-            <div className="empty">
-              <p>No products yet.</p>
-              <p className="muted">Import a CSV/JSON file, load sample products for your categories, or use Quick generate.</p>
-            </div>
-          ) : (
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr><th>SKU</th><th>Product</th><th>Data</th><th>Copy</th><th /></tr>
-                </thead>
-                <tbody>
-                  {list.map((product) => {
-                    const startedAt = running[product.id];
-                    const isQueued = queued.has(product.id);
-                    return (
-                      <tr
-                        key={product.id}
-                        className={[selectedId === product.id && 'selected', startedAt && 'generating'].filter(Boolean).join(' ')}
-                        onClick={() => open(product.id)}
-                      >
-                        <td className="muted">{product.sku ?? '—'}</td>
-                        <td>
-                          <strong>{product.name}</strong>
-                          <div className="muted">{product.category}{product.price != null && ` · ₹${Number(product.price).toLocaleString('en-IN')}`}</div>
-                        </td>
-                        <td>
-                          <span className={`score ${product.completeness_score < 50 ? 'low' : ''}`} title="Completeness of the product data (0-100)">
-                            {product.completeness_score ?? '—'}
-                          </span>
-                        </td>
-                        <td>
-                          {startedAt ? <span className="status writing">Writing… <Elapsed startedAt={startedAt} /></span>
-                            : isQueued ? <span className="status queued">Queued</span>
-                              : product.latest_description ? <span className="status done">v{product.latest_description.version}</span>
-                                : <span className="muted">none</span>}
-                        </td>
-                        <td>
-                          <button
-                            type="button"
-                            className={product.latest_description ? 'ghost' : 'ghost accent'}
-                            disabled={Boolean(startedAt) || isQueued}
-                            onClick={(event) => { event.stopPropagation(); generateOne(product.id); }}
-                          >
-                            {startedAt ? <Spinner /> : product.latest_description ? 'Regenerate' : 'Generate'}
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
+        {list.length > 0 && (
+          <div className="sidebar-foot">
+            {batch ? (
+              <>
+                <p><Spinner /> Writing {batch.total} descriptions, {BATCH_CONCURRENCY} at a time</p>
+                <div className="progress-track"><div className="progress-fill" style={{ width: `${(batch.done / batch.total) * 100}%` }} /></div>
+                <p className="hint">{batch.done} done{batch.failed ? `, ${batch.failed} failed` : ''}, {batch.total - batch.done} left</p>
+              </>
+            ) : (
+              <button type="button" className="button-secondary" disabled={!missing} onClick={generateMissing}>
+                <Icon name="sparkle" size={16} />
+                {missing ? `Write copy for ${missing} without any` : 'Every product has copy'}
+              </button>
+            )}
+          </div>
+        )}
+      </aside>
 
-        <div className="detail-column">
-          {!selected && (
-            <div className="card empty">
-              <p>Select a product to see its descriptions.</p>
-              <p className="muted">Click Generate on any row to write one.</p>
-            </div>
-          )}
-          {selected && (
-            <>
-              <section className="card product-card">
-                <h2>{selected.product.brand ? `${selected.product.brand} ` : ''}{selected.product.name}</h2>
-                <p className="muted">{selected.product.sku} · {selected.product.category}{selected.product.subcategory && ` › ${selected.product.subcategory}`}</p>
-                {selected.product.features.length > 0 && <ul>{selected.product.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>}
-                {selected.descriptions.length > 0 && (
-                  <div className="versions">
-                    <span className="muted">Versions</span>
-                    {selected.descriptions.map((description) => (
-                      <button
-                        key={description.id}
-                        type="button"
-                        className={`version-tab ${description.id === shown?.id ? 'active' : ''}`}
-                        title={`${description.tone}, ${description.length} · ${new Date(description.created_at).toLocaleString()}`}
-                        onClick={() => setVersionId(description.id)}
-                      >
-                        v{description.version}
-                      </button>
-                    ))}
-                    {shown && <span className="muted">{shown.tone}, {shown.length}</span>}
-                  </div>
-                )}
+      <main className="workspace-main" ref={mainRef}>
+        {!selected ? (
+          <div className="panel placeholder">
+            <Icon name="leaf" size={40} />
+            <h2>Pick a product</h2>
+            <p>Choose a product on the left to see its data and copy, or write a new version in another tone.</p>
+          </div>
+        ) : (
+          <ProductDetail
+            product={selected.product}
+            result={shown ? toResult(shown) : null}
+            versions={selected.descriptions}
+            shownId={shown?.id}
+            onSelectVersion={setVersionId}
+            generatingSince={startedAt}
+            generatingTitle={selected.descriptions.length ? 'Writing a new version' : 'Writing the first description'}
+            fresh={shown?.id === freshId}
+            actions={(
+              <>
                 <button
                   type="button"
-                  className="primary inline"
-                  disabled={Boolean(running[selected.product.id]) || queued.has(selected.product.id)}
-                  onClick={() => generateOne(selected.product.id)}
+                  className="button-primary"
+                  disabled={Boolean(startedAt) || queued.has(selectedId)}
+                  onClick={() => generateOne(selectedId)}
                 >
-                  {running[selected.product.id] ? <><Spinner /> Generating…</>
-                    : selected.descriptions.length ? `Regenerate (${options.tone}, ${options.length})` : `Generate (${options.tone}, ${options.length})`}
+                  {startedAt ? <><Spinner /> Writing…</> : <><Icon name="sparkle" size={18} />{selected.descriptions.length ? 'Regenerate copy' : 'Generate copy'}</>}
                 </button>
-              </section>
-
-              {running[selected.product.id] ? (
-                <GeneratingCard startedAt={running[selected.product.id]} title={selected.descriptions.length ? 'Writing a new version' : 'Generating description'} />
-              ) : shown ? (
-                <div className={shown.id === freshId ? 'fresh' : ''}><DescriptionView result={toResult(shown)} /></div>
-              ) : (
-                <div className="card empty">No description yet. Click Generate.</div>
-              )}
-            </>
-          )}
-        </div>
-      </div>
+                {shown && (
+                  <button
+                    type="button"
+                    className="button-secondary"
+                    onClick={() => navigator.clipboard?.writeText(JSON.stringify(toResult(shown).output, null, 2)).then(() => push('success', 'Copy JSON copied'))}
+                  >
+                    <Icon name="copy" size={18} />Copy JSON
+                  </button>
+                )}
+                <div className="tone-picker">
+                  <select aria-label="Tone" value={options.tone} onChange={(event) => setOptions({ ...options, tone: event.target.value })}>
+                    {choices.tones.map((tone) => <option key={tone}>{tone}</option>)}
+                  </select>
+                  <select aria-label="Length" value={options.length} onChange={(event) => setOptions({ ...options, length: event.target.value })}>
+                    {choices.lengths.map((length) => <option key={length}>{length}</option>)}
+                  </select>
+                </div>
+              </>
+            )}
+          />
+        )}
+      </main>
 
       <ToastStack toasts={toasts} dismiss={dismiss} />
     </div>
