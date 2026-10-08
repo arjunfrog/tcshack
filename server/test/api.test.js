@@ -43,3 +43,9 @@ test('POST /api/generate rejects a product without a name', async () => {
   });
   assert.equal(res.status, 400);
 });
+
+test('product routes explain that the database is not configured', async () => {
+  const res = await fetch(`${base}/products`);
+  assert.equal(res.status, 503);
+  assert.match((await res.json()).error, /SUPABASE_SECRET_KEY/);
+});

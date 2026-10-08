@@ -78,3 +78,33 @@ button:disabled { opacity: 0.6; cursor: progress; }
 .checks .pass { color: var(--pass); }
 .checks .fail { color: var(--fail); }
 .muted { color: var(--muted); font-size: 0.8rem; }
+
+.tabs { display: flex; gap: 4px; margin-right: auto; margin-left: 16px; }
+.tabs button { border-color: transparent; }
+.tabs button.active { background: var(--chip); border-color: var(--border); font-weight: 600; }
+[hidden] { display: none !important; }
+
+.catalog { display: flex; flex-direction: column; gap: 16px; }
+.toolbar { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.row-actions { flex-wrap: wrap; align-items: center; }
+.file-button {
+  flex-direction: row; font-weight: normal; font-size: 1rem; cursor: pointer;
+  border: 1px solid var(--accent); color: var(--accent); border-radius: 6px; padding: 8px 14px;
+}
+.primary.inline { margin-top: 0; }
+.batch-progress { width: 100%; height: 8px; }
+.notice.info { border-color: var(--pass); }
+.notice.error { color: var(--fail); border-color: var(--fail); }
+.notice .card-header { margin-bottom: 0; }
+.notice ul { margin: 8px 0 0; }
+
+.table-wrap { overflow-x: auto; max-height: 70vh; overflow-y: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th { text-align: left; font-size: 0.8rem; color: var(--muted); position: sticky; top: 0; background: var(--surface); }
+th, td { padding: 8px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tbody tr { cursor: pointer; }
+tbody tr:hover, tbody tr.selected { background: var(--chip); }
+.score { font-weight: 600; color: var(--pass); }
+.score.low { color: var(--fail); }
+.product-card { margin-bottom: 16px; }
+.product-card ul { margin: 8px 0; padding-left: 20px; font-size: 0.9rem; }

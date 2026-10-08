@@ -2,7 +2,7 @@
 
 A GenAI tool that turns structured product attributes (category, features, specifications, price) into engaging, consistent, SEO-friendly retail product descriptions. Built for the TCS Technology Day problem statement *Retail Product Description Generator*.
 
-**Stack:** React (Vite) · Node.js + Express · Supabase (Postgres) · Claude API
+**Stack:** React (Vite) · Node.js + Express · Supabase (Postgres) · Groq (Llama 3.3 70B)
 
 - 📋 **Build plan and roadmap:** [`docs/PLAN.md`](docs/PLAN.md)
 - 📄 **Input/output data format:** [`docs/DATA_FORMAT.md`](docs/DATA_FORMAT.md)
@@ -19,23 +19,23 @@ npm run dev                          # API on :4000, web app on http://localhost
 
 The app runs without any keys: the server falls back to a **mock** provider (template text) and database features are disabled. Fill in `server/.env` to enable the real thing.
 
-### Claude API
+### Groq API
 
-Set `ANTHROPIC_API_KEY` in `server/.env`. Optional settings:
+Get a key at [console.groq.com](https://console.groq.com/keys) and set `GROQ_API_KEY` in `server/.env`. Optional settings:
 
 | Variable | Default | Notes |
 |---|---|---|
-| `ANTHROPIC_MODEL` | `claude-opus-5-5` | `claude-sonnet-5-5` or `claude-haiku-5-5` are cheaper for bulk runs |
-| `ANTHROPIC_EFFORT` | `medium` | `low` is faster and cheaper, `high` is more polished |
-| `GENERATION_CONCURRENCY` | `5` | Parallel requests during batch runs |
-| `LLM_PROVIDER` | auto | `anthropic` or `mock`; auto picks `anthropic` when a key is set |
+| `GROQ_MODEL` | `llama-3.3-70b-versatile` | Any Groq chat model; smaller ones (e.g. `llama-3.1-8b-instant`) are faster with higher rate limits |
+| `GROQ_TEMPERATURE` | `0.7` | Lower is more consistent, higher is more creative |
+| `GENERATION_CONCURRENCY` | `3` | Parallel requests during batch runs; rate-limited requests are retried with backoff |
+| `LLM_PROVIDER` | auto | `groq` or `mock`; auto picks `groq` when a key is set |
 
 ### Supabase
 
 1. Create a project at [supabase.com](https://supabase.com).
 2. In **SQL Editor**, paste and run [`supabase/migrations/20261008000000_init.sql`](supabase/migrations/20261008000000_init.sql).
-3. From **Project Settings → API**, copy the project URL and the service role (secret) key into `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` in `server/.env`.
-4. Load the synthetic catalog: `npm run db:seed`.
+3. From **Project Settings → API**, copy the project URL and the secret key (`sb_secret_...`, not the publishable key) into `SUPABASE_URL` and `SUPABASE_SECRET_KEY` in `server/.env`.
+4. Load the synthetic catalog: click **Load 60 sample products** on the Catalog tab, or run `npm run db:seed`.
 
 The service role key stays on the server. Row Level Security is enabled with no policies, so the browser can't query the database directly; everything goes through the Express API.
 
@@ -54,12 +54,13 @@ The service role key stays on the server. Row Level Security is enabled with no 
 ```
 client/                 React + Vite web app
   src/App.jsx           Layout and API status badge
-  src/components/       ProductForm, DescriptionView
+  src/components/       Catalog (import, table, batch), ProductForm, DescriptionView
   src/api.js            Fetch wrapper (/api is proxied to Express in dev)
 server/                 Express 5 API
   src/app.js            Middleware and route wiring
-  src/routes/           health, generate
-  src/lib/llm.js        Claude call (structured output) and mock provider
+  src/routes/           health, generate, products (list, import, generate + save)
+  src/lib/csv.js        CSV import parser (conventions in docs/DATA_FORMAT.md)
+  src/lib/llm.js        Groq call (JSON mode + Zod validation) and mock provider
   src/prompts/          System prompt and per-request prompt builder
   src/schemas/          Zod schemas: product input, options, generated output
   src/services/         generator, quality checks (completeness, SEO)

@@ -13,7 +13,7 @@ const num = (value, fallback) => {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
 };
 
-const anthropicApiKey = process.env.ANTHROPIC_API_KEY || '';
+const groqApiKey = process.env.GROQ_API_KEY || '';
 
 export const config = {
   port: num(process.env.PORT, 4000),
@@ -24,14 +24,21 @@ export const config = {
 
   supabase: {
     url: process.env.SUPABASE_URL || '',
-    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
+    // Accepts the new "secret" key name as well as the legacy service role name.
+    serviceRoleKey: process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '',
   },
 
   llm: {
-    provider: process.env.LLM_PROVIDER || (anthropicApiKey ? 'anthropic' : 'mock'),
-    model: process.env.ANTHROPIC_MODEL || 'claude-opus-5-5',
-    effort: process.env.ANTHROPIC_EFFORT || 'medium',
-    concurrency: num(process.env.GENERATION_CONCURRENCY, 5),
+    provider: process.env.LLM_PROVIDER || (groqApiKey ? 'groq' : 'mock'),
+    groqApiKey,
+    model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
+    temperature: Number(process.env.GROQ_TEMPERATURE ?? 0.7),
+    concurrency: num(process.env.GENERATION_CONCURRENCY, 3),
+  },
+
+  // Anakin Wire (market data enrichment). Not wired into generation yet.
+  anakin: {
+    apiKey: process.env.ANAKIN_API_KEY || '',
   },
 };
 

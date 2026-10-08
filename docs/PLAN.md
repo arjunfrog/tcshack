@@ -12,7 +12,7 @@ Each requirement in the problem statement maps to a feature and to the phase tha
 
 | Requirement (from the problem statement) | How we meet it | Phase |
 |---|---|---|
-| Input structured attributes, output engaging, coherent descriptions | `POST /api/generate` with Claude, structured JSON output | 0 ✅ / 1 |
+| Input structured attributes, output engaging, coherent descriptions | `POST /api/generate` with Groq, JSON output validated by Zod | 0 ✅ / 1 |
 | Tailored to the retail domain | Category-aware system prompt, tone presets, brand voice notes | 0 ✅ / 1 |
 | **Batch processing** | CSV/JSON upload → batch job with concurrency, progress and export | 3 |
 | **Style consistency** | Fixed system prompt, tone presets, saved brand voice, few-shot style references, consistency check across a batch | 1 / 5 |
@@ -41,7 +41,7 @@ flowchart LR
     V[Zod validation<br/>+ quality checks]
     G[Generator service<br/>prompt + concurrency]
   end
-  LLM[(Claude API)]
+  LLM[(Groq API)]
   DB[(Supabase Postgres<br/>products, descriptions,<br/>generation_jobs, feedback)]
 
   UI -- /api via Vite proxy --> R
@@ -55,7 +55,7 @@ Key decisions:
 - **All database access goes through Express.** The browser never holds a Supabase key. RLS is enabled with no policies, so the public anon key can read nothing; the server uses the service role key, which bypasses RLS.
 - **Structured outputs.** The model returns JSON validated against a Zod schema (`GeneratedDescription`), so there is no fragile text parsing.
 - **Mock provider.** With no API key the server returns template text. The UI, batch flow and tests all work offline, and the demo has a fallback if the network fails.
-- **Model is configurable.** `ANTHROPIC_MODEL` defaults to `claude-opus-5-5` (best quality). For large or cost-sensitive runs, switch to `claude-sonnet-5-5` or `claude-haiku-5-5` without code changes. `ANTHROPIC_EFFORT` (`low` / `medium` / `high`) trades quality for speed and cost.
+- **Model is configurable.** `GROQ_MODEL` defaults to `llama-3.3-70b-versatile`. For large runs or tighter rate limits, switch to a smaller Groq model without code changes. `GROQ_TEMPERATURE` trades consistency for creativity.
 - **Refusal fallback.** Requests opt into server-side fallback (`fallbacks: "default"`). If a safety classifier ever declines a product, the API retries on a fallback model instead of failing.
 
 ---
@@ -105,7 +105,7 @@ Phases are in priority order. Each one ends with something you can demo. If time
 - [x] Env config with `.env.example`; Supabase client (service role, server only)
 - [x] Supabase schema migration with RLS enabled
 - [x] Zod schemas for product input, options and generated output
-- [x] Claude generator with structured outputs, plus an offline mock provider
+- [x] Groq generator with validated JSON output, plus an offline mock provider
 - [x] Rule-based quality checks: input completeness and SEO checks
 - [x] Single-product UI: form, tone/length/brand voice, result panel with quality checks
 - [x] Synthetic data script (60 products, 7 categories) and Supabase seed script
@@ -115,7 +115,7 @@ Phases are in priority order. Each one ends with something you can demo. If time
 
 1. `npm install`
 2. Create a Supabase project. In the SQL editor, run `supabase/migrations/20261008000000_init.sql`.
-3. `cp server/.env.example server/.env` and fill in `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` and `ANTHROPIC_API_KEY`.
+3. `cp server/.env.example server/.env` and fill in `SUPABASE_URL`, `SUPABASE_SECRET_KEY` and `GROQ_API_KEY`.
 4. `npm run db:seed` to load the 60 synthetic products.
 5. `npm run dev`, open http://localhost:5173 and check that the header badge shows the model and `DB: connected`.
 
@@ -130,7 +130,7 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
    - Per-category guidance (what buyers care about in apparel vs. electronics vs. grocery)
    - Tone definitions: one line each describing what "luxury" or "technical" means
    - **Few-shot style references:** 3–5 high-quality example descriptions (written by the team or adapted from a public dataset, see below) appended to the system prompt. This improves style consistency the most. Once the system prompt is over about 512 tokens, prompt caching starts working automatically, because the system block already has `cache_control`.
-5. **Choose model and effort.** Compare `claude-opus-5-5` at `low`, `medium` and `high` effort with `claude-sonnet-5-5` on the eval set. Pick the cheapest setting the team rates as good enough. The UI shows tokens and latency per call.
+5. **Choose model and temperature.** Compare Groq models and temperatures on the eval set. Pick the cheapest setting the team rates as good enough. The UI shows tokens and latency per call.
 6. **Handle incomplete products.** If `completeness_score < 50`, show a warning in the UI before generating, and tell the model to keep the copy short rather than pad it.
 
 *Public style references:* the Amazon product datasets on Kaggle and Hugging Face are good sources for real description styles. Use them only as style references in the prompt, not as product data.
@@ -138,6 +138,8 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
 **Done when:** the team rates 80%+ of the eval outputs 4 or 5, and the fact-check finds no invented numbers.
 
 ### Phase 2: Catalog and persistence
+
+> **Basic version done:** `routes/products.js` (list, detail, CSV/JSON import, sample import, generate + save version) and a Catalog tab with import, table, per-product generate and a simple client-side "Generate all missing" batch. Still to do: pagination, editing products, a `/catalog/:id` version history view, and the server-side job runner in phase 3.
 
 1. **Server:** add `routes/products.js` with list (filters: category, search on name/sku, pagination), create/update, and get-by-id.
 2. **Import endpoint.** Accept a JSON array or a CSV upload (`multer` for multipart, `csv-parse` for CSV). Parse CSV with the conventions in `DATA_FORMAT.md`, validate each row with `ProductInput.safeParse`, compute `completeness_score`, and upsert on `sku`. Return `{ inserted, updated, errors: [{ row, issues }] }` so the UI can show exactly which rows failed.
@@ -157,7 +159,7 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
    - `POST /api/jobs` creates a `generation_jobs` row (`queued`), responds immediately with the job id, then processes in the background.
    - Run with a concurrency limit (`GENERATION_CONCURRENCY`, default 5) using a small promise pool. No extra library is needed, or use `p-limit`.
    - After each product, insert into `descriptions` (with `job_id`) and increment `succeeded` or `failed`.
-   - Retries: the Anthropic SDK already retries 429 and 5xx twice. On final failure, record the error on the product and continue. Never fail the whole job for one product.
+   - Retries: `server/src/lib/llm.js` already retries 429 and 5xx with backoff. On final failure, record the error on the product and continue. Never fail the whole job for one product.
    - Final status: `completed`, `partial` (some failed) or `failed`.
 2. **Progress:** the client polls `GET /api/jobs/:id` every 2 seconds for a progress bar and a live results table. Polling is simpler and more reliable for a demo than websockets. Supabase Realtime is an optional upgrade.
 3. **Batch page** (`/batch`): select products (all, by category, or a checkbox list), choose tone, length and brand voice, start, watch progress, then export.
@@ -197,7 +199,7 @@ The judges' 85% target depends on this phase, so start it first and keep improvi
 
 ### Stretch goals (only after phases 0–4 are solid)
 
-- **Image-aware copy:** send `image_url` to Claude (vision) so the copy can describe color, style and look.
+- **Image-aware copy:** send `image_url` to a vision model so the copy can describe color, style and look.
 - **Multilingual output:** Hindi, Tamil and other Indian languages as a `language` option.
 - **A/B variants:** generate two versions per product and let reviewers choose.
 - **Message Batches API:** for very large catalogs (thousands of SKUs), submit asynchronously at about 50% of the cost. Note that this API doesn't accept the `fallbacks` parameter.
@@ -225,8 +227,8 @@ With 2 people, merge A+D and B+C. Agree on API shapes in section 4 first so fron
 | Model invents specs | Prompt rule plus the automated fact-check (phase 1, step 3); shown in review UI |
 | Rate limits or slow batches during the demo | Concurrency limit, SDK retries, pre-generated batch, `low` effort or a faster model for the live run |
 | No network or API key on demo day | Mock provider plus pre-generated results stored in Supabase |
-| API key leaks | Keys live only in `server/.env` (git-ignored); the browser never talks to Supabase or Claude directly |
-| Costs | Tokens shown per call and on the dashboard; switch `ANTHROPIC_MODEL` to Sonnet or Haiku for bulk runs |
+| API key leaks | Keys live only in `server/.env` (git-ignored); the browser never talks to Supabase or the LLM directly |
+| Costs | Tokens shown per call and on the dashboard; switch `GROQ_MODEL` to a smaller model for bulk runs |
 | Ratings below 85% | Start phase 1 early, iterate prompts with the eval script, add few-shot references |
 
 ---

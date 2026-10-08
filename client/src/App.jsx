@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { api } from './api.js';
 import ProductForm from './components/ProductForm.jsx';
 import DescriptionView from './components/DescriptionView.jsx';
+import Catalog from './components/Catalog.jsx';
 
 const FALLBACK_CHOICES = { tones: ['friendly'], lengths: ['medium'] };
 
@@ -11,6 +12,7 @@ export default function App() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [tab, setTab] = useState('catalog');
 
   useEffect(() => {
     api.health().then(setHealth).catch(() => setHealth({ status: 'down' }));
@@ -33,10 +35,16 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <h1>Product Copy Studio</h1>
+        <nav className="tabs">
+          <button type="button" className={tab === 'catalog' ? 'active' : ''} onClick={() => setTab('catalog')}>Catalog</button>
+          <button type="button" className={tab === 'generate' ? 'active' : ''} onClick={() => setTab('generate')}>Quick generate</button>
+        </nav>
         <StatusBadge health={health} />
       </header>
 
-      <main className="layout">
+      {tab === 'catalog' && <Catalog choices={choices} />}
+
+      <main className="layout" hidden={tab !== 'generate'}>
         <ProductForm choices={choices} busy={busy} onSubmit={generate} />
         <div>
           {error && <div className="card error">{error}</div>}

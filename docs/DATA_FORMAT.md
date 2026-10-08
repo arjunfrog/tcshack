@@ -52,6 +52,17 @@ sku,name,category,subcategory,brand,price,currency,features,specifications,attri
 SKU-0042,Pulse Buds,Electronics,Wireless Earbuds,Voltix,2999,INR,Active noise cancellation | IPX5 sweat resistance,Battery life: 32 hours with case | Bluetooth: 5.3,"colors: Midnight Black, Pearl White",https://placehold.co/600x600,wireless earbuds | noise cancelling earbuds
 ```
 
+## Importing
+
+In the app, use **Import CSV / JSON** on the Catalog tab. The API behind it:
+
+```
+POST /api/products/import   { "format": "csv" | "json", "data": "<file contents>" }
+→ { "imported": 58, "errors": [{ "row": 7, "issues": ["name: name is required"] }] }
+```
+
+Rows with a `sku` update the existing product with that SKU; rows without one are added as new products. Invalid rows are skipped and reported, the rest are saved.
+
 ## Generated output
 
 Every generation returns this shape (`GeneratedDescription` in the same schema file):
