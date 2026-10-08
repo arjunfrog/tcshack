@@ -34,8 +34,10 @@ const PROVIDERS = {
     // JSON mode guarantees valid JSON but not our shape, so the prompt spells out the fields and Zod checks them.
     body: ({ model, effort, temperature }) => ({
       temperature,
-      // Reasoning models spend part of this budget thinking before they answer.
-      max_completion_tokens: 8192,
+      // Reasoning models spend part of this budget thinking before they answer (replies use
+      // 600-2,500 tokens). Groq's free tier rejects a request (413) when prompt + this cap
+      // exceeds its 8K tokens-per-minute limit, so keep the cap well under 8K minus the prompt.
+      max_completion_tokens: 4000,
       response_format: { type: 'json_object' },
       ...(model.startsWith('openai/gpt-oss') && effort && { reasoning_effort: effort }),
     }),

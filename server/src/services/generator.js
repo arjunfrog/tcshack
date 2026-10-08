@@ -12,20 +12,20 @@ export function cleanOutput(output) {
   );
 }
 
+// Every rule-based check on one product's copy. Also used to score human edits.
+export function qualityReport(product, output, options) {
+  return {
+    input: checkCompleteness(product),
+    seo: checkSeo(output),
+    facts: checkFacts(product, output),
+    style: checkStyle(output, options),
+  };
+}
+
 // Generate copy for one already-validated product and attach quality reports.
 // `settings` optionally overrides provider, model or effort (see lib/llm.js).
 export async function generateForProduct(product, options, settings) {
   const generated = await generateDescription(product, options, settings);
   const output = cleanOutput(generated.output);
-  const { meta } = generated;
-  return {
-    output,
-    meta,
-    quality: {
-      input: checkCompleteness(product),
-      seo: checkSeo(output),
-      facts: checkFacts(product, output),
-      style: checkStyle(output, options),
-    },
-  };
+  return { output, meta: generated.meta, quality: qualityReport(product, output, options) };
 }
