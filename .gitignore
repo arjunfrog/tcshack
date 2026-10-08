@@ -4,3 +4,6 @@ dist/
 .env.local
 *.log
 .DS_Store
+
+# Anakin API responses (local reference)
+data/anakin/

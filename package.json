@@ -18,7 +18,8 @@
     "build": "npm run build -w client",
     "test": "npm test -w server",
     "data:generate": "node scripts/generate-synthetic.js",
-    "db:seed": "npm run seed -w server"
+    "db:seed": "npm run seed -w server",
+    "anakin:catalog": "npm run anakin:catalog -w server --"
   },
   "devDependencies": {
     "concurrently": "^10.0.5"
