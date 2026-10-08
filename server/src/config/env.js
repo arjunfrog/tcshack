@@ -31,7 +31,9 @@ export const config = {
   llm: {
     provider: process.env.LLM_PROVIDER || (groqApiKey ? 'groq' : 'mock'),
     groqApiKey,
-    model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
+    model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
+    // Only sent to reasoning models (gpt-oss): low | medium | high.
+    reasoningEffort: process.env.GROQ_REASONING_EFFORT || 'low',
     temperature: Number(process.env.GROQ_TEMPERATURE ?? 0.7),
     concurrency: num(process.env.GENERATION_CONCURRENCY, 3),
   },

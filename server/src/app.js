@@ -4,6 +4,7 @@ import { config } from './config/env.js';
 import { healthRouter } from './routes/health.js';
 import { generateRouter } from './routes/generate.js';
 import { productsRouter } from './routes/products.js';
+import { meRouter } from './routes/me.js';
 import { errorHandler, notFound } from './middleware/errorHandler.js';
 
 export function createApp() {
@@ -15,6 +16,7 @@ export function createApp() {
   app.use('/api/health', healthRouter);
   app.use('/api/generate', generateRouter);
   app.use('/api/products', productsRouter);
+  app.use('/api/me', meRouter);
 
   app.use(notFound);
   app.use(errorHandler);

@@ -2,12 +2,15 @@ import { readFileSync } from 'node:fs';
 import { Router } from 'express';
 import { z } from 'zod';
 import { requireSupabase } from '../lib/supabase.js';
+import { requireRetailer, requireUser } from '../middleware/auth.js';
 import { parseProductsCsv } from '../lib/csv.js';
 import { GenerationOptions, ProductInput } from '../schemas/product.js';
 import { checkCompleteness } from '../services/quality.js';
 import { generateForProduct } from '../services/generator.js';
 
 export const productsRouter = Router();
+// Every route works on the logged-in retailer's own catalog.
+productsRouter.use(requireUser, requireRetailer);
 
 const SAMPLE_FILE = new URL('../../../data/generated/products.json', import.meta.url);
 
@@ -37,6 +40,7 @@ productsRouter.get('/', async (req, res) => {
   let query = requireSupabase()
     .from('products')
     .select('*, descriptions(id, version, title, status, created_at)')
+    .eq('retailer_id', req.retailer.id)
     .order('sku', { ascending: true, nullsFirst: false })
     .limit(500);
   if (req.query.category) query = query.eq('category', req.query.category);
@@ -55,7 +59,9 @@ productsRouter.get('/', async (req, res) => {
 // GET /api/products/:id  -> product and all description versions, newest first
 productsRouter.get('/:id', async (req, res) => {
   const supabase = requireSupabase();
-  const product = check(await supabase.from('products').select('*').eq('id', req.params.id).maybeSingle());
+  const product = check(
+    await supabase.from('products').select('*').eq('id', req.params.id).eq('retailer_id', req.retailer.id).maybeSingle(),
+  );
   if (!product) return res.status(404).json({ error: 'Product not found' });
 
   const descriptions = check(
@@ -80,16 +86,16 @@ productsRouter.post('/import', async (req, res) => {
   }
   if (!Array.isArray(records)) return res.status(400).json({ error: 'JSON must be an array of products' });
 
-  res.json(await saveProducts(records, format));
+  res.json(await saveProducts(req.retailer.id, records, format));
 });
 
 // POST /api/products/import-sample  -> loads the 60 synthetic products from data/generated
 productsRouter.post('/import-sample', async (req, res) => {
   const records = JSON.parse(readFileSync(SAMPLE_FILE, 'utf8'));
-  res.json(await saveProducts(records, 'synthetic'));
+  res.json(await saveProducts(req.retailer.id, records, 'synthetic'));
 });
 
-async function saveProducts(records, source) {
+async function saveProducts(retailerId, records, source) {
   const rows = [];
   const errors = [];
   records.forEach((record, i) => {
@@ -98,14 +104,14 @@ async function saveProducts(records, source) {
       errors.push({ row: i + 1, issues: parsed.error.issues.map((issue) => `${issue.path.join('.') || 'row'}: ${issue.message}`) });
       return;
     }
-    rows.push({ ...parsed.data, source, completeness_score: checkCompleteness(parsed.data).score });
+    rows.push({ ...parsed.data, retailer_id: retailerId, source, completeness_score: checkCompleteness(parsed.data).score });
   });
 
-  // Rows with a SKU update the existing product; rows without one are always new.
+  // Rows with a SKU update this retailer's product with that SKU; rows without one are always new.
   const supabase = requireSupabase();
   const withSku = rows.filter((row) => row.sku);
   const withoutSku = rows.filter((row) => !row.sku);
-  if (withSku.length) check(await supabase.from('products').upsert(withSku, { onConflict: 'sku' }));
+  if (withSku.length) check(await supabase.from('products').upsert(withSku, { onConflict: 'retailer_id,sku' }));
   if (withoutSku.length) check(await supabase.from('products').insert(withoutSku));
 
   return { imported: rows.length, errors };
@@ -118,7 +124,9 @@ productsRouter.post('/:id/generate', async (req, res) => {
   const { options } = GenerateRequest.parse(req.body ?? {});
   const supabase = requireSupabase();
 
-  const row = check(await supabase.from('products').select('*').eq('id', req.params.id).maybeSingle());
+  const row = check(
+    await supabase.from('products').select('*').eq('id', req.params.id).eq('retailer_id', req.retailer.id).maybeSingle(),
+  );
   if (!row) return res.status(404).json({ error: 'Product not found' });
 
   const { output, meta, quality } = await generateForProduct(toProductInput(row), options);

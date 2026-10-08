@@ -29,13 +29,17 @@ Respond with a single JSON object and nothing else, using exactly these keys:
 {"title": string, "short_description": string, "long_description": string, "bullet_points": string[], "seo_keywords": string[], "meta_description": string}
 Separate paragraphs in long_description with a blank line (\\n\\n).`;
 
+const isReasoningModel = (model) => model.startsWith('openai/gpt-oss');
+
 async function groqGenerate(product, options) {
   const started = Date.now();
   const body = {
     model: config.llm.model,
     temperature: config.llm.temperature,
-    max_completion_tokens: 2048,
+    // Reasoning models spend part of this budget thinking before they answer.
+    max_completion_tokens: 8192,
     response_format: { type: 'json_object' },
+    ...(isReasoningModel(config.llm.model) && { reasoning_effort: config.llm.reasoningEffort }),
     messages: [
       { role: 'system', content: SYSTEM_PROMPT + JSON_INSTRUCTIONS },
       { role: 'user', content: buildUserPrompt(product, options) },

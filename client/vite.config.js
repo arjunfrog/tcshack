@@ -5,6 +5,8 @@ import react from '@vitejs/plugin-react';
 // never needs to know its URL (and there are no CORS issues).
 export default defineConfig({
   plugins: [react()],
+  // One env file for the whole project: Vite exposes only the VITE_* variables in server/.env.
+  envDir: '../server',
   server: {
     port: 5173,
     proxy: {

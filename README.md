@@ -2,7 +2,7 @@
 
 A GenAI tool that turns structured product attributes (category, features, specifications, price) into engaging, consistent, SEO-friendly retail product descriptions. Built for the TCS Technology Day problem statement *Retail Product Description Generator*.
 
-**Stack:** React (Vite) · Node.js + Express · Supabase (Postgres) · Groq (Llama 3.3 70B)
+**Stack:** React (Vite) · Node.js + Express · Supabase (Postgres) · Groq (GPT-OSS 120B)
 
 - 📋 **Build plan and roadmap:** [`docs/PLAN.md`](docs/PLAN.md)
 - 📄 **Input/output data format:** [`docs/DATA_FORMAT.md`](docs/DATA_FORMAT.md)
@@ -25,7 +25,8 @@ Get a key at [console.groq.com](https://console.groq.com/keys) and set `GROQ_API
 
 | Variable | Default | Notes |
 |---|---|---|
-| `GROQ_MODEL` | `llama-3.3-70b-versatile` | Any Groq chat model; smaller ones (e.g. `llama-3.1-8b-instant`) are faster with higher rate limits |
+| `GROQ_MODEL` | `openai/gpt-oss-120b` | Any Groq chat model; `openai/gpt-oss-20b` is faster and cheaper |
+| `GROQ_REASONING_EFFORT` | `low` | gpt-oss only: `low`, `medium` or `high`; higher thinks longer before writing |
 | `GROQ_TEMPERATURE` | `0.7` | Lower is more consistent, higher is more creative |
 | `GENERATION_CONCURRENCY` | `3` | Parallel requests during batch runs; rate-limited requests are retried with backoff |
 | `LLM_PROVIDER` | auto | `groq` or `mock`; auto picks `groq` when a key is set |
@@ -36,6 +37,14 @@ Get a key at [console.groq.com](https://console.groq.com/keys) and set `GROQ_API
 2. In **SQL Editor**, paste and run [`supabase/migrations/20261008000000_init.sql`](supabase/migrations/20261008000000_init.sql).
 3. From **Project Settings → API**, copy the project URL and the secret key (`sb_secret_...`, not the publishable key) into `SUPABASE_URL` and `SUPABASE_SECRET_KEY` in `server/.env`.
 4. Load the synthetic catalog: click **Load 60 sample products** on the Catalog tab, or run `npm run db:seed`.
+
+### Login (Supabase Auth)
+
+1. Also run [`supabase/migrations/20261008010000_retailers.sql`](supabase/migrations/20261008010000_retailers.sql) in the SQL editor. It adds retailer profiles and links products to them.
+2. Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` to `server/.env` (Vite reads its `VITE_*` variables from there).
+3. For quick testing, turn off **Authentication → Sign In / Providers → Email → Confirm email**, so new accounts can log in immediately.
+
+After signing up, onboarding asks whether you already sell online (Amazon, Flipkart, Shopify…) or are just starting, plus categories, price positioning and brand personality. Each account sees only its own catalog.
 
 The service role key stays on the server. Row Level Security is enabled with no policies, so the browser can't query the database directly; everything goes through the Express API.
 

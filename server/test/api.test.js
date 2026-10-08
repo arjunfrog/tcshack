@@ -49,3 +49,8 @@ test('product routes explain that the database is not configured', async () => {
   assert.equal(res.status, 503);
   assert.match((await res.json()).error, /SUPABASE_SECRET_KEY/);
 });
+
+test('account routes also need the database', async () => {
+  const res = await fetch(`${base}/me`);
+  assert.equal(res.status, 503);
+});

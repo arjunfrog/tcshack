@@ -55,7 +55,7 @@ Key decisions:
 - **All database access goes through Express.** The browser never holds a Supabase key. RLS is enabled with no policies, so the public anon key can read nothing; the server uses the service role key, which bypasses RLS.
 - **Structured outputs.** The model returns JSON validated against a Zod schema (`GeneratedDescription`), so there is no fragile text parsing.
 - **Mock provider.** With no API key the server returns template text. The UI, batch flow and tests all work offline, and the demo has a fallback if the network fails.
-- **Model is configurable.** `GROQ_MODEL` defaults to `llama-3.3-70b-versatile`. For large runs or tighter rate limits, switch to a smaller Groq model without code changes. `GROQ_TEMPERATURE` trades consistency for creativity.
+- **Model is configurable.** `GROQ_MODEL` defaults to `openai/gpt-oss-120b`, with `GROQ_REASONING_EFFORT=low`. For large runs or tighter rate limits, switch to a smaller Groq model without code changes. `GROQ_TEMPERATURE` trades consistency for creativity.
 - **Refusal fallback.** Requests opt into server-side fallback (`fallbacks: "default"`). If a safety classifier ever declines a product, the API retries on a fallback model instead of failing.
 
 ---
