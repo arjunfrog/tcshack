@@ -21,7 +21,8 @@
     "data:generate": "node scripts/generate-synthetic.js",
     "db:seed": "npm run seed -w server",
     "anakin:catalog": "npm run anakin:catalog -w server --",
-    "anakin:probe": "npm run anakin:probe -w server --"
+    "anakin:probe": "npm run anakin:probe -w server --",
+    "doctor": "npm run doctor -w server"
   },
   "devDependencies": {
     "concurrently": "^10.0.5"
