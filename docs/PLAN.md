@@ -55,8 +55,9 @@ Key decisions:
 - **All database access goes through Express.** The browser never holds a Supabase key. RLS is enabled with no policies, so the public anon key can read nothing; the server uses the service role key, which bypasses RLS.
 - **Structured outputs.** The model returns JSON validated against a Zod schema (`GeneratedDescription`), so there is no fragile text parsing.
 - **Mock provider.** With no API key the server returns template text. The UI, batch flow and tests all work offline, and the demo has a fallback if the network fails.
-- **Model is configurable.** `ANTHROPIC_MODEL` defaults to `claude-opus-5-5` (best quality). For large or cost-sensitive runs, switch to `claude-sonnet-5-5` or `claude-haiku-5-5` without code changes. `ANTHROPIC_EFFORT` (`low` / `medium` / `high`) trades quality for speed and cost.
-- **Refusal fallback.** Requests opt into server-side fallback (`fallbacks: "default"`). If a safety classifier ever declines a product, the API retries on a fallback model instead of failing.
+- **Provider and model are configurable.** For a zero-cost build, `LLM_PROVIDER=openrouter` uses free models on OpenRouter (default `nvidia/nemotron-3-super-120b-a12b:free`, set with `OPENROUTER_MODEL`). With `LLM_PROVIDER=anthropic`, `ANTHROPIC_MODEL` defaults to `claude-opus-5-5` (best quality), and `claude-sonnet-5-5` is cheaper for bulk runs. `ANTHROPIC_EFFORT` (`low` / `medium` / `high`) trades quality for speed and cost. Switching needs no code changes.
+- **Refusal fallback.** Claude requests opt into server-side fallback (`fallbacks: "default"`). If a safety classifier ever declines a product, the API retries on a fallback model instead of failing.
+- **Free-tier limits.** Free OpenRouter models allow 20 requests a minute and 50 a day (1,000 a day after a one-time $10 credit purchase). The server waits out the per-minute limit and fails fast with a clear message on the daily one. This shapes phases 3 and 6: a 60-product batch needs more than one day's free quota (see section 7).
 
 ---
 
@@ -79,7 +80,8 @@ Defined in `supabase/migrations/20261008000000_init.sql`:
 |---|---|---|
 | `GET /api/health` | Provider, model, DB connectivity | ✅ |
 | `GET /api/generate/options` | Available tones and lengths | ✅ |
-| `POST /api/generate` | Generate for one product (no DB needed) | ✅ |
+| `POST /api/generate/check` | Completeness score and `sparse` flag, before generating | ✅ (phase 1) |
+| `POST /api/generate` | Generate for one product (no DB needed); `quality` includes the fact check | ✅ |
 | `GET /api/products` | List products (filter by category, search, paginate) | Phase 2 |
 | `POST /api/products` | Create or update one product | Phase 2 |
 | `POST /api/products/import` | Upload a CSV or JSON file, validate, upsert, return per-row errors | Phase 2 |
@@ -123,17 +125,26 @@ Phases are in priority order. Each one ends with something you can demo. If time
 
 The judges' 85% target depends on this phase, so start it first and keep improving it throughout.
 
-1. **Build a small eval set.** Pick 15 products from the synthetic data (2 per category, including some incomplete ones). Save them as `data/eval/products.json`.
-2. **Write an eval script** (`server/scripts/eval.js`). It generates for every eval product in each tone and writes a side-by-side report (`data/eval/report.md`) with the copy and the quality checks, so the team can read and rate the outputs quickly.
-3. **Add a fact-check pass** to `quality.js`. Pull every number and unit out of the output (`32 hours`, `5.3`, `IPX5`) and flag any that don't appear in the input. This catches invented specs, the most damaging failure in retail copy.
-4. **Tune the prompt** in `server/src/prompts/productDescription.js`, changing one thing at a time and re-running the eval:
-   - Per-category guidance (what buyers care about in apparel vs. electronics vs. grocery)
-   - Tone definitions: one line each describing what "luxury" or "technical" means
-   - **Few-shot style references:** 3–5 high-quality example descriptions (written by the team or adapted from a public dataset, see below) appended to the system prompt. This improves style consistency the most. Once the system prompt is over about 512 tokens, prompt caching starts working automatically, because the system block already has `cache_control`.
-5. **Choose model and effort.** Compare `claude-opus-5-5` at `low`, `medium` and `high` effort with `claude-sonnet-5-5` on the eval set. Pick the cheapest setting the team rates as good enough. The UI shows tokens and latency per call.
-6. **Handle incomplete products.** If `completeness_score < 50`, show a warning in the UI before generating, and tell the model to keep the copy short rather than pad it.
+**Status:** the tooling and the first prompt revision are done; what remains needs a live model and human raters (see "Still to do" below).
+
+1. [x] **Build a small eval set.** `data/eval/products.json`: 15 products, at least 2 per category, 4 sparse records, and deliberate traps (seed keywords that contradict the specs, such as "sunscreen spf 50" on an SPF 30 product, and names that disagree with the specs). Each product has `eval_notes` telling raters what to check.
+2. [x] **Write an eval script** (`server/scripts/eval.js`, `npm run eval`). It generates for every eval product in each chosen tone and writes `data/eval/report.md` (per-model summary, every fact-check flag, then each product's data beside its copy and checks), `results.json` (raw results tagged with a prompt-version hash) and a blank `ratings.csv`. `npm run eval -- ratings <files>` summarises the team's ratings.
+3. [x] **Add a fact-check pass** to `quality.js` (`checkFacts`, returned as `quality.facts`). It pulls every number, unit and code out of the copy (`32 hours`, `5.3`, `IPX5`, `SPF 50`) and flags any that don't appear in the input with the same unit. It also flags unsupported claim words (organic, waterproof, certified, clinically proven and so on). Seed keywords don't count as evidence.
+4. [x] **Tune the prompt** in `server/src/prompts/productDescription.js` (first revision, written from the eval set's failure modes):
+   - [x] Per-category guidance (what buyers care about in apparel vs. electronics vs. grocery)
+   - [x] Tone definitions: one line each for all six tones (a test keeps them in sync with `TONES`)
+   - [x] **Few-shot style references:** 4 fictional examples (technical, friendly, luxury, and a sparse playful one) covering four categories. Tests check that each example passes the SEO checks, the fact check and its own word count. The system prompt is now about 3,300 tokens, so Claude caches it automatically.
+   - [x] Accuracy rules for the eval set's traps: never upgrade ratings (IPX5 is not waterproof), treat seed keywords as search terms rather than facts, trust specs over the product name, don't quote the price.
+   - [x] A fixed bullet format ("Benefit phrase: fact") and a primary-keyword rule that matches the SEO checks, for consistency across the catalog.
+   - [ ] Iterate against live outputs: run the eval, read the report, change one thing, re-run with a new `--label`.
+5. [ ] **Choose model and effort.** `npm run eval -- --models a,b --efforts low,medium` runs each combination on the same products and the report compares them side by side. On the free tier, compare `nvidia/nemotron-3-super-120b-a12b:free` with `google/gemma-4-31b-it:free` on a 10-product, one-tone slice. With a Claude key, compare `claude-opus-5-5` at `low`, `medium` and `high` effort with `claude-sonnet-5-5`. Pick the cheapest setting the team rates as good enough.
+6. **Handle incomplete products.**
+   - [x] Server: `checkCompleteness` returns `sparse: true` below 50. For sparse products the prompt asks for a 40-70 word description and 3 bullets built only from the facts given, whatever length was requested. `POST /api/generate/check` returns the score before generating.
+   - [ ] UI (frontend): call `/api/generate/check` before generating, and show a warning with the missing items when `sparse` is true. Show `quality.facts.unsupported` in the result panel.
 
 *Public style references:* the Amazon product datasets on Kaggle and Hugging Face are good sources for real description styles. Use them only as style references in the prompt, not as product data.
+
+**Still to do:** set `OPENROUTER_API_KEY` in `server/.env`, run `npm run eval -- --tones friendly,luxury` (30 requests, within the free daily quota), have the team rate the outputs, then iterate on the prompt and pick a model.
 
 **Done when:** the team rates 80%+ of the eval outputs 4 or 5, and the fact-check finds no invented numbers.
 
@@ -226,7 +237,8 @@ With 2 people, merge A+D and B+C. Agree on API shapes in section 4 first so fron
 | Rate limits or slow batches during the demo | Concurrency limit, SDK retries, pre-generated batch, `low` effort or a faster model for the live run |
 | No network or API key on demo day | Mock provider plus pre-generated results stored in Supabase |
 | API key leaks | Keys live only in `server/.env` (git-ignored); the browser never talks to Supabase or Claude directly |
-| Costs | Tokens shown per call and on the dashboard; switch `ANTHROPIC_MODEL` to Sonnet or Haiku for bulk runs |
+| Costs | Free OpenRouter models cost nothing; with Claude, tokens and cost are shown per call and in eval reports, and `ANTHROPIC_MODEL` can switch to Sonnet for bulk runs |
+| Free quota (50 requests a day) runs out | Eval runs refuse to start above the quota unless forced; generate the 60-product demo batch over two days and store it in Supabase, or make a one-time $10 credit purchase for 1,000 a day |
 | Ratings below 85% | Start phase 1 early, iterate prompts with the eval script, add few-shot references |
 
 ---
