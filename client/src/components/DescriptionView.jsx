@@ -360,6 +360,24 @@ export default function DescriptionView({ result, productId, descriptionId, onFe
                 </ul>
               </div>
 
+              {intelligence?.review_themes && intelligence.review_themes.length > 0 && (
+                <div className="intel-card reviews-card">
+                  <h5>Customer Review Themes ({intelligence.review_themes.length})</h5>
+                  <ul>
+                    {intelligence.review_themes.slice(0, 4).map((t, i) => (
+                      <li key={i}>
+                        <strong>{t.theme}</strong> ({t.sentiment} · {t.signal_type})
+                        {t.sample_quotes?.length > 0 && (
+                          <div className="sample-quote" style={{ fontSize: '0.8rem', fontStyle: 'italic', color: '#aaa', marginTop: '2px' }}>
+                            "{t.sample_quotes[0]}"
+                          </div>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               {retailer_profile && (
                 <div className="intel-card retailer-card">
                   <h5>Retailer Writing Style</h5>

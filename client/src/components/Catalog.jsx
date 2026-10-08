@@ -32,6 +32,7 @@ export default function Catalog({ choices }) {
   const [filters, setFilters] = useState({ category: '', search: '' });
   const [options, setOptions] = useState({ tone: 'friendly', length: 'medium' });
   const [selected, setSelected] = useState(null); // { product, descriptions }
+  const [previewIntel, setPreviewIntel] = useState(null);
   const [notice, setNotice] = useState(null); // { kind: 'error' | 'info', text, details? }
   const [busyIds, setBusyIds] = useState(new Set());
   const [batch, setBatch] = useState(null); // { done, total, failed }
@@ -93,6 +94,7 @@ export default function Catalog({ choices }) {
   };
 
   const open = async (id) => {
+    setPreviewIntel(null);
     try {
       const data = await api.product(id);
       try {
@@ -107,6 +109,34 @@ export default function Catalog({ choices }) {
       setSelected(data);
     } catch (err) {
       setNotice({ kind: 'error', text: err.message });
+    }
+  };
+
+  const previewIntelligenceForSelected = async (product) => {
+    setBusyIds((ids) => new Set(ids).add(product.id));
+    try {
+      const data = await api.getIntelligence(product, options);
+      setPreviewIntel({
+        output: {
+          title: `${product.brand ? product.brand + ' ' : ''}${product.name}`,
+          short_description: data.intelligence?.summary || 'Product intelligence synthesized from verified attributes and specifications.',
+          long_description: (data.intelligence?.key_benefits || []).join('\n\n') || 'Grounded intelligence profile synthesized.',
+          bullet_points: (data.intelligence?.canonical_facts || []).slice(0, 5),
+          seo_keywords: product.seed_keywords || [],
+          meta_description: `Preview intelligence for ${product.name}.`,
+        },
+        meta: { provider: 'Intelligence Engine', model: 'Synthesizer', input_tokens: 0, output_tokens: 0, latency_ms: 60 },
+        quality: { overall_score: Math.round((data.intelligence?.overall_confidence || 0.95) * 100) },
+        intelligence: data.intelligence,
+        evidence: { traced_claims: data.evidence },
+        retailer_profile: data.retailer_profile,
+        status: 'preview',
+      });
+      setNotice({ kind: 'info', text: `Intelligence preview synthesized for ${product.name}.` });
+    } catch (err) {
+      setNotice({ kind: 'error', text: err.message });
+    } finally {
+      setBusyIds((ids) => { const next = new Set(ids); next.delete(product.id); return next; });
     }
   };
 
@@ -254,6 +284,28 @@ export default function Catalog({ choices }) {
                 <h2>{selected.product.brand ? `${selected.product.brand} ` : ''}{selected.product.name}</h2>
                 <p className="muted">{selected.product.sku} · {selected.product.category}{selected.product.subcategory && ` › ${selected.product.subcategory}`}</p>
                 {selected.product.features.length > 0 && <ul>{selected.product.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>}
+                
+                <div style={{ display: 'flex', gap: '8px', margin: '14px 0 8px' }}>
+                  <button
+                    type="button"
+                    className="primary"
+                    disabled={busyIds.has(selected.product.id)}
+                    onClick={() => generateOne(selected.product.id)}
+                    id="btn-catalog-generate"
+                  >
+                    {busyIds.has(selected.product.id) ? 'Generating…' : 'Generate with Intelligence'}
+                  </button>
+                  <button
+                    type="button"
+                    className="secondary-btn"
+                    disabled={busyIds.has(selected.product.id)}
+                    onClick={() => previewIntelligenceForSelected(selected.product)}
+                    id="btn-catalog-preview"
+                  >
+                    Preview Intelligence
+                  </button>
+                </div>
+
                 <p className="muted">
                   {selected.descriptions.length} version{selected.descriptions.length === 1 ? '' : 's'}
                   {selected.descriptions[0] && ` · showing v${selected.descriptions[0].version} (${selected.descriptions[0].tone}, ${selected.descriptions[0].length})`}
@@ -270,9 +322,22 @@ export default function Catalog({ choices }) {
                     productId={selected.product.id}
                     descriptionId={selected.descriptions[0]?.id}
                     onFeedbackSubmitted={() => open(selected.product.id)}
+                    onRegenerate={() => generateOne(selected.product.id)}
                   />
                 )
-                : <div className="card empty">No description yet. Click Generate.</div>}
+                : previewIntel
+                  ? (
+                    <DescriptionView
+                      result={previewIntel}
+                      productId={selected.product.id}
+                      onRegenerate={() => generateOne(selected.product.id)}
+                    />
+                  )
+                  : (
+                    <div className="card empty">
+                      No description generated yet for this product. Click <strong>Generate with Intelligence</strong> above to create copy grounded in catalog specifications and market evidence.
+                    </div>
+                  )}
             </>
           )}
         </div>

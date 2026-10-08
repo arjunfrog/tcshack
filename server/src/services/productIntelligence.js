@@ -98,6 +98,7 @@ export function buildDeterministicIntelligence(product, evidence = [], reviewThe
     overall_confidence: Math.round(avgConf * 100) / 100,
     evidence_count: canonicalFacts.length,
     summary,
+    review_themes: Array.isArray(reviewThemes) ? reviewThemes : [],
   };
 }
 
