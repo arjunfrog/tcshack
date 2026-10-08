@@ -168,8 +168,26 @@ function promptData(product) {
   return data;
 }
 
-function requestBlock({ tone, length, brand_voice }, completeness) {
+const PRICE_GUIDE = {
+  budget: 'budget: lead with value and practicality; never sound exclusive or luxurious',
+  mid: 'mid-range: dependable quality at a fair price; no luxury claims',
+  premium: 'premium: lead with craft, materials and detail; never say cheap, affordable or bargain',
+};
+
+// The retailer's onboarding answers (services/brand.js), so every product sounds like one brand.
+function brandBlock(brand) {
+  const lines = [];
+  if (brand.personality?.length) lines.push(`- Personality: ${brand.personality.join(', ')}`);
+  if (brand.target_customer) lines.push(`- Target customer: ${brand.target_customer}`);
+  if (brand.price_positioning) lines.push(`- Price positioning: ${PRICE_GUIDE[brand.price_positioning] ?? brand.price_positioning}`);
+  if (brand.admired_brands) lines.push(`- Tone references: ${brand.admired_brands} (for tone only; never mention or compare with them)`);
+  if (brand.avoid_words?.length) lines.push(`- Never use these words: ${brand.avoid_words.join(', ')}`);
+  return lines.length ? `Brand profile (follow it for every product, so the catalog sounds like one brand):\n${lines.join('\n')}` : '';
+}
+
+function requestBlock({ tone, length, brand_voice, brand }, completeness) {
   const lines = [`Tone: ${tone}`, `Length: ${completeness?.sparse ? SPARSE_LENGTH : LENGTH_GUIDE[length]}`];
+  if (brand) lines.push(brandBlock(brand));
   if (brand_voice) lines.push(`Brand voice notes: ${brand_voice}`);
   if (completeness?.sparse) {
     lines.push(
@@ -255,4 +273,23 @@ export function buildUserPrompt(product, options) {
 
 Product data:
 ${JSON.stringify(promptData(product), null, 2)}`;
+}
+
+// --- Refine: one short follow-up request that fixes specific problems the checks found ---
+
+export const REFINE_SYSTEM_PROMPT = `You are a careful copy editor for a retail product catalog. You fix the listed problems in a product description with the smallest changes that solve them.
+- Change only what the problems require; leave everything else word for word.
+- Use only facts from the product data. Never add numbers, claims or features.
+- Keep the tone, Indian English with British spelling, and plain text (no markdown or emojis).
+- Reply with one JSON object containing only the fields you changed, with the same keys: title, short_description, long_description, bullet_points, seo_keywords, meta_description. long_description keeps its paragraphs separated by "\\n\\n"; bullet_points is always the whole list.`;
+
+export function buildRefinePrompt(product, output, problems) {
+  return `Problems to fix:
+${problems.map((problem) => `- ${problem}`).join('\n')}
+
+Product data:
+${JSON.stringify(promptData(product))}
+
+Current copy:
+${JSON.stringify(output, null, 2)}`;
 }

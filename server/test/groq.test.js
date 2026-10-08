@@ -36,7 +36,7 @@ test('parses and validates the JSON reply', async () => {
   assert.equal(meta.output_tokens, 20);
   assert.equal(sent.response_format.type, 'json_object');
   assert.equal(sent.model, 'openai/gpt-oss-120b');
-  assert.equal(sent.reasoning_effort, 'low');
+  assert.equal(sent.reasoning_effort, 'medium');
 });
 
 test('retries once when the reply is missing fields', async () => {

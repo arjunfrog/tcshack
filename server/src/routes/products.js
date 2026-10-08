@@ -6,6 +6,7 @@ import { requireRetailer, requireUser } from '../middleware/auth.js';
 import { parseProductsCsv } from '../lib/csv.js';
 import { GenerationOptions, ProductInput, parseProductUpdate } from '../schemas/product.js';
 import { checkCompleteness } from '../services/quality.js';
+import { brandProfile } from '../services/brand.js';
 import { generateAndSave, toProductInput } from '../services/descriptions.js';
 
 export const productsRouter = Router();
@@ -148,7 +149,7 @@ productsRouter.post('/:id/generate', async (req, res) => {
   );
   if (!row) return res.status(404).json({ error: 'Product not found' });
 
-  res.status(201).json({ description: await generateAndSave(row, options) });
+  res.status(201).json({ description: await generateAndSave(row, { ...options, brand: brandProfile(req.retailer) }) });
 });
 
 const QuickRequest = z.object({ product: ProductInput, options: GenerationOptions.prefault({}) });
@@ -171,5 +172,5 @@ productsRouter.post('/quick', async (req, res) => {
     ? check(await supabase.from('products').update(fields).eq('id', match.id).select().single())
     : check(await supabase.from('products').insert(fields).select().single());
 
-  res.status(201).json({ product: row, description: await generateAndSave(row, options) });
+  res.status(201).json({ product: row, description: await generateAndSave(row, { ...options, brand: brandProfile(req.retailer) }) });
 });

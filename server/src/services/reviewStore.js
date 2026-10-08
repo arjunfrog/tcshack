@@ -37,7 +37,7 @@ export const reviewStore = {
     return fetchAll(() =>
       requireSupabase()
         .from('descriptions')
-        .select(`${columns}, product:products!inner(category, retailer_id)`)
+        .select(`${columns}, product:products!inner(sku, category, retailer_id)`)
         .eq('product.retailer_id', retailerId)
         .order('id'),
     );

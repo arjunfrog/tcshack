@@ -38,14 +38,18 @@ export const config = {
   llm: {
     provider: process.env.LLM_PROVIDER || defaultProvider,
     concurrency: num(process.env.GENERATION_CONCURRENCY, 3),
+    // One follow-up request to fix what the quality checks flag (overlong title or meta,
+    // unsupported claims, clichés). LLM_REFINE=false saves that request.
+    refine: process.env.LLM_REFINE !== 'false',
   },
 
   // Both providers speak the OpenAI chat completions API; lib/llm.js handles their differences.
   groq: {
     apiKey: groqApiKey,
     model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
-    // Only sent to reasoning models (gpt-oss): low | medium | high.
-    effort: process.env.GROQ_REASONING_EFFORT || 'low',
+    // Only sent to reasoning models (gpt-oss): low | medium | high. Medium scored best in the
+    // eval (data/eval/report-v3-groq-medium.md); a reply that runs out of tokens retries at low.
+    effort: process.env.GROQ_REASONING_EFFORT || 'medium',
     temperature: Number(process.env.GROQ_TEMPERATURE ?? 0.7),
     baseUrl: process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
   },

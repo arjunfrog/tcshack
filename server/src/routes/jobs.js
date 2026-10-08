@@ -5,8 +5,10 @@ import { toCsv } from '../lib/csv.js';
 import { requireRetailer, requireUser } from '../middleware/auth.js';
 import { GenerationOptions } from '../schemas/product.js';
 import { MAX_JOB_PRODUCTS, createBatchRunner, exportRows } from '../services/batch.js';
+import { brandProfile } from '../services/brand.js';
 import { generateAndSave } from '../services/descriptions.js';
 import { jobStore } from '../services/jobStore.js';
+import { checkConsistency } from '../services/quality.js';
 
 export const jobsRouter = Router();
 jobsRouter.use(requireUser, requireRetailer);
@@ -37,7 +39,8 @@ jobsRouter.post('/', async (req, res) => {
   if (ids.length > MAX_JOB_PRODUCTS) {
     return res.status(400).json({ error: `A job can cover at most ${MAX_JOB_PRODUCTS} products; narrow the selection.` });
   }
-  res.status(202).json({ job: await batchRunner.start(req.retailer.id, ids, options) });
+  // The brand profile is stored with the job, so a resumed job writes in the same voice.
+  res.status(202).json({ job: await batchRunner.start(req.retailer.id, ids, { ...options, brand: brandProfile(req.retailer) }) });
 });
 
 // GET /api/jobs  -> { jobs }  (newest first)
@@ -53,9 +56,17 @@ jobsRouter.get('/:id', async (req, res) => {
   const job = await findJob(req);
   const items = await jobStore.getItems(job.id, { withDetails: true });
   const count = (status) => items.filter((item) => item.status === status).length;
+  const generated = items.filter((item) => item.description);
   res.json({
     job: { ...job, active: batchRunner.isActive(job.id) },
     progress: { total: items.length, succeeded: count('succeeded'), failed: count('failed'), running: count('running'), queued: count('queued') },
+    // Across the batch: duplicate titles, repeated openings, unusual lengths (ids are SKUs).
+    consistency: checkConsistency(generated.map(({ product, description }) => ({
+      id: product?.sku ?? product?.id,
+      title: description.title,
+      long_description: description.long_description,
+      sparse: description.quality?.input?.sparse,
+    }))),
     items: items
       .sort((a, b) => String(a.product?.sku ?? '').localeCompare(String(b.product?.sku ?? '')))
       .map(({ description, ...item }) => ({

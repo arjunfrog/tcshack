@@ -1,6 +1,8 @@
 // Metrics for the dashboard (phase 4), computed from stored descriptions and ratings.
 // Pure functions: the route loads the rows, these do the arithmetic.
 
+import { checkConsistency } from './quality.js';
+
 export const TARGET_RATED_4_PLUS = 85;
 
 const round = (value, places = 1) => (Number.isFinite(value) ? Number(value.toFixed(places)) : null);
@@ -69,6 +71,13 @@ export function computeMetrics({ descriptions, feedback }) {
       .map(([name, group]) => ({ name, count: group.length }))
       .sort((a, b) => b.count - a.count);
 
+  // Consistency across the catalog as it stands: each product's latest version.
+  const latest = new Map();
+  for (const d of descriptions) {
+    if (!latest.has(d.product_id) || d.version > latest.get(d.product_id).version) latest.set(d.product_id, d);
+  }
+  const current = [...latest.values()].filter((d) => typeof d.long_description === 'string');
+
   const ratings = ratingSummary(rated);
   return {
     ratings: {
@@ -89,6 +98,12 @@ export function computeMetrics({ descriptions, feedback }) {
       top_fact_flags: count(factFlags, (flag) => flag.text).slice(0, 5),
       style_clean_pct: percent(withQuality.filter((d) => d.quality.style?.passed).length, withQuality.filter((d) => d.quality.style).length),
       style_issues: count(styleIssues, (issue) => issue.type),
+      avg_readability: round(mean(withQuality.map((d) => d.quality.seo.readability).filter(Number.isFinite))),
+      fixes_kept: withQuality.filter((d) => d.quality.refine?.accepted).length,
+      fixes_tried: withQuality.filter((d) => d.quality.refine).length,
+      consistency: current.length
+        ? checkConsistency(current.map((d) => ({ id: d.product?.sku ?? d.product_id, title: d.title, long_description: d.long_description, sparse: d.quality?.input?.sparse })))
+        : null,
     },
     usage: {
       products: new Set(generated.map((d) => d.product_id)).size,

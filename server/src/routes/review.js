@@ -103,7 +103,7 @@ reviewRouter.post('/descriptions/:id/feedback', signedIn, async (req, res) => {
 // GET /api/metrics  -> ratings (incl. the headline % rated 4+), quality checks, usage, review counts
 reviewRouter.get('/metrics', signedIn, async (req, res) => {
   const [descriptions, feedback] = await Promise.all([
-    reviewStore.listDescriptions(req.retailer.id, 'id, product_id, version, tone, status, provider, model, quality, input_tokens, output_tokens, latency_ms, edited_from'),
+    reviewStore.listDescriptions(req.retailer.id, 'id, product_id, version, tone, status, provider, model, quality, input_tokens, output_tokens, latency_ms, edited_from, title, long_description'),
     reviewStore.listFeedback(req.retailer.id),
   ]);
   res.json(computeMetrics({ descriptions, feedback }));
